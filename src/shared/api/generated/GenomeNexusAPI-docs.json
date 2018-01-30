@@ -1,0 +1,917 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Genome Nexus Variant Annotation API",
+    "version": "2.0",
+    "title": "Genome Nexus API",
+    "contact": {
+      "name": "CMO, MSKCC"
+    },
+    "license": {
+      "name": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3",
+      "url": "https://github.com/cBioPortal/genome-nexus/blob/master/LICENSE"
+    }
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "info-controller",
+      "description": "Info Controller"
+    },
+    {
+      "name": "pdb-controller",
+      "description": "PDB Controller"
+    },
+    {
+      "name": "annotation-controller",
+      "description": "Annotation Controller"
+    },
+    {
+      "name": "pfam-controller",
+      "description": "PFAM Controller"
+    },
+    {
+      "name": "ensembl-controller",
+      "description": "Ensembl Controller"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/annotation": {
+      "post": {
+        "tags": [
+          "annotation-controller"
+        ],
+        "summary": "Retrieves VEP annotation for the provided list of variants",
+        "operationId": "fetchVariantAnnotationPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "variants",
+            "description": "List of variants. For example [\"X:g.66937331T>A\",\"17:g.41242962_41242963insGA\"]",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "isoformOverrideSource",
+            "in": "query",
+            "description": "Isoform override source. For example uniprot",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Comma separated list of fields to include (case-sensitive!). For example: hotspots,mutation_assessor",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "default": "hotspots,mutation_assessor"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VariantAnnotation"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/annotation/{variant}": {
+      "get": {
+        "tags": [
+          "annotation-controller"
+        ],
+        "summary": "Retrieves VEP annotation for the provided variant",
+        "operationId": "fetchVariantAnnotationGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "variant",
+            "in": "path",
+            "description": "Variant. For example 17:g.41242962_41242963insGA",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isoformOverrideSource",
+            "in": "query",
+            "description": "Isoform override source. For example uniprot",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Comma separated list of fields to include (case-sensitive!). For example: hotspots,mutation_assessor",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "default": "hotspots,mutation_assessor"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/VariantAnnotation"
+            }
+          }
+        }
+      }
+    },
+    "/ensembl/canonical-transcript/hgnc": {
+      "post": {
+        "tags": [
+          "ensembl-controller"
+        ],
+        "summary": "Retrieves Ensembl canonical transcripts by Hugo Symbols",
+        "operationId": "fetchCanonicalEnsemblTranscriptsByHugoSymbolsPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "hugoSymbols",
+            "description": "List of Hugo Symbols. For example [\"TP53\",\"PIK3CA\",\"BRCA1\"]",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "isoformOverrideSource",
+            "in": "query",
+            "description": "Isoform override source. For example uniprot",
+            "required": false,
+            "type": "string",
+            "default": "uniprot"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EnsemblTranscript"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ensembl/canonical-transcript/hgnc/{hugoSymbol}": {
+      "get": {
+        "tags": [
+          "ensembl-controller"
+        ],
+        "summary": "Retrieves Ensembl canonical transcript by Hugo Symbol",
+        "operationId": "fetchCanonicalEnsemblTranscriptByHugoSymbolGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "hugoSymbol",
+            "in": "path",
+            "description": "A Hugo Symbol. For example TP53",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isoformOverrideSource",
+            "in": "query",
+            "description": "Isoform override source. For example uniprot",
+            "required": false,
+            "type": "string",
+            "default": "uniprot"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/EnsemblTranscript"
+            }
+          }
+        }
+      }
+    },
+    "/ensembl/transcript": {
+      "get": {
+        "tags": [
+          "ensembl-controller"
+        ],
+        "summary": "Retrieves Ensembl Transcripts by protein ID, and gene ID. Retrieves all transcripts in case no query parameter provided",
+        "operationId": "fetchEnsemblTranscriptsGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "geneId",
+            "in": "query",
+            "description": "An Ensembl gene ID. For example ENSG00000136999",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "proteinId",
+            "in": "query",
+            "description": "An Ensembl protein ID. For example ENSP00000439985",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EnsemblTranscript"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ensembl-controller"
+        ],
+        "summary": "Retrieves Ensembl Transcripts by Ensembl transcript IDs, protein IDs, or gene IDs",
+        "operationId": "fetchEnsemblTranscriptsByEnsemblFilterPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "ensemblFilter",
+            "description": "List of Ensembl transcript IDs. For example [\"ENST00000361390\", \"ENST00000361453\", \"ENST00000361624\"]<br>OR<br>List of Ensembl protein IDs. For example [\"ENSP00000439985\", \"ENSP00000478460\", \"ENSP00000346196\"]<br>OR<br>List of Ensembl gene IDs. For example [\"ENSG00000136999\", \"ENSG00000272398\", \"ENSG00000198695\"]",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnsemblFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EnsemblTranscript"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ensembl/transcript/{transcriptId}": {
+      "get": {
+        "tags": [
+          "ensembl-controller"
+        ],
+        "summary": "Retrieves the transcript by an Ensembl transcript ID",
+        "operationId": "fetchEnsemblTranscriptByTranscriptIdGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "transcriptId",
+            "in": "path",
+            "description": "An Ensembl transcript ID. For example ENST00000361390",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/EnsemblTranscript"
+            }
+          }
+        }
+      }
+    },
+    "/ensembl/xrefs": {
+      "get": {
+        "tags": [
+          "ensembl-controller"
+        ],
+        "summary": "Perform lookups of Ensembl identifiers and retrieve their external references in other databases",
+        "operationId": "fetchGeneXrefsGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "accession",
+            "in": "query",
+            "description": "Ensembl gene accession. For example ENSG00000169083",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GeneXref"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pdb/header": {
+      "post": {
+        "tags": [
+          "pdb-controller"
+        ],
+        "summary": "Retrieves PDB header info by a PDB id",
+        "operationId": "fetchPdbHeaderPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "pdbIds",
+            "description": "List of pdb ids, for example [\"1a37\",\"1a4o\"]",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PdbHeader"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pdb/header/{pdbId}": {
+      "get": {
+        "tags": [
+          "pdb-controller"
+        ],
+        "summary": "Retrieves PDB header info by a PDB id",
+        "operationId": "fetchPdbHeaderGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pdbId",
+            "in": "path",
+            "description": "PDB id, for example 1a37",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PdbHeader"
+            }
+          }
+        }
+      }
+    },
+    "/pfam/domain": {
+      "get": {
+        "tags": [
+          "pfam-controller"
+        ],
+        "summary": "Retrieves all PFAM domains",
+        "operationId": "fetchPfamDomainsGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PfamDomain"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "pfam-controller"
+        ],
+        "summary": "Retrieves PFAM domains by PFAM domain accession IDs",
+        "operationId": "fetchPfamDomainsByPfamAccessionPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "pfamAccessions",
+            "description": "List of PFAM domain accession IDs. For example [\"PF02827\",\"PF00093\",\"PF15276\"]",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PfamDomain"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pfam/domain/{pfamAccession}": {
+      "get": {
+        "tags": [
+          "pfam-controller"
+        ],
+        "summary": "Retrieves a PFAM domain by a PFAM domain ID",
+        "operationId": "fetchPfamDomainsByAccessionGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pfamAccession",
+            "in": "path",
+            "description": "A PFAM domain accession ID. For example PF02827",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PfamDomain"
+            }
+          }
+        }
+      }
+    },
+    "/version": {
+      "get": {
+        "tags": [
+          "info-controller"
+        ],
+        "summary": "Retrieve Genome Nexus Version",
+        "operationId": "fetchVersionGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Version"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "EnsemblFilter": {
+      "type": "object",
+      "properties": {
+        "geneIds": {
+          "type": "array",
+          "description": "List of Ensembl gene IDs. For example [\"ENSG00000136999\", \"ENSG00000272398\", \"ENSG00000198695\"]",
+          "items": {
+            "type": "string"
+          }
+        },
+        "proteinIds": {
+          "type": "array",
+          "description": "List of Ensembl protein IDs. For example [\"ENSP00000439985\", \"ENSP00000478460\", \"ENSP00000346196\"]",
+          "items": {
+            "type": "string"
+          }
+        },
+        "transcriptIds": {
+          "type": "array",
+          "description": "List of Ensembl transcript IDs. For example [\"ENST00000361390\", \"ENST00000361453\", \"ENST00000361624\"]",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "EnsemblTranscript": {
+      "type": "object",
+      "required": [
+        "geneId",
+        "proteinId",
+        "transcriptId"
+      ],
+      "properties": {
+        "transcriptId": {
+          "type": "string",
+          "description": "Ensembl transcript id"
+        },
+        "geneId": {
+          "type": "string",
+          "description": "Ensembl gene id"
+        },
+        "proteinId": {
+          "type": "string",
+          "description": "Ensembl protein id"
+        },
+        "proteinLength": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Length of protein"
+        },
+        "pfamDomains": {
+          "type": "array",
+          "description": "Pfam domains",
+          "items": {
+            "$ref": "#/definitions/PfamDomainRange"
+          }
+        }
+      }
+    },
+    "GeneXref": {
+      "type": "object",
+      "required": [
+        "db_display_name",
+        "dbname",
+        "description",
+        "display_id",
+        "primary_id",
+        "version"
+      ],
+      "properties": {
+        "db_display_name": {
+          "type": "string",
+          "description": "Database display name"
+        },
+        "dbname": {
+          "type": "string",
+          "description": "Database name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description"
+        },
+        "display_id": {
+          "type": "string",
+          "description": "Display id"
+        },
+        "info_text": {
+          "type": "string",
+          "description": "Database info text"
+        },
+        "info_types": {
+          "type": "string",
+          "description": "Database info type"
+        },
+        "primary_id": {
+          "type": "string",
+          "description": "Primary id"
+        },
+        "synonyms": {
+          "type": "array",
+          "description": "Synonyms",
+          "items": {
+            "type": "string"
+          }
+        },
+        "version": {
+          "type": "string",
+          "description": "Version"
+        }
+      }
+    },
+    "PdbHeader": {
+      "type": "object",
+      "required": [
+        "pdbId",
+        "title"
+      ],
+      "properties": {
+        "compound": {
+          "type": "object"
+        },
+        "pdbId": {
+          "type": "string",
+          "description": "PDB id"
+        },
+        "source": {
+          "type": "object"
+        },
+        "title": {
+          "type": "string",
+          "description": "PDB description"
+        }
+      }
+    },
+    "PfamDomain": {
+      "type": "object",
+      "required": [
+        "name",
+        "pfamAccession"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "PFAM domain description"
+        },
+        "name": {
+          "type": "string",
+          "description": "PFAM domain name"
+        },
+        "pfamAccession": {
+          "type": "string",
+          "description": "PFAM domain accession"
+        }
+      }
+    },
+    "PfamDomainRange": {
+      "type": "object",
+      "required": [
+        "pfamDomainEnd",
+        "pfamDomainId",
+        "pfamDomainStart"
+      ],
+      "properties": {
+        "pfamDomainId": {
+          "type": "string",
+          "description": "Pfam domain id"
+        },
+        "pfamDomainStart": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Pfam domain start amino acid"
+        },
+        "pfamDomainEnd": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Pfam domain end amino acid"
+        }
+      }
+    },
+    "TranscriptConsequence": {
+      "type": "object",
+      "required": [
+        "transcript_id"
+      ],
+      "properties": {
+        "amino_acids": {
+          "type": "string",
+          "description": "Amino acids"
+        },
+        "canonical": {
+          "type": "string",
+          "description": "Canonical transcript indicator"
+        },
+        "codons": {
+          "type": "string",
+          "description": "Codons"
+        },
+        "consequence_terms": {
+          "type": "array",
+          "description": "List of consequence terms",
+          "items": {
+            "type": "string"
+          }
+        },
+        "gene_id": {
+          "type": "string",
+          "description": "Ensembl gene id"
+        },
+        "gene_symbol": {
+          "type": "string",
+          "description": "Hugo gene symbol"
+        },
+        "hgnc_id": {
+          "type": "string",
+          "description": "HGNC id"
+        },
+        "hgvsc": {
+          "type": "string",
+          "description": "HGVSc"
+        },
+        "hgvsp": {
+          "type": "string",
+          "description": "HGVSp"
+        },
+        "polyphen_prediction": {
+          "type": "string",
+          "description": "Polyphen Prediction"
+        },
+        "polyphen_score": {
+          "type": "string",
+          "description": "Polyphen Score"
+        },
+        "protein_end": {
+          "type": "string",
+          "description": "Protein end position"
+        },
+        "protein_id": {
+          "type": "string",
+          "description": "Ensembl protein id"
+        },
+        "protein_start": {
+          "type": "string",
+          "description": "Protein start position"
+        },
+        "refseq_transcript_ids": {
+          "type": "array",
+          "description": "List of RefSeq transcript ids",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sift_prediction": {
+          "type": "string",
+          "description": "Sift Prediction"
+        },
+        "sift_score": {
+          "type": "string",
+          "description": "Sift Score"
+        },
+        "transcript_id": {
+          "type": "string",
+          "description": "Ensembl transcript id"
+        },
+        "variant_allele": {
+          "type": "string",
+          "description": "Variant allele"
+        }
+      }
+    },
+    "VariantAnnotation": {
+      "type": "object",
+      "required": [
+        "annotationJSON",
+        "id",
+        "variant"
+      ],
+      "properties": {
+        "allele_string": {
+          "type": "string",
+          "description": "Allele string (e.g: A/T)"
+        },
+        "annotationJSON": {
+          "type": "string",
+          "description": "Annotation data as JSON string"
+        },
+        "assembly_name": {
+          "type": "string",
+          "description": "NCBI build number"
+        },
+        "end": {
+          "type": "integer",
+          "format": "int32",
+          "description": "End position"
+        },
+        "id": {
+          "type": "string",
+          "description": "Variant id"
+        },
+        "most_severe_consequence": {
+          "type": "string",
+          "description": "Most severe consequence"
+        },
+        "seq_region_name": {
+          "type": "string",
+          "description": "Chromosome"
+        },
+        "start": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Start position"
+        },
+        "strand": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Strand (negative or positive)"
+        },
+        "transcript_consequences": {
+          "type": "array",
+          "description": "List of transcripts",
+          "items": {
+            "$ref": "#/definitions/TranscriptConsequence"
+          }
+        },
+        "variant": {
+          "type": "string",
+          "description": "Variant key"
+        }
+      }
+    },
+    "Version": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
