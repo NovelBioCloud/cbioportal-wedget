@@ -13,10 +13,7 @@ type ProteinChainProps = ProteinChainSpec & {
 };
 
 @observer
-export default class ProteinChain extends React.Component<
-	ProteinChainProps,
-	{}
-> {
+export default class ProteinChain extends React.Component<ProteinChainProps, {}> {
 	@computed
 	get segmentsAndGaps(): { gap: boolean; start: number; end: number }[] {
 		const ret = [];
@@ -88,10 +85,7 @@ export default class ProteinChain extends React.Component<
 								strokeWidth="0.5"
 								x={this.props.positionToX(obj.start)}
 								y={this.props.y}
-								width={
-									this.props.positionToX(obj.end) -
-									this.props.positionToX(obj.start)
-								}
+								width={this.props.positionToX(obj.end) - this.props.positionToX(obj.start)}
 								height={this.props.height}
 							/>
 						);
@@ -103,10 +97,7 @@ export default class ProteinChain extends React.Component<
 					fillOpacity="0"
 					strokeOpacity={+!!this.props.highlighted}
 					height={this.props.height}
-					width={
-						this.props.positionToX(this.props.end) -
-						this.props.positionToX(this.props.start)
-					}
+					width={this.props.positionToX(this.props.end) - this.props.positionToX(this.props.start)}
 					x={this.props.positionToX(this.props.start)}
 					y={this.props.y}
 					className={this.props.uniqueHitZoneClassName}

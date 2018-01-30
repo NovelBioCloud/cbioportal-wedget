@@ -8,16 +8,14 @@ import validateParameters from "shared/lib/validateParameters";
 import ValidationAlert from "shared/components/ValidationAlert";
 import AjaxErrorModal from "shared/components/AjaxErrorModal";
 import exposeComponentRenderer from "shared/lib/exposeComponentRenderer";
-import {
-	ResultsViewPageStore,
-	SamplesSpecificationElement
-} from "./ResultsViewPageStore";
+import { ResultsViewPageStore, SamplesSpecificationElement } from "./ResultsViewPageStore";
 import CancerSummaryContainer from "shared/components/cancerSummary/CancerSummaryContainer";
 import Mutations from "./mutation/Mutations";
 import { stringListToSet } from "../../shared/lib/StringUtils";
 import MutualExclusivityTab from "./mutualExclusivity/MutualExclusivityTab";
 import SurvivalTab from "./survival/SurvivalTab";
-import Chart from "chart.js";
+// import Chart from "chart";
+const Chart = require("chart");
 import { CancerStudy, Sample } from "../../shared/api/generated/CBioPortalAPI";
 import AppConfig from "appConfig";
 import AddThisBookmark from "shared/components/addThis/AddThisBookmark";
@@ -30,17 +28,10 @@ import "./styles.scss";
 	beforeDraw: function(chartInstance: any) {
 		const ctx = chartInstance.chart.ctx;
 		ctx.fillStyle = "white";
-		ctx.fillRect(
-			0,
-			0,
-			chartInstance.chart.width,
-			chartInstance.chart.height
-		);
+		ctx.fillRect(0, 0, chartInstance.chart.width, chartInstance.chart.height);
 	}
 });
-import Oncoprint, {
-	GeneticTrackDatum
-} from "shared/components/oncoprint/Oncoprint";
+import Oncoprint, { GeneticTrackDatum } from "shared/components/oncoprint/Oncoprint";
 import { QuerySession } from "../../shared/lib/QuerySession";
 import ResultsViewOncoprint from "shared/components/oncoprint/ResultsViewOncoprint";
 import QuerySummary from "./querySummary/QuerySummary";
@@ -59,10 +50,11 @@ function initStore(queryStore: QueryStore) {
 
 	// following is a bunch of dirty stuff necessary to read state from jsp page
 	// ultimate we will phase this out and this information will be stored in router etc.
-	//const qSession:any = (window as any).QuerySession;
+	// const qSession:any = (window as any).QuerySession;
 	var samplesSpecification: any = [];
 	if (["-1", "all"].indexOf(serverVars.caseSetProperties.case_set_id) > -1) {
-		// "-1" means custom case id, "all" means all cases in the queried stud(y/ies). Neither is an actual case set that could eg be queried
+		// "-1" means custom case id, "all" means all cases in
+		// the queried stud(y/ies). Neither is an actual case set that could eg be queried
 		var studyToSampleMap = serverVars.studySampleObj;
 		var studies = Object.keys(studyToSampleMap);
 		for (var i = 0; i < studies.length; i++) {
@@ -77,8 +69,8 @@ function initStore(queryStore: QueryStore) {
 			);
 		}
 	} else {
-		var studies = Object.keys(serverVars.studySampleListMap);
-		for (var i = 0; i < studies.length; i++) {
+		const studies = Object.keys(serverVars.studySampleListMap);
+		for (let i = 0; i < studies.length; i++) {
 			samplesSpecification.push({
 				sampleListId: serverVars.studySampleListMap[studies[i]],
 				studyId: studies[i]
@@ -87,9 +79,8 @@ function initStore(queryStore: QueryStore) {
 	}
 
 	resultsViewPageStore.samplesSpecification = samplesSpecification;
-	resultsViewPageStore.hugoGeneSymbols = _.map(parsedOQL, (o: any) => o.gene); //qSession.getQueryGenes();
-	resultsViewPageStore.selectedMolecularProfileIds =
-		serverVars.molecularProfiles; // qSession.getGeneticProfileIds();
+	resultsViewPageStore.hugoGeneSymbols = _.map(parsedOQL, (o: any) => o.gene); // qSession.getQueryGenes();
+	resultsViewPageStore.selectedMolecularProfileIds = serverVars.molecularProfiles; // qSession.getGeneticProfileIds();
 	resultsViewPageStore.rppaScoreThreshold = serverVars.rppaScoreThreshold; // FIX!
 	resultsViewPageStore.zScoreThreshold = serverVars.zScoreThreshold;
 	resultsViewPageStore.oqlQuery = oqlQuery;
@@ -115,10 +106,7 @@ type OncoprintTabInitProps = {
 @inject("routing")
 @inject("queryStore")
 @observer
-export default class ResultsViewPage extends React.Component<
-	IResultsViewPageProps,
-	{}
-> {
+export default class ResultsViewPage extends React.Component<IResultsViewPageProps, {}> {
 	private showTwitter = AppConfig.showTwitter === true;
 	private resultsViewPageStore: ResultsViewPageStore;
 
@@ -139,15 +127,13 @@ export default class ResultsViewPage extends React.Component<
 	}
 
 	private mountOverlappingStudiesWarning() {
-		const target = $(
-			'<div class="cbioportal-frontend"></div>'
-		).insertBefore("#tabs");
+		const target = $(`<div class="cbioportal-frontend"></div>`).insertBefore("#tabs");
 
 		ReactDOM.render(
 			<Observer>
 				{() => {
 					if (this.resultsViewPageStore.studies.isComplete) {
-						//return <OverlappingStudiesWarning studies={resultsViewPageStore.studies.result!}/>
+						// return <OverlappingStudiesWarning studies={resultsViewPageStore.studies.result!}/>
 						// disable overlapping studies warning until #3395
 						// is implemented
 						return <span />;
@@ -175,44 +161,32 @@ export default class ResultsViewPage extends React.Component<
 					passthrough
 				};
 			},
-			className:
-				"addthis_inline_share_toolbox" +
-				(!this.showTwitter ? "_ubww" : "")
+			className: "addthis_inline_share_toolbox" + (!this.showTwitter ? "_ubww" : "")
 		};
 	}
 
-	public exposeComponentRenderersToParentScript(
-		props: IResultsViewPageProps
-	) {
-		exposeComponentRenderer(
-			"renderOncoprint",
-			(props: OncoprintTabInitProps) => {
-				function addOnBecomeVisibleListener(callback: () => void) {
-					$("#oncoprint-result-tab").click(callback);
-				}
-
-				return (
-					<ResultsViewOncoprint
-						divId={props.divId}
-						store={this.resultsViewPageStore}
-						routing={this.props.routing}
-						addOnBecomeVisibleListener={addOnBecomeVisibleListener}
-					/>
-				);
+	public exposeComponentRenderersToParentScript(props: IResultsViewPageProps) {
+		exposeComponentRenderer("renderOncoprint", (props: OncoprintTabInitProps) => {
+			function addOnBecomeVisibleListener(callback: () => void) {
+				$("#oncoprint-result-tab").click(callback);
 			}
-		);
+
+			return (
+				<ResultsViewOncoprint
+					divId={props.divId}
+					store={this.resultsViewPageStore}
+					routing={this.props.routing}
+					addOnBecomeVisibleListener={addOnBecomeVisibleListener}
+				/>
+			);
+		});
 
 		exposeComponentRenderer("renderCNSegments", () => {
 			return <CNSegments store={this.resultsViewPageStore} />;
 		});
 
 		exposeComponentRenderer("renderQuerySummary", () => {
-			return (
-				<QuerySummary
-					queryStore={props.queryStore}
-					store={this.resultsViewPageStore}
-				/>
-			);
+			return <QuerySummary queryStore={props.queryStore} store={this.resultsViewPageStore} />;
 		});
 
 		exposeComponentRenderer("renderMutationsTab", () => {
@@ -229,26 +203,19 @@ export default class ResultsViewPage extends React.Component<
 			);
 		});
 
-		exposeComponentRenderer(
-			"renderCancerTypeSummary",
-			(props: MutationsTabInitProps) => {
-				return (
-					<div>
-						<AjaxErrorModal
-							show={
-								this.resultsViewPageStore.ajaxErrors.length > 0
-							}
-							onHide={() => {
-								this.resultsViewPageStore.clearErrors();
-							}}
-						/>
-						<CancerSummaryContainer
-							store={this.resultsViewPageStore}
-						/>
-					</div>
-				);
-			}
-		);
+		exposeComponentRenderer("renderCancerTypeSummary", (props: MutationsTabInitProps) => {
+			return (
+				<div>
+					<AjaxErrorModal
+						show={this.resultsViewPageStore.ajaxErrors.length > 0}
+						onHide={() => {
+							this.resultsViewPageStore.clearErrors();
+						}}
+					/>
+					<CancerSummaryContainer store={this.resultsViewPageStore} />
+				</div>
+			);
+		});
 
 		exposeComponentRenderer("renderMutExTab", () => {
 			return (
@@ -261,10 +228,7 @@ export default class ResultsViewPage extends React.Component<
 		exposeComponentRenderer("renderBookmark", () => {
 			return (
 				<div>
-					<AddThisBookmark
-						store={this.resultsViewPageStore}
-						getParameters={this.addThisParameters}
-					/>
+					<AddThisBookmark store={this.resultsViewPageStore} getParameters={this.addThisParameters} />
 				</div>
 			);
 		});
@@ -278,7 +242,7 @@ export default class ResultsViewPage extends React.Component<
 		});
 	}
 
-	public render() {
+	public render(): any {
 		return null;
 	}
 }

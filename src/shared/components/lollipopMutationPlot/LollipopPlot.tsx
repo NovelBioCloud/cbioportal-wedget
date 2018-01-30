@@ -2,12 +2,7 @@ import * as React from "react";
 import { observer } from "mobx-react";
 import { observable, computed } from "mobx";
 import DefaultTooltip from "../defaultTooltip/DefaultTooltip";
-import {
-	default as LollipopPlotNoTooltip,
-	LollipopSpec,
-	DomainSpec,
-	SequenceSpec
-} from "./LollipopPlotNoTooltip";
+import { default as LollipopPlotNoTooltip, LollipopSpec, DomainSpec, SequenceSpec } from "./LollipopPlotNoTooltip";
 import MutationMapperDataStore from "../../../pages/resultsView/mutation/MutationMapperDataStore";
 import HitZone from "../HitZone";
 
@@ -34,10 +29,7 @@ type HitZoneConfig = {
 };
 
 @observer
-export default class LollipopPlot extends React.Component<
-	LollipopPlotProps,
-	{}
-> {
+export default class LollipopPlot extends React.Component<LollipopPlotProps, {}> {
 	@observable
 	private hitZoneConfig: HitZoneConfig = {
 		hitRect: {
@@ -91,12 +83,10 @@ export default class LollipopPlot extends React.Component<
 			getOverlay: () => this.hitZoneConfig.content,
 			getOverlayPlacement: () => this.hitZoneConfig.tooltipPlacement,
 			onMouseLeave: () => {
-				this.hitZoneConfig.onMouseOut &&
-					this.hitZoneConfig.onMouseOut();
+				this.hitZoneConfig.onMouseOut && this.hitZoneConfig.onMouseOut();
 			},
 			onBackgroundMouseMove: () => {
-				this.hitZoneConfig.onMouseOut &&
-					this.hitZoneConfig.onMouseOut();
+				this.hitZoneConfig.onMouseOut && this.hitZoneConfig.onMouseOut();
 			}
 		};
 	}
@@ -127,10 +117,7 @@ export default class LollipopPlot extends React.Component<
 			// Clone node
 			return this.plot.toSVGDOMNode();
 		} else {
-			return document.createElementNS(
-				"http://www.w3.org/2000/svg",
-				"svg"
-			);
+			return document.createElementNS("http://www.w3.org/2000/svg", "svg");
 		}
 	}
 

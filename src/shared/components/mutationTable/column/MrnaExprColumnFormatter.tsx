@@ -1,25 +1,12 @@
 import * as React from "react";
 import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
-import {
-	MrnaExprRankCacheDataType,
-	default as MrnaExprRankCache
-} from "shared/cache/MrnaExprRankCache";
-import {
-	Mutation,
-	DiscreteCopyNumberData
-} from "shared/api/generated/CBioPortalAPI";
-import {
-	default as TableCellStatusIndicator,
-	TableCellStatus
-} from "shared/components/TableCellStatus";
+import { MrnaExprRankCacheDataType, default as MrnaExprRankCache } from "shared/cache/MrnaExprRankCache";
+import { Mutation, DiscreteCopyNumberData } from "shared/api/generated/CBioPortalAPI";
+import { default as TableCellStatusIndicator, TableCellStatus } from "shared/components/TableCellStatus";
 
 export default class MrnaExprColumnFormatter {
-	protected static getCircleX(
-		percentile: number,
-		circleLeft: number,
-		circleRight: number
-	) {
+	protected static getCircleX(percentile: number, circleLeft: number, circleRight: number) {
 		const proportion = percentile / 100;
 		return circleLeft * (1 - proportion) + circleRight * proportion;
 	}
@@ -34,14 +21,8 @@ export default class MrnaExprColumnFormatter {
 		}
 	}
 
-	protected static getTooltipContents(
-		cacheDatum: MrnaExprRankCacheDataType | null
-	) {
-		if (
-			cacheDatum &&
-			cacheDatum.status === "complete" &&
-			cacheDatum.data !== null
-		) {
+	protected static getTooltipContents(cacheDatum: MrnaExprRankCacheDataType | null) {
+		if (cacheDatum && cacheDatum.status === "complete" && cacheDatum.data !== null) {
 			return (
 				<div>
 					<span>mRNA level of the gene in this tumor</span>
@@ -58,11 +39,7 @@ export default class MrnaExprColumnFormatter {
 					<br />
 				</div>
 			);
-		} else if (
-			cacheDatum &&
-			cacheDatum.status === "complete" &&
-			cacheDatum.data === null
-		) {
+		} else if (cacheDatum && cacheDatum.status === "complete" && cacheDatum.data === null) {
 			return <span>mRNA data is not available for this gene.</span>;
 		} else if (cacheDatum && cacheDatum.status === "error") {
 			return <span>Error retrieving data.</span>;
@@ -82,24 +59,14 @@ export default class MrnaExprColumnFormatter {
 		const textWidth = 30;
 		const textXLeft = circleXRight + circleRadius + 3;
 		const width = textXLeft + textWidth;
-		if (
-			cacheDatum &&
-			cacheDatum.status === "complete" &&
-			cacheDatum.data !== null
-		) {
+		if (cacheDatum && cacheDatum.status === "complete" && cacheDatum.data !== null) {
 			return (
 				<svg width={width} height={12}>
 					<text x={textXLeft} y={11} textAnchor="start" fontSize={10}>
 						{Math.round(cacheDatum.data.percentile) + "%"}
 					</text>
 					<g>
-						<line
-							x1={barXLeft}
-							y1={8}
-							x2={barXRight}
-							y2={8}
-							style={{ stroke: "gray", strokeWidth: 2 }}
-						/>
+						<line x1={barXLeft} y1={8} x2={barXRight} y2={8} style={{ stroke: "gray", strokeWidth: 2 }} />
 						<circle
 							cx={MrnaExprColumnFormatter.getCircleX(
 								cacheDatum.data.percentile,
@@ -108,18 +75,12 @@ export default class MrnaExprColumnFormatter {
 							)}
 							cy={8}
 							r={circleRadius}
-							fill={MrnaExprColumnFormatter.getCircleFill(
-								cacheDatum.data.percentile
-							)}
+							fill={MrnaExprColumnFormatter.getCircleFill(cacheDatum.data.percentile)}
 						/>
 					</g>
 				</svg>
 			);
-		} else if (
-			cacheDatum &&
-			cacheDatum.status === "complete" &&
-			cacheDatum.data === null
-		) {
+		} else if (cacheDatum && cacheDatum.status === "complete" && cacheDatum.data === null) {
 			status = TableCellStatus.NA;
 		} else if (cacheDatum && cacheDatum.status === "error") {
 			status = TableCellStatus.ERROR;
@@ -127,19 +88,11 @@ export default class MrnaExprColumnFormatter {
 			status = TableCellStatus.LOADING;
 		}
 		if (status !== null) {
-			return (
-				<TableCellStatusIndicator
-					status={status}
-					naAlt="mRNA data is not available for this gene."
-				/>
-			);
+			return <TableCellStatusIndicator status={status} naAlt="mRNA data is not available for this gene." />;
 		}
 	}
 
-	protected static getData(
-		data: Mutation[],
-		cache: MrnaExprRankCache
-	): MrnaExprRankCacheDataType | null {
+	protected static getData(data: Mutation[], cache: MrnaExprRankCache): MrnaExprRankCacheDataType | null {
 		if (data.length === 0) {
 			return null;
 		}
@@ -156,9 +109,7 @@ export default class MrnaExprColumnFormatter {
 		return cache.get({ sampleId, entrezGeneId });
 	}
 
-	private static renderFromCacheDatum(
-		cacheDatum: MrnaExprRankCacheDataType | null
-	) {
+	private static renderFromCacheDatum(cacheDatum: MrnaExprRankCacheDataType | null) {
 		return (
 			<DefaultTooltip
 				placement="left"
@@ -174,10 +125,7 @@ export default class MrnaExprColumnFormatter {
 		return MrnaExprColumnFormatter.renderFromCacheDatum(cacheDatum);
 	}
 
-	public static cnaRenderFunction(
-		data: DiscreteCopyNumberData[],
-		cache: MrnaExprRankCache
-	) {
+	public static cnaRenderFunction(data: DiscreteCopyNumberData[], cache: MrnaExprRankCache) {
 		const cacheDatum = MrnaExprColumnFormatter.getDataFromCNA(data, cache);
 		return MrnaExprColumnFormatter.renderFromCacheDatum(cacheDatum);
 	}

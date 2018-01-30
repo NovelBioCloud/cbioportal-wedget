@@ -58,9 +58,7 @@ class CNASegmentIframe extends React.Component<CNSegmentsIframeProps, {}> {
 	downloadSegmentData() {
 		const self = this;
 		var xhr = new XMLHttpRequest(),
-			sendData = `cancerStudyId=${
-				self.props.studyId
-			}&sampleIds=${self.props.sampleIds.join(",")}`;
+			sendData = `cancerStudyId=${self.props.studyId}&sampleIds=${self.props.sampleIds.join(",")}`;
 		xhr.onreadystatechange = function() {
 			var a: any;
 			if (xhr.readyState === 4 && xhr.status === 200) {
@@ -79,10 +77,7 @@ class CNASegmentIframe extends React.Component<CNSegmentsIframeProps, {}> {
 		};
 		// Post data to URL which handles post request
 		xhr.open("POST", "api-legacy/segmentfile");
-		xhr.setRequestHeader(
-			"Content-Type",
-			"application/x-www-form-urlencoded"
-		);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.responseType = "blob";
 		xhr.send(sendData);
 	}
@@ -109,8 +104,7 @@ class CNASegmentIframe extends React.Component<CNSegmentsIframeProps, {}> {
 					ref={(el: HTMLDivElement) => (this.iframeDiv = el)}
 				/>
 				<p>
-					Download a copy number segment file for the selected samples
-					&nbsp;<button
+					Download a copy number segment file for the selected samples &nbsp;<button
 						onClick={this.downloadSegmentData}
 						className="btn btn-default btn-sm"
 					>
@@ -123,10 +117,7 @@ class CNASegmentIframe extends React.Component<CNSegmentsIframeProps, {}> {
 }
 
 @observer
-export default class CNSegments extends React.Component<
-	{ store: ResultsViewPageStore },
-	{}
-> {
+export default class CNSegments extends React.Component<{ store: ResultsViewPageStore }, {}> {
 	@observable activeTabId: string;
 
 	render() {
@@ -152,11 +143,8 @@ export default class CNSegments extends React.Component<
 								linkText={gene.hugoGeneSymbol}
 							>
 								<CNASegmentIframe
-									studyId={
-										this.props.store.studyIds.result![0]
-									}
-									sampleIds={this.props.store.samples
-										.result!.map(
+									studyId={this.props.store.studyIds.result![0]}
+									sampleIds={this.props.store.samples.result!.map(
 										(sample: Sample) => sample.sampleId
 									)}
 									gene={gene}

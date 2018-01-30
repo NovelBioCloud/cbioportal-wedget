@@ -9,10 +9,7 @@ import {
 import { IOncoKbData, IOncoKbDataWrapper } from "shared/model/OncoKB";
 import OncoKB from "shared/components/annotation/OncoKB";
 import Civic from "shared/components/annotation/Civic";
-import {
-	generateQueryVariantId,
-	generateQueryVariant
-} from "shared/lib/OncoKbUtils";
+import { generateQueryVariantId, generateQueryVariant } from "shared/lib/OncoKbUtils";
 import { IndicatorQueryResp, Query } from "shared/api/generated/OncoKbAPI";
 import { getAlterationString } from "shared/lib/CopyNumberUtils";
 import {
@@ -23,7 +20,7 @@ import {
 	ICivicGeneData,
 	ICivicGeneDataWrapper,
 	ICivicVariantDataWrapper
-} from "shared/model/Civic.ts";
+} from "shared/model/Civic";
 import { buildCivicEntry, getCivicCNAVariants } from "shared/lib/CivicUtils";
 
 /**
@@ -43,20 +40,11 @@ export default class AnnotationColumnFormatter {
 			let oncoKbIndicator: IndicatorQueryResp | undefined = undefined;
 			let oncoKbStatus: IAnnotation["oncoKbStatus"] = "complete";
 			let hugoGeneSymbol = copyNumberData[0].gene.hugoGeneSymbol;
-			const oncoKbGeneExist = !!oncoKbAnnotatedGenes[
-				copyNumberData[0].entrezGeneId
-			];
+			const oncoKbGeneExist = !!oncoKbAnnotatedGenes[copyNumberData[0].entrezGeneId];
 
 			if (oncoKbGeneExist) {
-				if (
-					oncoKbData &&
-					oncoKbData.result &&
-					oncoKbData.status === "complete"
-				) {
-					oncoKbIndicator = AnnotationColumnFormatter.getIndicatorData(
-						copyNumberData,
-						oncoKbData.result
-					);
+				if (oncoKbData && oncoKbData.result && oncoKbData.status === "complete") {
+					oncoKbIndicator = AnnotationColumnFormatter.getIndicatorData(copyNumberData, oncoKbData.result);
 				}
 				oncoKbStatus = oncoKbData ? oncoKbData.status : "pending";
 			}
@@ -67,10 +55,7 @@ export default class AnnotationColumnFormatter {
 				oncoKbIndicator,
 				oncoKbGeneExist,
 				civicEntry:
-					civicGenes &&
-					civicGenes.result &&
-					civicVariants &&
-					civicVariants.result
+					civicGenes && civicGenes.result && civicVariants && civicVariants.result
 						? AnnotationColumnFormatter.getCivicEntry(
 								copyNumberData,
 								civicGenes.result,
@@ -78,20 +63,11 @@ export default class AnnotationColumnFormatter {
 							)
 						: undefined,
 				civicStatus:
-					civicGenes &&
-					civicGenes.status &&
-					civicVariants &&
-					civicVariants.status
-						? AnnotationColumnFormatter.getCivicStatus(
-								civicGenes.status,
-								civicVariants.status
-							)
+					civicGenes && civicGenes.status && civicVariants && civicVariants.status
+						? AnnotationColumnFormatter.getCivicStatus(civicGenes.status, civicVariants.status)
 						: "pending",
 				hasCivicVariants:
-					civicGenes &&
-					civicGenes.result &&
-					civicVariants &&
-					civicVariants.result
+					civicGenes && civicGenes.result && civicVariants && civicVariants.result
 						? AnnotationColumnFormatter.hasCivicVariants(
 								copyNumberData,
 								civicGenes.result,
@@ -110,7 +86,9 @@ export default class AnnotationColumnFormatter {
 	}
 
 	/**
-	 * Returns an ICivicEntry if the civicGenes and civicVariants have information about the gene and the mutation (variant) specified. Otherwise it returns
+	 * Returns an ICivicEntry if the civicGenes and civicVariants have
+	 * information about the gene and the mutation (variant) specified.
+	 * Otherwise it returns
 	 * an empty object.
 	 */
 	public static getCivicEntry(
@@ -124,11 +102,8 @@ export default class AnnotationColumnFormatter {
 			[name: string]: ICivicVariantData;
 		} = getCivicCNAVariants(copyNumberData, geneSymbol, civicVariants);
 		let geneEntry: ICivicGeneData = civicGenes[geneSymbol];
-		//Only return data for genes with variants or it has a description provided by the Civic API
-		if (
-			!_.isEmpty(geneVariants) ||
-			(geneEntry && geneEntry.description !== "")
-		) {
+		// Only return data for genes with variants or it has a description provided by the Civic API
+		if (!_.isEmpty(geneVariants) || (geneEntry && geneEntry.description !== "")) {
 			civicEntry = buildCivicEntry(geneEntry, geneVariants);
 		}
 
@@ -142,10 +117,7 @@ export default class AnnotationColumnFormatter {
 		if (civicGenesStatus === "error" || civicVariantsStatus === "error") {
 			return "error";
 		}
-		if (
-			civicGenesStatus === "complete" &&
-			civicVariantsStatus === "complete"
-		) {
+		if (civicGenesStatus === "complete" && civicVariantsStatus === "complete") {
 			return "complete";
 		}
 
@@ -174,18 +146,13 @@ export default class AnnotationColumnFormatter {
 		copyNumberData: DiscreteCopyNumberData[],
 		oncoKbData: IOncoKbData
 	): IndicatorQueryResp | undefined {
-		if (
-			oncoKbData.uniqueSampleKeyToTumorType === null ||
-			oncoKbData.indicatorMap === null
-		) {
+		if (oncoKbData.uniqueSampleKeyToTumorType === null || oncoKbData.indicatorMap === null) {
 			return undefined;
 		}
 
 		const id = generateQueryVariantId(
 			copyNumberData[0].gene.entrezGeneId,
-			oncoKbData.uniqueSampleKeyToTumorType[
-				copyNumberData[0].uniqueSampleKey
-			],
+			oncoKbData.uniqueSampleKeyToTumorType[copyNumberData[0].uniqueSampleKey],
 			getAlterationString(copyNumberData[0].alteration)
 		);
 
@@ -200,9 +167,7 @@ export default class AnnotationColumnFormatter {
 		return oncoKbData.uniqueSampleKeyToTumorType
 			? generateQueryVariant(
 					copyNumberData[0].gene.entrezGeneId,
-					oncoKbData.uniqueSampleKeyToTumorType[
-						copyNumberData[0].uniqueSampleKey
-					],
+					oncoKbData.uniqueSampleKeyToTumorType[copyNumberData[0].uniqueSampleKey],
 					getAlterationString(copyNumberData[0].alteration)
 				)
 			: undefined;
@@ -229,10 +194,7 @@ export default class AnnotationColumnFormatter {
 		]);
 	}
 
-	public static renderFunction(
-		data: DiscreteCopyNumberData[],
-		columnProps: IAnnotationColumnProps
-	) {
+	public static renderFunction(data: DiscreteCopyNumberData[], columnProps: IAnnotationColumnProps) {
 		const annotation: IAnnotation = AnnotationColumnFormatter.getData(
 			data,
 			columnProps.oncoKbAnnotatedGenes,
@@ -244,10 +206,7 @@ export default class AnnotationColumnFormatter {
 		let evidenceQuery: Query | undefined;
 
 		if (columnProps.oncoKbData && columnProps.oncoKbData.result) {
-			evidenceQuery = this.getEvidenceQuery(
-				data,
-				columnProps.oncoKbData.result
-			);
+			evidenceQuery = this.getEvidenceQuery(data, columnProps.oncoKbData.result);
 		}
 
 		return DefaultAnnotationColumnFormatter.mainContent(

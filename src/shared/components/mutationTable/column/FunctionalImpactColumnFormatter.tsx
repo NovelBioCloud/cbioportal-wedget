@@ -3,17 +3,9 @@ import { Circle } from "better-react-spinkit";
 import classNames from "classnames";
 import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
-import GenomeNexusCache, {
-	GenomeNexusCacheDataType
-} from "shared/cache/GenomeNexusEnrichment";
-import {
-	Mutation,
-	DiscreteCopyNumberData
-} from "shared/api/generated/CBioPortalAPI";
-import {
-	default as TableCellStatusIndicator,
-	TableCellStatus
-} from "shared/components/TableCellStatus";
+import GenomeNexusCache, { GenomeNexusCacheDataType } from "shared/cache/GenomeNexusEnrichment";
+import { Mutation, DiscreteCopyNumberData } from "shared/api/generated/CBioPortalAPI";
+import { default as TableCellStatusIndicator, TableCellStatus } from "shared/components/TableCellStatus";
 import MutationAssessor from "shared/components/annotation/genomeNexus/MutationAssessor";
 import { MutationAssessor as MutationAssessorData } from "shared/api/generated/GenomeNexusAPIInternal";
 import Sift from "shared/components/annotation/genomeNexus/Sift";
@@ -85,16 +77,9 @@ class FunctionalImpactColumnTooltip extends React.Component<
 										width: 22
 									}}
 									title="SIFT"
-									onMouseOver={() =>
-										this.setState({ active: "sift" })
-									}
+									onMouseOver={() => this.setState({ active: "sift" })}
 								>
-									<img
-										height={14}
-										width={14}
-										src={require("./siftFunnel.png")}
-										alt="SIFT"
-									/>
+									<img height={14} width={14} src={require("./siftFunnel.png")} alt="SIFT" />
 								</span>
 							</th>
 							<th>
@@ -104,16 +89,9 @@ class FunctionalImpactColumnTooltip extends React.Component<
 										width: 22
 									}}
 									title="PolyPhen-2"
-									onMouseOver={() =>
-										this.setState({ active: "polyPhen2" })
-									}
+									onMouseOver={() => this.setState({ active: "polyPhen2" })}
 								>
-									<img
-										height={14}
-										width={14}
-										src={require("./polyPhen-2.png")}
-										alt="PolyPhen-2"
-									/>
+									<img height={14} width={14} src={require("./polyPhen-2.png")} alt="PolyPhen-2" />
 								</span>
 							</th>
 						</tr>
@@ -123,53 +101,29 @@ class FunctionalImpactColumnTooltip extends React.Component<
 							<td>
 								<span
 									className={classNames(
-										annotationStyles[
-											"annotation-item-text"
-										],
+										annotationStyles["annotation-item-text"],
 										mutationAssessorStyles[`ma-high`]
 									)}
 								>
-									<i
-										className="fa fa-circle"
-										aria-hidden="true"
-									/>
+									<i className="fa fa-circle" aria-hidden="true" />
 								</span>
 							</td>
-							<td className={mutationAssessorStyles["ma-high"]}>
-								high
-							</td>
-							<td className={siftStyles["sift-deleterious"]}>
-								deleterious
-							</td>
-							<td
-								className={
-									polyPhen2Styles[
-										"polyPhen2-probably_damaging"
-									]
-								}
-							>
-								probably_damaging
-							</td>
+							<td className={mutationAssessorStyles["ma-high"]}>high</td>
+							<td className={siftStyles["sift-deleterious"]}>deleterious</td>
+							<td className={polyPhen2Styles["polyPhen2-probably_damaging"]}>probably_damaging</td>
 						</tr>
 						<tr>
 							<td>
 								<span
 									className={classNames(
-										annotationStyles[
-											"annotation-item-text"
-										],
+										annotationStyles["annotation-item-text"],
 										mutationAssessorStyles[`ma-medium`]
 									)}
 								>
-									<i
-										className="fa fa-circle"
-										aria-hidden="true"
-									/>
+									<i className="fa fa-circle" aria-hidden="true" />
 								</span>
 							</td>
-							<td className={mutationAssessorStyles["ma-medium"]}>
-								medium
-							</td>
+							<td className={mutationAssessorStyles["ma-medium"]}>medium</td>
 							<td>-</td>
 							<td>-</td>
 						</tr>
@@ -177,78 +131,38 @@ class FunctionalImpactColumnTooltip extends React.Component<
 							<td>
 								<span
 									className={classNames(
-										annotationStyles[
-											"annotation-item-text"
-										],
+										annotationStyles["annotation-item-text"],
 										mutationAssessorStyles[`ma-low`]
 									)}
 								>
-									<i
-										className="fa fa-circle"
-										aria-hidden="true"
-									/>
+									<i className="fa fa-circle" aria-hidden="true" />
 								</span>
 							</td>
-							<td className={mutationAssessorStyles["ma-low"]}>
-								low
-							</td>
-							<td
-								className={
-									siftStyles[
-										"sift-deleterious_low_confidence"
-									]
-								}
-							>
+							<td className={mutationAssessorStyles["ma-low"]}>low</td>
+							<td className={siftStyles["sift-deleterious_low_confidence"]}>
 								deleterious_low_confidence
 							</td>
-							<td
-								className={
-									polyPhen2Styles[
-										"polyPhen2-possibly_damaging"
-									]
-								}
-							>
-								possibly_damaging
-							</td>
+							<td className={polyPhen2Styles["polyPhen2-possibly_damaging"]}>possibly_damaging</td>
 						</tr>
 						<tr>
 							<td>
 								<span
 									className={classNames(
-										annotationStyles[
-											"annotation-item-text"
-										],
+										annotationStyles["annotation-item-text"],
 										mutationAssessorStyles[`ma-neutral`]
 									)}
 								>
-									<i
-										className="fa fa-circle"
-										aria-hidden="true"
-									/>
+									<i className="fa fa-circle" aria-hidden="true" />
 								</span>
 							</td>
-							<td
-								className={mutationAssessorStyles["ma-neutral"]}
-							>
-								neutral
-							</td>
-							<td
-								className={
-									siftStyles["sift-tolerated_low_confidence"]
-								}
-							>
-								tolerated_low_confidence
-							</td>
-							<td className={polyPhen2Styles["polyPhen2-benign"]}>
-								benign
-							</td>
+							<td className={mutationAssessorStyles["ma-neutral"]}>neutral</td>
+							<td className={siftStyles["sift-tolerated_low_confidence"]}>tolerated_low_confidence</td>
+							<td className={polyPhen2Styles["polyPhen2-benign"]}>benign</td>
 						</tr>
 						<tr>
 							<td />
 							<td>-</td>
-							<td className={siftStyles["sift-tolerated"]}>
-								tolerated
-							</td>
+							<td className={siftStyles["sift-tolerated"]}>tolerated</td>
 							<td>-</td>
 						</tr>
 					</tbody>
@@ -260,17 +174,12 @@ class FunctionalImpactColumnTooltip extends React.Component<
 	public static mutationAssessorText() {
 		return (
 			<div style={{ width: 450, height: 100 }}>
-				<a
-					href={MutationAssessor.MUTATION_ASSESSOR_URL}
-					target="_blank"
-				>
+				<a href={MutationAssessor.MUTATION_ASSESSOR_URL} target="_blank">
 					Mutation Assessor
 				</a>{" "}
-				predicts the functional impact of amino-acid substitutions in
-				proteins, such as mutations discovered in cancer or missense
-				polymorphisms. The functional impact is assessed based on
-				evolutionary conservation of the affected amino acid in protein
-				homologs. The method has been validated on a large set (60k) of
+				predicts the functional impact of amino-acid substitutions in proteins, such as mutations discovered in
+				cancer or missense polymorphisms. The functional impact is assessed based on evolutionary conservation
+				of the affected amino acid in protein homologs. The method has been validated on a large set (60k) of
 				disease associated (OMIM) and polymorphic variants.
 			</div>
 		);
@@ -282,11 +191,9 @@ class FunctionalImpactColumnTooltip extends React.Component<
 				<a href={Sift.SIFT_URL} target="_blank">
 					SIFT
 				</a>{" "}
-				predicts whether an amino acid substitution affects protein
-				function based on sequence homology and the physical properties
-				of amino acids. SIFT can be applied to naturally occurring
-				nonsynonymous polymorphisms and laboratory-induced missense
-				mutations.
+				predicts whether an amino acid substitution affects protein function based on sequence homology and the
+				physical properties of amino acids. SIFT can be applied to naturally occurring nonsynonymous
+				polymorphisms and laboratory-induced missense mutations.
 			</div>
 		);
 	}
@@ -297,10 +204,9 @@ class FunctionalImpactColumnTooltip extends React.Component<
 				<a href={PolyPhen2.POLYPHEN2_URL} target="_blank">
 					PolyPhen-2
 				</a>{" "}
-				(Polymorphism Phenotyping v2) is a tool which predicts possible
-				impact of an amino acid substitution on the structure and
-				function of a human protein using straightforward physical and
-				comparative considerations.
+				(Polymorphism Phenotyping v2) is a tool which predicts possible impact of an amino acid substitution on
+				the structure and function of a human protein using straightforward physical and comparative
+				considerations.
 			</div>
 		);
 	}
@@ -308,12 +214,9 @@ class FunctionalImpactColumnTooltip extends React.Component<
 	public render() {
 		return (
 			<div>
-				{this.state.active === "mutationAssessor" &&
-					FunctionalImpactColumnTooltip.mutationAssessorText()}
-				{this.state.active === "sift" &&
-					FunctionalImpactColumnTooltip.siftText()}
-				{this.state.active === "polyPhen2" &&
-					FunctionalImpactColumnTooltip.polyPhen2Text()}
+				{this.state.active === "mutationAssessor" && FunctionalImpactColumnTooltip.mutationAssessorText()}
+				{this.state.active === "sift" && FunctionalImpactColumnTooltip.siftText()}
+				{this.state.active === "polyPhen2" && FunctionalImpactColumnTooltip.polyPhen2Text()}
 				{this.legend()}
 			</div>
 		);
@@ -334,9 +237,7 @@ export default class FunctionalImpactColumnFormatter {
 				<br />
 				<div style={{ height: 14 }}>
 					<DefaultTooltip
-						overlay={
-							<FunctionalImpactColumnTooltip active="mutationAssessor" />
-						}
+						overlay={<FunctionalImpactColumnTooltip active="mutationAssessor" />}
 						placement="topLeft"
 						trigger={["hover", "focus"]}
 						arrowContent={arrowContent}
@@ -354,9 +255,7 @@ export default class FunctionalImpactColumnFormatter {
 						</span>
 					</DefaultTooltip>
 					<DefaultTooltip
-						overlay={
-							<FunctionalImpactColumnTooltip active="sift" />
-						}
+						overlay={<FunctionalImpactColumnTooltip active="sift" />}
 						placement="topLeft"
 						trigger={["hover", "focus"]}
 						arrowContent={arrowContent}
@@ -374,9 +273,7 @@ export default class FunctionalImpactColumnFormatter {
 						</span>
 					</DefaultTooltip>
 					<DefaultTooltip
-						overlay={
-							<FunctionalImpactColumnTooltip active="polyPhen2" />
-						}
+						overlay={<FunctionalImpactColumnTooltip active="polyPhen2" />}
 						placement="topLeft"
 						trigger={["hover", "focus"]}
 						arrowContent={arrowContent}
@@ -398,31 +295,18 @@ export default class FunctionalImpactColumnFormatter {
 		);
 	}
 
-	public static getData(
-		genomeNexusData: GenomeNexusCacheDataType | null
-	): IFunctionalImpactData | null {
-		if (
-			genomeNexusData === null ||
-			genomeNexusData.status === "error" ||
-			genomeNexusData.data === null
-		) {
+	public static getData(genomeNexusData: GenomeNexusCacheDataType | null): IFunctionalImpactData | null {
+		if (genomeNexusData === null || genomeNexusData.status === "error" || genomeNexusData.data === null) {
 			return null;
 		}
 
 		// TODO: handle multiple transcripts instead of just picking the first one
 		const mutationAssessor =
-			genomeNexusData.data.mutation_assessor &&
-			genomeNexusData.data.mutation_assessor.annotation;
-		const siftScore = parseFloat(
-			genomeNexusData.data.transcript_consequences[0].sift_score
-		);
-		const siftPrediction =
-			genomeNexusData.data.transcript_consequences[0].sift_prediction;
-		const polyPhenScore = parseFloat(
-			genomeNexusData.data.transcript_consequences[0].polyphen_score
-		);
-		const polyPhenPrediction =
-			genomeNexusData.data.transcript_consequences[0].polyphen_prediction;
+			genomeNexusData.data.mutation_assessor && genomeNexusData.data.mutation_assessor.annotation;
+		const siftScore = parseFloat(genomeNexusData.data.transcript_consequences[0].sift_score);
+		const siftPrediction = genomeNexusData.data.transcript_consequences[0].sift_prediction;
+		const polyPhenScore = parseFloat(genomeNexusData.data.transcript_consequences[0].polyphen_score);
+		const polyPhenPrediction = genomeNexusData.data.transcript_consequences[0].polyphen_prediction;
 
 		return {
 			mutationAssessor,
@@ -433,47 +317,22 @@ export default class FunctionalImpactColumnFormatter {
 		};
 	}
 
-	public static renderFunction(
-		data: Mutation[],
-		genomeNexusCache: GenomeNexusCache
-	) {
-		const genomeNexusData = FunctionalImpactColumnFormatter.getGenomeNexusData(
-			data,
-			genomeNexusCache
-		);
-		return (
-			<div>
-				{FunctionalImpactColumnFormatter.makeFuncionalImpactViz(
-					genomeNexusData
-				)}
-			</div>
-		);
+	public static renderFunction(data: Mutation[], genomeNexusCache: GenomeNexusCache) {
+		const genomeNexusData = FunctionalImpactColumnFormatter.getGenomeNexusData(data, genomeNexusCache);
+		return <div>{FunctionalImpactColumnFormatter.makeFuncionalImpactViz(genomeNexusData)}</div>;
 	}
 
-	public static download(
-		data: Mutation[],
-		genomeNexusCache: GenomeNexusCache
-	): string {
-		const genomeNexusData = FunctionalImpactColumnFormatter.getGenomeNexusData(
-			data,
-			genomeNexusCache
-		);
-		const functionalImpactData = FunctionalImpactColumnFormatter.getData(
-			genomeNexusData
-		);
+	public static download(data: Mutation[], genomeNexusCache: GenomeNexusCache): string {
+		const genomeNexusData = FunctionalImpactColumnFormatter.getGenomeNexusData(data, genomeNexusCache);
+		const functionalImpactData = FunctionalImpactColumnFormatter.getData(genomeNexusData);
 
 		if (!functionalImpactData) {
 			return "";
 		}
 
 		return [
-			`MutationAssessor: ${MutationAssessor.download(
-				functionalImpactData.mutationAssessor
-			)}`,
-			`SIFT: ${Sift.download(
-				functionalImpactData.siftScore,
-				functionalImpactData.siftPrediction
-			)}`,
+			`MutationAssessor: ${MutationAssessor.download(functionalImpactData.mutationAssessor)}`,
+			`SIFT: ${Sift.download(functionalImpactData.siftScore, functionalImpactData.siftPrediction)}`,
 			`Polyphen-2: ${PolyPhen2.download(
 				functionalImpactData.polyPhenScore,
 				functionalImpactData.polyPhenPrediction
@@ -481,19 +340,14 @@ export default class FunctionalImpactColumnFormatter {
 		].join(";");
 	}
 
-	private static getGenomeNexusData(
-		data: Mutation[],
-		cache: GenomeNexusCache
-	): GenomeNexusCacheDataType | null {
+	private static getGenomeNexusData(data: Mutation[], cache: GenomeNexusCache): GenomeNexusCacheDataType | null {
 		if (data.length === 0) {
 			return null;
 		}
 		return cache.get(data[0]);
 	}
 
-	private static makeFuncionalImpactViz(
-		genomeNexusData: GenomeNexusCacheDataType | null
-	) {
+	private static makeFuncionalImpactViz(genomeNexusData: GenomeNexusCacheDataType | null) {
 		let status: TableCellStatus | null = null;
 
 		if (genomeNexusData === null) {
@@ -503,27 +357,19 @@ export default class FunctionalImpactColumnFormatter {
 		} else if (genomeNexusData.data === null) {
 			status = TableCellStatus.NA;
 		} else {
-			const functionalImpactData = FunctionalImpactColumnFormatter.getData(
-				genomeNexusData
-			);
+			const functionalImpactData = FunctionalImpactColumnFormatter.getData(genomeNexusData);
 
 			return (
 				functionalImpactData && (
 					<div>
-						<MutationAssessor
-							mutationAssessor={
-								functionalImpactData.mutationAssessor
-							}
-						/>
+						<MutationAssessor mutationAssessor={functionalImpactData.mutationAssessor} />
 						<Sift
 							siftScore={functionalImpactData.siftScore}
 							siftPrediction={functionalImpactData.siftPrediction}
 						/>
 						<PolyPhen2
 							polyPhenScore={functionalImpactData.polyPhenScore}
-							polyPhenPrediction={
-								functionalImpactData.polyPhenPrediction
-							}
+							polyPhenPrediction={functionalImpactData.polyPhenPrediction}
 						/>
 					</div>
 				)
@@ -533,15 +379,7 @@ export default class FunctionalImpactColumnFormatter {
 		if (status !== null) {
 			// show loading circle
 			if (status === TableCellStatus.LOADING) {
-				return (
-					<Circle
-						size={18}
-						scaleEnd={0.5}
-						scaleStart={0.2}
-						color="#aaa"
-						className="pull-left"
-					/>
-				);
+				return <Circle size={18} scaleEnd={0.5} scaleStart={0.2} color="#aaa" className="pull-left" />;
 			} else {
 				return <TableCellStatusIndicator status={status} />;
 			}

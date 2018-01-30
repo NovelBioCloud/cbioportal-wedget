@@ -16,10 +16,7 @@ export interface IMutationsPageProps {
 }
 
 @observer
-export default class Mutations extends React.Component<
-	IMutationsPageProps,
-	{}
-> {
+export default class Mutations extends React.Component<IMutationsPageProps, {}> {
 	@observable mutationsGeneTab: string;
 
 	constructor(props: IMutationsPageProps) {
@@ -36,9 +33,7 @@ export default class Mutations extends React.Component<
 
 		return (
 			<div>
-				<Loader
-					isLoading={this.props.store.mutationMapperStores.isPending}
-				/>
+				<Loader isLoading={this.props.store.mutationMapperStores.isPending} />
 				{this.props.store.mutationMapperStores.isComplete && (
 					<MSKTabs
 						id="mutationsPageTabs"
@@ -61,9 +56,7 @@ export default class Mutations extends React.Component<
 		const tabs: JSX.Element[] = [];
 
 		genes.forEach((gene: string) => {
-			const mutationMapperStore = this.props.store.getMutationMapperStore(
-				gene
-			);
+			const mutationMapperStore = this.props.store.getMutationMapperStore(gene);
 
 			if (mutationMapperStore) {
 				tabs.push(
@@ -71,21 +64,13 @@ export default class Mutations extends React.Component<
 						<MutationMapper
 							store={mutationMapperStore}
 							discreteCNACache={this.props.store.discreteCNACache}
-							genomeNexusEnrichmentCache={
-								this.props.store.genomeNexusEnrichmentCache
-							}
-							oncoKbEvidenceCache={
-								this.props.store.oncoKbEvidenceCache
-							}
+							genomeNexusEnrichmentCache={this.props.store.genomeNexusEnrichmentCache}
+							oncoKbEvidenceCache={this.props.store.oncoKbEvidenceCache}
 							pubMedCache={this.props.store.pubMedCache}
 							cancerTypeCache={this.props.store.cancerTypeCache}
-							mutationCountCache={
-								this.props.store.mutationCountCache
-							}
+							mutationCountCache={this.props.store.mutationCountCache}
 							pdbHeaderCache={this.props.store.pdbHeaderCache}
-							myCancerGenomeData={
-								this.props.store.myCancerGenomeData
-							}
+							myCancerGenomeData={this.props.store.myCancerGenomeData}
 							config={AppConfig}
 						/>
 					</MSKTab>

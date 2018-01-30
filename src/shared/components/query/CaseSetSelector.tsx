@@ -5,12 +5,7 @@ import ReactSelect from "react-select";
 import { observer } from "mobx-react";
 import { computed } from "mobx";
 import { FlexCol, FlexRow } from "../flexbox/FlexBox";
-import {
-	QueryStore,
-	QueryStoreComponent,
-	CUSTOM_CASE_LIST_ID,
-	ALL_CASES_LIST_ID
-} from "./QueryStore";
+import { QueryStore, QueryStoreComponent, CUSTOM_CASE_LIST_ID, ALL_CASES_LIST_ID } from "./QueryStore";
 import { getStudySummaryUrl } from "../../api/urls";
 import DefaultTooltip from "../defaultTooltip/DefaultTooltip";
 import SectionHeader from "../sectionHeader/SectionHeader";
@@ -26,10 +21,7 @@ export interface ReactSelectOptionWithName extends ReactSelectOption<any> {
 	textLabel: string;
 }
 
-export function filterCaseSetOptions(
-	opt: ReactSelectOptionWithName,
-	filter: string
-) {
+export function filterCaseSetOptions(opt: ReactSelectOptionWithName, filter: string) {
 	return _.includes(opt.textLabel.toLowerCase(), filter.toLowerCase());
 }
 
@@ -44,15 +36,9 @@ export default class CaseSetSelector extends QueryStoreComponent<{}, {}> {
 						<DefaultTooltip
 							placement="right"
 							mouseEnterDelay={0}
-							overlay={
-								<div className={styles.tooltip}>
-									{sampleList.description}
-								</div>
-							}
+							overlay={<div className={styles.tooltip}>{sampleList.description}</div>}
 						>
-							<span>{`${sampleList.name} (${
-								sampleList.sampleCount
-							})`}</span>
+							<span>{`${sampleList.name} (${sampleList.sampleCount})`}</span>
 						</DefaultTooltip>
 					),
 					value: sampleList.sampleListId,
@@ -64,11 +50,7 @@ export default class CaseSetSelector extends QueryStoreComponent<{}, {}> {
 					<DefaultTooltip
 						placement="right"
 						mouseEnterDelay={0}
-						overlay={
-							<div className={styles.tooltip}>
-								Specify your own case list
-							</div>
-						}
+						overlay={<div className={styles.tooltip}>Specify your own case list</div>}
 					>
 						<span>User-defined Case List</span>
 					</DefaultTooltip>
@@ -85,11 +67,7 @@ export default class CaseSetSelector extends QueryStoreComponent<{}, {}> {
 						<DefaultTooltip
 							placement="right"
 							mouseEnterDelay={0}
-							overlay={
-								<div className={styles.tooltip}>
-									All cases in the selected cohorts
-								</div>
-							}
+							overlay={<div className={styles.tooltip}>All cases in the selected cohorts</div>}
 						>
 							<span>All</span>
 						</DefaultTooltip>
@@ -104,30 +82,16 @@ export default class CaseSetSelector extends QueryStoreComponent<{}, {}> {
 	render() {
 		if (!this.store.selectedStudyIds.length) return null;
 		return (
-			<FlexRow
-				padded
-				overflow
-				className={styles.CaseSetSelector}
-				data-test="CaseSetSelector"
-			>
+			<FlexRow padded overflow className={styles.CaseSetSelector} data-test="CaseSetSelector">
 				<div>
 					<SectionHeader
 						className="sectionLabel"
 						secondaryComponent={
-							<a
-								href={getStudySummaryUrl(
-									this.store.selectedStudyIds
-								)}
-								target="_blank"
-							>
-								To build your own case set, try out our enhanced
-								Study View.
+							<a href={getStudySummaryUrl(this.store.selectedStudyIds)} target="_blank">
+								To build your own case set, try out our enhanced Study View.
 							</a>
 						}
-						promises={[
-							this.store.sampleLists,
-							this.store.asyncCustomCaseSet
-						]}
+						promises={[this.store.sampleLists, this.store.asyncCustomCaseSet]}
 					>
 						Select Patient/Case Set:
 					</SectionHeader>
@@ -137,27 +101,15 @@ export default class CaseSetSelector extends QueryStoreComponent<{}, {}> {
 						value={this.store.selectedSampleListId}
 						options={this.caseSetOptions}
 						filterOption={filterCaseSetOptions}
-						onChange={option =>
-							(this.store.selectedSampleListId = option
-								? option.value
-								: undefined)
-						}
+						onChange={option => (this.store.selectedSampleListId = option ? option.value : undefined)}
 					/>
 
-					{!!(
-						this.store.selectedSampleListId === CUSTOM_CASE_LIST_ID
-					) && (
+					{!!(this.store.selectedSampleListId === CUSTOM_CASE_LIST_ID) && (
 						<FlexCol padded>
 							<div className={styles.radioRow}>
 								<FlexRow padded>
-									<this.CaseIdsModeRadio
-										label="By sample ID"
-										state="sample"
-									/>
-									<this.CaseIdsModeRadio
-										label="By patient ID"
-										state="patient"
-									/>
+									<this.CaseIdsModeRadio label="By sample ID" state="sample" />
+									<this.CaseIdsModeRadio label="By patient ID" state="patient" />
 								</FlexRow>
 							</div>
 
@@ -167,10 +119,7 @@ export default class CaseSetSelector extends QueryStoreComponent<{}, {}> {
 								rows={6}
 								cols={80}
 								value={this.store.caseIds}
-								onChange={event =>
-									(this.store.caseIds =
-										event.currentTarget.value)
-								}
+								onChange={event => (this.store.caseIds = event.currentTarget.value)}
 							/>
 						</FlexCol>
 					)}
@@ -179,19 +128,16 @@ export default class CaseSetSelector extends QueryStoreComponent<{}, {}> {
 		);
 	}
 
-	CaseIdsModeRadio = observer(
-		(props: { label: string; state: QueryStore["caseIdsMode"] }) => (
-			<label>
-				<input
-					type="radio"
-					checked={this.store.caseIdsMode == props.state}
-					onChange={event => {
-						if (event.currentTarget.checked)
-							this.store.caseIdsMode = props.state;
-					}}
-				/>
-				{props.label}
-			</label>
-		)
-	);
+	CaseIdsModeRadio = observer((props: { label: string; state: QueryStore["caseIdsMode"] }) => (
+		<label>
+			<input
+				type="radio"
+				checked={this.store.caseIdsMode == props.state}
+				onChange={event => {
+					if (event.currentTarget.checked) this.store.caseIdsMode = props.state;
+				}}
+			/>
+			{props.label}
+		</label>
+	));
 }

@@ -16,10 +16,7 @@ import PubMedCache from "shared/cache/PubMedCache";
 import MrnaExprRankCache from "shared/cache/MrnaExprRankCache";
 import { IGisticData } from "shared/model/Gistic";
 import CopyNumberCountCache from "../clinicalInformation/CopyNumberCountCache";
-import {
-	ICivicGeneDataWrapper,
-	ICivicVariantDataWrapper
-} from "shared/model/Civic.ts";
+import { ICivicGeneDataWrapper, ICivicVariantDataWrapper } from "shared/model/Civic";
 
 class CNATableComponent extends LazyMobXTable<DiscreteCopyNumberData[]> {}
 
@@ -46,10 +43,7 @@ type ICopyNumberTableWrapperProps = {
 };
 
 @observer
-export default class CopyNumberTableWrapper extends React.Component<
-	ICopyNumberTableWrapperProps,
-	{}
-> {
+export default class CopyNumberTableWrapper extends React.Component<ICopyNumberTableWrapperProps, {}> {
 	public static defaultProps = {
 		enableOncoKb: true,
 		enableCivic: false
@@ -63,31 +57,17 @@ export default class CopyNumberTableWrapper extends React.Component<
 			columns.push({
 				name: "Tumors",
 				render: (d: DiscreteCopyNumberData[]) =>
-					TumorColumnFormatter.renderFunction(
-						d,
-						this.props.sampleManager
-					),
-				sortBy: (d: DiscreteCopyNumberData[]) =>
-					TumorColumnFormatter.getSortValue(
-						d,
-						this.props.sampleManager
-					),
-				download: (d: DiscreteCopyNumberData[]) =>
-					TumorColumnFormatter.getSample(d),
+					TumorColumnFormatter.renderFunction(d, this.props.sampleManager),
+				sortBy: (d: DiscreteCopyNumberData[]) => TumorColumnFormatter.getSortValue(d, this.props.sampleManager),
+				download: (d: DiscreteCopyNumberData[]) => TumorColumnFormatter.getSample(d),
 				order: 20
 			});
 		}
 
 		columns.push({
 			name: "Gene",
-			render: (d: DiscreteCopyNumberData[]) => (
-				<span>{d[0].gene.hugoGeneSymbol}</span>
-			),
-			filter: (
-				d: DiscreteCopyNumberData[],
-				filterString: string,
-				filterStringUpper: string
-			) => {
+			render: (d: DiscreteCopyNumberData[]) => <span>{d[0].gene.hugoGeneSymbol}</span>,
+			filter: (d: DiscreteCopyNumberData[], filterString: string, filterStringUpper: string) => {
 				return d[0].gene.hugoGeneSymbol.indexOf(filterStringUpper) > -1;
 			},
 			download: (d: DiscreteCopyNumberData[]) => d[0].gene.hugoGeneSymbol,
@@ -99,11 +79,7 @@ export default class CopyNumberTableWrapper extends React.Component<
 		columns.push({
 			name: "CNA",
 			render: CnaColumnFormatter.renderFunction,
-			filter: (
-				d: DiscreteCopyNumberData[],
-				filterString: string,
-				filterStringUpper: string
-			) => {
+			filter: (d: DiscreteCopyNumberData[], filterString: string, filterStringUpper: string) => {
 				return (
 					CnaColumnFormatter.displayText(d)
 						.toUpperCase()
@@ -146,9 +122,7 @@ export default class CopyNumberTableWrapper extends React.Component<
 
 		columns.push({
 			name: "Cytoband",
-			render: (d: DiscreteCopyNumberData[]) => (
-				<span>{d[0].gene.cytoband}</span>
-			),
+			render: (d: DiscreteCopyNumberData[]) => <span>{d[0].gene.cytoband}</span>,
 			download: (d: DiscreteCopyNumberData[]) => d[0].gene.cytoband,
 			sortBy: (d: DiscreteCopyNumberData[]) => d[0].gene.cytoband,
 			visible: true,
@@ -159,20 +133,13 @@ export default class CopyNumberTableWrapper extends React.Component<
 			name: "Cohort",
 			render: (d: DiscreteCopyNumberData[]) =>
 				this.props.copyNumberCountCache ? (
-					CohortColumnFormatter.renderFunction(
-						d,
-						this.props.copyNumberCountCache,
-						this.props.gisticData
-					)
+					CohortColumnFormatter.renderFunction(d, this.props.copyNumberCountCache, this.props.gisticData)
 				) : (
 					<span />
 				),
 			sortBy: (d: DiscreteCopyNumberData[]) => {
 				if (this.props.copyNumberCountCache) {
-					return CohortColumnFormatter.getSortValue(
-						d,
-						this.props.copyNumberCountCache
-					);
+					return CohortColumnFormatter.getSortValue(d, this.props.copyNumberCountCache);
 				} else {
 					return 0;
 				}
@@ -187,10 +154,7 @@ export default class CopyNumberTableWrapper extends React.Component<
 				name: "mRNA Expr.",
 				render: (d: DiscreteCopyNumberData[]) =>
 					this.props.mrnaExprRankCache ? (
-						MrnaExprColumnFormatter.cnaRenderFunction(
-							d,
-							this.props.mrnaExprRankCache
-						)
+						MrnaExprColumnFormatter.cnaRenderFunction(d, this.props.mrnaExprRankCache)
 					) : (
 						<span />
 					),
@@ -198,10 +162,7 @@ export default class CopyNumberTableWrapper extends React.Component<
 			});
 		}
 
-		const orderedColumns = _.sortBy(
-			columns,
-			(c: CNATableColumn) => c.order
-		);
+		const orderedColumns = _.sortBy(columns, (c: CNATableColumn) => c.order);
 		return (
 			<div>
 				{this.props.status === "unavailable" && (

@@ -16,10 +16,7 @@ import { observable } from "mobx";
 import OncoKbEvidenceCache from "shared/cache/OncoKbEvidenceCache";
 import OncoKbTooltip from "./OncoKbTooltip";
 import OncokbPubMedCache from "shared/cache/PubMedCache";
-import {
-	default as TableCellStatusIndicator,
-	TableCellStatus
-} from "shared/components/TableCellStatus";
+import { default as TableCellStatusIndicator, TableCellStatus } from "shared/components/TableCellStatus";
 import AppConfig from "appConfig";
 
 export interface IOncoKbProps {
@@ -52,9 +49,7 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 		};
 	}
 
-	public static sortValue(
-		indicator?: IndicatorQueryResp | undefined | null
-	): number[] {
+	public static sortValue(indicator?: IndicatorQueryResp | undefined | null): number[] {
 		if (!indicator) {
 			return [];
 		}
@@ -69,17 +64,13 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 		return values;
 	}
 
-	public static download(
-		indicator?: IndicatorQueryResp | undefined | null
-	): string {
+	public static download(indicator?: IndicatorQueryResp | undefined | null): string {
 		if (!indicator) {
 			return "NA";
 		}
 
 		const oncogenic = indicator.oncogenic ? indicator.oncogenic : "Unknown";
-		const level = indicator.highestSensitiveLevel
-			? indicator.highestSensitiveLevel.toLowerCase()
-			: "level NA";
+		const level = indicator.highestSensitiveLevel ? indicator.highestSensitiveLevel.toLowerCase() : "level NA";
 
 		return `${oncogenic}, ${level}`;
 	}
@@ -94,9 +85,7 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 	}
 
 	public render() {
-		let oncoKbContent: JSX.Element = (
-			<span className={`${annotationStyles["annotation-item"]}`} />
-		);
+		let oncoKbContent: JSX.Element = <span className={`${annotationStyles["annotation-item"]}`} />;
 
 		if (this.props.status === "error") {
 			oncoKbContent = this.errorIcon();
@@ -106,9 +95,7 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 			oncoKbContent = (
 				<span className={`${annotationStyles["annotation-item"]}`}>
 					<i
-						className={`${
-							oncogenicIconStyles["oncogenic-icon-image"]
-						} ${this.oncogenicImageClassNames(
+						className={`${oncogenicIconStyles["oncogenic-icon-image"]} ${this.oncogenicImageClassNames(
 							this.props.indicator
 						)}`}
 						style={OncoKB.ONCOGENIC_ICON_STYLE}
@@ -122,15 +109,11 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 						{oncoKbContent}
 						{this.feedbackModal(
 							this.props.hugoGeneSymbol,
-							this.props.evidenceQuery &&
-								this.props.evidenceQuery.alteration
+							this.props.evidenceQuery && this.props.evidenceQuery.alteration
 						)}
 					</span>
 				);
-			} else if (
-				this.tooltipDataLoadComplete ||
-				(this.props.evidenceCache && this.props.evidenceQuery)
-			) {
+			} else if (this.tooltipDataLoadComplete || (this.props.evidenceCache && this.props.evidenceQuery)) {
 				oncoKbContent = (
 					<DefaultTooltip
 						overlay={this.tooltipContent}
@@ -149,15 +132,7 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 	}
 
 	public loaderIcon() {
-		return (
-			<Circle
-				size={18}
-				scaleEnd={0.5}
-				scaleStart={0.2}
-				color="#aaa"
-				className="pull-left"
-			/>
-		);
+		return <Circle size={18} scaleEnd={0.5} scaleStart={0.2} color="#aaa" className="pull-left" />;
 	}
 
 	public errorIcon() {
@@ -168,9 +143,7 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 				trigger={["hover", "focus"]}
 				destroyTooltipOnHide={true}
 			>
-				<span
-					className={`${annotationStyles["annotation-item-error"]}`}
-				>
+				<span className={`${annotationStyles["annotation-item-error"]}`}>
 					<i className="fa fa-exclamation-triangle text-danger" />
 				</span>
 			</DefaultTooltip>
@@ -178,15 +151,11 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 	}
 
 	public feedbackModal(hugoSymbol?: string, alteration?: string) {
-		const url =
-			"https://docs.google.com/forms/d/1lt6TtecxHrhIE06gAKVF_JW4zKFoowNFzxn6PJv4g7A/viewform";
+		const url = "https://docs.google.com/forms/d/1lt6TtecxHrhIE06gAKVF_JW4zKFoowNFzxn6PJv4g7A/viewform";
 		const geneParam = `entry.1744186665=${hugoSymbol || ""}`;
 		const alterationParam = `entry.1671960263=${alteration || ""}`;
-		const userParam = `entry.1381123986=${this.props.userEmailAddress ||
-			""}`;
-		const uriParam = `entry.1083850662=${encodeURIComponent(
-			window.location.href
-		)}`;
+		const userParam = `entry.1381123986=${this.props.userEmailAddress || ""}`;
+		const uriParam = `entry.1083850662=${encodeURIComponent(window.location.href)}`;
 
 		return (
 			<Modal show={this.showFeedback} onHide={this.handleFeedbackClose}>
@@ -205,9 +174,7 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 						marginHeight={0}
 						marginWidth={0}
 					>
-						<TableCellStatusIndicator
-							status={TableCellStatus.LOADING}
-						/>
+						<TableCellStatusIndicator status={TableCellStatus.LOADING} />
 					</iframe>
 				</Modal.Body>
 			</Modal>

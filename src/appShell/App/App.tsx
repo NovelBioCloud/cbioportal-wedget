@@ -23,10 +23,7 @@ export default class App extends React.Component<IAppProps, void> {
 		const { history, routes, routerKey, store, actions } = this.props;
 		let newProps = { actions, ...this.props };
 
-		const createElement = <T extends React.ComponentClass<any>>(
-			Component: T,
-			props: IAppProps
-		) => {
+		const createElement = <T extends React.ComponentClass<any>>(Component: T, props: IAppProps) => {
 			return <Component {...newProps} {...props} />;
 		};
 

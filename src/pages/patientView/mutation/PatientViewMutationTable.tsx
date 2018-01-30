@@ -20,9 +20,7 @@ export interface IPatientViewMutationTableProps extends IMutationTableProps {
 }
 
 @observer
-export default class PatientViewMutationTable extends MutationTable<
-	IPatientViewMutationTableProps
-> {
+export default class PatientViewMutationTable extends MutationTable<IPatientViewMutationTableProps> {
 	constructor(props: IPatientViewMutationTableProps) {
 		super(props);
 	}
@@ -71,88 +69,44 @@ export default class PatientViewMutationTable extends MutationTable<
 
 		this._columns[MutationTableColumnType.TUMOR_ALLELE_FREQ] = {
 			name: "Allele Freq",
-			render: (d: Mutation[]) =>
-				AlleleFreqColumnFormatter.renderFunction(
-					d,
-					this.props.sampleManager
-				),
-			sortBy: (d: Mutation[]) =>
-				AlleleFreqColumnFormatter.getSortValue(
-					d,
-					this.props.sampleManager
-				),
-			download: (d: Mutation[]) =>
-				AlleleFreqColumnFormatter.getFrequency(d),
+			render: (d: Mutation[]) => AlleleFreqColumnFormatter.renderFunction(d, this.props.sampleManager),
+			sortBy: (d: Mutation[]) => AlleleFreqColumnFormatter.getSortValue(d, this.props.sampleManager),
+			download: (d: Mutation[]) => AlleleFreqColumnFormatter.getFrequency(d),
 			tooltip: <span>Variant allele frequency in the tumor sample</span>,
 			visible: AlleleFreqColumnFormatter.isVisible(
 				this.props.sampleManager,
-				this.props.dataStore
-					? this.props.dataStore.allData
-					: this.props.data
+				this.props.dataStore ? this.props.dataStore.allData : this.props.data
 			)
 		};
 
 		this._columns[MutationTableColumnType.TUMORS] = {
 			name: "Tumors",
-			render: (d: Mutation[]) =>
-				TumorColumnFormatter.renderFunction(
-					d,
-					this.props.sampleManager
-				),
-			sortBy: (d: Mutation[]) =>
-				TumorColumnFormatter.getSortValue(d, this.props.sampleManager),
+			render: (d: Mutation[]) => TumorColumnFormatter.renderFunction(d, this.props.sampleManager),
+			sortBy: (d: Mutation[]) => TumorColumnFormatter.getSortValue(d, this.props.sampleManager),
 			download: (d: Mutation[]) => TumorColumnFormatter.getSample(d)
 		};
 
 		// customization for allele count columns
 
-		this._columns[MutationTableColumnType.REF_READS_N].render = (
-			d: Mutation[]
-		) =>
-			AlleleCountColumnFormatter.renderFunction(
-				d,
-				this.getSamples(),
-				"normalRefCount"
-			);
-		this._columns[MutationTableColumnType.REF_READS_N].download = (
-			d: Mutation[]
-		) => AlleleCountColumnFormatter.getReads(d, "normalRefCount");
+		this._columns[MutationTableColumnType.REF_READS_N].render = (d: Mutation[]) =>
+			AlleleCountColumnFormatter.renderFunction(d, this.getSamples(), "normalRefCount");
+		this._columns[MutationTableColumnType.REF_READS_N].download = (d: Mutation[]) =>
+			AlleleCountColumnFormatter.getReads(d, "normalRefCount");
 
-		this._columns[MutationTableColumnType.VAR_READS_N].render = (
-			d: Mutation[]
-		) =>
-			AlleleCountColumnFormatter.renderFunction(
-				d,
-				this.getSamples(),
-				"normalAltCount"
-			);
-		this._columns[MutationTableColumnType.VAR_READS_N].download = (
-			d: Mutation[]
-		) => AlleleCountColumnFormatter.getReads(d, "normalAltCount");
+		this._columns[MutationTableColumnType.VAR_READS_N].render = (d: Mutation[]) =>
+			AlleleCountColumnFormatter.renderFunction(d, this.getSamples(), "normalAltCount");
+		this._columns[MutationTableColumnType.VAR_READS_N].download = (d: Mutation[]) =>
+			AlleleCountColumnFormatter.getReads(d, "normalAltCount");
 
-		this._columns[MutationTableColumnType.REF_READS].render = (
-			d: Mutation[]
-		) =>
-			AlleleCountColumnFormatter.renderFunction(
-				d,
-				this.getSamples(),
-				"tumorRefCount"
-			);
-		this._columns[MutationTableColumnType.REF_READS].download = (
-			d: Mutation[]
-		) => AlleleCountColumnFormatter.getReads(d, "tumorRefCount");
+		this._columns[MutationTableColumnType.REF_READS].render = (d: Mutation[]) =>
+			AlleleCountColumnFormatter.renderFunction(d, this.getSamples(), "tumorRefCount");
+		this._columns[MutationTableColumnType.REF_READS].download = (d: Mutation[]) =>
+			AlleleCountColumnFormatter.getReads(d, "tumorRefCount");
 
-		this._columns[MutationTableColumnType.VAR_READS].render = (
-			d: Mutation[]
-		) =>
-			AlleleCountColumnFormatter.renderFunction(
-				d,
-				this.getSamples(),
-				"tumorAltCount"
-			);
-		this._columns[MutationTableColumnType.VAR_READS].download = (
-			d: Mutation[]
-		) => AlleleCountColumnFormatter.getReads(d, "tumorAltCount");
+		this._columns[MutationTableColumnType.VAR_READS].render = (d: Mutation[]) =>
+			AlleleCountColumnFormatter.renderFunction(d, this.getSamples(), "tumorAltCount");
+		this._columns[MutationTableColumnType.VAR_READS].download = (d: Mutation[]) =>
+			AlleleCountColumnFormatter.getReads(d, "tumorAltCount");
 
 		// order columns
 		this._columns[MutationTableColumnType.TUMORS].order = 5;
@@ -181,10 +135,7 @@ export default class PatientViewMutationTable extends MutationTable<
 
 		// exclusions
 		this._columns[MutationTableColumnType.MRNA_EXPR].shouldExclude = () => {
-			return (
-				!this.props.mrnaExprRankMolecularProfileId ||
-				this.getSamples().length > 1
-			);
+			return !this.props.mrnaExprRankMolecularProfileId || this.getSamples().length > 1;
 		};
 		// only hide tumor column if there is one sample and no uncalled
 		// mutations (there is no information added in that case by the sample
@@ -193,10 +144,7 @@ export default class PatientViewMutationTable extends MutationTable<
 			return this.getSamples().length < 2 && !this.hasUncalledMutations;
 		};
 		this._columns[MutationTableColumnType.COPY_NUM].shouldExclude = () => {
-			return (
-				!this.props.discreteCNAMolecularProfileId ||
-				this.getSamples().length > 1
-			);
+			return !this.props.discreteCNAMolecularProfileId || this.getSamples().length > 1;
 		};
 	}
 

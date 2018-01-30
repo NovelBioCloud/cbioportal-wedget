@@ -14,10 +14,7 @@ import { observable } from "mobx";
 import { QueryStore } from "../../../shared/components/query/QueryStore";
 import QueryAndDownloadTabs from "../../../shared/components/query/QueryAndDownloadTabs";
 
-class StudyLink extends React.Component<
-	{ study: CancerStudy; onClick?: () => void; href?: string },
-	{}
-> {
+class StudyLink extends React.Component<{ study: CancerStudy; onClick?: () => void; href?: string }, {}> {
 	render() {
 		return (
 			<a
@@ -38,10 +35,7 @@ interface QuerySummaryProps {
 }
 
 @observer
-export default class QuerySummary extends React.Component<
-	{ queryStore: QueryStore; store: ResultsViewPageStore },
-	{}
-> {
+export default class QuerySummary extends React.Component<{ queryStore: QueryStore; store: ResultsViewPageStore }, {}> {
 	@observable private queryFormVisible = false;
 	@observable private queryStoreInitialized = false;
 
@@ -65,13 +59,11 @@ export default class QuerySummary extends React.Component<
 					<StudyLink study={this.props.store.studies.result[0]} />
 				</h4>
 				<span>
-					{(window as any).serverVars.caseSetProperties.case_set_name}&nbsp;
-					(<strong>{this.props.store.samples.result.length}</strong>{" "}
-					samples) /{" "}
-					<strong data-test="QuerySummaryGeneCount">
-						{this.props.store.hugoGeneSymbols.length}
+					{(window as any).serverVars.caseSetProperties.case_set_name}&nbsp; (<strong>
+						{this.props.store.samples.result.length}
 					</strong>{" "}
-					Genes
+					samples) /{" "}
+					<strong data-test="QuerySummaryGeneCount">{this.props.store.hugoGeneSymbols.length}</strong> Genes
 				</span>
 			</div>
 		);
@@ -83,11 +75,7 @@ export default class QuerySummary extends React.Component<
 				<span>
 					Querying {this.props.store.samples.result.length} samples in{" "}
 					{this.props.store.studies.result.length} studies &nbsp;
-					<DefaultTooltip
-						placement="bottom"
-						overlay={this.studyList}
-						destroyTooltipOnHide={true}
-					>
+					<DefaultTooltip placement="bottom" overlay={this.studyList} destroyTooltipOnHide={true}>
 						<i className="fa fa-info-circle" />
 					</DefaultTooltip>
 				</span>
@@ -99,35 +87,25 @@ export default class QuerySummary extends React.Component<
 		return (
 			<div className="cbioportal-frontend">
 				<ul className="list-unstyled" style={{ marginBottom: 0 }}>
-					{this.props.store.studies.result.map(
-						(study: CancerStudy, index: number) => {
-							return (
-								<li key={index}>
-									<StudyLink
-										href={`study?id=${study.studyId}`}
-										study={study}
-									/>
-								</li>
-							);
-						}
-					)}
+					{this.props.store.studies.result.map((study: CancerStudy, index: number) => {
+						return (
+							<li key={index}>
+								<StudyLink href={`study?id=${study.studyId}`} study={study} />
+							</li>
+						);
+					})}
 				</ul>
 			</div>
 		);
 	}
 
 	render() {
-		if (
-			!this.props.store.totalAlterationStats.isError &&
-			!this.props.store.studies.isError
-		) {
+		if (!this.props.store.totalAlterationStats.isError && !this.props.store.studies.isError) {
 			const loadingComplete =
-				this.props.store.totalAlterationStats.isComplete &&
-				this.props.store.studies.isComplete;
+				this.props.store.totalAlterationStats.isComplete && this.props.store.studies.isComplete;
 
 			let alterationPercentage = loadingComplete
-				? this.props.store.totalAlterationStats.result!
-						.alteredSampleCount /
+				? this.props.store.totalAlterationStats.result!.alteredSampleCount /
 					this.props.store.totalAlterationStats.result!.sampleCount *
 					100
 				: 0;
@@ -143,9 +121,7 @@ export default class QuerySummary extends React.Component<
 										disabled: !loadingComplete
 									})}
 								>
-									{this.queryFormVisible
-										? "Cancel Modify Query"
-										: "Modify Query"}
+									{this.queryFormVisible ? "Cancel Modify Query" : "Modify Query"}
 								</button>
 							</div>
 
@@ -160,12 +136,10 @@ export default class QuerySummary extends React.Component<
 							<div className="query-summary__alterationData">
 								<h4>
 									Gene Set / Pathway is altered in{" "}
-									{
-										this.props.store.totalAlterationStats
-											.result!.alteredSampleCount
-									}{" "}
-									({_.round(alterationPercentage, 1)}%) of
-									queried samples
+									{this.props.store.totalAlterationStats.result!.alteredSampleCount} ({_.round(
+										alterationPercentage,
+										1
+									)}%) of queried samples
 								</h4>
 							</div>
 						)}
@@ -178,10 +152,7 @@ export default class QuerySummary extends React.Component<
 								hidden: !this.queryFormVisible
 							})}
 						>
-							<QueryAndDownloadTabs
-								showDownloadTab={false}
-								store={this.props.queryStore}
-							/>
+							<QueryAndDownloadTabs showDownloadTab={false} store={this.props.queryStore} />
 						</div>
 					)}
 				</div>

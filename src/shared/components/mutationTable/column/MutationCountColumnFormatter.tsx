@@ -6,13 +6,10 @@ import MutationTable, { IMutationTableProps } from "../MutationTable";
 import generalStyles from "./styles.module.scss";
 
 export default class MutationCountColumnFormatter {
-	public static makeRenderFunction<P extends IMutationTableProps>(
-		table: MutationTable<P>
-	) {
+	public static makeRenderFunction<P extends IMutationTableProps>(table: MutationTable<P>) {
 		return LazyLoadedTableCell(
 			(d: Mutation[]) => {
-				const mutationCountCache: MutationCountCache | undefined =
-					table.props.mutationCountCache;
+				const mutationCountCache: MutationCountCache | undefined = table.props.mutationCountCache;
 				if (mutationCountCache) {
 					return mutationCountCache.get({
 						sampleId: d[0].sampleId,
@@ -25,19 +22,12 @@ export default class MutationCountColumnFormatter {
 					};
 				}
 			},
-			(t: MutationCount) => (
-				<div className={generalStyles["integer-data"]}>
-					{t.mutationCount}
-				</div>
-			),
+			(t: MutationCount) => <div className={generalStyles["integer-data"]}>{t.mutationCount}</div>,
 			"Mutation count not available for this sample."
 		);
 	}
 
-	public static sortBy(
-		d: Mutation[],
-		mutationCountCache?: MutationCountCache
-	) {
+	public static sortBy(d: Mutation[], mutationCountCache?: MutationCountCache) {
 		let ret;
 		if (mutationCountCache) {
 			const cacheDatum = mutationCountCache.get({
@@ -55,14 +45,8 @@ export default class MutationCountColumnFormatter {
 		return ret;
 	}
 
-	public static download(
-		d: Mutation[],
-		mutationCountCache?: MutationCountCache
-	) {
-		const sortValue = MutationCountColumnFormatter.sortBy(
-			d,
-			mutationCountCache
-		);
+	public static download(d: Mutation[], mutationCountCache?: MutationCountCache) {
+		const sortValue = MutationCountColumnFormatter.sortBy(d, mutationCountCache);
 
 		return sortValue ? `${sortValue}` : "";
 	}

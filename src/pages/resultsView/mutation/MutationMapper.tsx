@@ -46,10 +46,7 @@ export interface IMutationMapperProps {
 }
 
 @observer
-export default class MutationMapper extends React.Component<
-	IMutationMapperProps,
-	{}
-> {
+export default class MutationMapper extends React.Component<IMutationMapperProps, {}> {
 	@observable protected is3dPanelOpen = false;
 	@observable lollipopPlotGeneX: number = 0;
 	@observable geneWidth: number = 665;
@@ -77,32 +74,18 @@ export default class MutationMapper extends React.Component<
 		const hugoGeneSymbol = this.props.store.gene.hugoGeneSymbol;
 		const uniprotId = this.props.store.uniprotId.result;
 		const transcriptId =
-			this.props.store.canonicalTranscript.result &&
-			this.props.store.canonicalTranscript.result.transcriptId;
+			this.props.store.canonicalTranscript.result && this.props.store.canonicalTranscript.result.transcriptId;
 
 		return (
 			<div style={{ paddingBottom: 10 }}>
 				<h4>{hugoGeneSymbol}</h4>
-				<div
-					className={
-						this.props.store.uniprotId.result ? "" : "invisible"
-					}
-				>
+				<div className={this.props.store.uniprotId.result ? "" : "invisible"}>
 					<span>UniProt: </span>
-					<a
-						href={`http://www.uniprot.org/uniprot/${uniprotId}`}
-						target="_blank"
-					>
+					<a href={`http://www.uniprot.org/uniprot/${uniprotId}`} target="_blank">
 						{uniprotId}
 					</a>
 				</div>
-				<div
-					className={
-						this.props.store.canonicalTranscript.result
-							? ""
-							: "invisible"
-					}
-				>
+				<div className={this.props.store.canonicalTranscript.result ? "" : "invisible"}>
 					<span>Transcript: </span>
 					<a
 						href={`http://grch37.ensembl.org/homo_sapiens/Transcript/Summary?t=${transcriptId}`}
@@ -126,14 +109,10 @@ export default class MutationMapper extends React.Component<
 			return (
 				<MutationRateSummary
 					hugoGeneSymbol={this.props.store.gene.hugoGeneSymbol}
-					molecularProfileIdToMolecularProfile={
-						this.props.store.molecularProfileIdToMolecularProfile
-					}
+					molecularProfileIdToMolecularProfile={this.props.store.molecularProfileIdToMolecularProfile}
 					mutations={this.props.store.mutationData.result}
 					samples={this.props.store.samples.result!}
-					germlineConsentedSamples={
-						this.props.store.germlineConsentedSamples
-					}
+					germlineConsentedSamples={this.props.store.germlineConsentedSamples}
 				/>
 			);
 		} else {
@@ -148,48 +127,31 @@ export default class MutationMapper extends React.Component<
 					<StructureViewerPanel
 						mutationDataStore={this.props.store.dataStore}
 						pdbChainDataStore={this.props.store.pdbChainDataStore}
-						pdbAlignmentIndex={
-							this.props.store.indexedAlignmentData
-						}
+						pdbAlignmentIndex={this.props.store.indexedAlignmentData}
 						pdbHeaderCache={this.props.pdbHeaderCache}
-						residueMappingCache={
-							this.props.store.residueMappingCache
-						}
+						residueMappingCache={this.props.store.residueMappingCache}
 						uniprotId={this.props.store.uniprotId.result}
 						onClose={this.close3dPanel}
 						{...DEFAULT_PROTEIN_IMPACT_TYPE_COLORS}
 					/>
 				)}
 
-				<LoadingIndicator
-					isLoading={this.props.store.mutationData.isPending}
-				/>
+				<LoadingIndicator isLoading={this.props.store.mutationData.isPending} />
 				{!this.props.store.mutationData.isPending && (
 					<div>
-						<LoadingIndicator
-							isLoading={
-								this.props.store.pfamDomainData.isPending
-							}
-						/>
+						<LoadingIndicator isLoading={this.props.store.pfamDomainData.isPending} />
 						{!this.props.store.pfamDomainData.isPending && (
 							<div style={{ display: "flex" }}>
-								<div
-									className="borderedChart"
-									style={{ marginRight: 10 }}
-								>
+								<div className="borderedChart" style={{ marginRight: 10 }}>
 									<LollipopMutationPlot
 										store={this.props.store}
-										onXAxisOffset={
-											this.handlers.onXAxisOffset
-										}
+										onXAxisOffset={this.handlers.onXAxisOffset}
 										geneWidth={this.geneWidth}
 										{...DEFAULT_PROTEIN_IMPACT_TYPE_COLORS}
 									/>
 									<ProteinChainPanel
 										store={this.props.store}
-										pdbHeaderCache={
-											this.props.pdbHeaderCache
-										}
+										pdbHeaderCache={this.props.pdbHeaderCache}
 										geneWidth={this.geneWidth}
 										geneXOffset={this.lollipopPlotGeneX}
 										maxChainsHeight={200}
@@ -203,19 +165,14 @@ export default class MutationMapper extends React.Component<
 
 									<div>
 										<ProteinImpactTypePanel
-											dataStore={
-												this.props.store.dataStore
-											}
+											dataStore={this.props.store.dataStore}
 											{...DEFAULT_PROTEIN_IMPACT_TYPE_COLORS}
 										/>
 									</div>
 
 									<button
 										className="btn btn-default btn-sm"
-										disabled={
-											this.props.store.pdbChainDataStore
-												.allData.length === 0
-										}
+										disabled={this.props.store.pdbChainDataStore.allData.length === 0}
 										onClick={this.toggle3dPanel}
 									>
 										View 3D Structure
@@ -239,14 +196,8 @@ export default class MutationMapper extends React.Component<
 										fontFamily: "verdana,arial,sans-serif"
 									}}
 								>
-									<span>
-										Current view shows filtered results.
-										Click{" "}
-									</span>
-									<a
-										style={{ cursor: "pointer" }}
-										onClick={this.handlers.resetDataStore}
-									>
+									<span>Current view shows filtered results. Click </span>
+									<a style={{ cursor: "pointer" }} onClick={this.handlers.resetDataStore}>
 										here
 									</a>
 									<span> to reset all filters.</span>
@@ -255,78 +206,37 @@ export default class MutationMapper extends React.Component<
 						)}
 						<LoadingIndicator
 							isLoading={
-								this.props.store.clinicalDataForSamples
-									.isPending ||
-								this.props.store
-									.studiesForSamplesWithoutCancerTypeClinicalData
-									.isPending
+								this.props.store.clinicalDataForSamples.isPending ||
+								this.props.store.studiesForSamplesWithoutCancerTypeClinicalData.isPending
 							}
 						/>
 						{!this.props.store.clinicalDataForSamples.isPending &&
-							!this.props.store
-								.studiesForSamplesWithoutCancerTypeClinicalData
-								.isPending && (
+							!this.props.store.studiesForSamplesWithoutCancerTypeClinicalData.isPending && (
 								<ResultsViewMutationTable
-									uniqueSampleKeyToTumorType={
-										this.props.store
-											.uniqueSampleKeyToTumorType
-									}
-									oncoKbAnnotatedGenes={
-										this.props.store.oncoKbAnnotatedGenes
-									}
-									discreteCNACache={
-										this.props.discreteCNACache
-									}
-									studyIdToStudy={
-										this.props.store.studyIdToStudy.result
-									}
-									genomeNexusEnrichmentCache={
-										this.props.genomeNexusEnrichmentCache
-									}
+									uniqueSampleKeyToTumorType={this.props.store.uniqueSampleKeyToTumorType}
+									oncoKbAnnotatedGenes={this.props.store.oncoKbAnnotatedGenes}
+									discreteCNACache={this.props.discreteCNACache}
+									studyIdToStudy={this.props.store.studyIdToStudy.result}
+									genomeNexusEnrichmentCache={this.props.genomeNexusEnrichmentCache}
 									molecularProfileIdToMolecularProfile={
-										this.props.store
-											.molecularProfileIdToMolecularProfile
-											.result
+										this.props.store.molecularProfileIdToMolecularProfile.result
 									}
-									oncoKbEvidenceCache={
-										this.props.oncoKbEvidenceCache
-									}
+									oncoKbEvidenceCache={this.props.oncoKbEvidenceCache}
 									pubMedCache={this.props.pubMedCache}
-									mutationCountCache={
-										this.props.mutationCountCache
-									}
+									mutationCountCache={this.props.mutationCountCache}
 									dataStore={this.props.store.dataStore}
-									downloadDataFetcher={
-										this.props.store.downloadDataFetcher
-									}
-									myCancerGenomeData={
-										this.props.myCancerGenomeData
-									}
-									hotspots={
-										this.props.store.indexedHotspotData
-											.result
-									}
-									cosmicData={
-										this.props.store.cosmicData.result
-									}
+									downloadDataFetcher={this.props.store.downloadDataFetcher}
+									myCancerGenomeData={this.props.myCancerGenomeData}
+									hotspots={this.props.store.indexedHotspotData.result}
+									cosmicData={this.props.store.cosmicData.result}
 									oncoKbData={this.props.store.oncoKbData}
 									civicGenes={this.props.store.civicGenes}
-									civicVariants={
-										this.props.store.civicVariants
-									}
-									userEmailAddress={
-										this.props.config.userEmailAddress
-									}
+									civicVariants={this.props.store.civicVariants}
+									userEmailAddress={this.props.config.userEmailAddress}
 									enableOncoKb={this.props.config.showOncoKB}
-									enableFunctionalImpact={
-										this.props.config.showGenomeNexus
-									}
-									enableHotspot={
-										this.props.config.showHotspot
-									}
-									enableMyCancerGenome={
-										this.props.config.showMyCancerGenome
-									}
+									enableFunctionalImpact={this.props.config.showGenomeNexus}
+									enableHotspot={this.props.config.showHotspot}
+									enableMyCancerGenome={this.props.config.showMyCancerGenome}
 									enableCivic={this.props.config.showCivic}
 								/>
 							)}

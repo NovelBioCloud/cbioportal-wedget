@@ -9,14 +9,11 @@ export type IThumbnailExpandVAFPlotProps = {
 	order?: { [s: string]: number };
 	colors?: { [s: string]: string };
 	labels?: { [s: string]: string };
-	overlayPlacement?: Tooltip.Placement;
+	overlayPlacement?: RCTooltip.RCTooltip.Placement;
 	cssClass?: string;
 };
 
-export class ThumbnailExpandVAFPlot extends React.Component<
-	IThumbnailExpandVAFPlotProps,
-	{}
-> {
+export class ThumbnailExpandVAFPlot extends React.Component<IThumbnailExpandVAFPlotProps, {}> {
 	public static defaultProps = {
 		order: {},
 		colors: {},

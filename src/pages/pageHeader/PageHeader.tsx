@@ -19,10 +19,7 @@ export default class PageHeader extends React.Component<IPageHeaderProps, {}> {
 			<header className="clearfix">
 				<h1 className="pull-left">cBioPortal.org</h1>
 				<div className="pull-right">
-					<form
-						className="form-inline"
-						onSubmit={e => this.handleSubmit(e)}
-					>
+					<form className="form-inline" onSubmit={e => this.handleSubmit(e)}>
 						<div className="form-group">
 							<input
 								className="form-control"

@@ -5,15 +5,10 @@ import TableCellStatusIndicator from "shared/components/TableCellStatus";
 import { TableCellStatus } from "shared/components/TableCellStatus";
 
 export default class TumorAlleleFreqColumnFormatter {
-	public static mainContent(
-		frequency: number,
-		altReads: number,
-		refReads: number
-	) {
+	public static mainContent(frequency: number, altReads: number, refReads: number) {
 		const overlay = (
 			<span>
-				<b>{altReads}</b> variant reads out of{" "}
-				<b>{altReads + refReads}</b> total
+				<b>{altReads}</b> variant reads out of <b>{altReads + refReads}</b> total
 			</span>
 		);
 
@@ -30,19 +25,13 @@ export default class TumorAlleleFreqColumnFormatter {
 	}
 
 	public static renderFunction(mutations: Mutation[]) {
-		const frequency = TumorAlleleFreqColumnFormatter.getSortValue(
-			mutations
-		);
+		const frequency = TumorAlleleFreqColumnFormatter.getSortValue(mutations);
 
 		if (frequency) {
 			const altReads = mutations[0].tumorAltCount;
 			const refReads = mutations[0].tumorRefCount;
 
-			return TumorAlleleFreqColumnFormatter.mainContent(
-				frequency,
-				altReads,
-				refReads
-			);
+			return TumorAlleleFreqColumnFormatter.mainContent(frequency, altReads, refReads);
 		} else {
 			return <TableCellStatusIndicator status={TableCellStatus.NA} />;
 		}

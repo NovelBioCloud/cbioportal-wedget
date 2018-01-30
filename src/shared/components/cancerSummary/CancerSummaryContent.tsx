@@ -95,10 +95,7 @@ const GroupByOptions = [
 ];
 
 @observer
-export class CancerSummaryContent extends React.Component<
-	ICancerSummaryContentProps,
-	{}
-> {
+export class CancerSummaryContent extends React.Component<ICancerSummaryContentProps, {}> {
 	private inputYAxisEl: any;
 	private inputXAxisEl: any;
 	@observable private tempAltCasesInputValue = 0;
@@ -127,27 +124,17 @@ export class CancerSummaryContent extends React.Component<
 
 		this.handleYAxisChange = this.handleYAxisChange.bind(this);
 		this.handleXAxisChange = this.handleXAxisChange.bind(this);
-		this.handleGenomicCheckboxChange = this.handleGenomicCheckboxChange.bind(
-			this
-		);
-		this.handleCancerTypeCheckboxChange = this.handleCancerTypeCheckboxChange.bind(
-			this
-		);
+		this.handleGenomicCheckboxChange = this.handleGenomicCheckboxChange.bind(this);
+		this.handleCancerTypeCheckboxChange = this.handleCancerTypeCheckboxChange.bind(this);
 		this.handleSelectChange = this.handleSelectChange.bind(this);
 		this.handleAltSliderChange = this.handleAltSliderChange.bind(this);
 		this.handleTotalSliderChange = this.handleTotalSliderChange.bind(this);
-		this.handleAltSliderChangeComplete = this.handleAltSliderChangeComplete.bind(
-			this
-		);
-		this.handleTotalSliderChangeComplete = this.handleTotalSliderChangeComplete.bind(
-			this
-		);
+		this.handleAltSliderChangeComplete = this.handleAltSliderChangeComplete.bind(this);
+		this.handleTotalSliderChangeComplete = this.handleTotalSliderChangeComplete.bind(this);
 		this.handleAltInputChange = this.handleAltInputChange.bind(this);
 		this.handleAltInputKeyPress = this.handleAltInputKeyPress.bind(this);
 		this.handleTotalInputChange = this.handleTotalInputChange.bind(this);
-		this.handleTotalInputKeyPress = this.handleTotalInputKeyPress.bind(
-			this
-		);
+		this.handleTotalInputKeyPress = this.handleTotalInputKeyPress.bind(this);
 		this.toggleShowControls = this.toggleShowControls.bind(this);
 		this.setPngAnchor = this.setPngAnchor.bind(this);
 		this.setPdfProperties = this.setPdfProperties.bind(this);
@@ -184,20 +171,15 @@ export class CancerSummaryContent extends React.Component<
 			this.countsData,
 			(accum, alterationData, groupKey) => {
 				const cancerAlterations = alterationData.alterationTypeCounts;
-				let altTotalPercent =
-					alterationData.alteredSampleCount /
-					alterationData.sampleTotal *
-					100;
+				let altTotalPercent = alterationData.alteredSampleCount / alterationData.sampleTotal * 100;
 				// if we meet the cases cut off
 				if (alterationData.sampleTotal >= this.totalCasesValue) {
 					// lets look at alterations by alteration type
 					const datasets = _.reduce(
 						cancerAlterations as any,
 						(memo, count: number, altType: string) => {
-							let percent =
-								count / alterationData.sampleTotal * 100;
-							const total =
-								this.yAxis === "abs-count" ? count : percent;
+							let percent = count / alterationData.sampleTotal * 100;
+							const total = this.yAxis === "abs-count" ? count : percent;
 							memo.push({
 								label: altType,
 								totalCases: alterationData.sampleTotal,
@@ -212,22 +194,14 @@ export class CancerSummaryContent extends React.Component<
 						[] as IBarGraphDataset[]
 					);
 					const orderedAlts = _.keys(orderedLabels);
-					const sortedDatasets = datasets.sort(
-						(a: IBarGraphDataset, b: IBarGraphDataset) => {
-							return (
-								orderedAlts.indexOf(a.label) -
-								orderedAlts.indexOf(b.label)
-							);
-						}
-					);
+					const sortedDatasets = datasets.sort((a: IBarGraphDataset, b: IBarGraphDataset) => {
+						return orderedAlts.indexOf(a.label) - orderedAlts.indexOf(b.label);
+					});
 					accum.push({
 						label: this.transformLabel(groupKey),
 						sortBy: this.yAxis,
 						symbol: this.yAxis === "abs-count" ? "" : "%",
-						sortCount:
-							this.yAxis === "abs-count"
-								? alterationData.alteredSampleCount
-								: altTotalPercent,
+						sortCount: this.yAxis === "abs-count" ? alterationData.alteredSampleCount : altTotalPercent,
 						data: sortedDatasets
 					});
 				}
@@ -268,8 +242,7 @@ export class CancerSummaryContent extends React.Component<
 	}
 
 	private handleCancerTypeCheckboxChange() {
-		this.viewCountsByCancerSubType =
-			this.viewCountsByCancerSubType === false;
+		this.viewCountsByCancerSubType = this.viewCountsByCancerSubType === false;
 	}
 
 	private handleGenomicCheckboxChange() {
@@ -306,9 +279,7 @@ export class CancerSummaryContent extends React.Component<
 				return;
 			}
 			//removes leading 0s
-			this.tempTotalCasesInputValue = Number(
-				this.tempTotalCasesInputValue
-			);
+			this.tempTotalCasesInputValue = Number(this.tempTotalCasesInputValue);
 			this.tempTotalCasesValue = this.tempTotalCasesInputValue;
 			this.handleTotalSliderChangeComplete();
 		}
@@ -349,9 +320,7 @@ export class CancerSummaryContent extends React.Component<
 			multiple: "#666"
 		};
 		// TODO: fix ts index signature issue so we don't have to cast alterationToColor as any
-		return this.showGenomicAlt
-			? (alterationToColor as any)[color] || "#000000"
-			: "#aaaaaa";
+		return this.showGenomicAlt ? (alterationToColor as any)[color] || "#000000" : "#aaaaaa";
 	}
 
 	@computed
@@ -379,12 +348,7 @@ export class CancerSummaryContent extends React.Component<
 
 	@computed
 	private get totalCasesMax() {
-		return Math.max(
-			..._.map(
-				this.countsData,
-				(cancer: IAlterationData) => cancer.sampleTotal
-			)
-		);
+		return Math.max(..._.map(this.countsData, (cancer: IAlterationData) => cancer.sampleTotal));
 	}
 
 	@computed
@@ -399,18 +363,11 @@ export class CancerSummaryContent extends React.Component<
 
 		const flattenedDatasets = _.flatten(
 			orderedDatasets
-				.filter(
-					dataPoint =>
-						dataPoint.sortCount &&
-						dataPoint.sortCount >= altCasesValue
-				)
+				.filter(dataPoint => dataPoint.sortCount && dataPoint.sortCount >= altCasesValue)
 				.map((orderedDataset, i) =>
 					orderedDataset.data.map(dataPoint => ({
 						...dataPoint,
-						data:
-							i === 0
-								? [dataPoint.total]
-								: [...Array(i).fill(0), dataPoint.total]
+						data: i === 0 ? [dataPoint.total] : [...Array(i).fill(0), dataPoint.total]
 					}))
 				)
 		);
@@ -418,8 +375,7 @@ export class CancerSummaryContent extends React.Component<
 		const labels = _.reduce(
 			orderedDatasets,
 			(accum, data) => {
-				if (data.sortCount >= this.altCasesValue)
-					accum.push(data.label);
+				if (data.sortCount >= this.altCasesValue) accum.push(data.label);
 				return accum;
 			},
 			[] as string[]
@@ -460,11 +416,7 @@ export class CancerSummaryContent extends React.Component<
 		this.pngAnchor = href;
 	}
 
-	public setPdfProperties(
-		anchor: string,
-		width: number = 1100,
-		height: number = 600
-	) {
+	public setPdfProperties(anchor: string, width: number = 1100, height: number = 600) {
 		this.pdf = { anchor, width, height };
 	}
 
@@ -480,14 +432,7 @@ export class CancerSummaryContent extends React.Component<
 			format: [width * 0.264583, height * 0.264583]
 		});
 		pdf
-			.addImage(
-				anchor,
-				"JPEG",
-				0,
-				0,
-				pdf.internal.pageSize.width,
-				pdf.internal.pageSize.height
-			)
+			.addImage(anchor, "JPEG", 0, 0, pdf.internal.pageSize.width, pdf.internal.pageSize.height)
 			.save("cBioPortalCancerSummary.pdf");
 	}
 
@@ -496,10 +441,7 @@ export class CancerSummaryContent extends React.Component<
 		const altMax = altCasesMax;
 		const symbol = yAxis === "alt-freq" ? "%" : "";
 		const controls = (
-			<div
-				style={{ display: "flex" }}
-				className="cancer--summary-form-controls"
-			>
+			<div style={{ display: "flex" }} className="cancer--summary-form-controls">
 				<div>
 					<FormGroup>
 						<ControlLabel>Y Axis Value:</ControlLabel>
@@ -508,9 +450,7 @@ export class CancerSummaryContent extends React.Component<
 							onChange={this.handleYAxisChange}
 							ref={(el: any) => (this.inputYAxisEl = el)}
 						>
-							<option value="alt-freq">
-								Alteration Frequency
-							</option>
+							<option value="alt-freq">Alteration Frequency</option>
 							<option value="abs-count">Absolute Counts</option>
 						</FormControl>
 					</FormGroup>
@@ -530,9 +470,7 @@ export class CancerSummaryContent extends React.Component<
 				<div style={{ width: 400 }}>
 					<div className="slider-holder">
 						<FormGroup>
-							<ControlLabel>{`Min. ${
-								yAxis === "alt-freq" ? "%" : "#"
-							} Altered Cases:`}</ControlLabel>
+							<ControlLabel>{`Min. ${yAxis === "alt-freq" ? "%" : "#"} Altered Cases:`}</ControlLabel>
 							<div className="slider custom-labels">
 								<Slider
 									min={0}
@@ -544,16 +482,12 @@ export class CancerSummaryContent extends React.Component<
 									}}
 									format={(val: string) => val + symbol}
 									onChange={this.handleAltSliderChange}
-									onChangeComplete={
-										this.handleAltSliderChangeComplete
-									}
+									onChangeComplete={this.handleAltSliderChangeComplete}
 								/>
 							</div>
 						</FormGroup>
 						<FormGroup>
-							<ControlLabel className="invisible">
-								Hidden
-							</ControlLabel>
+							<ControlLabel className="invisible">Hidden</ControlLabel>
 							<FormControl
 								type="text"
 								value={this.tempAltCasesInputValue + symbol}
@@ -576,16 +510,12 @@ export class CancerSummaryContent extends React.Component<
 										[totalCasesMax]: totalCasesMax
 									}}
 									onChange={this.handleTotalSliderChange}
-									onChangeComplete={
-										this.handleTotalSliderChangeComplete
-									}
+									onChangeComplete={this.handleTotalSliderChangeComplete}
 								/>
 							</div>
 						</FormGroup>
 						<FormGroup>
-							<ControlLabel className="invisible">
-								Hidden
-							</ControlLabel>
+							<ControlLabel className="invisible">Hidden</ControlLabel>
 							<FormControl
 								type="text"
 								value={this.tempTotalCasesInputValue}
@@ -597,10 +527,7 @@ export class CancerSummaryContent extends React.Component<
 				</div>
 
 				<div>
-					<Checkbox
-						checked={this.showGenomicAlt}
-						onChange={this.handleGenomicCheckboxChange}
-					>
+					<Checkbox checked={this.showGenomicAlt} onChange={this.handleGenomicCheckboxChange}>
 						Show Genomic Alteration Types
 					</Checkbox>
 				</div>
@@ -624,16 +551,9 @@ export class CancerSummaryContent extends React.Component<
 								{GroupByOptions.map((option, i) => {
 									return (
 										<Radio
-											checked={
-												option.value ===
-												this.props.groupAlterationsBy
-											}
+											checked={option.value === this.props.groupAlterationsBy}
 											onChange={e => {
-												this.props.handlePivotChange(
-													$(e.target).attr(
-														"data-value"
-													)
-												);
+												this.props.handlePivotChange($(e.target).attr("data-value"));
 											}}
 											inline
 											data-value={option.value}
@@ -646,25 +566,15 @@ export class CancerSummaryContent extends React.Component<
 						</div>
 
 						<div role="group" className="btn-group cancer-summary-">
-							<button
-								onClick={this.toggleShowControls}
-								className="btn btn-default btn-xs"
-							>
-								Customize{" "}
-								<i className="fa fa-cog" aria-hidden="true" />
+							<button onClick={this.toggleShowControls} className="btn btn-default btn-xs">
+								Customize <i className="fa fa-cog" aria-hidden="true" />
 							</button>
 							<a
-								className={`btn btn-default btn-xs ${
-									this.pngAnchor ? "" : " disabled"
-								}`}
+								className={`btn btn-default btn-xs ${this.pngAnchor ? "" : " disabled"}`}
 								href={this.pngAnchor}
 								download="cBioPortalCancerSummary.png"
 							>
-								PNG{" "}
-								<i
-									className="fa fa-cloud-download"
-									aria-hidden="true"
-								/>
+								PNG <i className="fa fa-cloud-download" aria-hidden="true" />
 							</a>
 							{/*
                             <button className={`btn btn-default btn-xs ${this.pdf.anchor ? '': ' disabled'}`}
@@ -675,16 +585,9 @@ export class CancerSummaryContent extends React.Component<
 						</div>
 
 						<Panel
-							className={classnames(
-								{ hidden: !this.showControls },
-								"cancer-summary-secondary-options"
-							)}
+							className={classnames({ hidden: !this.showControls }, "cancer-summary-secondary-options")}
 						>
-							<button
-								type="button"
-								onClick={this.toggleShowControls}
-								className="close"
-							>
+							<button type="button" onClick={this.toggleShowControls} className="close">
 								×
 							</button>
 							{controls}
@@ -706,9 +609,7 @@ export class CancerSummaryContent extends React.Component<
 					</div>
 				</Then>
 				<Else>
-					<div className="alert alert-info">
-						There are no alterations in this gene.
-					</div>
+					<div className="alert alert-info">There are no alterations in this gene.</div>
 				</Else>
 			</If>
 		);

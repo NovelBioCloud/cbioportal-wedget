@@ -5,10 +5,7 @@ import QueryAndDownloadTabs from "./QueryAndDownloadTabs";
 
 import "./styles/queryModal.scss";
 
-export default class QueryModal extends React.Component<
-	{ store: QueryStore; styles?: any },
-	{ showModal: boolean }
-> {
+export default class QueryModal extends React.Component<{ store: QueryStore; styles?: any }, { showModal: boolean }> {
 	constructor(props: { store: QueryStore; styles?: any }) {
 		super(props);
 
@@ -41,10 +38,7 @@ export default class QueryModal extends React.Component<
 						<Modal.Title>Modify Query</Modal.Title>
 					</ModalHeader>
 					<ModalBody>
-						<QueryAndDownloadTabs
-							store={this.props.store}
-							onSubmit={this.toggleState}
-						/>
+						<QueryAndDownloadTabs store={this.props.store} onSubmit={this.toggleState} />
 					</ModalBody>
 				</Modal>
 			</div>

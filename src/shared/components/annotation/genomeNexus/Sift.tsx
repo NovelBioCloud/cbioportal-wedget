@@ -27,9 +27,7 @@ export default class Sift extends React.Component<ISiftProps, {}> {
 	}
 
 	public render() {
-		let siftContent: JSX.Element = (
-			<span className={`${annotationStyles["annotation-item-text"]}`} />
-		);
+		let siftContent: JSX.Element = <span className={`${annotationStyles["annotation-item-text"]}`} />;
 
 		if (this.props.siftPrediction && this.props.siftPrediction.length > 0) {
 			siftContent = (
@@ -73,13 +71,7 @@ export default class Sift extends React.Component<ISiftProps, {}> {
 					<tr>
 						<td>Impact</td>
 						<td>
-							<span
-								className={
-									tooltipStyles[
-										`sift-${this.props.siftPrediction}`
-									]
-								}
-							>
+							<span className={tooltipStyles[`sift-${this.props.siftPrediction}`]}>
 								{this.props.siftPrediction}
 							</span>
 						</td>

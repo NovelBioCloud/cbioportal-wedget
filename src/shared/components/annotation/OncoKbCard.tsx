@@ -26,18 +26,15 @@ type OncoKbCardPropsBase = {
 };
 
 export type OncoKbCardProps =
-	| (OncoKbCardPropsBase & { geneNotExist: false })
-	| (Partial<OncoKbCardPropsBase> & { geneNotExist: true });
+	| (OncoKbCardPropsBase & { geneNotExist: boolean | false })
+	| (Partial<OncoKbCardPropsBase> & { geneNotExist: boolean | true });
 
 export interface IOncoKbCardState {
 	activeTab: "oncogenicity" | "mutationEffect";
 	levelsCollapsed: boolean;
 }
 
-export default class OncoKbCard extends React.Component<
-	OncoKbCardProps,
-	IOncoKbCardState
-> {
+export default class OncoKbCard extends React.Component<OncoKbCardProps, IOncoKbCardState> {
 	public static get LEVELS(): string[] {
 		return ["1", "2A", "2B", "3A", "3B", "4", "R1"];
 	}
@@ -52,57 +49,50 @@ export default class OncoKbCard extends React.Component<
 		return {
 			"1": (
 				<span>
-					<b>FDA-recognized</b> biomarker predictive of response to an{" "}
-					<b>FDA-approved</b> drug <b>in this indication</b>
+					<b>FDA-recognized</b> biomarker predictive of response to an <b>FDA-approved</b> drug{" "}
+					<b>in this indication</b>
 				</span>
 			),
 			"2A": (
 				<span>
-					<b>Standard care</b> biomarker predictive of response to an{" "}
-					<b>FDA-approved</b> drug <b>in this indication</b>
+					<b>Standard care</b> biomarker predictive of response to an <b>FDA-approved</b> drug{" "}
+					<b>in this indication</b>
 				</span>
 			),
 			"2B": (
 				<span>
-					<b>Standard care</b> biomarker predictive of response to an{" "}
-					<b>FDA-approved</b> drug <b>in another indication</b>, but
-					not standard care for this indication
+					<b>Standard care</b> biomarker predictive of response to an <b>FDA-approved</b> drug{" "}
+					<b>in another indication</b>, but not standard care for this indication
 				</span>
 			),
 			"3A": (
 				<span>
-					<b>Compelling clinical evidence</b> supports the biomarker
-					as being predictive of response to a drug{" "}
-					<b>in this indication</b>, but neither biomarker and drug
-					are standard care
+					<b>Compelling clinical evidence</b> supports the biomarker as being predictive of response to a drug{" "}
+					<b>in this indication</b>, but neither biomarker and drug are standard care
 				</span>
 			),
 			"3B": (
 				<span>
-					<b>Compelling clinical evidence</b> supports the biomarker
-					as being predictive of response to a drug{" "}
-					<b>in another indication</b>, but neither biomarker and drug
-					are standard care
+					<b>Compelling clinical evidence</b> supports the biomarker as being predictive of response to a drug{" "}
+					<b>in another indication</b>, but neither biomarker and drug are standard care
 				</span>
 			),
 			"4": (
 				<span>
-					<b>Compelling biological evidence</b> supports the biomarker
-					as being predictive of response to a drug, but neither
-					biomarker and drug are standard care
+					<b>Compelling biological evidence</b> supports the biomarker as being predictive of response to a
+					drug, but neither biomarker and drug are standard care
 				</span>
 			),
 			R1: (
 				<span>
-					<b>Standard care</b> biomarker predictive of{" "}
-					<b>resistance</b> to an <b>FDA-approved</b> drug{" "}
+					<b>Standard care</b> biomarker predictive of <b>resistance</b> to an <b>FDA-approved</b> drug{" "}
 					<b>in this indication</b>
 				</span>
 			)
 		};
 	}
 
-	constructor() {
+	constructor(props: OncoKbCardProps) {
 		super(props);
 
 		this.state = {
@@ -110,12 +100,8 @@ export default class OncoKbCard extends React.Component<
 			levelsCollapsed: true
 		};
 
-		this.handleOncogenicityTabSelect = this.handleOncogenicityTabSelect.bind(
-			this
-		);
-		this.handleMutationEffectTabSelect = this.handleMutationEffectTabSelect.bind(
-			this
-		);
+		this.handleOncogenicityTabSelect = this.handleOncogenicityTabSelect.bind(this);
+		this.handleMutationEffectTabSelect = this.handleMutationEffectTabSelect.bind(this);
 		this.handleLevelCollapse = this.handleLevelCollapse.bind(this);
 	}
 
@@ -131,9 +117,7 @@ export default class OncoKbCard extends React.Component<
 		pmids: number[],
 		abstracts: any[]
 	) {
-		const levelTooltipContent = () => (
-			<div style={{ maxWidth: "200px" }}>{levelDes}</div>
-		);
+		const levelTooltipContent = () => <div style={{ maxWidth: "200px" }}>{levelDes}</div>;
 
 		const treatmentTooltipContent =
 			abstracts.length > 0 || pmids.length > 0 ? (
@@ -166,10 +150,7 @@ export default class OncoKbCard extends React.Component<
 						trigger={["hover", "focus"]}
 						destroyTooltipOnHide={true}
 					>
-						<i
-							className={`level-icon level-${level}`}
-							style={OncoKbCard.LEVEL_ICON_STYLE}
-						/>
+						<i className={`level-icon level-${level}`} style={OncoKbCard.LEVEL_ICON_STYLE} />
 					</DefaultTooltip>
 				</td>
 				<td key="alterations">{mergeAlterations(variant)}</td>
@@ -194,10 +175,7 @@ export default class OncoKbCard extends React.Component<
 	public levelListItem(level: string, levelDes: JSX.Element) {
 		return (
 			<li key={level}>
-				<i
-					className={`level-icon level-${level}`}
-					style={OncoKbCard.LEVEL_ICON_STYLE}
-				/>
+				<i className={`level-icon level-${level}`} style={OncoKbCard.LEVEL_ICON_STYLE} />
 				{levelDes}
 			</li>
 		);
@@ -215,14 +193,11 @@ export default class OncoKbCard extends React.Component<
 					list.push(
 						this.pmidItem(
 							articleContent.title,
-							_.isArray(articleContent.authors) &&
-							articleContent.authors.length > 0
+							_.isArray(articleContent.authors) && articleContent.authors.length > 0
 								? articleContent.authors[0].name + " et al."
 								: "Unknown",
 							articleContent.source,
-							new Date(articleContent.pubdate)
-								.getFullYear()
-								.toString(),
+							new Date(articleContent.pubdate).getFullYear().toString(),
 							articleContent.uid
 						)
 					);
@@ -233,29 +208,15 @@ export default class OncoKbCard extends React.Component<
 		return list;
 	}
 
-	public pmidItem(
-		title: string,
-		author: string,
-		source: string,
-		date: string,
-		pmid: string
-	) {
+	public pmidItem(title: string, author: string, source: string, date: string, pmid: string) {
 		return (
-			<li
-				key={pmid}
-				className="list-group-item"
-				style={{ width: "100%" }}
-			>
-				<a
-					href={`http://www.ncbi.nlm.nih.gov/pubmed/${pmid}`}
-					target="_blank"
-				>
+			<li key={pmid} className="list-group-item" style={{ width: "100%" }}>
+				<a href={`http://www.ncbi.nlm.nih.gov/pubmed/${pmid}`} target="_blank">
 					<b>{title}</b>
 				</a>
 				<br />
 				<div style={{ width: "100%" }}>
-					{author} {source}. {date}{" "}
-					<span style={{ float: "right" }}>PMID: {pmid}</span>
+					{author} {source}. {date} <span style={{ float: "right" }}>PMID: {pmid}</span>
 				</div>
 			</li>
 		);
@@ -265,9 +226,7 @@ export default class OncoKbCard extends React.Component<
 		const list: JSX.Element[] = [];
 
 		abstracts.forEach((abstract: any, index: number) => {
-			list.push(
-				this.abstractItem(index, abstract.abstract, abstract.link)
-			);
+			list.push(this.abstractItem(index, abstract.abstract, abstract.link));
 		});
 
 		return list;
@@ -285,20 +244,13 @@ export default class OncoKbCard extends React.Component<
 		}
 
 		return (
-			<li
-				key={`abstract_${key}`}
-				className="list-group-item"
-				style={{ width: "100%" }}
-			>
+			<li key={`abstract_${key}`} className="list-group-item" style={{ width: "100%" }}>
 				{content}
 			</li>
 		);
 	}
 
-	public generateLevelRows(
-		levels: string[],
-		levelDes: { [level: string]: JSX.Element }
-	): JSX.Element[] {
+	public generateLevelRows(levels: string[], levelDes: { [level: string]: JSX.Element }): JSX.Element[] {
 		const rows: JSX.Element[] = [];
 
 		levels.forEach(level => {
@@ -343,128 +295,65 @@ export default class OncoKbCard extends React.Component<
 					{!this.props.geneNotExist && (
 						<span>
 							<div className="item tabs-wrapper">
-								<div className="col s12 tip-header">
-									{this.props.title}
-								</div>
+								<div className="col s12 tip-header">{this.props.title}</div>
 								<div className="col s12">
 									<ul className="tabs">
-										<li
-											key="oncogenicity"
-											className="tab col s6 enable-hover"
-										>
-											<a
-												className="oncogenicity"
-												onClick={
-													this
-														.handleOncogenicityTabSelect
-												}
-											>
-												<span className="title">
-													clinical implications
-												</span>
+										<li key="oncogenicity" className="tab col s6 enable-hover">
+											<a className="oncogenicity" onClick={this.handleOncogenicityTabSelect}>
+												<span className="title">clinical implications</span>
 												<span className="title-content">
-													{this.props.oncogenicity ||
-														"Unknown"}
+													{this.props.oncogenicity || "Unknown"}
 												</span>
 											</a>
 										</li>
-										<li
-											key="mutationEffect"
-											className="tab col s6 enable-hover"
-										>
-											<a
-												className="mutation-effect"
-												onClick={
-													this
-														.handleMutationEffectTabSelect
-												}
-											>
-												<span className="title">
-													Biological Effect
-												</span>
+										<li key="mutationEffect" className="tab col s6 enable-hover">
+											<a className="mutation-effect" onClick={this.handleMutationEffectTabSelect}>
+												<span className="title">Biological Effect</span>
 												<span className="title-content">
-													{this.props
-														.mutationEffect ||
-														"Unknown"}
+													{this.props.mutationEffect || "Unknown"}
 												</span>
 											</a>
 										</li>
 										<div className="indicator" />
 									</ul>
 								</div>
-								<If
-									condition={
-										this.state.activeTab === "oncogenicity"
-									}
-								>
+								<If condition={this.state.activeTab === "oncogenicity"}>
 									<div className="col s12 oncogenicity">
-										<div
-											className="summary"
-											style={{ padding: "10px 0" }}
-										>
+										<div className="summary" style={{ padding: "10px 0" }}>
 											<p>{this.props.geneSummary}</p>
 											<p>
-												{this.insertLink(
-													this.props.variantSummary,
-													{
-														keyword:
-															"Chang et al. 2016",
-														link:
-															"https://www.ncbi.nlm.nih.gov/pubmed/26619011"
-													}
-												)}
+												{this.insertLink(this.props.variantSummary, {
+													keyword: "Chang et al. 2016",
+													link: "https://www.ncbi.nlm.nih.gov/pubmed/26619011"
+												})}
 											</p>
 											<p>{this.props.tumorTypeSummary}</p>
 										</div>
-										<If
-											condition={
-												this.props.treatments.length > 0
-											}
-										>
+										<If condition={this.props.treatments.length > 0}>
 											<div className="treatments-wrapper">
-												<table
-													className="table"
-													style={{ marginTop: 6 }}
-												>
+												<table className="table" style={{ marginTop: 6 }}>
 													<thead>
 														<tr>
-															<th
-																key="level"
-																scope="col"
-															>
+															<th key="level" scope="col">
 																Level
 															</th>
-															<th
-																key="alterations"
-																scope="col"
-															>
+															<th key="alterations" scope="col">
 																Alteration(s)
 															</th>
-															<th
-																key="drugs"
-																scope="col"
-															>
+															<th key="drugs" scope="col">
 																Drug(s)
 															</th>
-															<th
-																key="cancerTypes"
-																scope="col"
-															>
-																Level-associated<br />cancer
-																type(s)
+															<th key="cancerTypes" scope="col">
+																Level-associated<br />cancer type(s)
 															</th>
-															<th
-																key="citations"
-																scope="col"
-															>
+															<th key="citations" scope="col">
 																Citation(s)
 															</th>
 														</tr>
 													</thead>
 													<tbody>
 														{this.generateTreatmentRows(
-															this.props
-																.treatments,
+															this.props.treatments,
 															OncoKbCard.LEVEL_DESC,
 															this.props.pmidData
 														)}
@@ -474,38 +363,21 @@ export default class OncoKbCard extends React.Component<
 										</If>
 									</div>
 								</If>
-								<If
-									condition={
-										this.state.activeTab ===
-										"mutationEffect"
-									}
-								>
+								<If condition={this.state.activeTab === "mutationEffect"}>
 									<div className="col s12 tab-pane mutation-effect">
 										<If
 											condition={
-												this.props.biologicalSummary !==
-													undefined &&
-												this.props.biologicalSummary
-													.length > 0
+												this.props.biologicalSummary !== undefined &&
+												this.props.biologicalSummary.length > 0
 											}
 										>
 											<Then>
 												<div>
-													{this.summaryWithRefs(
-														this.props
-															.biologicalSummary,
-														"tooltip"
-													)}
+													{this.summaryWithRefs(this.props.biologicalSummary, "tooltip")}
 												</div>
 											</Then>
 											<Else>
-												<If
-													condition={
-														this.props
-															.mutationEffectPmids
-															.length > 0
-													}
-												>
+												<If condition={this.props.mutationEffectPmids.length > 0}>
 													<Then>
 														<div className="refs">
 															<ul
@@ -515,20 +387,14 @@ export default class OncoKbCard extends React.Component<
 																}}
 															>
 																{this.pmidList(
-																	this.props
-																		.mutationEffectPmids,
-																	this.props
-																		.pmidData
+																	this.props.mutationEffectPmids,
+																	this.props.pmidData
 																)}
 															</ul>
 														</div>
 													</Then>
 													<Else>
-														<span>
-															Mutation effect
-															information is not
-															available.
-														</span>
+														<span>Mutation effect information is not available.</span>
 													</Else>
 												</If>
 											</Else>
@@ -539,46 +405,26 @@ export default class OncoKbCard extends React.Component<
 
 							<div className="item disclaimer">
 								<span>
-									The information above is intended for
-									research purposes only and should not be
-									used as a substitute for professional
-									diagnosis and treatment.
+									The information above is intended for research purposes only and should not be used
+									as a substitute for professional diagnosis and treatment.
 								</span>
 							</div>
 
 							<div className="item-list levels-wrapper">
-								<div
-									className="collapsible-header"
-									onClick={this.handleLevelCollapse}
-								>
+								<div className="collapsible-header" onClick={this.handleLevelCollapse}>
 									Levels
 									<span className="secondary-content">
-										<If
-											condition={
-												this.state.levelsCollapsed
-											}
-										>
+										<If condition={this.state.levelsCollapsed}>
 											<i className="fa fa-chevron-down" />
 										</If>
-										<If
-											condition={
-												!this.state.levelsCollapsed
-											}
-										>
+										<If condition={!this.state.levelsCollapsed}>
 											<i className="fa fa-chevron-up" />
 										</If>
 									</span>
 								</div>
-								<Collapse
-									isOpened={!this.state.levelsCollapsed}
-								>
+								<Collapse isOpened={!this.state.levelsCollapsed}>
 									<div className="levels oncokb-card-levels-collapse">
-										<ul>
-											{this.generateLevelRows(
-												OncoKbCard.LEVELS,
-												OncoKbCard.LEVEL_DESC
-											)}
-										</ul>
+										<ul>{this.generateLevelRows(OncoKbCard.LEVELS, OncoKbCard.LEVEL_DESC)}</ul>
 									</div>
 								</Collapse>
 							</div>
@@ -586,27 +432,16 @@ export default class OncoKbCard extends React.Component<
 					)}
 					{this.props.geneNotExist && (
 						<div className="additional-info">
-							There is currently no information about this gene in
-							OncoKB.
+							There is currently no information about this gene in OncoKB.
 						</div>
 					)}
 
 					<div className="item footer">
-						<a
-							href="http://oncokb.org/#/gene/{{gene}}"
-							target="_blank"
-						>
-							<img
-								src={require("./images/oncokb.png")}
-								className="oncokb-logo"
-								alt="OncoKB"
-							/>
+						<a href="http://oncokb.org/#/gene/{{gene}}" target="_blank">
+							<img src={require("./images/oncokb.png")} className="oncokb-logo" alt="OncoKB" />
 						</a>
 						<span className="pull-right feedback">
-							<button
-								className="btn btn-default btn-sm"
-								onClick={this.props.handleFeedbackOpen}
-							>
+							<button className="btn btn-default btn-sm" onClick={this.props.handleFeedbackOpen}>
 								Feedback
 							</button>
 						</span>
@@ -702,10 +537,7 @@ export default class OncoKbCard extends React.Component<
 					}}
 				>
 					<ul className="list-group" style={{ marginBottom: 0 }}>
-						{this.pmidList(
-							ids.map((id: string) => parseInt(id)),
-							this.props.pmidData
-						)}
+						{this.pmidList(ids.map((id: string) => parseInt(id, 10)), this.props.pmidData)}
 					</ul>
 				</div>
 			);
@@ -737,10 +569,7 @@ export default class OncoKbCard extends React.Component<
 		}
 	}
 
-	public summaryWithRefs(
-		str: string | undefined,
-		type: "tooltip" | "linkout"
-	) {
+	public summaryWithRefs(str: string | undefined, type: "tooltip" | "linkout") {
 		if (!str) {
 			return str;
 		}
@@ -760,10 +589,7 @@ export default class OncoKbCard extends React.Component<
 		parts.forEach((part: string) => {
 			// if delimiter convert to a JSX component
 			if (part.match(regex)) {
-				let component: JSX.Element | null = this.refComponent(
-					part,
-					type
-				);
+				let component: JSX.Element | null = this.refComponent(part, type);
 
 				if (component) {
 					content.push(component);

@@ -19,11 +19,7 @@ export default class CancerTypeColumnFormatter {
 				studyId
 			});
 
-			if (
-				cacheDatum &&
-				cacheDatum.status === "complete" &&
-				cacheDatum.data === null
-			) {
+			if (cacheDatum && cacheDatum.status === "complete" && cacheDatum.data === null) {
 				// If no clinical data, use study cancer type if we have it
 				if (studyCancerTypeMap) {
 					const cancerType = studyCancerTypeMap[studyId];
@@ -53,23 +49,14 @@ export default class CancerTypeColumnFormatter {
 	) {
 		return LazyLoadedTableCell<Mutation[], { value: string }>(
 			(d: Mutation[]) => {
-				return CancerTypeColumnFormatter.getData(
-					d,
-					studyId,
-					cancerTypeCache,
-					studyCancerTypeMap
-				);
+				return CancerTypeColumnFormatter.getData(d, studyId, cancerTypeCache, studyCancerTypeMap);
 			},
 			(t: { value: string }) => <span>{t.value}</span>,
 			"Cancer type not available for this sample."
 		);
 	}
 
-	public static sortBy(
-		d: Mutation[],
-		studyId?: string,
-		cancerTypeCache?: CancerTypeCache
-	) {
+	public static sortBy(d: Mutation[], studyId?: string, cancerTypeCache?: CancerTypeCache) {
 		let ret;
 		if (cancerTypeCache && studyId) {
 			const cacheDatum = cancerTypeCache.get({
@@ -94,12 +81,7 @@ export default class CancerTypeColumnFormatter {
 		cancerTypeCache?: CancerTypeCache,
 		studyCancerTypeMap?: { [studyId: string]: string }
 	): boolean {
-		const cacheDatum = CancerTypeColumnFormatter.getData(
-			d,
-			studyId,
-			cancerTypeCache,
-			studyCancerTypeMap
-		);
+		const cacheDatum = CancerTypeColumnFormatter.getData(d, studyId, cancerTypeCache, studyCancerTypeMap);
 
 		return (
 			cacheDatum !== null &&

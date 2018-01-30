@@ -1,10 +1,7 @@
 import * as _ from "lodash";
 import * as React from "react";
 import Dictionary = _.Dictionary;
-import {
-	TypeOfCancer as CancerType,
-	CancerStudy
-} from "../../api/generated/CBioPortalAPI";
+import { TypeOfCancer as CancerType, CancerStudy } from "../../api/generated/CBioPortalAPI";
 import { FlexCol, FlexRow } from "../flexbox/FlexBox";
 import * as styles_any from "./styles/styles.module.scss";
 import classNames from "classnames";
@@ -60,10 +57,7 @@ export interface ICancerStudySelectorProps {
 }
 
 @observer
-export default class CancerStudySelector extends QueryStoreComponent<
-	ICancerStudySelectorProps,
-	{}
-> {
+export default class CancerStudySelector extends QueryStoreComponent<ICancerStudySelectorProps, {}> {
 	private handlers = {
 		onSummaryClick: () => {
 			this.store.openSummary();
@@ -86,83 +80,46 @@ export default class CancerStudySelector extends QueryStoreComponent<
 
 	@memoize
 	getCancerTypeListClickHandler<T>(node: CancerType) {
-		return (event: React.MouseEvent<T>) =>
-			this.store.selectCancerType(node as CancerType, event.ctrlKey);
+		return (event: React.MouseEvent<T>) => this.store.selectCancerType(node as CancerType, event.ctrlKey);
 	}
 
-	handleStudiesCheckbox<T>(
-		event: React.FormEvent<T>,
-		clickedStudyIds: string[]
-	) {
+	handleStudiesCheckbox<T>(event: React.FormEvent<T>, clickedStudyIds: string[]) {
 		if ((event.target as HTMLInputElement).checked)
-			this.store.selectedStudyIds = _.union(
-				this.store.selectedStudyIds,
-				clickedStudyIds
-			);
-		else
-			this.store.selectedStudyIds = _.difference(
-				this.store.selectedStudyIds,
-				clickedStudyIds
-			);
+			this.store.selectedStudyIds = _.union(this.store.selectedStudyIds, clickedStudyIds);
+		else this.store.selectedStudyIds = _.difference(this.store.selectedStudyIds, clickedStudyIds);
 	}
 
 	CancerTypeList = observer(() => {
-		let cancerTypes = this.logic.cancerTypeListView.getChildCancerTypes(
-			this.store.treeData.rootCancerType
-		);
+		let cancerTypes = this.logic.cancerTypeListView.getChildCancerTypes(this.store.treeData.rootCancerType);
 		return (
 			<ul className={styles.cancerTypeList}>
 				{cancerTypes.map((cancerType, arrayIndex) => (
-					<this.CancerTypeListItem
-						key={arrayIndex}
-						cancerType={cancerType}
-					/>
+					<this.CancerTypeListItem key={arrayIndex} cancerType={cancerType} />
 				))}
 			</ul>
 		);
 	});
 
-	CancerTypeListItem = observer(
-		({ cancerType }: { cancerType: CancerType }) => {
-			let numStudies = expr(
-				() =>
-					this.logic.cancerTypeListView.getDescendantCancerStudies(
-						cancerType
-					).length
-			);
-			let selected = _.includes(
-				this.store.selectedCancerTypeIds,
-				cancerType.cancerTypeId
-			);
-			let highlighted = this.logic.isHighlighted(cancerType);
-			let liClassName = classNames({
-				[styles.cancerTypeListItem]: true,
-				[styles.selectable]: true,
-				[styles.selected]: selected,
-				[styles.matchingNodeText]:
-					!!this.store.searchText && highlighted,
-				[styles.nonMatchingNodeText]:
-					!!this.store.searchText && !highlighted,
-				[styles.containsSelectedStudies]: expr(() =>
-					this.logic.cancerTypeContainsSelectedStudies(cancerType)
-				)
-			});
+	CancerTypeListItem = observer(({ cancerType }: { cancerType: CancerType }) => {
+		let numStudies = expr(() => this.logic.cancerTypeListView.getDescendantCancerStudies(cancerType).length);
+		let selected = _.includes(this.store.selectedCancerTypeIds, cancerType.cancerTypeId);
+		let highlighted = this.logic.isHighlighted(cancerType);
+		let liClassName = classNames({
+			[styles.cancerTypeListItem]: true,
+			[styles.selectable]: true,
+			[styles.selected]: selected,
+			[styles.matchingNodeText]: !!this.store.searchText && highlighted,
+			[styles.nonMatchingNodeText]: !!this.store.searchText && !highlighted,
+			[styles.containsSelectedStudies]: expr(() => this.logic.cancerTypeContainsSelectedStudies(cancerType))
+		});
 
-			return (
-				<li
-					className={liClassName}
-					onMouseDown={this.getCancerTypeListClickHandler(cancerType)}
-				>
-					<span className={styles.cancerTypeListItemLabel}>
-						{cancerType.name}
-					</span>
-					<span className={styles.cancerTypeListItemCount}>
-						{numStudies}
-					</span>
-				</li>
-			);
-		}
-	);
+		return (
+			<li className={liClassName} onMouseDown={this.getCancerTypeListClickHandler(cancerType)}>
+				<span className={styles.cancerTypeListItemLabel}>{cancerType.name}</span>
+				<span className={styles.cancerTypeListItemCount}>{numStudies}</span>
+			</li>
+		);
+	});
 
 	private autosuggest: React.Component<any, any>;
 
@@ -175,51 +132,31 @@ export default class CancerStudySelector extends QueryStoreComponent<
 		} = this.logic.mainView.getSelectionReport();
 
 		return (
-			<FlexCol
-				overflow
-				data-test="studyList"
-				className={styles.CancerStudySelector}
-			>
+			<FlexCol overflow data-test="studyList" className={styles.CancerStudySelector}>
 				<FlexRow overflow className={styles.CancerStudySelectorHeader}>
-					<SectionHeader
-						promises={[
-							this.store.cancerTypes,
-							this.store.cancerStudies
-						]}
-					>
+					<SectionHeader promises={[this.store.cancerTypes, this.store.cancerStudies]}>
 						Select Studies:
 					</SectionHeader>
 
 					<div>
-						{!!(
-							!this.store.cancerTypes.isPending &&
-							!this.store.cancerStudies.isPending
-						) && (
+						{!!(!this.store.cancerTypes.isPending && !this.store.cancerStudies.isPending) && (
 							<Observer>
 								{() => {
-									let numSelectedStudies = expr(
-										() => this.store.selectedStudyIds.length
-									);
+									let numSelectedStudies = expr(() => this.store.selectedStudyIds.length);
 									let selectedCountClass = classNames({
 										[styles.selectedCount]: true,
-										[styles.selectionsExist]:
-											numSelectedStudies > 0
+										[styles.selectionsExist]: numSelectedStudies > 0
 									});
 									return (
 										<a
 											onClick={() => {
 												if (numSelectedStudies)
-													this.store.showSelectedStudiesOnly = !this
-														.store
+													this.store.showSelectedStudiesOnly = !this.store
 														.showSelectedStudiesOnly;
 											}}
 										>
-											<b>{numSelectedStudies}</b> studies
-											selected (<b>
-												{
-													this.store
-														.selectedStudies_totalSampleCount
-												}
+											<b>{numSelectedStudies}</b> studies selected (<b>
+												{this.store.selectedStudies_totalSampleCount}
 											</b>{" "}
 											samples)
 										</a>
@@ -229,15 +166,10 @@ export default class CancerStudySelector extends QueryStoreComponent<
 						)}
 
 						{!!!this.store.forDownloadTab &&
-							!!(
-								!this.store.cancerTypes.isPending &&
-								!this.store.cancerStudies.isPending
-							) && (
+							!!(!this.store.cancerTypes.isPending && !this.store.cancerStudies.isPending) && (
 								<Observer>
 									{() => {
-										let hasSelection =
-											this.store.selectedStudyIds.length >
-											0;
+										let hasSelection = this.store.selectedStudyIds.length > 0;
 
 										if (hasSelection) {
 											return (
@@ -248,9 +180,7 @@ export default class CancerStudySelector extends QueryStoreComponent<
 														hasSelection
 															? this.logic.mainView.clearAllSelection()
 															: this.logic.mainView.onCheck(
-																	this.store
-																		.treeData
-																		.rootCancerType,
+																	this.store.treeData.rootCancerType,
 																	!hasSelection
 																);
 													}}
@@ -265,57 +195,37 @@ export default class CancerStudySelector extends QueryStoreComponent<
 								</Observer>
 							)}
 
-						{!!(
-							!this.store.cancerTypes.isPending &&
-							!this.store.cancerStudies.isPending
-						) && (
+						{!!(!this.store.cancerTypes.isPending && !this.store.cancerStudies.isPending) && (
 							<Observer>
 								{() => {
-									const studyLimitReached =
-										this.store.selectedStudyIds.length > 20;
+									const studyLimitReached = this.store.selectedStudyIds.length > 20;
 									const tooltipMessage = studyLimitReached ? (
-										<span>
-											Too many studies selected for study
-											summary (limit: 20)
-										</span>
+										<span>Too many studies selected for study summary (limit: 20)</span>
 									) : (
-										<span>
-											Open summary of selected studies in
-											a new window.
-										</span>
+										<span>Open summary of selected studies in a new window.</span>
 									);
 
 									return (
 										<DefaultTooltip
 											placement="top"
 											overlay={tooltipMessage}
-											disabled={
-												!this.store.summaryEnabled
-											}
+											disabled={!this.store.summaryEnabled}
 											mouseEnterDelay={0}
 										>
 											<Button
 												bsSize="xs"
 												disabled={studyLimitReached}
 												bsStyle="primary"
-												className={classNames(
-													"btn-primary"
-												)}
-												onClick={
-													this.handlers.onSummaryClick
-												}
+												className={classNames("btn-primary")}
+												onClick={this.handlers.onSummaryClick}
 												style={{
 													marginLeft: 10,
-													display: this.store
-														.summaryEnabled
-														? "inline-block"
-														: "none",
+													display: this.store.summaryEnabled ? "inline-block" : "none",
 													cursor: "pointer",
 													bgColor: "#3786C2"
 												}}
 											>
-												<i className="ci ci-pie-chart" />{" "}
-												View summary
+												<i className="ci ci-pie-chart" /> View summary
 											</Button>
 										</DefaultTooltip>
 									);
@@ -326,17 +236,9 @@ export default class CancerStudySelector extends QueryStoreComponent<
 
 					<Observer>
 						{() => {
-							let searchTextOptions = this.store
-								.searchTextPresets;
-							if (
-								this.store.searchText &&
-								searchTextOptions.indexOf(
-									this.store.searchText
-								) < 0
-							)
-								searchTextOptions = [
-									this.store.searchText
-								].concat(searchTextOptions as string[]);
+							let searchTextOptions = this.store.searchTextPresets;
+							if (this.store.searchText && searchTextOptions.indexOf(this.store.searchText) < 0)
+								searchTextOptions = [this.store.searchText].concat(searchTextOptions as string[]);
 							let searchTimeout: number | null = null;
 
 							return (
@@ -366,28 +268,19 @@ export default class CancerStudySelector extends QueryStoreComponent<
 									)}
 									<Autosuggest
 										datalist={searchTextOptions}
-										ref={(el: React.Component<any, any>) =>
-											(this.autosuggest = el)
-										}
+										ref={(el: React.Component<any, any>) => (this.autosuggest = el)}
 										placeholder="Search..."
 										bsSize="small"
 										value={this.store.searchText}
 										onChange={(currentVal: string) => {
 											if (searchTimeout !== null) {
-												window.clearTimeout(
-													searchTimeout
-												);
+												window.clearTimeout(searchTimeout);
 												searchTimeout = null;
 											}
 
-											searchTimeout = window.setTimeout(
-												() => {
-													this.store.setSearchText(
-														currentVal
-													);
-												},
-												400
-											);
+											searchTimeout = window.setTimeout(() => {
+												this.store.setSearchText(currentVal);
+											}, 400);
 										}}
 										onFocus={(value: string) => {
 											if (value.length === 0) {
@@ -407,42 +300,28 @@ export default class CancerStudySelector extends QueryStoreComponent<
 
 				<SectionHeader
 					style={{ display: "none" }}
-					promises={[
-						this.store.cancerTypes,
-						this.store.cancerStudies
-					]}
+					promises={[this.store.cancerTypes, this.store.cancerStudies]}
 				>
 					Select Studies:
-					{!!(
-						!this.store.cancerTypes.isPending &&
-						!this.store.cancerStudies.isPending
-					) && (
+					{!!(!this.store.cancerTypes.isPending && !this.store.cancerStudies.isPending) && (
 						<Observer>
 							{() => {
-								let numSelectedStudies = expr(
-									() => this.store.selectedStudyIds.length
-								);
+								let numSelectedStudies = expr(() => this.store.selectedStudyIds.length);
 								let selectedCountClass = classNames({
 									[styles.selectedCount]: true,
-									[styles.selectionsExist]:
-										numSelectedStudies > 0
+									[styles.selectionsExist]: numSelectedStudies > 0
 								});
 								return (
 									<span
 										className={selectedCountClass}
 										onClick={() => {
 											if (numSelectedStudies)
-												this.store.showSelectedStudiesOnly = !this
-													.store
+												this.store.showSelectedStudiesOnly = !this.store
 													.showSelectedStudiesOnly;
 										}}
 									>
-										<b>{numSelectedStudies}</b> studies
-										selected (<b>
-											{
-												this.store
-													.selectedStudies_totalSampleCount
-											}
+										<b>{numSelectedStudies}</b> studies selected (<b>
+											{this.store.selectedStudies_totalSampleCount}
 										</b>{" "}
 										samples)
 									</span>
@@ -460,10 +339,7 @@ export default class CancerStudySelector extends QueryStoreComponent<
 							</div>
 						</Then>
 					</If>
-					<div
-						className={styles.cancerStudyListContainer}
-						data-test="cancerTypeListContainer"
-					>
+					<div className={styles.cancerStudyListContainer} data-test="cancerTypeListContainer">
 						<div className="checkbox" style={{ marginLeft: 19 }}>
 							<If condition={shownStudies.length > 0}>
 								<label>
@@ -471,28 +347,18 @@ export default class CancerStudySelector extends QueryStoreComponent<
 										type="checkbox"
 										data-test="selectAllStudies"
 										style={{ top: -2 }}
-										onClick={
-											this.handlers.onCheckAllFiltered
-										}
-										checked={
-											shownAndSelectedStudies.length ===
-											shownStudies.length
-										}
+										onClick={this.handlers.onCheckAllFiltered}
+										checked={shownAndSelectedStudies.length === shownStudies.length}
 									/>
 									<strong>
-										{shownAndSelectedStudies.length ===
-										shownStudies.length
+										{shownAndSelectedStudies.length === shownStudies.length
 											? `Deselect all listed studies ${
-													shownStudies.length <
-													this.store.cancerStudies
-														.result.length
+													shownStudies.length < this.store.cancerStudies.result.length
 														? "matching filter"
 														: ""
 												} (${shownStudies.length})`
 											: `Select all listed studies ${
-													shownStudies.length <
-													this.store.cancerStudies
-														.result.length
+													shownStudies.length < this.store.cancerStudies.result.length
 														? "matching filter"
 														: ""
 												}  (${shownStudies.length})`}
@@ -506,9 +372,7 @@ export default class CancerStudySelector extends QueryStoreComponent<
 									shownStudies.length === 0
 								}
 							>
-								<p>
-									There are no studies matching your filter.
-								</p>
+								<p>There are no studies matching your filter.</p>
 							</If>
 						</div>
 
@@ -517,10 +381,7 @@ export default class CancerStudySelector extends QueryStoreComponent<
 				</FlexRow>
 
 				<Modal
-					className={classNames(
-						styles.SelectedStudiesWindow,
-						"cbioportal-frontend"
-					)}
+					className={classNames(styles.SelectedStudiesWindow, "cbioportal-frontend")}
 					show={this.store.showSelectedStudiesOnly}
 					onHide={() => (this.store.showSelectedStudiesOnly = false)}
 				>

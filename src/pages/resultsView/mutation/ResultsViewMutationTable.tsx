@@ -13,9 +13,7 @@ export interface IResultsViewMutationTableProps extends IMutationTableProps {
 }
 
 @observer
-export default class ResultsViewMutationTable extends MutationTable<
-	IResultsViewMutationTableProps
-> {
+export default class ResultsViewMutationTable extends MutationTable<IResultsViewMutationTableProps> {
 	constructor(props: IResultsViewMutationTableProps) {
 		super(props);
 	}
@@ -52,8 +50,7 @@ export default class ResultsViewMutationTable extends MutationTable<
 
 	componentWillUpdate(nextProps: IResultsViewMutationTableProps) {
 		this._columns[MutationTableColumnType.STUDY].visible = !!(
-			nextProps.studyIdToStudy &&
-			Object.keys(nextProps.studyIdToStudy).length > 1
+			nextProps.studyIdToStudy && Object.keys(nextProps.studyIdToStudy).length > 1
 		);
 	}
 
@@ -61,20 +58,12 @@ export default class ResultsViewMutationTable extends MutationTable<
 		super.generateColumns();
 
 		// override default visibility for some columns
-		this._columns[
-			MutationTableColumnType.CANCER_TYPE
-		].visible = CancerTypeColumnFormatter.isVisible(
-			this.props.dataStore
-				? this.props.dataStore.allData
-				: this.props.data,
+		this._columns[MutationTableColumnType.CANCER_TYPE].visible = CancerTypeColumnFormatter.isVisible(
+			this.props.dataStore ? this.props.dataStore.allData : this.props.data,
 			this.props.uniqueSampleKeyToTumorType
 		);
-		this._columns[
-			MutationTableColumnType.TUMOR_ALLELE_FREQ
-		].visible = TumorAlleleFreqColumnFormatter.isVisible(
-			this.props.dataStore
-				? this.props.dataStore.allData
-				: this.props.data
+		this._columns[MutationTableColumnType.TUMOR_ALLELE_FREQ].visible = TumorAlleleFreqColumnFormatter.isVisible(
+			this.props.dataStore ? this.props.dataStore.allData : this.props.data
 		);
 
 		// order columns
@@ -104,14 +93,10 @@ export default class ResultsViewMutationTable extends MutationTable<
 		this._columns[MutationTableColumnType.NUM_MUTATIONS].order = 220;
 
 		// exclude
-		this._columns[
-			MutationTableColumnType.CANCER_TYPE
-		].shouldExclude = () => {
+		this._columns[MutationTableColumnType.CANCER_TYPE].shouldExclude = () => {
 			return !this.props.uniqueSampleKeyToTumorType;
 		};
-		this._columns[
-			MutationTableColumnType.NUM_MUTATIONS
-		].shouldExclude = () => {
+		this._columns[MutationTableColumnType.NUM_MUTATIONS].shouldExclude = () => {
 			return !this.props.mutationCountCache;
 		};
 	}

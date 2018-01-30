@@ -26,18 +26,11 @@ export default class SampleColumnFormatter {
 	) {
 		const sampleId: string = SampleColumnFormatter.getTextValue(data);
 		let content = (
-			<TruncatedText
-				text={sampleId}
-				tooltip={<div style={{ maxWidth: 300 }}>{sampleId}</div>}
-				maxLength={16}
-			/>
+			<TruncatedText text={sampleId} tooltip={<div style={{ maxWidth: 300 }}>{sampleId}</div>} maxLength={16} />
 		);
 
 		if (molecularProfileIdToMolecularProfile) {
-			const profile =
-				molecularProfileIdToMolecularProfile[
-					data[0].molecularProfileId
-				];
+			const profile = molecularProfileIdToMolecularProfile[data[0].molecularProfileId];
 			const studyId = profile && profile.studyId;
 			if (studyId) {
 				let linkToPatientView: string = `#/patient?sampleId=${sampleId}&studyId=${studyId}`;
@@ -46,14 +39,10 @@ export default class SampleColumnFormatter {
 				 * Change it to case.do
 				 * https://github.com/cBioPortal/cbioportal/issues/2783
 				 */
-				const indexLocation: number = window.location.href.search(
-					"index.do"
-				);
+				const indexLocation: number = window.location.href.search("index.do");
 				if (indexLocation > -1) {
 					linkToPatientView =
-						window.location.href.substring(0, indexLocation) +
-						"case.do" +
-						linkToPatientView;
+						window.location.href.substring(0, indexLocation) + "case.do" + linkToPatientView;
 				}
 				// END HACK
 

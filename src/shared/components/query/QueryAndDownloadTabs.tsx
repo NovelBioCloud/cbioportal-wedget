@@ -19,10 +19,7 @@ interface IQueryAndDownloadTabsProps {
 }
 
 @observer
-export default class QueryAndDownloadTabs extends React.Component<
-	IQueryAndDownloadTabsProps,
-	{}
-> {
+export default class QueryAndDownloadTabs extends React.Component<IQueryAndDownloadTabsProps, {}> {
 	get store() {
 		return this.props.store;
 	}
@@ -42,14 +39,9 @@ export default class QueryAndDownloadTabs extends React.Component<
 				>
 					<Tab eventKey="query" title="Query" />
 
-					{this.props.showDownloadTab !== false && (
-						<Tab eventKey="download" title="Download Data" />
-					)}
+					{this.props.showDownloadTab !== false && <Tab eventKey="download" title="Download Data" />}
 				</Tabs>
-				<QueryContainer
-					onSubmit={this.props.onSubmit}
-					store={this.props.store}
-				/>
+				<QueryContainer onSubmit={this.props.onSubmit} store={this.props.store} />
 			</div>
 		);
 	}

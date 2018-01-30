@@ -9,18 +9,11 @@ interface GenesetsHierarchyFilterFormProps {
 	percentile: validPercentile;
 	pvalueThreshold: number;
 	scoreThreshold: number;
-	onApply: (
-		percentile: validPercentile,
-		pvalueThreshold: number,
-		scoreThreshold: number
-	) => void;
+	onApply: (percentile: validPercentile, pvalueThreshold: number, scoreThreshold: number) => void;
 }
 
 @observer
-export default class GenesetsHierarchyFilterForm extends React.Component<
-	GenesetsHierarchyFilterFormProps,
-	{}
-> {
+export default class GenesetsHierarchyFilterForm extends React.Component<GenesetsHierarchyFilterFormProps, {}> {
 	@observable percentile = this.props.percentile;
 	@observable pvalueThreshold = String(this.props.pvalueThreshold);
 	@observable scoreThreshold = String(this.props.scoreThreshold);
@@ -40,18 +33,10 @@ export default class GenesetsHierarchyFilterForm extends React.Component<
 	}
 
 	applyFilter() {
-		const pvalueThreshold = this.pvalueThreshold
-			? Number(this.pvalueThreshold)
-			: NaN;
-		const scoreThreshold = this.scoreThreshold
-			? Number(this.scoreThreshold)
-			: NaN;
+		const pvalueThreshold = this.pvalueThreshold ? Number(this.pvalueThreshold) : NaN;
+		const scoreThreshold = this.scoreThreshold ? Number(this.scoreThreshold) : NaN;
 		if (!Number.isNaN(pvalueThreshold) && !Number.isNaN(scoreThreshold)) {
-			this.props.onApply(
-				this.percentile,
-				pvalueThreshold,
-				scoreThreshold
-			);
+			this.props.onApply(this.percentile, pvalueThreshold, scoreThreshold);
 		}
 	}
 
@@ -75,9 +60,7 @@ export default class GenesetsHierarchyFilterForm extends React.Component<
 						type="number"
 						value={this.scoreThreshold}
 						style={{ width: 160, height: 36, padding: 10 }}
-						onChange={event =>
-							(this.scoreThreshold = event.target.value)
-						}
+						onChange={event => (this.scoreThreshold = event.target.value)}
 						step="0.1"
 					/>
 				</div>
@@ -88,17 +71,13 @@ export default class GenesetsHierarchyFilterForm extends React.Component<
 						type="number"
 						value={this.pvalueThreshold}
 						style={{ width: 160, height: 36, padding: 10 }}
-						onChange={event =>
-							(this.pvalueThreshold = event.target.value)
-						}
+						onChange={event => (this.pvalueThreshold = event.target.value)}
 						step="0.01"
 						min="0"
 					/>
 				</div>
 				<div>
-					<label htmlFor="PercentileScoreCalculation">
-						Percentile for score calculation
-					</label>
+					<label htmlFor="PercentileScoreCalculation">Percentile for score calculation</label>
 					<ReactSelect
 						addLabelText="Percentile for score calculation"
 						style={{ width: 160, borderRadius: "2px" }}

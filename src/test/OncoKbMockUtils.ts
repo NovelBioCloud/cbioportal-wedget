@@ -36,8 +36,6 @@ export function emptyQueryIndicator(): IndicatorQueryResp {
 	};
 }
 
-export function initQueryIndicator(props: {
-	[key: string]: any;
-}): IndicatorQueryResp {
+export function initQueryIndicator(props: { [key: string]: any }): IndicatorQueryResp {
 	return _.merge(emptyQueryIndicator(), props);
 }

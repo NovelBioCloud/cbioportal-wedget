@@ -9,10 +9,7 @@ export interface IFeatureTitleProps {
 	isHidden?: Boolean;
 }
 
-export default class FeatureTitle extends React.Component<
-	IFeatureTitleProps,
-	{}
-> {
+export default class FeatureTitle extends React.Component<IFeatureTitleProps, {}> {
 	public render() {
 		return (
 			<If condition={this.props.isHidden}>

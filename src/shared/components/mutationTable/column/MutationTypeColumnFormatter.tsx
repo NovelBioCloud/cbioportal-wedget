@@ -135,9 +135,7 @@ export default class MutationTypeColumnFormatter {
 	 * @returns {string}    mutation assessor text value
 	 */
 	public static getDisplayValue(data: Mutation[]): string {
-		const entry:
-			| IMutationTypeFormat
-			| undefined = MutationTypeColumnFormatter.getMapEntry(data);
+		const entry: IMutationTypeFormat | undefined = MutationTypeColumnFormatter.getMapEntry(data);
 
 		// first, try to find a mapped value
 		if (entry && entry.label) {
@@ -160,16 +158,13 @@ export default class MutationTypeColumnFormatter {
 	}
 
 	public static getClassName(data: Mutation[]): string {
-		const value:
-			| IMutationTypeFormat
-			| undefined = MutationTypeColumnFormatter.getMapEntry(data);
+		const value: IMutationTypeFormat | undefined = MutationTypeColumnFormatter.getMapEntry(data);
 
 		if (value && value.className) {
 			return value.className;
 		} else {
 			// for unmapped values, use the "other" style
-			return MutationTypeColumnFormatter.MAIN_MUTATION_TYPE_MAP["other"]
-				.className;
+			return MutationTypeColumnFormatter.MAIN_MUTATION_TYPE_MAP["other"].className;
 		}
 	}
 
@@ -177,9 +172,7 @@ export default class MutationTypeColumnFormatter {
 		const mutationType = MutationTypeColumnFormatter.getData(data);
 
 		if (mutationType) {
-			return MutationTypeColumnFormatter.MAIN_MUTATION_TYPE_MAP[
-				getCanonicalMutationType(mutationType)
-			];
+			return MutationTypeColumnFormatter.MAIN_MUTATION_TYPE_MAP[getCanonicalMutationType(mutationType)];
 		} else {
 			return undefined;
 		}
@@ -196,9 +189,7 @@ export default class MutationTypeColumnFormatter {
 	public static renderFunction(data: Mutation[]) {
 		// use text for all purposes (display, sort, filter)
 		const text: string = MutationTypeColumnFormatter.getDisplayValue(data);
-		const className: string = MutationTypeColumnFormatter.getClassName(
-			data
-		);
+		const className: string = MutationTypeColumnFormatter.getClassName(data);
 
 		// use actual value for tooltip
 		const toolTip: string = MutationTypeColumnFormatter.getTextValue(data);
@@ -210,11 +201,7 @@ export default class MutationTypeColumnFormatter {
 			const arrowContent = <div className="rc-tooltip-arrow-inner" />;
 
 			content = (
-				<DefaultTooltip
-					overlay={<span>{toolTip}</span>}
-					placement="left"
-					arrowContent={arrowContent}
-				>
+				<DefaultTooltip overlay={<span>{toolTip}</span>} placement="left" arrowContent={arrowContent}>
 					{content}
 				</DefaultTooltip>
 			);

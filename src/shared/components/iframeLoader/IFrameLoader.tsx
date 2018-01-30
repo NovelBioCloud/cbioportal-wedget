@@ -1,10 +1,7 @@
 import * as React from "react";
 import { ThreeBounce } from "better-react-spinkit";
 
-export default class IFrameLoader extends React.Component<
-	{ url: string; height: Number },
-	{}
-> {
+export default class IFrameLoader extends React.Component<{ url: string; height: Number }, {}> {
 	constructor(props: { url: string; height: Number }) {
 		super(props);
 	}
@@ -13,10 +10,7 @@ export default class IFrameLoader extends React.Component<
 		return (
 			<div style={{ position: "relative" }}>
 				<div style={{ position: "absolute", left: "50%" }}>
-					<ThreeBounce
-						style={{ position: "relative", left: "-50%" }}
-						className="center-block text-center"
-					/>{" "}
+					<ThreeBounce style={{ position: "relative", left: "-50%" }} className="center-block text-center" />{" "}
 					{/*Put it underneath so it gets covered by loaded element*/}
 				</div>
 				<iframe

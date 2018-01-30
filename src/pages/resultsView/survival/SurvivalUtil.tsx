@@ -18,10 +18,7 @@ export function getEstimates(patientSurvivals: PatientSurvival[]): number[] {
 	return estimates;
 }
 
-export function getMedian(
-	patientSurvivals: PatientSurvival[],
-	estimates: number[]
-): string {
+export function getMedian(patientSurvivals: PatientSurvival[], estimates: number[]): string {
 	let median: string = "NA";
 	for (let i = 0; i < estimates.length; i++) {
 		if (estimates[i] <= 0.5) {
@@ -32,10 +29,7 @@ export function getMedian(
 	return median;
 }
 
-export function getLineData(
-	patientSurvivals: PatientSurvival[],
-	estimates: number[]
-): any[] {
+export function getLineData(patientSurvivals: PatientSurvival[], estimates: number[]): any[] {
 	let chartData: any[] = [];
 
 	chartData.push({ x: 0, y: 100 });
@@ -49,10 +43,7 @@ export function getLineData(
 	return chartData;
 }
 
-export function getScatterData(
-	patientSurvivals: PatientSurvival[],
-	estimates: number[]
-): any[] {
+export function getScatterData(patientSurvivals: PatientSurvival[], estimates: number[]): any[] {
 	return patientSurvivals.map((patientSurvival, index) => {
 		return {
 			x: patientSurvival.months,
@@ -64,10 +55,7 @@ export function getScatterData(
 	});
 }
 
-export function getScatterDataWithOpacity(
-	patientSurvivals: PatientSurvival[],
-	estimates: number[]
-): any[] {
+export function getScatterDataWithOpacity(patientSurvivals: PatientSurvival[], estimates: number[]): any[] {
 	let scatterData = getScatterData(patientSurvivals, estimates);
 	let chartData: any[] = [];
 	let previousEstimate: number;
@@ -85,15 +73,10 @@ export function getScatterDataWithOpacity(
 	return chartData;
 }
 
-export function getStats(
-	patientSurvivals: PatientSurvival[],
-	estimates: number[]
-): [number, number, string] {
+export function getStats(patientSurvivals: PatientSurvival[], estimates: number[]): [number, number, string] {
 	return [
 		patientSurvivals.length,
-		patientSurvivals.filter(
-			patientSurvival => patientSurvival.status === true
-		).length,
+		patientSurvivals.filter(patientSurvival => patientSurvival.status === true).length,
 		getMedian(patientSurvivals, estimates)
 	];
 }
@@ -108,18 +91,13 @@ export function calculateLogRank(
 	let totalExpectation = 0;
 	let totalVariance = 0;
 
-	while (
-		alteredIndex < alteredPatientSurvivals.length &&
-		unalteredIndex < unalteredPatientSurvivals.length
-	) {
+	while (alteredIndex < alteredPatientSurvivals.length && unalteredIndex < unalteredPatientSurvivals.length) {
 		let alteredNumberOfFailure = 0;
 		let unalteredNumberOfFailure = 0;
 		const alteredAtRisk = alteredPatientSurvivals.length - alteredIndex;
-		const unalteredAtRisk =
-			unalteredPatientSurvivals.length - unalteredIndex;
+		const unalteredAtRisk = unalteredPatientSurvivals.length - unalteredIndex;
 		const alteredPatientSurvival = alteredPatientSurvivals[alteredIndex];
-		const unalteredPatientSurvival =
-			unalteredPatientSurvivals[unalteredIndex];
+		const unalteredPatientSurvival = unalteredPatientSurvivals[unalteredIndex];
 
 		if (
 			alteredPatientSurvival.months < unalteredPatientSurvival.months ||
@@ -141,8 +119,7 @@ export function calculateLogRank(
 			unalteredIndex += 1;
 		}
 
-		const numberOfFailures =
-			alteredNumberOfFailure + unalteredNumberOfFailure;
+		const numberOfFailures = alteredNumberOfFailure + unalteredNumberOfFailure;
 		const atRisk = alteredAtRisk + unalteredAtRisk;
 		const expectation = alteredAtRisk / atRisk * numberOfFailures;
 		const variance =
@@ -173,14 +150,8 @@ export function getDownloadContent(
 	unalteredTitle: string
 ): string {
 	let content: string = mainTitle + "\n\n" + alteredTitle + "\n";
-	content +=
-		tsvFormat(convertScatterDataToDownloadData(alteredPatientData)) +
-		"\n\n" +
-		unalteredTitle +
-		"\n";
-	content += tsvFormat(
-		convertScatterDataToDownloadData(unalteredPatientData)
-	);
+	content += tsvFormat(convertScatterDataToDownloadData(alteredPatientData)) + "\n\n" + unalteredTitle + "\n";
+	content += tsvFormat(convertScatterDataToDownloadData(unalteredPatientData));
 	return content;
 }
 

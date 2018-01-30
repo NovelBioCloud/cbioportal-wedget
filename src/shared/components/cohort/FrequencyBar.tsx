@@ -17,10 +17,7 @@ export interface IFrequencyBarProps {
 /**
  * @author Selcuk Onur Sumer
  */
-export default class FrequencyBar extends React.Component<
-	IFrequencyBarProps,
-	{}
-> {
+export default class FrequencyBar extends React.Component<IFrequencyBarProps, {}> {
 	public static defaultProps = {
 		freqColors: ["lightgreen", "green"],
 		barColor: "#ccc",
@@ -38,24 +35,14 @@ export default class FrequencyBar extends React.Component<
 	}
 
 	public mainContent() {
-		const {
-			barWidth,
-			barHeight,
-			barColor,
-			totalCount,
-			counts,
-			textMargin
-		} = this.props;
+		const { barWidth, barHeight, barColor, totalCount, counts, textMargin } = this.props;
 
-		const freqColors =
-			this.props.freqColors || FrequencyBar.defaultProps.freqColors;
+		const freqColors = this.props.freqColors || FrequencyBar.defaultProps.freqColors;
 
 		// if no mainCountIndex is provided or it is not a valid index, then use the first count in the list
 		// (main count is used to calculate the percentage to display)
 		const mainCountIndex =
-			this.props.mainCountIndex &&
-			this.props.mainCountIndex >= 0 &&
-			this.props.mainCountIndex < counts.length
+			this.props.mainCountIndex && this.props.mainCountIndex >= 0 && this.props.mainCountIndex < counts.length
 				? this.props.mainCountIndex
 				: 0;
 
@@ -78,33 +65,17 @@ export default class FrequencyBar extends React.Component<
 				<text x={textPos} y="9.5" textAnchor="start" fontSize="10">
 					{getPercentage(mainProportion)}
 				</text>
-				<rect
-					y="2"
-					width={barWidth}
-					height={barHeight}
-					fill={barColor}
-				/>
+				<rect y="2" width={barWidth} height={barHeight} fill={barColor} />
 				{freqRects}
 			</svg>
 		);
 	}
 
-	public frequencyRectangle(
-		count: number,
-		totalCount: number,
-		color: string
-	) {
+	public frequencyRectangle(count: number, totalCount: number, color: string) {
 		const proportion = count / totalCount;
 		const { barWidth, barHeight } = this.props;
 
-		return (
-			<rect
-				y="2"
-				width={proportion * (barWidth || 0)}
-				height={barHeight}
-				fill={color}
-			/>
-		);
+		return <rect y="2" width={proportion * (barWidth || 0)} height={barHeight} fill={color} />;
 	}
 
 	public render() {

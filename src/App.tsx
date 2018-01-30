@@ -1,14 +1,6 @@
 import * as React from "react";
 import "./App.css";
-import {
-	observable,
-	action,
-	computed,
-	reaction,
-	autorun,
-	useStrict,
-	runInAction
-} from "mobx";
+import { observable, action, computed, reaction, autorun, useStrict, runInAction } from "mobx";
 import { observer, inject, Observer } from "mobx-react";
 import {
 	labelMobxPromises,
@@ -88,10 +80,7 @@ class App extends React.Component<any, any> {
 					reset:{this.appStore.asyncTime.result}
 				</button>
 				<div>{this.appStore.asyncTime.isPending && "pedding"}</div>
-				<div>
-					{this.appStore.asyncTime.isComplete &&
-						this.appStore.asyncTime.result}
-				</div>
+				<div>{this.appStore.asyncTime.isComplete && this.appStore.asyncTime.result}</div>
 			</div>
 		);
 	}

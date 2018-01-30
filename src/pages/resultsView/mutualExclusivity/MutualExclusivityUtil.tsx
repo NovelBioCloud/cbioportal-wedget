@@ -5,15 +5,10 @@ import Combinatorics from "js-combinatorics";
 import Dictionary = _.Dictionary;
 
 export function calculateAssociation(logOddsRatio: number): string {
-	return logOddsRatio > 0
-		? "Tendency towards co-occurrence"
-		: "Tendency towards mutual exclusivity";
+	return logOddsRatio > 0 ? "Tendency towards co-occurrence" : "Tendency towards mutual exclusivity";
 }
 
-export function countOccurences(
-	valuesA: boolean[],
-	valuesB: boolean[]
-): [number, number, number, number] {
+export function countOccurences(valuesA: boolean[], valuesB: boolean[]): [number, number, number, number] {
 	let neither = 0;
 	let bNotA = 0;
 	let aNotB = 0;
@@ -34,21 +29,11 @@ export function countOccurences(
 	return [neither, bNotA, aNotB, both];
 }
 
-export function calculatePValue(
-	a: number,
-	b: number,
-	c: number,
-	d: number
-): number {
+export function calculatePValue(a: number, b: number, c: number, d: number): number {
 	return getCumulativePValue(a, b, c, d);
 }
 
-export function calculateLogOddsRatio(
-	a: number,
-	b: number,
-	c: number,
-	d: number
-): number {
+export function calculateLogOddsRatio(a: number, b: number, c: number, d: number): number {
 	if (a * d === 0 && b * c === 0) {
 		return Infinity;
 	}
@@ -62,12 +47,8 @@ export function getMutuallyExclusiveCounts(
 	let exclusiveCount = null;
 	let significantCount = null;
 
-	const exclusiveData = data.filter(mutualExclusivity =>
-		exclusive(mutualExclusivity.logOddsRatio)
-	);
-	const significantData = exclusiveData.filter(
-		mutualExclusivity => mutualExclusivity.pValue < 0.05
-	);
+	const exclusiveData = data.filter(mutualExclusivity => exclusive(mutualExclusivity.logOddsRatio));
+	const significantData = exclusiveData.filter(mutualExclusivity => mutualExclusivity.pValue < 0.05);
 
 	const exclusiveLength = exclusiveData.length;
 	const significantLength = significantData.length;
@@ -108,26 +89,19 @@ export function getMutuallyExclusiveCounts(
 }
 
 export function getCountsText(data: MutualExclusivity[]): JSX.Element {
-	const mutuallyExclusiveCounts = getMutuallyExclusiveCounts(
-		data,
-		n => n <= 0
-	);
+	const mutuallyExclusiveCounts = getMutuallyExclusiveCounts(data, n => n <= 0);
 	const coOccurentCounts = getMutuallyExclusiveCounts(data, n => n > 0);
 
 	return (
 		<p>
-			The query contains {mutuallyExclusiveCounts[0]} with mutually
-			exclusive alterations{mutuallyExclusiveCounts[1]}, and{" "}
-			{coOccurentCounts[0]} with co-occurrent alterations{
-				coOccurentCounts[1]
-			}.
+			The query contains {mutuallyExclusiveCounts[0]} with mutually exclusive alterations{
+				mutuallyExclusiveCounts[1]
+			}, and {coOccurentCounts[0]} with co-occurrent alterations{coOccurentCounts[1]}.
 		</p>
 	);
 }
 
-export function getData(
-	isSampleAlteredMap: Dictionary<boolean[]>
-): MutualExclusivity[] {
+export function getData(isSampleAlteredMap: Dictionary<boolean[]>): MutualExclusivity[] {
 	let data: MutualExclusivity[] = [];
 	const combinations: string[][] = (Combinatorics as any)
 		.bigCombination(Object.keys(isSampleAlteredMap), 2)
@@ -136,22 +110,9 @@ export function getData(
 	combinations.forEach(combination => {
 		const geneA = combination[0];
 		const geneB = combination[1];
-		const counts = countOccurences(
-			isSampleAlteredMap[geneA],
-			isSampleAlteredMap[geneB]
-		);
-		const pValue = calculatePValue(
-			counts[0],
-			counts[1],
-			counts[2],
-			counts[3]
-		);
-		const logOddsRatio = calculateLogOddsRatio(
-			counts[0],
-			counts[1],
-			counts[2],
-			counts[3]
-		);
+		const counts = countOccurences(isSampleAlteredMap[geneA], isSampleAlteredMap[geneB]);
+		const pValue = calculatePValue(counts[0], counts[1], counts[2], counts[3]);
+		const logOddsRatio = calculateLogOddsRatio(counts[0], counts[1], counts[2], counts[3]);
 		const association = calculateAssociation(logOddsRatio);
 		data.push({ geneA, geneB, pValue, logOddsRatio, association });
 	});

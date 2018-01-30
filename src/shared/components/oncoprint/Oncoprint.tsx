@@ -15,17 +15,10 @@ import {
 	getClinicalTrackRuleSetParams,
 	getGeneticTrackRuleSetParams
 } from "./OncoprintUtils";
-import {
-	getClinicalTrackSortComparator,
-	getGeneticTrackSortComparator,
-	heatmapTrackSortComparator
-} from "./SortUtils";
+import { getClinicalTrackSortComparator, getGeneticTrackSortComparator, heatmapTrackSortComparator } from "./SortUtils";
 import { transition } from "./DeltaUtils";
 import _ from "lodash";
-import {
-	AnnotatedMutation,
-	ExtendedAlteration
-} from "../../../pages/resultsView/ResultsViewPageStore";
+import { AnnotatedMutation, ExtendedAlteration } from "../../../pages/resultsView/ResultsViewPageStore";
 
 export type ClinicalTrackDatum = {
 	attr_id: string;
@@ -163,41 +156,25 @@ export default class Oncoprint extends React.Component<IOncoprintProps, {}> {
 
 	@computed
 	get sortByMutationType() {
-		return (
-			this.props.distinguishMutationType &&
-			this.props.sortConfig &&
-			this.props.sortConfig.sortByMutationType
-		);
+		return this.props.distinguishMutationType && this.props.sortConfig && this.props.sortConfig.sortByMutationType;
 	}
 
 	@computed
 	get sortByDrivers() {
-		return (
-			this.props.distinguishDrivers &&
-			this.props.sortConfig &&
-			this.props.sortConfig.sortByDrivers
-		);
+		return this.props.distinguishDrivers && this.props.sortConfig && this.props.sortConfig.sortByDrivers;
 	}
 
 	private refreshOncoprint(props: IOncoprintProps) {
 		if (!this.oncoprint) {
 			// instantiate new one
 			this.oncoprint = new OncoprintJS(`#${props.divId}`, props.width);
-			this.oncoprint.setTrackGroupLegendOrder([
-				GENETIC_TRACK_GROUP_INDEX,
-				CLINICAL_TRACK_GROUP_INDEX
-			]);
+			this.oncoprint.setTrackGroupLegendOrder([GENETIC_TRACK_GROUP_INDEX, CLINICAL_TRACK_GROUP_INDEX]);
 			(window as any).frontendOnc = this.oncoprint;
 			if (props.oncoprintRef) {
 				props.oncoprintRef(this.oncoprint);
 			}
 		}
-		transition(
-			props,
-			this.lastTransitionProps || {},
-			this.oncoprint,
-			() => this.trackSpecKeyToTrackId
-		);
+		transition(props, this.lastTransitionProps || {}, this.oncoprint, () => this.trackSpecKeyToTrackId);
 		this.lastTransitionProps = _.clone(this.props);
 	}
 

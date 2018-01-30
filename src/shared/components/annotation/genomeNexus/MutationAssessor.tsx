@@ -15,10 +15,7 @@ export function hideArrow(tooltipEl: any) {
 	arrowEl.style.display = "none";
 }
 
-export default class MutationAssessor extends React.Component<
-	IMutationAssessorProps,
-	{}
-> {
+export default class MutationAssessor extends React.Component<IMutationAssessorProps, {}> {
 	static MUTATION_ASSESSOR_URL: string = "http://mutationassessor.org/r3/";
 
 	constructor(props: IMutationAssessorProps) {
@@ -27,9 +24,7 @@ export default class MutationAssessor extends React.Component<
 		this.tooltipContent = this.tooltipContent.bind(this);
 	}
 
-	public static download(
-		mutationAssessorData: MutationAssessorData | undefined
-	): string {
+	public static download(mutationAssessorData: MutationAssessorData | undefined): string {
 		if (mutationAssessorData) {
 			return `impact: ${mutationAssessorData.functionalImpact}, score: ${
 				mutationAssessorData.functionalImpactScore
@@ -40,14 +35,9 @@ export default class MutationAssessor extends React.Component<
 	}
 
 	public render() {
-		let maContent: JSX.Element = (
-			<span className={`${annotationStyles["annotation-item-text"]}`} />
-		);
+		let maContent: JSX.Element = <span className={`${annotationStyles["annotation-item-text"]}`} />;
 
-		if (
-			this.props.mutationAssessor &&
-			this.props.mutationAssessor.functionalImpact !== null
-		) {
+		if (this.props.mutationAssessor && this.props.mutationAssessor.functionalImpact !== null) {
 			const maData = this.props.mutationAssessor;
 			maContent = (
 				<span
@@ -80,9 +70,7 @@ export default class MutationAssessor extends React.Component<
 	private tooltipContent() {
 		const maData = this.props.mutationAssessor;
 		const xVarLink = MutationAssessor.maLink(
-			`http://mutationassessor.org/r3/?cm=var&p=${maData.uniprotId}&var=${
-				maData.variant
-			}`
+			`http://mutationassessor.org/r3/?cm=var&p=${maData.uniprotId}&var=${maData.variant}`
 		);
 		const msaLink = MutationAssessor.maLink(maData.msaLink);
 		const pdbLink = MutationAssessor.maLink(maData.pdbLink);
@@ -93,27 +81,18 @@ export default class MutationAssessor extends React.Component<
 					<tr>
 						<td>Source</td>
 						<td>
-							<a href="http://mutationassessor.org/r3">
-								MutationAssessor
-							</a>
+							<a href="http://mutationassessor.org/r3">MutationAssessor</a>
 						</td>
 					</tr>
 					<tr>
 						<td>Impact</td>
 						<td>
-							<span
-								className={
-									mutationAssessorColumn[
-										`ma-${maData.functionalImpact}`
-									]
-								}
-							>
+							<span className={mutationAssessorColumn[`ma-${maData.functionalImpact}`]}>
 								{maData.functionalImpact}
 							</span>
 						</td>
 					</tr>
-					{(maData.functionalImpactScore ||
-						maData.functionalImpactScore === 0) && (
+					{(maData.functionalImpactScore || maData.functionalImpactScore === 0) && (
 						<tr>
 							<td>Score</td>
 							<td>
@@ -143,13 +122,7 @@ export default class MutationAssessor extends React.Component<
 		const msa = msaLink ? (
 			<div className={tooltipStyles["mutation-assessor-link"]}>
 				<a href={msaLink} target="_blank">
-					<span
-						className={`${tooltipStyles["ma-icon"]} ${
-							tooltipStyles["ma-msa-icon"]
-						}`}
-					>
-						msa
-					</span>
+					<span className={`${tooltipStyles["ma-icon"]} ${tooltipStyles["ma-msa-icon"]}`}>msa</span>
 					Multiple Sequence Alignment
 				</a>
 			</div>
@@ -158,13 +131,7 @@ export default class MutationAssessor extends React.Component<
 		const pdb = pdbLink ? (
 			<div className={tooltipStyles["mutation-assessor-link"]}>
 				<a href={pdbLink} target="_blank">
-					<span
-						className={`${tooltipStyles["ma-icon"]} ${
-							tooltipStyles["ma-3d-icon"]
-						}`}
-					>
-						3D
-					</span>
+					<span className={`${tooltipStyles["ma-icon"]} ${tooltipStyles["ma-3d-icon"]}`}>3D</span>
 					Mutation Assessor 3D View
 				</a>
 			</div>

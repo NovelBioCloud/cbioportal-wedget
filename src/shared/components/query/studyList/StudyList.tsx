@@ -1,8 +1,5 @@
 import * as React from "react";
-import {
-	TypeOfCancer as CancerType,
-	CancerStudy
-} from "../../../api/generated/CBioPortalAPI";
+import { TypeOfCancer as CancerType, CancerStudy } from "../../../api/generated/CBioPortalAPI";
 import * as styles_any from "./styles.module.scss";
 import classNames from "classnames";
 import FontAwesome from "react-fontawesome";
@@ -53,18 +50,12 @@ export interface IStudyListProps {
 }
 
 @observer
-export default class StudyList extends QueryStoreComponent<
-	IStudyListProps,
-	{}
-> {
+export default class StudyList extends QueryStoreComponent<IStudyListProps, {}> {
 	private _view: FilteredCancerTreeView;
 
 	get view() {
 		return (
-			this._view ||
-			(this.props.showSelectedStudiesOnly
-				? this.logic.selectedStudiesView
-				: this.logic.mainView)
+			this._view || (this.props.showSelectedStudiesOnly ? this.logic.selectedStudiesView : this.logic.mainView)
 		);
 	}
 
@@ -91,10 +82,7 @@ export default class StudyList extends QueryStoreComponent<
 					<span
 						className={styles.deselectAll}
 						onClick={() => {
-							this.view.onCheck(
-								this.store.treeData.rootCancerType,
-								false
-							);
+							this.view.onCheck(this.store.treeData.rootCancerType, false);
 							this.store.showSelectedStudiesOnly = false;
 						}}
 					>
@@ -108,10 +96,7 @@ export default class StudyList extends QueryStoreComponent<
 		return studyList;
 	}
 
-	renderCancerType = (
-		cancerType: CancerType,
-		arrayIndex: number = 0
-	): JSX.Element | null => {
+	renderCancerType = (cancerType: CancerType, arrayIndex: number = 0): JSX.Element | null => {
 		let currentLevel = this.logic.getDepth(cancerType);
 		let childCancerTypes = this.view.getChildCancerTypes(cancerType);
 		let childStudies = this.view.getChildCancerStudies(cancerType);
@@ -130,26 +115,16 @@ export default class StudyList extends QueryStoreComponent<
 			);
 
 			if (currentLevel === 3)
-				indentArrow = (
-					<FontAwesome
-						className={styles.indentArrow}
-						name="long-arrow-right"
-					/>
-				);
+				indentArrow = <FontAwesome className={styles.indentArrow} name="long-arrow-right" />;
 
 			heading = (
 				<li className={liClassName}>
 					<CancerTreeCheckbox view={this.view} node={cancerType}>
 						{indentArrow}
-						<span className={styles.CancerTypeName}>
-							{cancerType.name}
-						</span>
+						<span className={styles.CancerTypeName}>{cancerType.name}</span>
 						{!!!this.store.forDownloadTab && (
 							<span className={styles.SelectAll}>
-								{_.intersection(
-									childStudyIds,
-									this.store.selectedStudyIds
-								).length
+								{_.intersection(childStudyIds, this.store.selectedStudyIds).length
 									? "Deselect All"
 									: "Select All"}
 							</span>
@@ -159,10 +134,7 @@ export default class StudyList extends QueryStoreComponent<
 			);
 		}
 
-		let ulClassName = classNames(
-			styles.StudyList,
-			styles.Level(currentLevel)
-		);
+		let ulClassName = classNames(styles.StudyList, styles.Level(currentLevel));
 		return (
 			<ul key={arrayIndex} className={ulClassName}>
 				{heading}
@@ -173,10 +145,7 @@ export default class StudyList extends QueryStoreComponent<
 	};
 
 	renderCancerStudy = (study: CancerStudy, arrayIndex: number) => {
-		let liClassName = classNames(
-			styles.Study,
-			this.logic.isHighlighted(study) && styles.highlighted
-		);
+		let liClassName = classNames(styles.Study, this.logic.isHighlighted(study) && styles.highlighted);
 
 		const isOverlap = study.studyId in this.store.getOverlappingStudiesMap;
 		const classes = classNames({
@@ -187,23 +156,14 @@ export default class StudyList extends QueryStoreComponent<
 			<DefaultTooltip
 				mouseEnterDelay={0}
 				placement="top"
-				overlay={
-					<div>
-						This study may share samples with another selected
-						study.
-					</div>
-				}
+				overlay={<div>This study may share samples with another selected study.</div>}
 			>
 				<i className="fa fa-exclamation-triangle" />
 			</DefaultTooltip>
 		) : null;
 
 		return (
-			<li
-				key={arrayIndex}
-				className={liClassName}
-				data-test="StudySelect"
-			>
+			<li key={arrayIndex} className={liClassName} data-test="StudySelect">
 				<CancerTreeCheckbox view={this.view} node={study}>
 					<span className={classes}>
 						{study.name}
@@ -231,11 +191,7 @@ export default class StudyList extends QueryStoreComponent<
 	// }
 
 	renderSamples = (study: CancerStudy) => {
-		return (
-			<span className={styles.StudySamples}>
-				{`${study.allSampleCount} samples`}
-			</span>
-		);
+		return <span className={styles.StudySamples}>{`${study.allSampleCount} samples`}</span>;
 	};
 
 	renderStudyLinks = (study: CancerStudy) => {
@@ -258,10 +214,7 @@ export default class StudyList extends QueryStoreComponent<
 			});
 		}
 
-		if (
-			this.store.isVirtualCohort(study.studyId) &&
-			!this.store.isTemporaryVirtualCohort(study.studyId)
-		) {
+		if (this.store.isVirtualCohort(study.studyId) && !this.store.isTemporaryVirtualCohort(study.studyId)) {
 			links.push({
 				icon: "trash",
 				tooltip: "Delete this virtual study.",
@@ -322,20 +275,11 @@ export default class StudyList extends QueryStoreComponent<
 					<DefaultTooltip
 						mouseEnterDelay={0}
 						placement="top"
-						overlay={
-							<div className={styles.tooltip}>
-								View study summary
-							</div>
-						}
+						overlay={<div className={styles.tooltip}>View study summary</div>}
 						children={
 							<span
-								onClick={() =>
-									openStudySummaryFormSubmit(study.studyId)
-								}
-								className={classNames(
-									styles.summaryIcon,
-									"ci ci-pie-chart"
-								)}
+								onClick={() => openStudySummaryFormSubmit(study.studyId)}
+								className={classNames(styles.summaryIcon, "ci ci-pie-chart")}
 							/>
 						}
 					/>
@@ -351,10 +295,7 @@ export interface ICancerTreeCheckboxProps {
 }
 
 @observer
-export class CancerTreeCheckbox extends QueryStoreComponent<
-	ICancerTreeCheckboxProps,
-	{}
-> {
+export class CancerTreeCheckbox extends QueryStoreComponent<ICancerTreeCheckboxProps, {}> {
 	@computed.struct
 	get checkboxProps() {
 		return this.props.view.getCheckboxProps(this.props.node);
@@ -365,10 +306,7 @@ export class CancerTreeCheckbox extends QueryStoreComponent<
 			<LabeledCheckbox
 				{...this.checkboxProps}
 				onChange={event => {
-					this.props.view.onCheck(
-						this.props.node,
-						(event.target as HTMLInputElement).checked
-					);
+					this.props.view.onCheck(this.props.node, (event.target as HTMLInputElement).checked);
 				}}
 			>
 				{this.props.children}

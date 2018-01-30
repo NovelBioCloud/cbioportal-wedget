@@ -35,7 +35,7 @@ export type IVAFPlotState = {
 };
 
 export class VAFPlot extends React.Component<IVAFPlotProps, IVAFPlotState> {
-	public static defaultProps = {
+	public static defaultProps: IVAFPlotProps = {
 		data: {},
 		order: {},
 		colors: {},
@@ -75,7 +75,8 @@ export class VAFPlot extends React.Component<IVAFPlotProps, IVAFPlotState> {
 		super(props);
 
 		// Compute contingent default params
-		let label_dist_to_axis = this.props.xticks === 0 ? 13 : 30;
+		// tslint:disable-next-line:variable-name
+		const label_dist_to_axis = this.props.xticks === 0 ? 13 : 30;
 
 		let options = {
 			label_font_size: this.props.label_font_size,
@@ -92,21 +93,20 @@ export class VAFPlot extends React.Component<IVAFPlotProps, IVAFPlotState> {
 			height: this.props.height
 		};
 		// margin bottom must be computed before height because height computation makes use of it
-		if (options.margin.bottom === undefined)
+		if (options.margin.bottom === undefined) {
 			options.margin.bottom = 30 + label_dist_to_axis / 2;
-		if (options.height === undefined && options.margin.top !== undefined)
-			options.height =
-				(500 + label_dist_to_axis) / 2 -
-				options.margin.top -
-				options.margin.bottom;
-		this.state = {
-			show_histogram: !!this.props.init_show_histogram,
-			show_curve: !!this.props.init_show_curve,
-			options
-		};
+		}
+		if (options.height === undefined && options.margin.top !== undefined) {
+			options.height = (500 + label_dist_to_axis) / 2 - options.margin.top - options.margin.bottom;
+			this.state = {
+				show_histogram: !!this.props.init_show_histogram,
+				show_curve: !!this.props.init_show_curve,
+				options
+			};
 
-		this.toggleShowHistogram = this.toggleShowHistogram.bind(this);
-		this.toggleShowCurve = this.toggleShowCurve.bind(this);
+			this.toggleShowHistogram = this.toggleShowHistogram.bind(this);
+			this.toggleShowCurve = this.toggleShowCurve.bind(this);
+		}
 	}
 
 	componentDidMount() {
@@ -145,17 +145,16 @@ export class VAFPlot extends React.Component<IVAFPlotProps, IVAFPlotState> {
 			}
 		}
 
-		return (
-			nextState.show_histogram !== this.state.show_histogram ||
-			nextState.show_curve !== this.state.show_curve
-		);
+		return nextState.show_histogram !== this.state.show_histogram || nextState.show_curve !== this.state.show_curve;
 	}
 
 	toggleShowHistogram() {
+		// tslint:disable-next-line:variable-name
 		const new_show_histogram = !this.state.show_histogram;
 		this.setState({ show_histogram: new_show_histogram });
 	}
 	toggleShowCurve() {
+		// tslint:disable-next-line:variable-name
 		const new_show_curve = !this.state.show_curve;
 		this.setState({ show_curve: new_show_curve });
 	}

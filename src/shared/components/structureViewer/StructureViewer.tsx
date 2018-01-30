@@ -13,10 +13,7 @@ export interface IStructureViewerProps extends IStructureVisualizerProps {
 }
 
 @observer
-export default class StructureViewer extends React.Component<
-	IStructureViewerProps,
-	{}
-> {
+export default class StructureViewer extends React.Component<IStructureViewerProps, {}> {
 	private _3dMolDiv: HTMLDivElement | undefined;
 	private _pdbId: string;
 	private wrapper: StructureVisualizer3D;
@@ -43,15 +40,8 @@ export default class StructureViewer extends React.Component<
 
 	public componentDidMount() {
 		if (this._3dMolDiv) {
-			this.wrapper = new StructureVisualizer3D(
-				this._3dMolDiv,
-				this.props
-			);
-			this.wrapper.init(
-				this.props.pdbId,
-				this.props.chainId,
-				this.props.residues
-			);
+			this.wrapper = new StructureVisualizer3D(this._3dMolDiv, this.props);
+			this.wrapper.init(this.props.pdbId, this.props.chainId, this.props.residues);
 			this._pdbId = this.props.pdbId;
 		}
 	}
@@ -61,19 +51,10 @@ export default class StructureViewer extends React.Component<
 			// if pdbId is updated we need to reload the structure
 			if (this.props.pdbId !== this._pdbId) {
 				this._pdbId = this.props.pdbId;
-				this.wrapper.loadPdb(
-					this._pdbId,
-					this.props.chainId,
-					this.props.residues,
-					this.props
-				);
+				this.wrapper.loadPdb(this._pdbId, this.props.chainId, this.props.residues, this.props);
 			} else {
 				// other updates just require selection/style updates without reloading the structure
-				this.wrapper.updateViewer(
-					this.props.chainId,
-					this.props.residues,
-					this.props
-				);
+				this.wrapper.updateViewer(this.props.chainId, this.props.residues, this.props);
 			}
 
 			if (!_.isEqual(this.props.bounds, prevProps.bounds)) {

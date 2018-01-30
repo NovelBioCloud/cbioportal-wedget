@@ -87,9 +87,7 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 				<ThreeBounce className="default-spinner center-block text-center" />
 			);
 		} else {
-			return React.cloneElement(tab, { inactive } as Partial<
-				IMSKTabProps
-			>);
+			return React.cloneElement(tab, { inactive } as Partial<IMSKTabProps>);
 		}
 	}
 
@@ -139,9 +137,7 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 
 	render() {
 		if (this.props.children && React.Children.count(this.props.children)) {
-			let children = this.props.children as React.ReactElement<
-				IMSKTabProps
-			>[];
+			let children = this.props.children as React.ReactElement<IMSKTabProps>[];
 
 			let hasActive: boolean = false;
 			let effectiveActiveTab: string = "";
@@ -150,34 +146,19 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 
 			const arr = _.reduce(
 				toArrayedChildren,
-				(
-					memo: React.ReactElement<IMSKTabProps>[],
-					child: React.ReactElement<IMSKTabProps>
-				) => {
+				(memo: React.ReactElement<IMSKTabProps>[], child: React.ReactElement<IMSKTabProps>) => {
 					if (!child.props.hide) {
 						if (child.props.id === this.props.activeTabId) {
 							hasActive = true;
 							effectiveActiveTab = this.props.activeTabId;
 							this.shownTabs.push(child.props.id);
-							memo.push(
-								this.cloneTab(
-									child,
-									false,
-									!!child.props.loading
-								)
-							);
+							memo.push(this.cloneTab(child, false, !!child.props.loading));
 						} else if (
 							!this.props.unmountOnHide &&
 							_.includes(this.shownTabs, child.props.id) &&
 							!child.props.loading
 						) {
-							memo.push(
-								this.cloneTab(
-									child,
-									true,
-									!!child.props.loading
-								)
-							);
+							memo.push(this.cloneTab(child, true, !!child.props.loading));
 						}
 					}
 					return memo;
@@ -187,23 +168,14 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 
 			// if we don't have an active child, then default to first
 			if (hasActive === false) {
-				const tabElement = toArrayedChildren[0] as React.ReactElement<
-					IMSKTabProps
-				>;
+				const tabElement = toArrayedChildren[0] as React.ReactElement<IMSKTabProps>;
 				this.shownTabs.push(tabElement.props.id);
-				arr[0] = this.cloneTab(
-					tabElement,
-					false,
-					!!tabElement.props.loading
-				);
+				arr[0] = this.cloneTab(tabElement, false, !!tabElement.props.loading);
 				effectiveActiveTab = tabElement.props.id;
 			}
 
 			return (
-				<div
-					id={this.props.id ? this.props.id : ""}
-					className={classnames("msk-tabs", this.props.className)}
-				>
+				<div id={this.props.id ? this.props.id : ""} className={classnames("msk-tabs", this.props.className)}>
 					{this.navTabs(children, effectiveActiveTab)}
 					<div className="tab-content">{arr}</div>
 				</div>
@@ -213,10 +185,7 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 		}
 	}
 
-	protected navTabs(
-		children: React.ReactElement<IMSKTabProps>[],
-		effectiveActiveTab: string
-	) {
+	protected navTabs(children: React.ReactElement<IMSKTabProps>[], effectiveActiveTab: string) {
 		// restart the tab refs before each tab rendering
 		this.tabRefs = [];
 
@@ -237,10 +206,7 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 			this.state.currentPage > 1 ? (
 				<li key="prevPage" style={{ cursor: "pointer" }}>
 					<a onClick={this.prevPage.bind(this)}>
-						<i
-							className="fa fa-chevron-left"
-							style={this.props.arrowStyle}
-						/>
+						<i className="fa fa-chevron-left" style={this.props.arrowStyle} />
 					</a>
 				</li>
 			) : null;
@@ -249,10 +215,7 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 			this.state.currentPage < pageCount ? (
 				<li key="nextPage" style={{ cursor: "pointer" }}>
 					<a onClick={this.nextPage.bind(this)}>
-						<i
-							className="fa fa-chevron-right"
-							style={this.props.arrowStyle}
-						/>
+						<i className="fa fa-chevron-right" style={this.props.arrowStyle} />
 					</a>
 				</li>
 			) : null;
@@ -269,63 +232,46 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 				{pages[this.state.currentPage - 1]}
 				{next}
 				{this.props.enablePagination && (
-					<ReactResizeDetector
-						handleWidth={true}
-						onResize={this.initOnResize.bind(this)()}
-					/>
+					<ReactResizeDetector handleWidth={true} onResize={this.initOnResize.bind(this)()} />
 				)}
 			</ul>
 		);
 	}
 
-	protected tabPages(
-		children: React.ReactElement<IMSKTabProps>[],
-		effectiveActiveTab: string
-	): JSX.Element[][] {
+	protected tabPages(children: React.ReactElement<IMSKTabProps>[], effectiveActiveTab: string): JSX.Element[][] {
 		const pages: JSX.Element[][] = [[]];
 		let currentPage = 1;
 
-		React.Children.forEach(
-			children,
-			(tab: React.ReactElement<IMSKTabProps>) => {
-				if (
-					!tab ||
-					tab.props.hide ||
-					(tab.props.loading && effectiveActiveTab !== tab.props.id)
-				) {
-					return;
-				}
-
-				let activeClass =
-					effectiveActiveTab === tab.props.id ? "active" : "";
-
-				// find out if we need to add another page
-				if (
-					this.props.enablePagination &&
-					this.state.pageBreaks.length > 0 &&
-					this.state.pageBreaks[currentPage - 1] === tab.props.id
-				) {
-					currentPage++;
-					pages[currentPage - 1] = [];
-				}
-
-				pages[currentPage - 1].push(
-					<li
-						key={tab.props.id}
-						style={{ cursor: "pointer" }}
-						ref={this.tabRefHandler.bind(this, tab.props.id)}
-						className={activeClass}
-					>
-						<a
-							onClick={this.setActiveTab.bind(this, tab.props.id)}
-							style={tab.props.anchorStyle}
-						>
-							{tab.props.linkText}
-						</a>
-					</li>
-				);
+		React.Children.forEach(children, (tab: React.ReactElement<IMSKTabProps>) => {
+			if (!tab || tab.props.hide || (tab.props.loading && effectiveActiveTab !== tab.props.id)) {
+				return;
 			}
-		);
+
+			let activeClass = effectiveActiveTab === tab.props.id ? "active" : "";
+
+			// find out if we need to add another page
+			if (
+				this.props.enablePagination &&
+				this.state.pageBreaks.length > 0 &&
+				this.state.pageBreaks[currentPage - 1] === tab.props.id
+			) {
+				currentPage++;
+				pages[currentPage - 1] = [];
+			}
+
+			pages[currentPage - 1].push(
+				<li
+					key={tab.props.id}
+					style={{ cursor: "pointer" }}
+					ref={this.tabRefHandler.bind(this, tab.props.id)}
+					className={activeClass}
+				>
+					<a onClick={this.setActiveTab.bind(this, tab.props.id)} style={tab.props.anchorStyle}>
+						{tab.props.linkText}
+					</a>
+				</li>
+			);
+		});
 
 		return pages;
 	}
@@ -333,10 +279,7 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 	componentDidMount() {
 		setTimeout(() => {
 			// if there are page breaks, it means that page calculations already performed
-			if (
-				this.props.enablePagination &&
-				this.state.pageBreaks.length === 0
-			) {
+			if (this.props.enablePagination && this.state.pageBreaks.length === 0) {
 				// find page breaks: depends on width of the container
 				const pageBreaks: string[] = this.findPageBreaks();
 
@@ -378,8 +321,7 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 
 	findPageBreaks() {
 		const pageBreaks: string[] = [];
-		const containerWidth: number =
-			(this.navTabsRef && this.navTabsRef.offsetWidth) || 0;
+		const containerWidth: number = (this.navTabsRef && this.navTabsRef.offsetWidth) || 0;
 		// do not attempt paging if container width is zero
 		if (containerWidth > 0) {
 			let width = 0;

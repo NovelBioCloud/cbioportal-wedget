@@ -29,15 +29,10 @@ const styles = styles_any as {
 export interface GeneSetSelectorProps {}
 
 @observer
-export default class GeneSetSelector extends QueryStoreComponent<
-	GeneSetSelectorProps,
-	{}
-> {
+export default class GeneSetSelector extends QueryStoreComponent<GeneSetSelectorProps, {}> {
 	@computed
 	get selectedGeneListOption() {
-		let option = this.geneListOptions.find(
-			opt => opt.value == this.store.geneQuery
-		);
+		let option = this.geneListOptions.find(opt => opt.value == this.store.geneQuery);
 		return option ? option.value : "";
 	}
 
@@ -83,11 +78,7 @@ export default class GeneSetSelector extends QueryStoreComponent<
 							Advanced: Onco Query Language (OQL)
 						</a>
 					}
-					promises={[
-						this.store.mutSigForSingleStudy,
-						this.store.gisticForSingleStudy,
-						this.store.genes
-					]}
+					promises={[this.store.mutSigForSingleStudy, this.store.gisticForSingleStudy, this.store.genes]}
 				>
 					Enter Gene Set:
 				</SectionHeader>
@@ -96,35 +87,25 @@ export default class GeneSetSelector extends QueryStoreComponent<
 					<ReactSelect
 						value={this.selectedGeneListOption}
 						options={this.geneListOptions}
-						onChange={option =>
-							(this.store.geneQuery = option ? option.value : "")
-						}
+						onChange={option => (this.store.geneQuery = option ? option.value : "")}
 					/>
 
 					{!!(
-						this.store.mutSigForSingleStudy.result.length ||
-						this.store.gisticForSingleStudy.result.length
+						this.store.mutSigForSingleStudy.result.length || this.store.gisticForSingleStudy.result.length
 					) && (
 						<FlexRow padded className={styles.buttonRow}>
-							{!!this.store.mutSigForSingleStudy.result
-								.length && (
+							{!!this.store.mutSigForSingleStudy.result.length && (
 								<button
 									className="btn btn-default btn-sm"
-									onClick={() =>
-										(this.store.showMutSigPopup = true)
-									}
+									onClick={() => (this.store.showMutSigPopup = true)}
 								>
-									Select from Recurrently Mutated Genes
-									(MutSig)
+									Select from Recurrently Mutated Genes (MutSig)
 								</button>
 							)}
-							{!!this.store.gisticForSingleStudy.result
-								.length && (
+							{!!this.store.gisticForSingleStudy.result.length && (
 								<button
 									className="btn btn-default btn-sm"
-									onClick={() =>
-										(this.store.showGisticPopup = true)
-									}
+									onClick={() => (this.store.showGisticPopup = true)}
 								>
 									Select Genes from Recurrent CNAs (Gistic)
 								</button>
@@ -134,30 +115,20 @@ export default class GeneSetSelector extends QueryStoreComponent<
 
 					<textarea
 						ref={this.textAreaRef}
-						className={classNames(
-							styles.geneSet,
-							this.store.geneQuery
-								? styles.notEmpty
-								: styles.empty
-						)}
+						className={classNames(styles.geneSet, this.store.geneQuery ? styles.notEmpty : styles.empty)}
 						rows={5}
 						cols={80}
 						placeholder="Enter HUGO Gene Symbols or Gene Aliases"
 						title="Enter HUGO Gene Symbols or Gene Aliases"
 						value={this.store.geneQuery}
-						onChange={event =>
-							(this.store.geneQuery = event.currentTarget.value)
-						}
+						onChange={event => (this.store.geneQuery = event.currentTarget.value)}
 						data-test="geneSet"
 					/>
 
 					<GeneSymbolValidator />
 
 					<Modal
-						className={classNames(
-							"cbioportal-frontend",
-							styles.MutSigGeneSelectorWindow
-						)}
+						className={classNames("cbioportal-frontend", styles.MutSigGeneSelectorWindow)}
 						show={this.store.showMutSigPopup}
 						onHide={() => (this.store.showMutSigPopup = false)}
 					>
@@ -169,9 +140,7 @@ export default class GeneSetSelector extends QueryStoreComponent<
 								initialSelection={this.store.geneIds}
 								data={this.store.mutSigForSingleStudy.result}
 								onSelect={map_geneSymbol_selected => {
-									this.store.applyGeneSelection(
-										map_geneSymbol_selected
-									);
+									this.store.applyGeneSelection(map_geneSymbol_selected);
 									this.store.showMutSigPopup = false;
 								}}
 							/>
@@ -179,26 +148,19 @@ export default class GeneSetSelector extends QueryStoreComponent<
 					</Modal>
 
 					<Modal
-						className={classNames(
-							"cbioportal-frontend",
-							styles.GisticGeneSelectorWindow
-						)}
+						className={classNames("cbioportal-frontend", styles.GisticGeneSelectorWindow)}
 						show={this.store.showGisticPopup}
 						onHide={() => (this.store.showGisticPopup = false)}
 					>
 						<Modal.Header closeButton>
-							<Modal.Title>
-								Recurrent Copy Number Alterations (Gistic)
-							</Modal.Title>
+							<Modal.Title>Recurrent Copy Number Alterations (Gistic)</Modal.Title>
 						</Modal.Header>
 						<Modal.Body>
 							<GisticGeneSelector
 								initialSelection={this.store.geneIds}
 								data={this.store.gisticForSingleStudy.result}
 								onSelect={map_geneSymbol_selected => {
-									this.store.applyGeneSelection(
-										map_geneSymbol_selected
-									);
+									this.store.applyGeneSelection(map_geneSymbol_selected);
 									this.store.showGisticPopup = false;
 								}}
 							/>

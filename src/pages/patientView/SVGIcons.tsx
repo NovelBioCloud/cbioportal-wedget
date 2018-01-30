@@ -37,14 +37,7 @@ export function getMouseIcon(): JSX.Element {
 					d="M50.5,159.5 C-65.396,141.741,82.604,2.741,88.604,128.741"
 				/>
 			</g>
-			<circle
-				fill="#FFFFFF"
-				stroke="#000000"
-				strokeMiterlimit="10"
-				cx="50.854"
-				cy="210.991"
-				r="21.25"
-			/>
+			<circle fill="#FFFFFF" stroke="#000000" strokeMiterlimit="10" cx="50.854" cy="210.991" r="21.25" />
 		</svg>
 	);
 }

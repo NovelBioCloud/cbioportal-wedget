@@ -29,10 +29,7 @@ interface ISummaryBarGraphProps {
 }
 
 @observer
-export default class SummaryBarGraph extends React.Component<
-	ISummaryBarGraphProps,
-	{}
-> {
+export default class SummaryBarGraph extends React.Component<ISummaryBarGraphProps, {}> {
 	private chartContainer: HTMLElement;
 	private chartTarget: HTMLCanvasElement;
 	private chart: any;
@@ -45,18 +42,11 @@ export default class SummaryBarGraph extends React.Component<
 		this.getLegendNames = this.getLegendNames.bind(this);
 	}
 
-	private getTooltipOptions(
-		tooltipModel: any,
-		data: IBarGraphConfigOptions,
-		chartOptions: any,
-		sumBarGraph: any
-	) {
+	private getTooltipOptions(tooltipModel: any, data: IBarGraphConfigOptions, chartOptions: any, sumBarGraph: any) {
 		const uniqueId = sumBarGraph.props.gene;
 
 		// Tooltip Element
-		let tooltipEl = document.getElementById(
-			"cancer-type-summary-tab-tooltip-" + uniqueId
-		);
+		let tooltipEl = document.getElementById("cancer-type-summary-tab-tooltip-" + uniqueId);
 
 		// Create element on first render
 		if (!tooltipEl) {
@@ -83,9 +73,7 @@ export default class SummaryBarGraph extends React.Component<
 		}
 
 		function getBody(bodyItem: any, i: number) {
-			const { label, count, percent } = data.datasets[
-				tooltipModel.dataPoints[i].datasetIndex
-			];
+			const { label, count, percent } = data.datasets[tooltipModel.dataPoints[i].datasetIndex];
 			return { label, count, percent };
 		}
 
@@ -96,17 +84,10 @@ export default class SummaryBarGraph extends React.Component<
 				count: number;
 				percent: number;
 			}[] = tooltipModel.body.map(getBody);
-			const { totalCases, altTotalPercent } = data.datasets[
-				tooltipModel.dataPoints[0].datasetIndex
-			];
+			const { totalCases, altTotalPercent } = data.datasets[tooltipModel.dataPoints[0].datasetIndex];
 
-			let innerHtml = `<div><b>Summary for ${
-				tooltipModel.title[0]
-			}</b></div>
-                    <div>Gene altered in ${_.round(
-						altTotalPercent,
-						2
-					)}% of ${totalCases} cases</div>
+			let innerHtml = `<div><b>Summary for ${tooltipModel.title[0]}</b></div>
+                    <div>Gene altered in ${_.round(altTotalPercent, 2)}% of ${totalCases} cases</div>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -119,9 +100,7 @@ export default class SummaryBarGraph extends React.Component<
 			bodyLines.reverse().forEach(body => {
 				innerHtml += `<tr>
                         <td> ${sumBarGraph.getLegendNames(body.label)} </td>
-                        <td> ${_.round(body.percent, 2)}% (${
-					body.count
-				} cases)</td>
+                        <td> ${_.round(body.percent, 2)}% (${body.count} cases)</td>
                      </tr>`;
 			});
 			innerHtml += "</tbody></table>";
@@ -207,12 +186,7 @@ export default class SummaryBarGraph extends React.Component<
 					return false;
 				},
 				custom: (tooltipModel: any) => {
-					return this.getTooltipOptions(
-						tooltipModel,
-						data,
-						this,
-						this
-					);
+					return this.getTooltipOptions(tooltipModel, data, this, this);
 				}
 			},
 			scales: {
@@ -220,8 +194,7 @@ export default class SummaryBarGraph extends React.Component<
 					{
 						gridLines: { display: false },
 						stacked: true,
-						barThickness:
-							this.props.data.labels.length > 15 ? 14 : 25,
+						barThickness: this.props.data.labels.length > 15 ? 14 : 25,
 						ticks: {
 							maxRotation: 70,
 							autoSkip: false
@@ -234,22 +207,14 @@ export default class SummaryBarGraph extends React.Component<
 						scaleLabel: {
 							display: true,
 							fontSize: 13,
-							labelString:
-								yAxis === "abs-count"
-									? "Absolute Counts"
-									: "Alteration Frequency"
+							labelString: yAxis === "abs-count" ? "Absolute Counts" : "Alteration Frequency"
 						},
 						display: true,
 						ticks: {
 							fontSize: 11,
 							...yAxisMax,
 							callback: (value: number) => {
-								return (
-									_.round(value, 1) +
-									(this.props.yAxis === "abs-count"
-										? ""
-										: "%")
-								);
+								return _.round(value, 1) + (this.props.yAxis === "abs-count" ? "" : "%");
 							}
 						}
 					}
@@ -261,22 +226,16 @@ export default class SummaryBarGraph extends React.Component<
 					generateLabels: (chart: any) => {
 						const { data: chartData } = chart;
 						if (!this.props.legend) return [];
-						else if (
-							chartData.labels.length &&
-							chartData.datasets.length
-						) {
+						else if (chartData.labels.length && chartData.datasets.length) {
 							const alterationCounts = _.reduce(
 								chartData.datasets,
 								(obj, dataset: IBarGraphDataset) => {
 									if (obj[dataset.label]) {
-										obj[dataset.label].count =
-											obj[dataset.label].count +
-											dataset.total;
+										obj[dataset.label].count = obj[dataset.label].count + dataset.total;
 									} else {
 										obj[dataset.label] = {
 											count: dataset.total,
-											backgroundColor:
-												dataset.backgroundColor
+											backgroundColor: dataset.backgroundColor
 										};
 									}
 									return obj;
@@ -304,10 +263,7 @@ export default class SummaryBarGraph extends React.Component<
 								[] as { text: string; fillStyle: string }[]
 							);
 							return alterationLabels.sort((a, b) => {
-								return (
-									orderedAltNames.indexOf(b.text) -
-									orderedAltNames.indexOf(a.text)
-								);
+								return orderedAltNames.indexOf(b.text) - orderedAltNames.indexOf(a.text);
 							});
 						} else {
 							return [];
@@ -331,11 +287,7 @@ export default class SummaryBarGraph extends React.Component<
 		}
 		if (this.chartTarget) {
 			const pdf = this.chartTarget.toDataURL();
-			this.props.setPdfProperties(
-				pdf,
-				this.width,
-				this.chartTarget.offsetHeight
-			);
+			this.props.setPdfProperties(pdf, this.width, this.chartTarget.offsetHeight);
 		}
 	}
 
@@ -344,8 +296,7 @@ export default class SummaryBarGraph extends React.Component<
 			return label.length;
 		});
 
-		const extra =
-			longest && longest.length > 20 ? (longest.length - 20) * 5 : 0;
+		const extra = longest && longest.length > 20 ? (longest.length - 20) * 5 : 0;
 
 		const maxWidth = 300 + extra + this.props.data.labels.length * 45;
 		const conWidth = this.props.width || 1159;

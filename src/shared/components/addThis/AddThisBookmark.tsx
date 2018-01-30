@@ -11,10 +11,7 @@ export interface IAddThisBookmarkProps {
 }
 
 @observer
-export default class AddThisBookmark extends React.Component<
-	IAddThisBookmarkProps,
-	{}
-> {
+export default class AddThisBookmark extends React.Component<IAddThisBookmarkProps, {}> {
 	@observable private isReady = false;
 
 	constructor(props: IAddThisBookmarkProps) {
@@ -34,13 +31,9 @@ export default class AddThisBookmark extends React.Component<
 
 		if (bitlyShortenedURL.isError || bitlyShortenedURL.isComplete) {
 			const url = bitlyShortenedURL.result || sessionIdURL;
-			addthis(
-				{ pubid: "ra-59959e35901cdde7" },
-				this.props.getParameters.setup(url),
-				() => {
-					this.isReady = true;
-				}
-			);
+			addthis({ pubid: "ra-59959e35901cdde7" }, this.props.getParameters.setup(url), () => {
+				this.isReady = true;
+			});
 		}
 	}
 
@@ -48,6 +41,8 @@ export default class AddThisBookmark extends React.Component<
 		const { isComplete, isError } = this.props.store.bitlyShortenedURL;
 		if (this.isReady && (isComplete || isError)) {
 			return <div className={this.props.getParameters.className} />;
-		} else return <Loader isLoading={true} />;
+		} else {
+			return <Loader isLoading={true} />;
+		}
 	}
 }

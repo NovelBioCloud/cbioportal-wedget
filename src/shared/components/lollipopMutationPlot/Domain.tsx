@@ -69,11 +69,7 @@ export default class Domain extends React.Component<DomainProps, {}> {
 
 		let substringLength = label.length;
 		// Find the number of characters that will fit inside
-		while (
-			substringLength > 0 &&
-			this.textElt.getSubStringLength(0, substringLength) >
-				this.props.width
-		) {
+		while (substringLength > 0 && this.textElt.getSubStringLength(0, substringLength) > this.props.width) {
 			substringLength -= 1;
 		}
 		let displayText = label;

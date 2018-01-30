@@ -11,10 +11,7 @@ import "./styles.scss";
 import SampleManager from "../sampleManager";
 
 import { PatientViewPageStore } from "../clinicalInformation/PatientViewPageStore";
-import {
-	ClinicalEvent,
-	ClinicalEventData
-} from "../../../shared/api/generated/CBioPortalAPI";
+import { ClinicalEvent, ClinicalEventData } from "../../../shared/api/generated/CBioPortalAPI";
 
 interface ITimelineProps {
 	sampleManager: SampleManager;
@@ -36,15 +33,11 @@ export default class Timeline extends React.Component<ITimelineProps, {}> {
 	}
 
 	drawTimeline() {
-		let clinicalDataMap = this.props.store.patientViewData.result
-			.samples!.reduce((memo: any, item) => {
-			memo[item.id] = item.clinicalData.reduce(
-				(innerMemo: any, innerItem) => {
-					innerMemo[innerItem.clinicalAttributeId] = innerItem.value;
-					return innerMemo;
-				},
-				{}
-			);
+		let clinicalDataMap = this.props.store.patientViewData.result.samples!.reduce((memo: any, item) => {
+			memo[item.id] = item.clinicalData.reduce((innerMemo: any, innerItem) => {
+				innerMemo[innerItem.clinicalAttributeId] = innerItem.value;
+				return innerMemo;
+			}, {});
 			return memo;
 		}, {});
 
@@ -55,8 +48,7 @@ export default class Timeline extends React.Component<ITimelineProps, {}> {
 			patient_id: this.props.store.patientId
 		};
 
-		let patientInfo = this.props.store.patientViewData.result!
-			.patient!.clinicalData.reduce((memo: any, item) => {
+		let patientInfo = this.props.store.patientViewData.result!.patient!.clinicalData.reduce((memo: any, item) => {
 			memo[item.clinicalAttributeId] = item.value;
 			return memo;
 		}, {});
@@ -67,41 +59,24 @@ export default class Timeline extends React.Component<ITimelineProps, {}> {
 			index: this.props.sampleManager.sampleIndex
 		};
 
-		let timelineData = this.props.store.clinicalEvents.result.map(
-			(eventData: ClinicalEvent) => {
-				return {
-					eventType: eventData.eventType,
-					patientId: eventData.patientId,
-					startDate: _.isUndefined(
-						eventData.startNumberOfDaysSinceDiagnosis
-					)
-						? null
-						: eventData.startNumberOfDaysSinceDiagnosis,
-					stopDate: _.isUndefined(
-						eventData.endNumberOfDaysSinceDiagnosis
-					)
-						? null
-						: eventData.endNumberOfDaysSinceDiagnosis,
-					eventData: eventData.attributes.reduce(
-						(memo: any, evData: ClinicalEventData) => {
-							memo[evData.key] = evData.value;
-							return memo;
-						},
-						{}
-					)
-				};
-			}
-		);
+		let timelineData = this.props.store.clinicalEvents.result.map((eventData: ClinicalEvent) => {
+			return {
+				eventType: eventData.eventType,
+				patientId: eventData.patientId,
+				startDate: _.isUndefined(eventData.startNumberOfDaysSinceDiagnosis)
+					? null
+					: eventData.startNumberOfDaysSinceDiagnosis,
+				stopDate: _.isUndefined(eventData.endNumberOfDaysSinceDiagnosis)
+					? null
+					: eventData.endNumberOfDaysSinceDiagnosis,
+				eventData: eventData.attributes.reduce((memo: any, evData: ClinicalEventData) => {
+					memo[evData.key] = evData.value;
+					return memo;
+				}, {})
+			};
+		});
 
-		buildTimeline(
-			params,
-			caseIds,
-			patientInfo,
-			clinicalDataMap,
-			caseMetaData,
-			timelineData,
-			this.props.getWidth()
-		);
+		buildTimeline(params, caseIds, patientInfo, clinicalDataMap, caseMetaData, timelineData, this.props.getWidth());
 	}
 
 	public render() {

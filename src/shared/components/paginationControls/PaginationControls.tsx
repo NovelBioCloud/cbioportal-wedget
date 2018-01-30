@@ -46,10 +46,7 @@ export interface IPaginationControlsProps {
 }
 
 @observer
-export class PaginationControls extends React.Component<
-	IPaginationControlsProps,
-	{}
-> {
+export class PaginationControls extends React.Component<IPaginationControlsProps, {}> {
 	public static defaultProps = {
 		itemsPerPage: SHOW_ALL_PAGE_SIZE,
 		itemsPerPageOptions: [10, 25, 50, 100],
@@ -76,15 +73,11 @@ export class PaginationControls extends React.Component<
 
 	constructor(props: IPaginationControlsProps) {
 		super(props);
-		this.handleChangeItemsPerPage = this.handleChangeItemsPerPage.bind(
-			this
-		);
+		this.handleChangeItemsPerPage = this.handleChangeItemsPerPage.bind(this);
 		this.resetItemsPerPage = this.resetItemsPerPage.bind(this);
 		this.jumpToPage = this.jumpToPage.bind(this);
 		this.handleShowMore = this.handleShowMore.bind(this);
-		this.getSectionBetweenPaginationButtons = this.getSectionBetweenPaginationButtons.bind(
-			this
-		);
+		this.getSectionBetweenPaginationButtons = this.getSectionBetweenPaginationButtons.bind(this);
 	}
 
 	private jumpToPage(p: string) {
@@ -95,9 +88,7 @@ export class PaginationControls extends React.Component<
 
 	handleChangeItemsPerPage(evt: React.FormEvent<HTMLSelectElement>) {
 		if (this.props.onChangeItemsPerPage) {
-			this.props.onChangeItemsPerPage(
-				parseInt((evt.target as HTMLSelectElement).value, 10)
-			);
+			this.props.onChangeItemsPerPage(parseInt((evt.target as HTMLSelectElement).value, 10));
 		}
 	}
 
@@ -108,22 +99,12 @@ export class PaginationControls extends React.Component<
 			this.props.itemsPerPage &&
 			this.props.onChangeItemsPerPage
 		) {
-			const index = this.props.itemsPerPageOptions.indexOf(
-				this.props.itemsPerPage
-			);
-			if (
-				index > -1 &&
-				index < this.props.itemsPerPageOptions.length - 1
-			) {
-				this.props.onChangeItemsPerPage(
-					this.props.itemsPerPageOptions[index + 1]
-				);
+			const index = this.props.itemsPerPageOptions.indexOf(this.props.itemsPerPage);
+			if (index > -1 && index < this.props.itemsPerPageOptions.length - 1) {
+				this.props.onChangeItemsPerPage(this.props.itemsPerPageOptions[index + 1]);
 			} else {
 				this.props.onChangeItemsPerPage(
-					this.props.itemsPerPage +
-						this.props.itemsPerPageOptions[
-							this.props.itemsPerPageOptions.length - 1
-						]
+					this.props.itemsPerPage + this.props.itemsPerPageOptions[this.props.itemsPerPageOptions.length - 1]
 				);
 			}
 		}
@@ -194,13 +175,11 @@ export class PaginationControls extends React.Component<
 	}
 
 	render() {
-		const pageSizeOptionElts = (this.props.itemsPerPageOptions || []).map(
-			(opt: number) => (
-				<option key={opt} value={opt + ""}>
-					{opt}
-				</option>
-			)
-		);
+		const pageSizeOptionElts = (this.props.itemsPerPageOptions || []).map((opt: number) => (
+			<option key={opt} value={opt + ""}>
+				{opt}
+			</option>
+		));
 		if (this.props.showAllOption) {
 			pageSizeOptionElts.push(
 				<option key="all" value={SHOW_ALL_PAGE_SIZE + ""}>
@@ -216,11 +195,7 @@ export class PaginationControls extends React.Component<
 					bsSize="sm"
 					disabled={!!this.props.firstPageDisabled}
 					onClick={this.props.onFirstPageClick}
-					className={classNames(
-						this.props.groupButtons
-							? undefined
-							: styles["margin-right-button"]
-					)}
+					className={classNames(this.props.groupButtons ? undefined : styles["margin-right-button"])}
 					bsStyle={this.props.bsStyle}
 				>
 					{this.props.firstButtonContent}
@@ -229,9 +204,7 @@ export class PaginationControls extends React.Component<
 			<Button
 				className={classNames(
 					"prevPageBtn",
-					this.props.groupButtons
-						? undefined
-						: styles["margin-right-button"]
+					this.props.groupButtons ? undefined : styles["margin-right-button"]
 				)}
 				key="prevPageBtn"
 				bsSize="sm"
@@ -245,9 +218,7 @@ export class PaginationControls extends React.Component<
 			<Button
 				className={classNames(
 					"nextPageBtn",
-					this.props.groupButtons
-						? undefined
-						: styles["margin-left-button"]
+					this.props.groupButtons ? undefined : styles["margin-left-button"]
 				)}
 				key="nextPageBtn"
 				bsSize="sm"
@@ -263,11 +234,7 @@ export class PaginationControls extends React.Component<
 					bsSize="sm"
 					disabled={!!this.props.lastPageDisabled}
 					onClick={this.props.onLastPageClick}
-					className={classNames(
-						this.props.groupButtons
-							? undefined
-							: styles["margin-left-button"]
-					)}
+					className={classNames(this.props.groupButtons ? undefined : styles["margin-left-button"])}
 					bsStyle={this.props.bsStyle}
 				>
 					{this.props.lastButtonContent}
@@ -282,8 +249,7 @@ export class PaginationControls extends React.Component<
 						this.props.itemsPerPage &&
 						this.props.itemsPerPageOptions &&
 						this.props.itemsPerPageOptions.length > 0 &&
-						this.props.itemsPerPage >
-							this.props.itemsPerPageOptions[0]
+						this.props.itemsPerPage > this.props.itemsPerPageOptions[0]
 							? undefined
 							: styles["hidden-button"]
 					}
@@ -295,9 +261,7 @@ export class PaginationControls extends React.Component<
 		];
 
 		if (this.props.groupButtons) {
-			buttons = (
-				<ButtonGroup style={{ float: "none" }}>{buttons}</ButtonGroup>
-			);
+			buttons = <ButtonGroup style={{ float: "none" }}>{buttons}</ButtonGroup>;
 		} else {
 			buttons = <div style={{ float: "none" }}>{buttons}</div>;
 		}
@@ -307,34 +271,16 @@ export class PaginationControls extends React.Component<
 		}
 
 		return (
-			<div
-				className={classNames(
-					styles.paginationControls,
-					this.props.className
-				)}
-				style={this.props.style}
-			>
-				<span style={{ fontSize: 12, marginRight: 10 }}>
-					{this.props.textBeforeButtons}
-				</span>
+			<div className={classNames(styles.paginationControls, this.props.className)} style={this.props.style}>
+				<span style={{ fontSize: 12, marginRight: 10 }}>{this.props.textBeforeButtons}</span>
 				{buttons}
-				<If
-					condition={
-						!!this.props.showItemsPerPageSelector &&
-						!this.shouldHidePaginationControls
-					}
-				>
+				<If condition={!!this.props.showItemsPerPageSelector && !this.shouldHidePaginationControls}>
 					<FormGroup bsSize="sm" className={styles["form-select"]}>
 						<FormControl
 							className="itemsPerPageSelector"
 							componentClass="select"
 							value={this.props.itemsPerPage}
-							onChange={
-								this
-									.handleChangeItemsPerPage as React.FormEventHandler<
-									any
-								>
-							}
+							onChange={this.handleChangeItemsPerPage as React.FormEventHandler<any>}
 						>
 							{pageSizeOptionElts}
 						</FormControl>

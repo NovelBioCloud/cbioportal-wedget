@@ -1,12 +1,8 @@
 import * as React from "react";
 import { ClinicalDataBySampleId } from "../../../shared/api/api-types-extended";
-import convertSamplesData, {
-	IConvertedSamplesData
-} from "./lib/convertSamplesData";
+import convertSamplesData, { IConvertedSamplesData } from "./lib/convertSamplesData";
 import { SampleLabelHTML } from "../../../shared/components/sampleLabel/SampleLabel";
-import LazyMobXTable, {
-	Column
-} from "shared/components/lazyMobXTable/LazyMobXTable";
+import LazyMobXTable, { Column } from "shared/components/lazyMobXTable/LazyMobXTable";
 import TableHeaderControls from "shared/components/tableHeaderControls/TableHeaderControls";
 import { ClinicalAttribute } from "../../../shared/api/generated/CBioPortalAPI";
 
@@ -31,18 +27,11 @@ export default class ClinicalInformationSamplesTable extends React.Component<
 	public render() {
 		const sampleInvertedData = convertSamplesData(this.props.samples);
 		const tableData = this.prepareData(sampleInvertedData);
-		const columns: Column<ISampleRow>[] = [
-			{ id: "attribute" },
-			...sampleInvertedData.columns
-		].map(col => ({
+		const columns: Column<ISampleRow>[] = [{ id: "attribute" }, ...sampleInvertedData.columns].map(col => ({
 			name: col.id,
 			render: (data: ISampleRow) => <span>{data[col.id]}</span>,
 			download: (data: ISampleRow) => `${data[col.id]}`,
-			filter: (
-				data: ISampleRow,
-				filterString: string,
-				filterStringUpper: string
-			) =>
+			filter: (data: ISampleRow, filterString: string, filterStringUpper: string) =>
 				data[col.id]
 					.toString()
 					.toUpperCase()

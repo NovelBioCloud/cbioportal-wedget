@@ -9,9 +9,7 @@ import styles from "./proteinChange.module.scss";
  */
 export default class ProteinChangeColumnFormatter {
 	public static getSortValue(d: Mutation[]): number | null {
-		return ProteinChangeColumnFormatter.extractSortValue(
-			ProteinChangeColumnFormatter.getTextValue(d)
-		);
+		return ProteinChangeColumnFormatter.extractSortValue(ProteinChangeColumnFormatter.getTextValue(d));
 	}
 
 	// this is to sort alphabetically
@@ -48,9 +46,7 @@ export default class ProteinChangeColumnFormatter {
 		const position: RegExp = /[0-9]+/g;
 
 		// first priority is to match values like V600E , V600, E747G, E747, X37_, X37, etc.
-		let matched: RegExpMatchArray | null = proteinChange.match(
-			alleleAndPosition
-		);
+		let matched: RegExpMatchArray | null = proteinChange.match(alleleAndPosition);
 		let buffer: number[] = [];
 
 		// if no match, then search for numerical (position) match only
@@ -117,24 +113,14 @@ export default class ProteinChangeColumnFormatter {
 		// use text as display value
 		const text: string = ProteinChangeColumnFormatter.getDisplayValue(data);
 
-		const mutationStatus:
-			| string
-			| null = MutationStatusColumnFormatter.getData(data);
+		const mutationStatus: string | null = MutationStatusColumnFormatter.getData(data);
 
 		let content = (
-			<TruncatedText
-				text={text}
-				tooltip={<span>{text}</span>}
-				className={styles.proteinChange}
-				maxLength={20}
-			/>
+			<TruncatedText text={text} tooltip={<span>{text}</span>} className={styles.proteinChange} maxLength={20} />
 		);
 
 		// add a germline indicator next to protein change if it is a germline mutation!
-		if (
-			mutationStatus &&
-			mutationStatus.toLowerCase().indexOf("germline") > -1
-		) {
+		if (mutationStatus && mutationStatus.toLowerCase().indexOf("germline") > -1) {
 			content = (
 				<span>
 					{content}

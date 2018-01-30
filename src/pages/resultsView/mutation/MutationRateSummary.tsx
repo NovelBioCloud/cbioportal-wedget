@@ -1,13 +1,6 @@
 import * as React from "react";
-import {
-	MolecularProfile,
-	Mutation,
-	SampleIdentifier
-} from "shared/api/generated/CBioPortalAPI";
-import {
-	germlineMutationRate,
-	somaticMutationRate
-} from "shared/lib/MutationUtils";
+import { MolecularProfile, Mutation, SampleIdentifier } from "shared/api/generated/CBioPortalAPI";
+import { germlineMutationRate, somaticMutationRate } from "shared/lib/MutationUtils";
 import { MobxPromise } from "mobxpromise";
 import { observer } from "mobx-react";
 import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
@@ -23,10 +16,7 @@ export interface IMutationRateSummaryProps {
 }
 
 @observer
-export default class MutationRateSummary extends React.Component<
-	IMutationRateSummaryProps,
-	{}
-> {
+export default class MutationRateSummary extends React.Component<IMutationRateSummaryProps, {}> {
 	public somaticMutationFrequency(): JSX.Element {
 		let rate = 0;
 
@@ -46,16 +36,10 @@ export default class MutationRateSummary extends React.Component<
 				<DefaultTooltip
 					placement="right"
 					overlay={
-						<span>
-							{"Percentage of samples with a somatic mutation in " +
-								this.props.hugoGeneSymbol}
-						</span>
+						<span>{"Percentage of samples with a somatic mutation in " + this.props.hugoGeneSymbol}</span>
 					}
 				>
-					<i
-						className="glyphicon glyphicon-info-sign"
-						style={{ marginLeft: 5 }}
-					/>
+					<i className="glyphicon glyphicon-info-sign" style={{ marginLeft: 5 }} />
 				</DefaultTooltip>
 			</div>
 		);
@@ -87,25 +71,16 @@ export default class MutationRateSummary extends React.Component<
 			: 0;
 
 		return (
-			<div
-				data-test="germlineMutationRate"
-				className={gmr > 0 ? "" : "invisible"}
-			>
+			<div data-test="germlineMutationRate" className={gmr > 0 ? "" : "invisible"}>
 				<label>Germline Mutation Frequency:</label>
 				{gmr > 0 ? `${gmr.toFixed(1)}%` : "--"}
 				<DefaultTooltip
 					placement="right"
 					overlay={
-						<span>
-							{"Percentage of samples with a germline mutation in " +
-								this.props.hugoGeneSymbol}
-						</span>
+						<span>{"Percentage of samples with a germline mutation in " + this.props.hugoGeneSymbol}</span>
 					}
 				>
-					<i
-						className="glyphicon glyphicon-info-sign"
-						style={{ marginLeft: 5 }}
-					/>
+					<i className="glyphicon glyphicon-info-sign" style={{ marginLeft: 5 }} />
 				</DefaultTooltip>
 			</div>
 		);

@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import { Circle } from "better-react-spinkit";
 import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
 import annotationStyles from "./styles/annotation.module.scss";
-import { ICivicVariant, ICivicEntry } from "shared/model/Civic.ts";
+import { ICivicVariant, ICivicEntry } from "shared/model/Civic";
 import { observable } from "mobx";
 import CivicCard from "./CivicCard";
 
@@ -23,9 +23,7 @@ export function hideArrow(tooltipEl: any) {
 export default class Civic extends React.Component<ICivicProps, {}> {
 	@observable tooltipDataLoadComplete: boolean = false;
 
-	public static sortValue(
-		civicEntry: ICivicEntry | null | undefined
-	): number {
+	public static sortValue(civicEntry: ICivicEntry | null | undefined): number {
 		let score: number = 0;
 
 		if (civicEntry) {
@@ -64,9 +62,7 @@ export default class Civic extends React.Component<ICivicProps, {}> {
 	}
 
 	public render() {
-		let civicContent: JSX.Element = (
-			<span className={`${annotationStyles["annotation-item"]}`} />
-		);
+		let civicContent: JSX.Element = <span className={`${annotationStyles["annotation-item"]}`} />;
 
 		const civicImgWidth: number = 14;
 		let civicImgHeight: number = 14;
@@ -78,10 +74,7 @@ export default class Civic extends React.Component<ICivicProps, {}> {
 		if (this.props.civicStatus == "error") {
 			civicContent = this.errorIcon();
 		} else if (this.props.civicEntry !== undefined) {
-			if (
-				this.props.civicEntry !== null &&
-				this.props.civicStatus == "complete"
-			) {
+			if (this.props.civicEntry !== null && this.props.civicStatus == "complete") {
 				civicContent = (
 					<span className={`${annotationStyles["annotation-item"]}`}>
 						<img
@@ -97,10 +90,7 @@ export default class Civic extends React.Component<ICivicProps, {}> {
 
 				civicContent = (
 					<DefaultTooltip
-						overlay={this.cardContent.bind(
-							this,
-							this.props.civicEntry
-						)}
+						overlay={this.cardContent.bind(this, this.props.civicEntry)}
 						placement="right"
 						trigger={["hover", "focus"]}
 						arrowContent={arrowContent}
@@ -120,15 +110,7 @@ export default class Civic extends React.Component<ICivicProps, {}> {
 	}
 
 	public loaderIcon() {
-		return (
-			<Circle
-				size={18}
-				scaleEnd={0.5}
-				scaleStart={0.2}
-				color="#aaa"
-				className="pull-left"
-			/>
-		);
+		return <Circle size={18} scaleEnd={0.5} scaleStart={0.2} color="#aaa" className="pull-left" />;
 	}
 
 	public errorIcon() {
@@ -139,9 +121,7 @@ export default class Civic extends React.Component<ICivicProps, {}> {
 				trigger={["hover", "focus"]}
 				destroyTooltipOnHide={true}
 			>
-				<span
-					className={`${annotationStyles["annotation-item-error"]}`}
-				>
+				<span className={`${annotationStyles["annotation-item-error"]}`}>
 					<i className="fa fa-exclamation-triangle text-danger" />
 				</span>
 			</DefaultTooltip>

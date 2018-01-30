@@ -1,15 +1,8 @@
 import * as React from "react";
 import LollipopPlot from "./LollipopPlot";
 import { Mutation } from "../../api/generated/CBioPortalAPI";
-import {
-	PfamDomain,
-	PfamDomainRange
-} from "shared/api/generated/GenomeNexusAPI";
-import {
-	LollipopSpec,
-	DomainSpec,
-	SequenceSpec
-} from "./LollipopPlotNoTooltip";
+import { PfamDomain, PfamDomainRange } from "shared/api/generated/GenomeNexusAPI";
+import { LollipopSpec, DomainSpec, SequenceSpec } from "./LollipopPlotNoTooltip";
 import { remoteData } from "../../api/remoteData";
 import LoadingIndicator from "shared/components/loadingIndicator/LoadingIndicator";
 import request from "superagent";
@@ -20,10 +13,7 @@ import { computed, observable, action } from "mobx";
 import _ from "lodash";
 import svgToPdfDownload from "shared/lib/svgToPdfDownload";
 import { longestCommonStartingSubstring } from "shared/lib/StringUtils";
-import {
-	getColorForProteinImpactType,
-	IProteinImpactTypeColors
-} from "shared/lib/MutationUtils";
+import { getColorForProteinImpactType, IProteinImpactTypeColors } from "shared/lib/MutationUtils";
 import { generatePfamDomainColorMap } from "shared/lib/PfamUtils";
 import { getMutationAlignerUrl } from "shared/api/urls";
 import ReactDOM from "react-dom";
@@ -40,10 +30,7 @@ export interface ILollipopMutationPlotProps extends IProteinImpactTypeColors {
 }
 
 @observer
-export default class LollipopMutationPlot extends React.Component<
-	ILollipopMutationPlotProps,
-	{}
-> {
+export default class LollipopMutationPlot extends React.Component<ILollipopMutationPlotProps, {}> {
 	@observable private mouseInPlot: boolean = true;
 	@observable private _yMaxInput: number;
 	@observable private legendShown: boolean = false;
@@ -64,19 +51,14 @@ export default class LollipopMutationPlot extends React.Component<
 			invoke: () =>
 				new Promise((resolve, reject) => {
 					const regions = this.props.store.canonicalTranscript.result
-						? this.props.store.canonicalTranscript.result
-								.pfamDomains
+						? this.props.store.canonicalTranscript.result.pfamDomains
 						: undefined;
 					const responsePromises: Promise<Response>[] = [];
 					for (let i = 0; regions && i < regions.length; i++) {
 						// have to do a for loop because seamlessImmutable will make result of .map immutable,
 						// and that causes infinite loop here
 						responsePromises.push(
-							request.get(
-								`${getMutationAlignerUrl()}?pfamAccession=${
-									regions[i].pfamDomainId
-								}`
-							)
+							request.get(`${getMutationAlignerUrl()}?pfamAccession=${regions[i].pfamDomainId}`)
 						);
 					}
 					const allResponses = Promise.all(responsePromises);
@@ -87,15 +69,9 @@ export default class LollipopMutationPlot extends React.Component<
 						let pfamAccession: string | null;
 						for (let i = 0; i < data.length; i++) {
 							mutationAlignerData = data[i];
-							pfamAccession = regions
-								? regions[i].pfamDomainId
-								: null;
-							if (
-								pfamAccession &&
-								mutationAlignerData.linkToMutationAligner
-							) {
-								ret[pfamAccession] =
-									mutationAlignerData.linkToMutationAligner;
+							pfamAccession = regions ? regions[i].pfamDomainId : null;
+							if (pfamAccession && mutationAlignerData.linkToMutationAligner) {
+								ret[pfamAccession] = mutationAlignerData.linkToMutationAligner;
 							}
 						}
 						resolve(ret);
@@ -107,22 +83,15 @@ export default class LollipopMutationPlot extends React.Component<
 	);
 
 	private lollipopLabel(mutationsAtPosition: Mutation[]): string {
-		let proteinChanges = _.uniq(
-			mutationsAtPosition.map(m => m.proteinChange)
-		);
+		let proteinChanges = _.uniq(mutationsAtPosition.map(m => m.proteinChange));
 		proteinChanges.sort();
 
 		let startStr = "";
 		if (proteinChanges.length > 1) {
 			// only need to compare first and last element of sorted string list to find longest common starting substring of all of them
-			startStr = longestCommonStartingSubstring(
-				proteinChanges[0],
-				proteinChanges[proteinChanges.length - 1]
-			);
+			startStr = longestCommonStartingSubstring(proteinChanges[0], proteinChanges[proteinChanges.length - 1]);
 		}
-		proteinChanges = proteinChanges.map((s: string) =>
-			s.substring(startStr.length)
-		);
+		proteinChanges = proteinChanges.map((s: string) => s.substring(startStr.length));
 
 		return startStr + proteinChanges.join("/");
 	}
@@ -171,9 +140,7 @@ export default class LollipopMutationPlot extends React.Component<
 		const maxCount = positionMutations[0].length;
 
 		// numLabelCandidates: number of positions with maxCount mutations
-		let numLabelCandidates = positionMutations.findIndex(
-			mutations => mutations.length !== maxCount
-		);
+		let numLabelCandidates = positionMutations.findIndex(mutations => mutations.length !== maxCount);
 		if (numLabelCandidates === -1) {
 			numLabelCandidates = positionMutations.length;
 		}
@@ -204,19 +171,13 @@ export default class LollipopMutationPlot extends React.Component<
 				(this.props.store.canonicalTranscript.isComplete &&
 					this.props.store.canonicalTranscript.result &&
 					// we want to show the stop codon too (so we allow proteinLength +1 as well)
-					codon >
-						this.props.store.canonicalTranscript.result
-							.proteinLength +
-							1)
+					codon > this.props.store.canonicalTranscript.result.proteinLength + 1)
 			) {
 				// invalid position
 				continue;
 			}
 			let label: string | undefined;
-			if (
-				i < numLabelsToShow &&
-				mutations.length >= minMutationsToShowLabel
-			) {
+			if (i < numLabelsToShow && mutations.length >= minMutationsToShowLabel) {
 				label = this.lollipopLabel(mutations);
 			} else {
 				label = undefined;
@@ -232,15 +193,9 @@ export default class LollipopMutationPlot extends React.Component<
 		return ret;
 	}
 
-	private domainTooltip(
-		range: PfamDomainRange,
-		domain: PfamDomain | undefined,
-		pfamAcc: string
-	): JSX.Element {
+	private domainTooltip(range: PfamDomainRange, domain: PfamDomain | undefined, pfamAcc: string): JSX.Element {
 		const pfamAccession = domain ? domain.pfamAccession : pfamAcc;
-		const mutationAlignerLink = this.mutationAlignerLinks.result[
-			pfamAccession
-		];
+		const mutationAlignerLink = this.mutationAlignerLinks.result[pfamAccession];
 		const mutationAlignerA = mutationAlignerLink ? (
 			<a href={mutationAlignerLink} target="_blank">
 				Mutation Aligner
@@ -248,15 +203,12 @@ export default class LollipopMutationPlot extends React.Component<
 		) : null;
 
 		// if no domain info, then just display the accession
-		const domainInfo = domain
-			? `${domain.name}: ${domain.description}`
-			: pfamAccession;
+		const domainInfo = domain ? `${domain.name}: ${domain.description}` : pfamAccession;
 
 		return (
 			<div style={{ maxWidth: 200 }}>
 				<div>
-					{domainInfo} ({range.pfamDomainStart} -{" "}
-					{range.pfamDomainEnd})
+					{domainInfo} ({range.pfamDomainStart} - {range.pfamDomainEnd})
 				</div>
 				<div>
 					<a
@@ -284,22 +236,16 @@ export default class LollipopMutationPlot extends React.Component<
 		) {
 			return [];
 		} else {
-			return this.props.store.canonicalTranscript.result.pfamDomains.map(
-				(range: PfamDomainRange) => {
-					const domain = this.domainMap[range.pfamDomainId];
-					return {
-						startCodon: range.pfamDomainStart,
-						endCodon: range.pfamDomainEnd,
-						label: domain ? domain.name : range.pfamDomainId,
-						color: this.domainColorMap[range.pfamDomainId],
-						tooltip: this.domainTooltip(
-							range,
-							domain,
-							range.pfamDomainId
-						)
-					};
-				}
-			);
+			return this.props.store.canonicalTranscript.result.pfamDomains.map((range: PfamDomainRange) => {
+				const domain = this.domainMap[range.pfamDomainId];
+				return {
+					startCodon: range.pfamDomainStart,
+					endCodon: range.pfamDomainEnd,
+					label: domain ? domain.name : range.pfamDomainId,
+					color: this.domainColorMap[range.pfamDomainId],
+					tooltip: this.domainTooltip(range, domain, range.pfamDomainId)
+				};
+			});
 		}
 	}
 
@@ -311,9 +257,7 @@ export default class LollipopMutationPlot extends React.Component<
 			this.props.store.canonicalTranscript.result.pfamDomains &&
 			this.props.store.canonicalTranscript.result.pfamDomains.length > 0
 		) {
-			return generatePfamDomainColorMap(
-				this.props.store.canonicalTranscript.result.pfamDomains
-			);
+			return generatePfamDomainColorMap(this.props.store.canonicalTranscript.result.pfamDomains);
 		} else {
 			return {};
 		}
@@ -326,10 +270,7 @@ export default class LollipopMutationPlot extends React.Component<
 			this.props.store.pfamDomainData.result &&
 			this.props.store.pfamDomainData.result.length > 0
 		) {
-			return _.keyBy(
-				this.props.store.pfamDomainData.result,
-				"pfamAccession"
-			);
+			return _.keyBy(this.props.store.pfamDomainData.result, "pfamAccession");
 		} else {
 			return {};
 		}
@@ -338,12 +279,7 @@ export default class LollipopMutationPlot extends React.Component<
 	private sequenceTooltip(): JSX.Element {
 		return (
 			<div style={{ maxWidth: 200 }}>
-				<a
-					href={`http://www.uniprot.org/uniprot/${
-						this.props.store.uniprotId.result
-					}`}
-					target="_blank"
-				>
+				<a href={`http://www.uniprot.org/uniprot/${this.props.store.uniprotId.result}`} target="_blank">
 					{this.props.store.uniprotId.result}
 				</a>
 			</div>
@@ -378,19 +314,13 @@ export default class LollipopMutationPlot extends React.Component<
 					{this.hugoGeneSymbol}
 				</text>
 			);
-			const labelGroup = document.createElementNS(
-				"http://www.w3.org/2000/svg",
-				"g"
-			);
+			const labelGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
 			ReactDOM.render(label, labelGroup);
 			plotSvg.appendChild(labelGroup);
 
 			return plotSvg;
 		} else {
-			return document.createElementNS(
-				"http://www.w3.org/2000/svg",
-				"svg"
-			);
+			return document.createElementNS("http://www.w3.org/2000/svg", "svg");
 		}
 		// Add label to top
 	}
@@ -417,10 +347,7 @@ export default class LollipopMutationPlot extends React.Component<
 
 	@computed
 	get sliderRange() {
-		return [
-			this.countRange[0],
-			Math.max(this.countRange[1], this.countRange[0] + 5)
-		];
+		return [this.countRange[0], Math.max(this.countRange[1], this.countRange[0] + 5)];
 	}
 
 	constructor(props: ILollipopMutationPlotProps) {
@@ -428,16 +355,13 @@ export default class LollipopMutationPlot extends React.Component<
 
 		this.handlers = {
 			handleYAxisMaxSliderChange: action((event: any) => {
-				const inputValue: string = (event.target as HTMLInputElement)
-					.value;
+				const inputValue: string = (event.target as HTMLInputElement).value;
 				const value = parseInt(inputValue, 10);
-				this._yMaxInput =
-					value < this.countRange[0] ? this.countRange[0] : value;
+				this._yMaxInput = value < this.countRange[0] ? this.countRange[0] : value;
 			}),
 			handleYAxisMaxChange: action((inputValue: string) => {
 				const value = parseInt(inputValue, 10);
-				this._yMaxInput =
-					value < this.countRange[0] ? this.countRange[0] : value;
+				this._yMaxInput = value < this.countRange[0] ? this.countRange[0] : value;
 			}),
 			handleSVGClick: () => {
 				fileDownload(
@@ -446,10 +370,7 @@ export default class LollipopMutationPlot extends React.Component<
 				);
 			},
 			handlePDFClick: () => {
-				svgToPdfDownload(
-					`${this.hugoGeneSymbol}_lollipop.pdf`,
-					this.toSVGDOMNode()
-				);
+				svgToPdfDownload(`${this.hugoGeneSymbol}_lollipop.pdf`, this.toSVGDOMNode());
 			},
 			onYMaxInputFocused: () => {
 				this.yMaxInputFocused = true;
@@ -475,10 +396,7 @@ export default class LollipopMutationPlot extends React.Component<
 	@computed
 	get yMaxSlider() {
 		// we don't want max slider value to go over the actual max, even if the user input goes over it
-		return Math.min(
-			this.countRange[1],
-			this._yMaxInput || this.countRange[1]
-		);
+		return Math.min(this.countRange[1], this._yMaxInput || this.countRange[1]);
 	}
 
 	@computed
@@ -501,10 +419,9 @@ export default class LollipopMutationPlot extends React.Component<
 					Color Codes
 				</span>
 				<p>
-					Mutation diagram circles are colored with respect to the
-					corresponding mutation types. In case of different mutation
-					types at a single position, color of the circle is
-					determined with respect to the most frequent mutation type.
+					Mutation diagram circles are colored with respect to the corresponding mutation types. In case of
+					different mutation types at a single position, color of the circle is determined with respect to the
+					most frequent mutation type.
 				</p>
 				<br />
 				<div>
@@ -533,8 +450,7 @@ export default class LollipopMutationPlot extends React.Component<
 							>
 								Truncating Mutations
 							</span>
-							: Nonsense, Nonstop, Frameshift deletion, Frameshift
-							insertion, Splice site
+							: Nonsense, Nonstop, Frameshift deletion, Frameshift insertion, Splice site
 						</li>
 						<li>
 							<span
@@ -571,41 +487,19 @@ export default class LollipopMutationPlot extends React.Component<
 	@computed
 	get controls() {
 		return (
-			<div
-				className={classnames(
-					this.showControls ? styles["fade-in"] : styles["fade-out"]
-				)}
-			>
+			<div className={classnames(this.showControls ? styles["fade-in"] : styles["fade-out"])}>
 				<span>
 					<div role="group" className="btn-group">
-						<button
-							className="btn btn-default btn-xs"
-							onClick={this.handlers.handleSVGClick}
-						>
-							SVG{" "}
-							<i
-								className="fa fa-cloud-download"
-								aria-hidden="true"
-							/>
+						<button className="btn btn-default btn-xs" onClick={this.handlers.handleSVGClick}>
+							SVG <i className="fa fa-cloud-download" aria-hidden="true" />
 						</button>
 
-						<button
-							className="btn btn-default btn-xs"
-							onClick={this.handlers.handlePDFClick}
-						>
-							PDF{" "}
-							<i
-								className="fa fa-cloud-download"
-								aria-hidden="true"
-							/>
+						<button className="btn btn-default btn-xs" onClick={this.handlers.handlePDFClick}>
+							PDF <i className="fa fa-cloud-download" aria-hidden="true" />
 						</button>
 
-						<button
-							className="btn btn-default btn-xs"
-							onClick={this.handlers.handleToggleLegend}
-						>
-							Legend{" "}
-							<i className="fa fa-eye" aria-hidden="true" />
+						<button className="btn btn-default btn-xs" onClick={this.handlers.handleToggleLegend}>
+							Legend <i className="fa fa-eye" aria-hidden="true" />
 						</button>
 					</div>
 
@@ -649,10 +543,7 @@ export default class LollipopMutationPlot extends React.Component<
 	}
 
 	render() {
-		if (
-			this.props.store.pfamDomainData.isComplete &&
-			this.props.store.pfamDomainData.result
-		) {
+		if (this.props.store.pfamDomainData.isComplete && this.props.store.pfamDomainData.result) {
 			return (
 				<div
 					style={{ display: "inline-block" }}
@@ -660,9 +551,7 @@ export default class LollipopMutationPlot extends React.Component<
 					onMouseLeave={this.handlers.onMouseLeavePlot}
 				>
 					{this.controls}
-					<Collapse isOpened={this.legendShown}>
-						{this.legend}
-					</Collapse>
+					<Collapse isOpened={this.legendShown}>{this.legend}</Collapse>
 					<LollipopPlot
 						ref={this.handlers.ref}
 						sequence={this.sequence}
@@ -673,8 +562,7 @@ export default class LollipopMutationPlot extends React.Component<
 						vizHeight={130}
 						xMax={
 							(this.props.store.canonicalTranscript.result &&
-								this.props.store.canonicalTranscript.result
-									.proteinLength) ||
+								this.props.store.canonicalTranscript.result.proteinLength) ||
 							this.props.store.gene.length / 3
 						}
 						yMax={this.yMaxInput}

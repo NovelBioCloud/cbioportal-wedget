@@ -16,10 +16,7 @@ interface IRightBarState {
 }
 
 @observer
-export default class RightBar extends React.Component<
-	IRightBarProps,
-	IRightBarState
-> {
+export default class RightBar extends React.Component<IRightBarProps, IRightBarState> {
 	constructor(props: IRightBarProps) {
 		super(props);
 		this.state = {
@@ -36,28 +33,16 @@ export default class RightBar extends React.Component<
 	}
 
 	private CancerTypeList() {
-		return this.logic.cancerTypeListView.getChildCancerTypes(
-			this.studyStore.treeData.rootCancerType
-		);
+		return this.logic.cancerTypeListView.getChildCancerTypes(this.studyStore.treeData.rootCancerType);
 	}
 
-	private CancerTypeDescendantStudy({
-		cancerType
-	}: {
-		cancerType: CancerType;
-	}) {
-		return this.logic.cancerTypeListView.getDescendantCancerStudies(
-			cancerType
-		);
+	private CancerTypeDescendantStudy({ cancerType }: { cancerType: CancerType }) {
+		return this.logic.cancerTypeListView.getDescendantCancerStudies(cancerType);
 	}
 
 	private CancerTypeDescendantStudies(cancerList: CancerType[]) {
 		return cancerList
-			.filter(
-				cancer =>
-					cancer.cancerTypeId !== "other" &&
-					cancer.cancerTypeId !== "mixed"
-			)
+			.filter(cancer => cancer.cancerTypeId !== "other" && cancer.cancerTypeId !== "mixed")
 			.map((filteredCancer: CancerType) => ({
 				shortName: filteredCancer.name,
 				color: filteredCancer.dedicatedColor,
@@ -84,12 +69,8 @@ export default class RightBar extends React.Component<
 				<div className="rightBarSection" style={{ paddingBottom: 20 }}>
 					<h3 style={{ borderBottom: 0 }}>
 						What's New
-						<a
-							href="http://www.twitter.com/cbioportal"
-							className="pull-right"
-						>
-							@cbioportal{" "}
-							<i className="fa fa-twitter" aria-hidden="true" />
+						<a href="http://www.twitter.com/cbioportal" className="pull-right">
+							@cbioportal <i className="fa fa-twitter" aria-hidden="true" />
 						</a>
 					</h3>
 					<div style={{ marginTop: 3 }}>
@@ -103,19 +84,13 @@ export default class RightBar extends React.Component<
 								height: "200",
 								chrome: "noheader%20nofooter"
 							}}
-							onLoad={() =>
-								this.setState({ twitterLoading: false })
-							}
+							onLoad={() => this.setState({ twitterLoading: false })}
 						/>
 					</div>
 					<div>
-						{(this.state.twitterLoading && (
-							<ThreeBounce className="center-block text-center" />
-						)) || (
+						{(this.state.twitterLoading && <ThreeBounce className="center-block text-center" />) || (
 							<div style={{ paddingTop: 5 }}>
-								<p style={{ textAlign: "center" }}>
-									Sign up for low-volume email news alerts
-								</p>
+								<p style={{ textAlign: "center" }}>Sign up for low-volume email news alerts</p>
 								<a
 									target="_blank"
 									className="btn btn-default btn-sm"
@@ -164,9 +139,7 @@ export default class RightBar extends React.Component<
 						</a>
 					</li>
 					<li>
-						<a href="ln?q=BRAF:MUT=V600E">
-							BRAF V600E mutations across cancer types
-						</a>
+						<a href="ln?q=BRAF:MUT=V600E">BRAF V600E mutations across cancer types</a>
 					</li>
 					<li>
 						<a href="case.do#/patient?studyId=ucec_tcga_pub&caseId=TCGA-BK-A0CC">
@@ -182,11 +155,7 @@ export default class RightBar extends React.Component<
 				<div
 					className="rightBarSection exampleQueries"
 					dangerouslySetInnerHTML={{
-						__html:
-							"<h3>" +
-							title +
-							"</h3>" +
-							AppConfig.skinRightNavExamplesHTML
+						__html: "<h3>" + title + "</h3>" + AppConfig.skinRightNavExamplesHTML
 					}}
 				/>
 			);
@@ -203,28 +172,18 @@ export default class RightBar extends React.Component<
 					this.studyStore.cancerTypes.isComplete && (
 						<div>
 							<p>
-								The portal contains{" "}
-								{this.studyStore.cancerStudies.result.length}{" "}
-								cancer studies{" "}
+								The portal contains {this.studyStore.cancerStudies.result.length} cancer studies{" "}
 								<a href="data_sets.jsp">(details)</a>
 							</p>
 
-							<BarGraph
-								data={this.CancerTypeDescendantStudies(
-									this.CancerTypeList()
-								)}
-							/>
+							<BarGraph data={this.CancerTypeDescendantStudies(this.CancerTypeList())} />
 						</div>
 					)}
-				{this.studyStore.cancerStudies.isPending && (
-					<ThreeBounce className="center-block text-center" />
-				)}
+				{this.studyStore.cancerStudies.isPending && <ThreeBounce className="center-block text-center" />}
 			</div>
 		) : null;
 
-		const examples: JSX.Element | null = AppConfig.skinRightNavShowExamples
-			? RightBar.getExampleSection()
-			: null;
+		const examples: JSX.Element | null = AppConfig.skinRightNavShowExamples ? RightBar.getExampleSection() : null;
 
 		const testimonials: JSX.Element | null = AppConfig.skinRightNavShowTestimonials ? (
 			<div className="rightBarSection" style={{ minHeight: "300px" }}>

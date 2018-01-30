@@ -1,17 +1,11 @@
 import * as React from "react";
 import * as _ from "lodash";
-import LazyMobXTable, {
-	Column
-} from "../../../shared/components/lazyMobXTable/LazyMobXTable";
+import LazyMobXTable, { Column } from "../../../shared/components/lazyMobXTable/LazyMobXTable";
 import { MutualExclusivity } from "../../../shared/model/MutualExclusivity";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
 import { Badge } from "react-bootstrap";
-import {
-	formatPValue,
-	formatPValueWithStyle,
-	formatLogOddsRatio
-} from "./MutualExclusivityUtil";
+import { formatPValue, formatPValueWithStyle, formatLogOddsRatio } from "./MutualExclusivityUtil";
 
 export interface IMutualExclusivityTableProps {
 	columns?: MutualExclusivityTableColumnType[];
@@ -32,17 +26,11 @@ type MutualExclusivityTableColumn = Column<MutualExclusivity> & {
 	shouldExclude?: () => boolean;
 };
 
-export class MutualExclusivityTableComponent extends LazyMobXTable<
-	MutualExclusivity
-> {}
+export class MutualExclusivityTableComponent extends LazyMobXTable<MutualExclusivity> {}
 
 @observer
-export default class MutualExclusivityTable extends React.Component<
-	IMutualExclusivityTableProps,
-	{}
-> {
-	@observable
-	protected _columns: { [columnEnum: number]: MutualExclusivityTableColumn };
+export default class MutualExclusivityTable extends React.Component<IMutualExclusivityTableProps, {}> {
+	@observable protected _columns: { [columnEnum: number]: MutualExclusivityTableColumn };
 
 	constructor(props: IMutualExclusivityTableProps) {
 		super(props);
@@ -72,11 +60,8 @@ export default class MutualExclusivityTable extends React.Component<
 				</span>
 			),
 			tooltip: <span>Gene A</span>,
-			filter: (
-				d: MutualExclusivity,
-				filterString: string,
-				filterStringUpper: string
-			) => d.geneA.toUpperCase().includes(filterStringUpper),
+			filter: (d: MutualExclusivity, filterString: string, filterStringUpper: string) =>
+				d.geneA.toUpperCase().includes(filterStringUpper),
 			sortBy: (d: MutualExclusivity) => d.geneA,
 			download: (d: MutualExclusivity) => d.geneA
 		};
@@ -89,11 +74,8 @@ export default class MutualExclusivityTable extends React.Component<
 				</span>
 			),
 			tooltip: <span>Gene B</span>,
-			filter: (
-				d: MutualExclusivity,
-				filterString: string,
-				filterStringUpper: string
-			) => d.geneB.toUpperCase().includes(filterStringUpper),
+			filter: (d: MutualExclusivity, filterString: string, filterStringUpper: string) =>
+				d.geneB.toUpperCase().includes(filterStringUpper),
 			sortBy: (d: MutualExclusivity) => d.geneB,
 			download: (d: MutualExclusivity) => d.geneB
 		};
@@ -108,19 +90,15 @@ export default class MutualExclusivityTable extends React.Component<
 
 		this._columns[MutualExclusivityTableColumnType.LOG_ODDS_RATIO] = {
 			name: "Log Odds Ratio",
-			render: (d: MutualExclusivity) => (
-				<span>{formatLogOddsRatio(d.logOddsRatio)}</span>
-			),
+			render: (d: MutualExclusivity) => <span>{formatLogOddsRatio(d.logOddsRatio)}</span>,
 			tooltip: (
 				<span style={{ display: "inline-block", maxWidth: 300 }}>
-					Quantifies how strongly the presence or absence of
-					alterations in gene A are associated with the presence or
-					absence of alterations in gene B in the selected tumors.
+					Quantifies how strongly the presence or absence of alterations in gene A are associated with the
+					presence or absence of alterations in gene B in the selected tumors.
 				</span>
 			),
 			sortBy: (d: MutualExclusivity) => d.logOddsRatio,
-			download: (d: MutualExclusivity) =>
-				formatLogOddsRatio(d.logOddsRatio)
+			download: (d: MutualExclusivity) => formatLogOddsRatio(d.logOddsRatio)
 		};
 
 		this._columns[MutualExclusivityTableColumnType.ASSOCIATION] = {
@@ -128,9 +106,7 @@ export default class MutualExclusivityTable extends React.Component<
 			render: (d: MutualExclusivity) => (
 				<span>
 					{d.association}&nbsp;&nbsp;&nbsp;{d.pValue < 0.05 ? (
-						<Badge style={{ backgroundColor: "#58ACFA" }}>
-							Significant
-						</Badge>
+						<Badge style={{ backgroundColor: "#58ACFA" }}>Significant</Badge>
 					) : (
 						""
 					)}
@@ -138,29 +114,20 @@ export default class MutualExclusivityTable extends React.Component<
 			),
 			tooltip: (
 				<span>
-					Log odds ratio > 0 &nbsp;&nbsp;: Tendency towards
-					co-occurrence<br />
+					Log odds ratio > 0 &nbsp;&nbsp;: Tendency towards co-occurrence<br />
 					Log odds ratio &lt;= 0 : Tendency towards mutual exclusivity<br />
-					p-Value &lt; 0.05
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-					Significant association
+					p-Value &lt; 0.05 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Significant association
 				</span>
 			),
-			filter: (
-				d: MutualExclusivity,
-				filterString: string,
-				filterStringUpper: string
-			) => d.association.toUpperCase().includes(filterStringUpper),
+			filter: (d: MutualExclusivity, filterString: string, filterStringUpper: string) =>
+				d.association.toUpperCase().includes(filterStringUpper),
 			sortBy: (d: MutualExclusivity) => d.association,
 			download: (d: MutualExclusivity) => d.association
 		};
 	}
 
 	public render() {
-		const orderedColumns = _.sortBy(
-			this._columns,
-			(c: MutualExclusivityTableColumn) => c.order
-		);
+		const orderedColumns = _.sortBy(this._columns, (c: MutualExclusivityTableColumn) => c.order);
 		return (
 			<MutualExclusivityTableComponent
 				columns={orderedColumns}

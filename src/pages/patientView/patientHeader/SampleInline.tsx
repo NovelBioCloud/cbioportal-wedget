@@ -16,10 +16,7 @@ interface ISampleInlineProps {
 	additionalContent?: JSX.Element | null;
 }
 
-export default class SampleInline extends React.Component<
-	ISampleInlineProps,
-	{}
-> {
+export default class SampleInline extends React.Component<ISampleInlineProps, {}> {
 	public static defaultProps = {
 		tooltipEnabled: true
 	};
@@ -36,13 +33,7 @@ export default class SampleInline extends React.Component<
 	public sampleLabelHTML() {
 		const { sampleNumber, sampleColor, fillOpacity } = this.props;
 
-		return (
-			<SampleLabelHTML
-				fillOpacity={fillOpacity}
-				color={sampleColor}
-				label={sampleNumber.toString()}
-			/>
-		);
+		return <SampleLabelHTML fillOpacity={fillOpacity} color={sampleColor} label={sampleNumber.toString()} />;
 	}
 
 	public tooltipContent() {

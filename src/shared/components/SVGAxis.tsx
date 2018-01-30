@@ -19,25 +19,15 @@ type SVGAxisProps = {
 
 export default class SVGAxis extends React.Component<SVGAxisProps, {}> {
 	private positionToAxisPosition(position: number) {
-		return (
-			position /
-			(this.props.rangeUpper - this.props.rangeLower) *
-			this.props.length
-		);
+		return position / (this.props.rangeUpper - this.props.rangeLower) * this.props.length;
 	}
 
 	private get ticks() {
 		return this.props.ticks.map(tick => {
 			const axisPosition = this.positionToAxisPosition(tick.position);
-			const x1 = this.props.vertical
-				? this.props.x
-				: this.props.x + axisPosition;
-			const y1 = this.props.vertical
-				? this.props.y + this.props.length - axisPosition
-				: this.props.y;
-			const x2 = this.props.vertical
-				? this.props.x - this.props.tickLength
-				: this.props.x + axisPosition;
+			const x1 = this.props.vertical ? this.props.x : this.props.x + axisPosition;
+			const y1 = this.props.vertical ? this.props.y + this.props.length - axisPosition : this.props.y;
+			const x2 = this.props.vertical ? this.props.x - this.props.tickLength : this.props.x + axisPosition;
 			const y2 = this.props.vertical
 				? this.props.y + this.props.length - axisPosition
 				: this.props.y + this.props.tickLength;
@@ -80,14 +70,7 @@ export default class SVGAxis extends React.Component<SVGAxisProps, {}> {
 			}
 			return (
 				<g key={axisPosition}>
-					<line
-						stroke="rgb(170,170,170)"
-						strokeWidth="1"
-						x1={x1}
-						y1={y1}
-						x2={x2}
-						y2={y2}
-					/>
+					<line stroke="rgb(170,170,170)" strokeWidth="1" x1={x1} y1={y1} x2={x2} y2={y2} />
 					{label}
 				</g>
 			);
@@ -130,22 +113,11 @@ export default class SVGAxis extends React.Component<SVGAxisProps, {}> {
 	}
 
 	render() {
-		const x2 = this.props.vertical
-			? this.props.x
-			: this.props.x + this.props.length;
-		const y2 = this.props.vertical
-			? this.props.y + this.props.length
-			: this.props.y;
+		const x2 = this.props.vertical ? this.props.x : this.props.x + this.props.length;
+		const y2 = this.props.vertical ? this.props.y + this.props.length : this.props.y;
 		return (
 			<g>
-				<line
-					stroke="rgb(170,170,170)"
-					strokeWidth="1"
-					x1={this.props.x}
-					y1={this.props.y}
-					x2={x2}
-					y2={y2}
-				/>
+				<line stroke="rgb(170,170,170)" strokeWidth="1" x1={this.props.x} y1={this.props.y} x2={x2} y2={y2} />
 				{this.ticks}
 				{this.label}
 			</g>

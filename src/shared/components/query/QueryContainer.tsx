@@ -37,10 +37,7 @@ interface QueryContainerProps {
 
 @providesStoreContext(QueryStore)
 @observer
-export default class QueryContainer extends React.Component<
-	QueryContainerProps,
-	{}
-> {
+export default class QueryContainer extends React.Component<QueryContainerProps, {}> {
 	constructor(props: QueryContainerProps) {
 		super(props);
 
@@ -69,11 +66,7 @@ export default class QueryContainer extends React.Component<
 
 				<CancerStudySelector />
 
-				{this.store.isVirtualCohortQuery ? (
-					<DataTypePrioritySelector />
-				) : (
-					<MolecularProfileSelector />
-				)}
+				{this.store.isVirtualCohortQuery ? <DataTypePrioritySelector /> : <MolecularProfileSelector />}
 
 				{this.store.selectedStudyIds.length > 0 && <CaseSetSelector />}
 
@@ -83,8 +76,7 @@ export default class QueryContainer extends React.Component<
 
 				{!!this.store.forDownloadTab && (
 					<span className={styles.downloadSubmitExplanation}>
-						Clicking submit will generate a tab-delimited file
-						containing your requested data.
+						Clicking submit will generate a tab-delimited file containing your requested data.
 					</span>
 				)}
 
@@ -92,10 +84,7 @@ export default class QueryContainer extends React.Component<
 					<LabeledCheckbox
 						labelProps={{ className: styles.transposeDataMatrix }}
 						checked={this.store.transposeDataMatrix}
-						onChange={event =>
-							(this.store.transposeDataMatrix =
-								event.currentTarget.checked)
-						}
+						onChange={event => (this.store.transposeDataMatrix = event.currentTarget.checked)}
 					>
 						Transpose data matrix
 					</LabeledCheckbox>
@@ -113,14 +102,9 @@ export default class QueryContainer extends React.Component<
 						onClick={() => this.handleSubmit()}
 						data-test="queryButton"
 					>
-						{!this.store.forDownloadTab
-							? "Submit Query"
-							: "Download"}
+						{!this.store.forDownloadTab ? "Submit Query" : "Download"}
 					</button>
-					{!!(
-						this.store.forDownloadTab &&
-						AppConfig.genomespaceEnabled
-					) && (
+					{!!(this.store.forDownloadTab && AppConfig.genomespaceEnabled) && (
 						<button
 							disabled={!this.store.submitEnabled}
 							className={styles.genomeSpace}
@@ -131,18 +115,13 @@ export default class QueryContainer extends React.Component<
 					)}
 					<FlexCol>
 						{!!this.store.submitError && (
-							<span className={styles.errorMessage}>
-								{this.store.submitError}
-							</span>
+							<span className={styles.errorMessage}>{this.store.submitError}</span>
 						)}
 
 						{this.store.oqlMessages.map(msg => {
 							return (
 								<span className={styles.oqlMessage}>
-									<i
-										className="fa fa-info-circle"
-										style={{ marginRight: 5 }}
-									/>
+									<i className="fa fa-info-circle" style={{ marginRight: 5 }} />
 									{msg}
 								</span>
 							);

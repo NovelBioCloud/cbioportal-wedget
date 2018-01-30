@@ -31,9 +31,7 @@ export default class GenomicOverview extends React.Component<
 
 	constructor(props: IGenomicOverviewProps) {
 		super(props);
-		const frequencies = this.computeMutationFrequencyBySample(
-			props.mergedMutations
-		);
+		const frequencies = this.computeMutationFrequencyBySample(props.mergedMutations);
 		this.state = {
 			frequencies
 		};
@@ -84,28 +82,18 @@ export default class GenomicOverview extends React.Component<
 	}
 
 	private getTracksWidth(): number {
-		return (
-			this.props.getContainerWidth() -
-			(this.shouldShowVAFPlot() ? 140 : 40)
-		);
+		return this.props.getContainerWidth() - (this.shouldShowVAFPlot() ? 140 : 40);
 	}
 
-	private computeMutationFrequencyBySample(
-		mergedMutations: Mutation[][]
-	): MutationFrequenciesBySample {
+	private computeMutationFrequencyBySample(mergedMutations: Mutation[][]): MutationFrequenciesBySample {
 		const ret: MutationFrequenciesBySample = {};
 		let sampleId;
 		let freq;
 		for (const mutations of mergedMutations) {
 			for (const mutation of mutations) {
-				if (
-					mutation.tumorAltCount >= 0 &&
-					mutation.tumorRefCount >= 0
-				) {
+				if (mutation.tumorAltCount >= 0 && mutation.tumorRefCount >= 0) {
 					sampleId = mutation.sampleId;
-					freq =
-						mutation.tumorAltCount /
-						(mutation.tumorRefCount + mutation.tumorAltCount);
+					freq = mutation.tumorAltCount / (mutation.tumorRefCount + mutation.tumorAltCount);
 					ret[sampleId] = ret[sampleId] || [];
 					ret[sampleId].push(freq);
 				}

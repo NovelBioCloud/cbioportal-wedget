@@ -2,16 +2,8 @@ import * as React from "react";
 import { observer } from "mobx-react";
 import { observable, computed } from "mobx";
 import * as _ from "lodash";
-import {
-	default as LazyMobXTable,
-	Column,
-	SortDirection
-} from "shared/components/lazyMobXTable/LazyMobXTable";
-import {
-	CancerStudy,
-	MolecularProfile,
-	Mutation
-} from "shared/api/generated/CBioPortalAPI";
+import { default as LazyMobXTable, Column, SortDirection } from "shared/components/lazyMobXTable/LazyMobXTable";
+import { CancerStudy, MolecularProfile, Mutation } from "shared/api/generated/CBioPortalAPI";
 import SampleColumnFormatter from "./column/SampleColumnFormatter";
 import TumorAlleleFreqColumnFormatter from "./column/TumorAlleleFreqColumnFormatter";
 import NormalAlleleFreqColumnFormatter from "./column/NormalAlleleFreqColumnFormatter";
@@ -34,10 +26,7 @@ import AnnotationColumnFormatter from "./column/AnnotationColumnFormatter";
 import { IMyCancerGenomeData } from "shared/model/MyCancerGenome";
 import { IHotspotData } from "shared/model/CancerHotspots";
 import { IOncoKbDataWrapper } from "shared/model/OncoKB";
-import {
-	ICivicVariantDataWrapper,
-	ICivicGeneDataWrapper
-} from "shared/model/Civic";
+import { ICivicVariantDataWrapper, ICivicGeneDataWrapper } from "shared/model/Civic";
 import { IMutSigData } from "shared/model/MutSig";
 import DiscreteCNACache from "shared/cache/DiscreteCNACache";
 import OncoKbEvidenceCache from "shared/cache/OncoKbEvidenceCache";
@@ -133,21 +122,9 @@ type MutationTableColumn = Column<Mutation[]> & {
 
 export class MutationTableComponent extends LazyMobXTable<Mutation[]> {}
 
-export function getDivForDataField(
-	data: Mutation[],
-	dataField: string,
-	isInteger?: boolean
-) {
+export function getDivForDataField(data: Mutation[], dataField: string, isInteger?: boolean) {
 	let contents = getTextForDataField(data, dataField);
-	return (
-		<div
-			className={classnames(
-				isInteger ? generalStyles["integer-data"] : undefined
-			)}
-		>
-			{contents}
-		</div>
-	);
+	return <div className={classnames(isInteger ? generalStyles["integer-data"] : undefined)}>{contents}</div>;
 }
 
 export function getTextForDataField(data: Mutation[], dataField: string) {
@@ -158,18 +135,12 @@ export function getTextForDataField(data: Mutation[], dataField: string) {
 	return text;
 }
 
-export function defaultFilter(
-	data: Mutation[],
-	dataField: string,
-	filterStringUpper: string
-): boolean {
+export function defaultFilter(data: Mutation[], dataField: string, filterStringUpper: string): boolean {
 	if (data.length > 0) {
 		return data.reduce((match: boolean, next: Mutation) => {
 			const val = (next as any)[dataField];
 			if (val) {
-				return (
-					match || val.toUpperCase().indexOf(filterStringUpper) > -1
-				);
+				return match || val.toUpperCase().indexOf(filterStringUpper) > -1;
 			} else {
 				return match;
 			}
@@ -180,11 +151,8 @@ export function defaultFilter(
 }
 
 @observer
-export default class MutationTable<
-	P extends IMutationTableProps
-> extends React.Component<P, {}> {
-	@observable
-	protected _columns: { [columnEnum: number]: MutationTableColumn };
+export default class MutationTable<P extends IMutationTableProps> extends React.Component<P, {}> {
+	@observable protected _columns: { [columnEnum: number]: MutationTableColumn };
 
 	public static defaultProps = {
 		initialItemsPerPage: 25,
@@ -229,11 +197,7 @@ export default class MutationTable<
 					this.props.molecularProfileIdToMolecularProfile,
 					this.props.studyIdToStudy
 				),
-			filter: (
-				d: Mutation[],
-				filterString: string,
-				filterStringUpper: string
-			) => {
+			filter: (d: Mutation[], filterString: string, filterStringUpper: string) => {
 				return StudyColumnFormatter.filter(
 					d,
 					filterStringUpper,
@@ -247,28 +211,18 @@ export default class MutationTable<
 		this._columns[MutationTableColumnType.SAMPLE_ID] = {
 			name: "Sample ID",
 			render: (d: Mutation[]) =>
-				SampleColumnFormatter.renderFunction(
-					d,
-					this.props.molecularProfileIdToMolecularProfile
-				),
+				SampleColumnFormatter.renderFunction(d, this.props.molecularProfileIdToMolecularProfile),
 			download: SampleColumnFormatter.getTextValue,
 			sortBy: SampleColumnFormatter.getTextValue,
-			filter: (
-				d: Mutation[],
-				filterString: string,
-				filterStringUpper: string
-			) => defaultFilter(d, "sampleId", filterStringUpper),
+			filter: (d: Mutation[], filterString: string, filterStringUpper: string) =>
+				defaultFilter(d, "sampleId", filterStringUpper),
 			visible: true
 		};
 
 		this._columns[MutationTableColumnType.TUMOR_ALLELE_FREQ] = {
 			name: "Allele Freq (T)",
 			render: TumorAlleleFreqColumnFormatter.renderFunction,
-			headerRender: (name: string) => (
-				<span style={{ display: "inline-block", maxWidth: 55 }}>
-					{name}
-				</span>
-			),
+			headerRender: (name: string) => <span style={{ display: "inline-block", maxWidth: 55 }}>{name}</span>,
 			sortBy: TumorAlleleFreqColumnFormatter.getSortValue,
 			tooltip: <span>Variant allele frequency in the tumor sample</span>,
 			visible: true
@@ -277,11 +231,7 @@ export default class MutationTable<
 		this._columns[MutationTableColumnType.NORMAL_ALLELE_FREQ] = {
 			name: "Allele Freq (N)",
 			render: NormalAlleleFreqColumnFormatter.renderFunction,
-			headerRender: (name: string) => (
-				<span style={{ display: "inline-block", maxWidth: 55 }}>
-					{name}
-				</span>
-			),
+			headerRender: (name: string) => <span style={{ display: "inline-block", maxWidth: 55 }}>{name}</span>,
 			sortBy: NormalAlleleFreqColumnFormatter.getSortValue,
 			tooltip: <span>Variant allele frequency in the normal sample</span>,
 			visible: false
@@ -291,8 +241,7 @@ export default class MutationTable<
 			name: "mRNA Expr.",
 			render: (d: Mutation[]) =>
 				this.props.mrnaExprRankCache ? (
-					MrnaExprColumnFormatter.renderFunction(d, this.props
-						.mrnaExprRankCache as MrnaExprRankCache)
+					MrnaExprColumnFormatter.renderFunction(d, this.props.mrnaExprRankCache as MrnaExprRankCache)
 				) : (
 					<span />
 				)
@@ -302,21 +251,15 @@ export default class MutationTable<
 			name: "Cohort",
 			render: (d: Mutation[]) =>
 				this.props.variantCountCache ? (
-					CohortColumnFormatter.renderFunction(
-						d,
-						this.props.mutSigData,
-						this.props.variantCountCache as VariantCountCache
-					)
+					CohortColumnFormatter.renderFunction(d, this.props.mutSigData, this.props
+						.variantCountCache as VariantCountCache)
 				) : (
 					<span />
 				),
 			sortBy: (d: Mutation[]) => {
 				const cache = this.props.variantCountCache;
 				if (cache) {
-					return CohortColumnFormatter.getSortValue(
-						d,
-						cache as VariantCountCache
-					);
+					return CohortColumnFormatter.getSortValue(d, cache as VariantCountCache);
 				} else {
 					return 0;
 				}
@@ -328,10 +271,7 @@ export default class MutationTable<
 		this._columns[MutationTableColumnType.COPY_NUM] = {
 			name: "Copy #",
 			render: (d: Mutation[]) => {
-				if (
-					this.props.discreteCNACache &&
-					this.props.molecularProfileIdToMolecularProfile
-				) {
+				if (this.props.discreteCNACache && this.props.molecularProfileIdToMolecularProfile) {
 					return DiscreteCNAColumnFormatter.renderFunction(
 						d,
 						this.props.molecularProfileIdToMolecularProfile as {
@@ -344,10 +284,7 @@ export default class MutationTable<
 				}
 			},
 			sortBy: (d: Mutation[]): number | null => {
-				if (
-					this.props.discreteCNACache &&
-					this.props.molecularProfileIdToMolecularProfile
-				) {
+				if (this.props.discreteCNACache && this.props.molecularProfileIdToMolecularProfile) {
 					return DiscreteCNAColumnFormatter.getSortValue(
 						d,
 						this.props.molecularProfileIdToMolecularProfile as {
@@ -360,10 +297,7 @@ export default class MutationTable<
 				}
 			},
 			filter: (d: Mutation[], filterString: string) => {
-				if (
-					this.props.discreteCNACache &&
-					this.props.molecularProfileIdToMolecularProfile
-				) {
+				if (this.props.discreteCNACache && this.props.molecularProfileIdToMolecularProfile) {
 					return DiscreteCNAColumnFormatter.filter(
 						d,
 						this.props.molecularProfileIdToMolecularProfile as {
@@ -376,24 +310,13 @@ export default class MutationTable<
 					return false;
 				}
 			},
-			visible: DiscreteCNAColumnFormatter.isVisible(this.props
-				.discreteCNACache as DiscreteCNACache)
+			visible: DiscreteCNAColumnFormatter.isVisible(this.props.discreteCNACache as DiscreteCNACache)
 		};
 
 		this._columns[MutationTableColumnType.REF_READS_N] = {
 			name: "Ref Reads (N)",
-			render: (d: Mutation[]) =>
-				AlleleCountColumnFormatter.renderFunction(
-					d,
-					[d[0].sampleId],
-					"normalRefCount"
-				),
-			download: (d: Mutation[]) =>
-				AlleleCountColumnFormatter.getTextValue(
-					d,
-					[d[0].sampleId],
-					"normalRefCount"
-				),
+			render: (d: Mutation[]) => AlleleCountColumnFormatter.renderFunction(d, [d[0].sampleId], "normalRefCount"),
+			download: (d: Mutation[]) => AlleleCountColumnFormatter.getTextValue(d, [d[0].sampleId], "normalRefCount"),
 			sortBy: (d: Mutation[]) => d.map(m => m.normalRefCount),
 			visible: false,
 			align: "right"
@@ -401,18 +324,8 @@ export default class MutationTable<
 
 		this._columns[MutationTableColumnType.VAR_READS_N] = {
 			name: "Variant Reads (N)",
-			render: (d: Mutation[]) =>
-				AlleleCountColumnFormatter.renderFunction(
-					d,
-					[d[0].sampleId],
-					"normalAltCount"
-				),
-			download: (d: Mutation[]) =>
-				AlleleCountColumnFormatter.getTextValue(
-					d,
-					[d[0].sampleId],
-					"normalAltCount"
-				),
+			render: (d: Mutation[]) => AlleleCountColumnFormatter.renderFunction(d, [d[0].sampleId], "normalAltCount"),
+			download: (d: Mutation[]) => AlleleCountColumnFormatter.getTextValue(d, [d[0].sampleId], "normalAltCount"),
 			sortBy: (d: Mutation[]) => d.map(m => m.normalAltCount),
 			visible: false,
 			align: "right"
@@ -420,18 +333,8 @@ export default class MutationTable<
 
 		this._columns[MutationTableColumnType.REF_READS] = {
 			name: "Ref Reads",
-			render: (d: Mutation[]) =>
-				AlleleCountColumnFormatter.renderFunction(
-					d,
-					[d[0].sampleId],
-					"tumorRefCount"
-				),
-			download: (d: Mutation[]) =>
-				AlleleCountColumnFormatter.getTextValue(
-					d,
-					[d[0].sampleId],
-					"tumorRefCount"
-				),
+			render: (d: Mutation[]) => AlleleCountColumnFormatter.renderFunction(d, [d[0].sampleId], "tumorRefCount"),
+			download: (d: Mutation[]) => AlleleCountColumnFormatter.getTextValue(d, [d[0].sampleId], "tumorRefCount"),
 			sortBy: (d: Mutation[]) => d.map(m => m.tumorRefCount),
 			visible: false,
 			align: "right"
@@ -439,18 +342,8 @@ export default class MutationTable<
 
 		this._columns[MutationTableColumnType.VAR_READS] = {
 			name: "Variant Reads",
-			render: (d: Mutation[]) =>
-				AlleleCountColumnFormatter.renderFunction(
-					d,
-					[d[0].sampleId],
-					"tumorAltCount"
-				),
-			download: (d: Mutation[]) =>
-				AlleleCountColumnFormatter.getTextValue(
-					d,
-					[d[0].sampleId],
-					"tumorAltCount"
-				),
+			render: (d: Mutation[]) => AlleleCountColumnFormatter.renderFunction(d, [d[0].sampleId], "tumorAltCount"),
+			download: (d: Mutation[]) => AlleleCountColumnFormatter.getTextValue(d, [d[0].sampleId], "tumorAltCount"),
 			sortBy: (d: Mutation[]) => d.map(m => m.tumorAltCount),
 			visible: false,
 			align: "right"
@@ -458,10 +351,8 @@ export default class MutationTable<
 
 		this._columns[MutationTableColumnType.START_POS] = {
 			name: "Start Pos",
-			render: (d: Mutation[]) =>
-				getDivForDataField(d, "startPosition", true),
-			download: (d: Mutation[]) =>
-				getTextForDataField(d, "startPosition"),
+			render: (d: Mutation[]) => getDivForDataField(d, "startPosition", true),
+			download: (d: Mutation[]) => getTextForDataField(d, "startPosition"),
 			sortBy: (d: Mutation[]) => d.map(m => m.startPosition),
 			visible: false,
 			align: "right"
@@ -469,8 +360,7 @@ export default class MutationTable<
 
 		this._columns[MutationTableColumnType.END_POS] = {
 			name: "End Pos",
-			render: (d: Mutation[]) =>
-				getDivForDataField(d, "endPosition", true),
+			render: (d: Mutation[]) => getDivForDataField(d, "endPosition", true),
 			download: (d: Mutation[]) => getTextForDataField(d, "endPosition"),
 			sortBy: (d: Mutation[]) => d.map(m => m.endPosition),
 			visible: false,
@@ -480,8 +370,7 @@ export default class MutationTable<
 		this._columns[MutationTableColumnType.REF_ALLELE] = {
 			name: "Ref",
 			render: (d: Mutation[]) => getDivForDataField(d, "referenceAllele"),
-			download: (d: Mutation[]) =>
-				getTextForDataField(d, "referenceAllele"),
+			download: (d: Mutation[]) => getTextForDataField(d, "referenceAllele"),
 			sortBy: (d: Mutation[]) => d.map(m => m.referenceAllele),
 			visible: false
 		};
@@ -489,8 +378,7 @@ export default class MutationTable<
 		this._columns[MutationTableColumnType.VAR_ALLELE] = {
 			name: "Var",
 			render: (d: Mutation[]) => getDivForDataField(d, "variantAllele"),
-			download: (d: Mutation[]) =>
-				getTextForDataField(d, "variantAllele"),
+			download: (d: Mutation[]) => getTextForDataField(d, "variantAllele"),
 			sortBy: (d: Mutation[]) => d.map(m => m.variantAllele),
 			visible: false
 		};
@@ -501,11 +389,8 @@ export default class MutationTable<
 			render: MutationStatusColumnFormatter.renderFunction,
 			download: MutationStatusColumnFormatter.download,
 			sortBy: MutationStatusColumnFormatter.sortValue,
-			filter: (
-				d: Mutation[],
-				filterString: string,
-				filterStringUpper: string
-			) => defaultFilter(d, "mutationStatus", filterStringUpper),
+			filter: (d: Mutation[], filterString: string, filterStringUpper: string) =>
+				defaultFilter(d, "mutationStatus", filterStringUpper),
 			visible: false
 		};
 
@@ -515,11 +400,8 @@ export default class MutationTable<
 			render: ValidationStatusColumnFormatter.renderFunction,
 			download: ValidationStatusColumnFormatter.download,
 			sortBy: ValidationStatusColumnFormatter.sortValue,
-			filter: (
-				d: Mutation[],
-				filterString: string,
-				filterStringUpper: string
-			) => defaultFilter(d, "validationStatus", filterStringUpper),
+			filter: (d: Mutation[], filterString: string, filterStringUpper: string) =>
+				defaultFilter(d, "validationStatus", filterStringUpper),
 			visible: false
 		};
 
@@ -528,11 +410,8 @@ export default class MutationTable<
 			render: (d: Mutation[]) => getDivForDataField(d, "center"),
 			download: (d: Mutation[]) => getTextForDataField(d, "center"),
 			sortBy: (d: Mutation[]) => d.map(m => m.center),
-			filter: (
-				d: Mutation[],
-				filterString: string,
-				filterStringUpper: string
-			) => defaultFilter(d, "center", filterStringUpper),
+			filter: (d: Mutation[], filterString: string, filterStringUpper: string) =>
+				defaultFilter(d, "center", filterStringUpper),
 			visible: false
 		};
 
@@ -541,11 +420,7 @@ export default class MutationTable<
 			render: (d: Mutation[]) => GeneColumnFormatter.renderFunction(d),
 			download: (d: Mutation[]) => GeneColumnFormatter.getTextValue(d),
 			sortBy: (d: Mutation[]) => GeneColumnFormatter.getSortValue(d),
-			filter: (
-				d: Mutation[],
-				filterString: string,
-				filterStringUpper: string
-			) =>
+			filter: (d: Mutation[], filterString: string, filterStringUpper: string) =>
 				GeneColumnFormatter.getTextValue(d)
 					.toUpperCase()
 					.indexOf(filterStringUpper) > -1
@@ -554,22 +429,12 @@ export default class MutationTable<
 		this._columns[MutationTableColumnType.CHROMOSOME] = {
 			name: "Chromosome",
 			render: (d: Mutation[]) => (
-				<div className={generalStyles["integer-data"]}>
-					{ChromosomeColumnFormatter.getData(d)}
-				</div>
+				<div className={generalStyles["integer-data"]}>{ChromosomeColumnFormatter.getData(d)}</div>
 			),
-			download: (d: Mutation[]) =>
-				ChromosomeColumnFormatter.getData(d) || "",
-			sortBy: (d: Mutation[]) =>
-				ChromosomeColumnFormatter.getSortValue(d),
-			filter: (
-				d: Mutation[],
-				filterString: string,
-				filterStringUpper: string
-			) =>
-				(ChromosomeColumnFormatter.getData(d) + "")
-					.toUpperCase()
-					.indexOf(filterStringUpper) > -1,
+			download: (d: Mutation[]) => ChromosomeColumnFormatter.getData(d) || "",
+			sortBy: (d: Mutation[]) => ChromosomeColumnFormatter.getSortValue(d),
+			filter: (d: Mutation[], filterString: string, filterStringUpper: string) =>
+				(ChromosomeColumnFormatter.getData(d) + "").toUpperCase().indexOf(filterStringUpper) > -1,
 			visible: false,
 			align: "right"
 		};
@@ -578,13 +443,8 @@ export default class MutationTable<
 			name: "Protein Change",
 			render: ProteinChangeColumnFormatter.renderWithMutationStatus,
 			download: ProteinChangeColumnFormatter.getTextValue,
-			sortBy: (d: Mutation[]) =>
-				ProteinChangeColumnFormatter.getSortValue(d),
-			filter: (
-				d: Mutation[],
-				filterString: string,
-				filterStringUpper: string
-			) =>
+			sortBy: (d: Mutation[]) => ProteinChangeColumnFormatter.getSortValue(d),
+			filter: (d: Mutation[], filterString: string, filterStringUpper: string) =>
 				ProteinChangeColumnFormatter.getTextValue(d)
 					.toUpperCase()
 					.indexOf(filterStringUpper) > -1
@@ -594,13 +454,8 @@ export default class MutationTable<
 			name: "Mutation Type",
 			render: MutationTypeColumnFormatter.renderFunction,
 			download: MutationTypeColumnFormatter.getTextValue,
-			sortBy: (d: Mutation[]) =>
-				MutationTypeColumnFormatter.getDisplayValue(d),
-			filter: (
-				d: Mutation[],
-				filterString: string,
-				filterStringUpper: string
-			) =>
+			sortBy: (d: Mutation[]) => MutationTypeColumnFormatter.getDisplayValue(d),
+			filter: (d: Mutation[], filterString: string, filterStringUpper: string) =>
 				MutationTypeColumnFormatter.getDisplayValue(d)
 					.toUpperCase()
 					.indexOf(filterStringUpper) > -1
@@ -625,15 +480,9 @@ export default class MutationTable<
 
 		this._columns[MutationTableColumnType.COSMIC] = {
 			name: "COSMIC",
-			render: (d: Mutation[]) =>
-				CosmicColumnFormatter.renderFunction(d, this.props.cosmicData),
-			sortBy: (d: Mutation[]) =>
-				CosmicColumnFormatter.getSortValue(d, this.props.cosmicData),
-			download: (d: Mutation[]) =>
-				CosmicColumnFormatter.getDownloadValue(
-					d,
-					this.props.cosmicData
-				),
+			render: (d: Mutation[]) => CosmicColumnFormatter.renderFunction(d, this.props.cosmicData),
+			sortBy: (d: Mutation[]) => CosmicColumnFormatter.getSortValue(d, this.props.cosmicData),
+			download: (d: Mutation[]) => CosmicColumnFormatter.getDownloadValue(d, this.props.cosmicData),
 			tooltip: <span>COSMIC occurrences</span>,
 			defaultSortDirection: "desc",
 			align: "right"
@@ -653,8 +502,7 @@ export default class MutationTable<
 					civicVariants: this.props.civicVariants,
 					enableCivic: this.props.enableCivic as boolean,
 					enableOncoKb: this.props.enableOncoKb as boolean,
-					enableMyCancerGenome: this.props
-						.enableMyCancerGenome as boolean,
+					enableMyCancerGenome: this.props.enableMyCancerGenome as boolean,
 					enableHotspot: this.props.enableHotspot as boolean,
 					userEmailAddress: this.props.userEmailAddress
 				}),
@@ -684,57 +532,21 @@ export default class MutationTable<
 
 		this._columns[MutationTableColumnType.CANCER_TYPE] = {
 			name: "Cancer Type",
-			render: (d: Mutation[]) =>
-				CancerTypeColumnFormatter.render(
-					d,
-					this.props.uniqueSampleKeyToTumorType
-				),
-			download: (d: Mutation[]) =>
-				CancerTypeColumnFormatter.download(
-					d,
-					this.props.uniqueSampleKeyToTumorType
-				),
-			sortBy: (d: Mutation[]) =>
-				CancerTypeColumnFormatter.sortBy(
-					d,
-					this.props.uniqueSampleKeyToTumorType
-				),
-			filter: (
-				d: Mutation[],
-				filterString: string,
-				filterStringUpper: string
-			) =>
-				CancerTypeColumnFormatter.filter(
-					d,
-					filterStringUpper,
-					this.props.uniqueSampleKeyToTumorType
-				),
+			render: (d: Mutation[]) => CancerTypeColumnFormatter.render(d, this.props.uniqueSampleKeyToTumorType),
+			download: (d: Mutation[]) => CancerTypeColumnFormatter.download(d, this.props.uniqueSampleKeyToTumorType),
+			sortBy: (d: Mutation[]) => CancerTypeColumnFormatter.sortBy(d, this.props.uniqueSampleKeyToTumorType),
+			filter: (d: Mutation[], filterString: string, filterStringUpper: string) =>
+				CancerTypeColumnFormatter.filter(d, filterStringUpper, this.props.uniqueSampleKeyToTumorType),
 			tooltip: <span>Cancer Type</span>
 		};
 
 		this._columns[MutationTableColumnType.NUM_MUTATIONS] = {
 			name: "# Mut in Sample",
 			render: MutationCountColumnFormatter.makeRenderFunction(this),
-			headerRender: (name: string) => (
-				<span style={{ display: "inline-block", maxWidth: 55 }}>
-					{name}
-				</span>
-			),
-			sortBy: (d: Mutation[]) =>
-				MutationCountColumnFormatter.sortBy(
-					d,
-					this.props.mutationCountCache
-				),
-			download: (d: Mutation[]) =>
-				MutationCountColumnFormatter.download(
-					d,
-					this.props.mutationCountCache
-				),
-			tooltip: (
-				<span>
-					Total number of nonsynonymous mutations in the sample
-				</span>
-			),
+			headerRender: (name: string) => <span style={{ display: "inline-block", maxWidth: 55 }}>{name}</span>,
+			sortBy: (d: Mutation[]) => MutationCountColumnFormatter.sortBy(d, this.props.mutationCountCache),
+			download: (d: Mutation[]) => MutationCountColumnFormatter.download(d, this.props.mutationCountCache),
+			tooltip: <span>Total number of nonsynonymous mutations in the sample</span>,
 			align: "right"
 		};
 	}
@@ -756,21 +568,18 @@ export default class MutationTable<
 
 	@computed
 	protected get columns(): Column<Mutation[]>[] {
-		return this.orderedColumns.reduce(
-			(columns: Column<Mutation[]>[], next: MutationTableColumnType) => {
-				let column = this._columns[next];
+		return this.orderedColumns.reduce((columns: Column<Mutation[]>[], next: MutationTableColumnType) => {
+			let column = this._columns[next];
 
-				if (
-					column && // actual column definition may be missing for a specific enum
-					(!column.shouldExclude || !column.shouldExclude())
-				) {
-					columns.push(column);
-				}
+			if (
+				column && // actual column definition may be missing for a specific enum
+				(!column.shouldExclude || !column.shouldExclude())
+			) {
+				columns.push(column);
+			}
 
-				return columns;
-			},
-			[]
-		);
+			return columns;
+		}, []);
 	}
 
 	public render() {

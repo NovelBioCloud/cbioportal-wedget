@@ -4,7 +4,7 @@ import {
 	ICivicGeneData,
 	ICivicVariant,
 	ICivicVariantData
-} from "shared/model/Civic.ts";
+} from "shared/model/Civic";
 
 type CivicAPIGene = {
 	id: number;

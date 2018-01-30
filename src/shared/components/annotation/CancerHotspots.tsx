@@ -16,10 +16,7 @@ export function placeArrow(tooltipEl: any) {
 /**
  * @author Selcuk Onur Sumer
  */
-export default class CancerHotspots extends React.Component<
-	ICancerHotspotsProps,
-	{}
-> {
+export default class CancerHotspots extends React.Component<ICancerHotspotsProps, {}> {
 	public static sortValue(isHotspot: boolean, is3dHotspot: boolean): number {
 		let score: number = 0;
 
@@ -60,17 +57,12 @@ export default class CancerHotspots extends React.Component<
 	}
 
 	public static publication(isHotspot: boolean, is3dHotspot: boolean) {
-		const recurrentHotspot = isHotspot
-			? "a recurrent hotspot (statistically significant)"
-			: "";
+		const recurrentHotspot = isHotspot ? "a recurrent hotspot (statistically significant)" : "";
 		const maybeAnd = isHotspot && is3dHotspot ? "and" : "";
 		const clusteredHotspot = is3dHotspot ? "a 3D clustered hotspot" : "";
 
 		const recurrentPublication = isHotspot ? (
-			<a
-				href="http://www.ncbi.nlm.nih.gov/pubmed/26619011"
-				target="_blank"
-			>
+			<a href="http://www.ncbi.nlm.nih.gov/pubmed/26619011" target="_blank">
 				Chang et al., Nat Biotechnol, 2016
 			</a>
 		) : (
@@ -78,10 +70,7 @@ export default class CancerHotspots extends React.Component<
 		);
 
 		const clusteredPublication = is3dHotspot ? (
-			<a
-				href="http://genomemedicine.biomedcentral.com/articles/10.1186/s13073-016-0393-x"
-				target="_blank"
-			>
+			<a href="http://genomemedicine.biomedcentral.com/articles/10.1186/s13073-016-0393-x" target="_blank">
 				Gao et al., Genome Medicine, 2017
 			</a>
 		) : (
@@ -90,10 +79,9 @@ export default class CancerHotspots extends React.Component<
 
 		return (
 			<span>
-				This mutated amino acid was identified as {recurrentHotspot}{" "}
-				{maybeAnd} {clusteredHotspot} in a population-scale cohort of
-				tumor samples of various cancer types using methodology based in
-				part on {recurrentPublication} {maybeAnd} {clusteredPublication}.
+				This mutated amino acid was identified as {recurrentHotspot} {maybeAnd} {clusteredHotspot} in a
+				population-scale cohort of tumor samples of various cancer types using methodology based in part on{" "}
+				{recurrentPublication} {maybeAnd} {clusteredPublication}.
 			</span>
 		);
 	}
@@ -119,8 +107,7 @@ export default class CancerHotspots extends React.Component<
 
 		return (
 			<span>
-				Explore all mutations at {recurrentLink} {maybeAnd}{" "}
-				{clusteredLink}.
+				Explore all mutations at {recurrentLink} {maybeAnd} {clusteredLink}.
 			</span>
 		);
 	}
@@ -133,9 +120,7 @@ export default class CancerHotspots extends React.Component<
 	public render() {
 		const { isHotspot, is3dHotspot } = this.props;
 
-		let hotspotContent = (
-			<span className={`${annotationStyles["annotation-item"]}`} />
-		);
+		let hotspotContent = <span className={`${annotationStyles["annotation-item"]}`} />;
 
 		if (isHotspot || is3dHotspot) {
 			const hotspotsImgWidth: number = 14;
@@ -149,10 +134,7 @@ export default class CancerHotspots extends React.Component<
 			}
 
 			const arrowContent = <div className="rc-tooltip-arrow-inner" />;
-			const tooltipContent = CancerHotspots.hotspotInfo(
-				isHotspot,
-				is3dHotspot
-			);
+			const tooltipContent = CancerHotspots.hotspotInfo(isHotspot, is3dHotspot);
 
 			hotspotContent = (
 				<DefaultTooltip
@@ -162,11 +144,7 @@ export default class CancerHotspots extends React.Component<
 					arrowContent={arrowContent}
 					onPopupAlign={placeArrow}
 				>
-					<span
-						className={`${
-							annotationStyles["annotation-item"]
-						} chang_hotspot`}
-					>
+					<span className={`${annotationStyles["annotation-item"]} chang_hotspot`}>
 						<img
 							width={hotspotsImgWidth}
 							height={hotspotsImgHeight}

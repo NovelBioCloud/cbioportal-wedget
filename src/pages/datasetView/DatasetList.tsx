@@ -50,10 +50,7 @@ class CancerStudyCell extends React.Component<ICancerStudyCellProps, {}> {
 	render() {
 		return (
 			<span>
-				<a
-					href={`./study?id=${this.props.studyId}#summary`}
-					target="_blank"
-				>
+				<a href={`./study?id=${this.props.studyId}#summary`} target="_blank">
 					{this.props.name}
 				</a>
 			</span>
@@ -64,10 +61,7 @@ class CancerStudyCell extends React.Component<ICancerStudyCellProps, {}> {
 class ReferenceCell extends React.Component<IReferenceCellProps, {}> {
 	render() {
 		return (
-			<a
-				target="_blank"
-				href={`https://www.ncbi.nlm.nih.gov/pubmed/${this.props.pmid}`}
-			>
+			<a target="_blank" href={`https://www.ncbi.nlm.nih.gov/pubmed/${this.props.pmid}`}>
 				{" "}
 				{this.props.citation}{" "}
 			</a>
@@ -75,10 +69,7 @@ class ReferenceCell extends React.Component<IReferenceCellProps, {}> {
 	}
 }
 
-export default class DataSetsPageTable extends React.Component<
-	IDataSetsTableProps,
-	IDataSetsTableState
-> {
+export default class DataSetsPageTable extends React.Component<IDataSetsTableProps, IDataSetsTableState> {
 	chartTarget: HTMLElement;
 
 	constructor(props: IDataSetsTableProps) {
@@ -90,61 +81,43 @@ export default class DataSetsPageTable extends React.Component<
 	}
 
 	componentDidMount() {
-		const DATAHUB_GIT_URL =
-			"https://api.github.com/repos/cBioPortal/datahub/contents/public";
+		const DATAHUB_GIT_URL = "https://api.github.com/repos/cBioPortal/datahub/contents/public";
 
 		request.get(DATAHUB_GIT_URL).then((data: any) => {
 			if (_.isArray(data.body) && data.body.length > 0) {
-				_.each(
-					data.body,
-					(fileInfo: {
-						type?: string;
-						name?: string;
-						html_url: string;
-					}) => {
-						if (
-							_.isObject(fileInfo) &&
-							fileInfo.type === "file" &&
-							_.isString(fileInfo.name)
-						) {
-							const fileName = fileInfo.name.split(".tar.gz");
-							if (fileName.length > 0) {
-								this.setState({
-									downloadable: [
-										...this.state.downloadable,
-										fileName[0]
-									]
-								});
-							}
+				_.each(data.body, (fileInfo: { type?: string; name?: string; html_url: string }) => {
+					if (_.isObject(fileInfo) && fileInfo.type === "file" && _.isString(fileInfo.name)) {
+						const fileName = fileInfo.name.split(".tar.gz");
+						if (fileName.length > 0) {
+							this.setState({
+								downloadable: [...this.state.downloadable, fileName[0]]
+							});
 						}
 					}
-				);
+				});
 			}
 		});
 	}
 
 	render() {
 		if (this.props.datasets) {
-			const tableData: IDataTableRow[] = _.map(
-				this.props.datasets,
-				(study: CancerStudy) => ({
-					name: study.name,
-					reference: study.citation,
-					all: study.allSampleCount || "",
-					pmid: study.pmid,
-					studyId: study.studyId,
-					sequenced: study.sequencedSampleCount || "",
-					cna: study.cnaSampleCount,
-					citation: study.citation || "",
-					mrnaRnaSeq: study.mrnaRnaSeqSampleCount || "",
-					mrnaRnaSeqV2: study.mrnaRnaSeqV2SampleCount || "",
-					mrnaMicroarray: study.mrnaMicroarraySampleCount || "",
-					miRna: study.miRnaSampleCount || "",
-					methylation: study.methylationHm27SampleCount || "",
-					rppa: study.rppaSampleCount || "",
-					complete: study.completeSampleCount || ""
-				})
-			);
+			const tableData: IDataTableRow[] = _.map(this.props.datasets, (study: CancerStudy) => ({
+				name: study.name,
+				reference: study.citation,
+				all: study.allSampleCount || "",
+				pmid: study.pmid,
+				studyId: study.studyId,
+				sequenced: study.sequencedSampleCount || "",
+				cna: study.cnaSampleCount,
+				citation: study.citation || "",
+				mrnaRnaSeq: study.mrnaRnaSeqSampleCount || "",
+				mrnaRnaSeqV2: study.mrnaRnaSeqV2SampleCount || "",
+				mrnaMicroarray: study.mrnaMicroarraySampleCount || "",
+				miRna: study.miRnaSampleCount || "",
+				methylation: study.methylationHm27SampleCount || "",
+				rppa: study.rppaSampleCount || "",
+				complete: study.completeSampleCount || ""
+			}));
 			return (
 				<div ref={(el: HTMLDivElement) => (this.chartTarget = el)}>
 					<DataTable
@@ -154,21 +127,10 @@ export default class DataSetsPageTable extends React.Component<
 								name: "Name",
 								type: "name",
 								render: (data: IDataTableRow) => (
-									<CancerStudyCell
-										studyId={data.studyId}
-										name={data.name}
-									/>
+									<CancerStudyCell studyId={data.studyId} name={data.name} />
 								),
-								filter: (
-									data: any,
-									filterString: string,
-									filterStringUpper: string
-								) => {
-									return (
-										data.name
-											.toUpperCase()
-											.indexOf(filterStringUpper) > -1
-									);
+								filter: (data: any, filterString: string, filterStringUpper: string) => {
+									return data.name.toUpperCase().indexOf(filterStringUpper) > -1;
 								}
 							},
 							{
@@ -178,18 +140,11 @@ export default class DataSetsPageTable extends React.Component<
 								download: false,
 								type: "download",
 								render: (data: IDataTableRow) => {
-									const download =
-										this.state.downloadable.indexOf(
-											data.studyId
-										) > -1;
+									const download = this.state.downloadable.indexOf(data.studyId) > -1;
 									return (
 										<a
 											className="dataset-table-download-link"
-											style={
-												download
-													? { display: "block" }
-													: { display: "none" }
-											}
+											style={download ? { display: "block" } : { display: "none" }}
 											href={
 												"https://media.githubusercontent.com/media/cBioPortal/datahub/master/public/" +
 												data.studyId +
@@ -206,21 +161,10 @@ export default class DataSetsPageTable extends React.Component<
 								name: "Reference",
 								type: "citation",
 								render: (data: IDataTableRow) => (
-									<ReferenceCell
-										pmid={data.pmid}
-										citation={data.citation}
-									/>
+									<ReferenceCell pmid={data.pmid} citation={data.citation} />
 								),
-								filter: (
-									data: any,
-									filterString: string,
-									filterStringUpper: string
-								) => {
-									return (
-										data.citation
-											.toUpperCase()
-											.indexOf(filterStringUpper) > -1
-									);
+								filter: (data: any, filterString: string, filterStringUpper: string) => {
+									return data.citation.toUpperCase().indexOf(filterStringUpper) > -1;
 								}
 							},
 							{ name: "All", type: "all" },
@@ -230,18 +174,10 @@ export default class DataSetsPageTable extends React.Component<
 								name: "RNA-Seq",
 								type: "mrnaRnaSeq",
 								render: (data: IDataTableRow) => {
-									return (
-										<span>
-											{Number(data.mrnaRnaSeqV2) ||
-												Number(data.mrnaRnaSeq) ||
-												0}
-										</span>
-									);
+									return <span>{Number(data.mrnaRnaSeqV2) || Number(data.mrnaRnaSeq) || 0}</span>;
 								},
 								sortBy: (data: IDataTableRow) =>
-									Number(data.mrnaRnaSeqV2) ||
-									Number(data.mrnaRnaSeq) ||
-									0
+									Number(data.mrnaRnaSeqV2) || Number(data.mrnaRnaSeq) || 0
 							},
 							{
 								name: "Tumor mRNA (microarray)",
@@ -266,26 +202,17 @@ export default class DataSetsPageTable extends React.Component<
 							}
 						].map((column: any) => ({
 							visible: column.visible === false ? false : true,
-							togglable:
-								column.togglable === false ? false : true,
+							togglable: column.togglable === false ? false : true,
 							name: column.name,
 							defaultSortDirection: "asc" as "asc",
-							sortBy: column.hasOwnProperty("sortBy")
-								? column.sortBy
-								: (data: any) => data[column.type],
+							sortBy: column.hasOwnProperty("sortBy") ? column.sortBy : (data: any) => data[column.type],
 							render: column.hasOwnProperty("render")
 								? column.render
 								: (data: any) => {
 										const style = {}; // {textAlign: 'center', width: '100%', display: 'block'}
-										return (
-											<span style={{ style }}>
-												{data[column.type] || 0}
-											</span>
-										);
+										return <span style={{ style }}>{data[column.type] || 0}</span>;
 									},
-							download: column.hasOwnProperty("download")
-								? column.download
-								: false,
+							download: column.hasOwnProperty("download") ? column.download : false,
 							filter: column.filter || undefined
 						}))}
 						initialSortColumn={"Name"}

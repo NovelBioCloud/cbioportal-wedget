@@ -3,10 +3,7 @@ import * as React from "react";
 import { Mutation } from "../../api/generated/CBioPortalAPI";
 import { IMobXApplicationDataStore } from "../../lib/IMobXApplicationDataStore";
 import { observer } from "mobx-react";
-import {
-	ProteinImpactType,
-	getProteinImpactType
-} from "../../lib/getCanonicalMutationType";
+import { ProteinImpactType, getProteinImpactType } from "../../lib/getCanonicalMutationType";
 import { IProteinImpactTypeColors } from "shared/lib/MutationUtils";
 
 import styles from "./styles.module.scss";
@@ -15,19 +12,9 @@ export interface IProteinImpactTypePanelProps extends IProteinImpactTypeColors {
 	dataStore: IMobXApplicationDataStore<Mutation[]>;
 }
 
-const buttonOrder: ProteinImpactType[] = [
-	"missense",
-	"truncating",
-	"inframe",
-	"other"
-];
+const buttonOrder: ProteinImpactType[] = ["missense", "truncating", "inframe", "other"];
 
-export function mutationTypeButton(
-	count: number,
-	label: string,
-	color: string,
-	onClick: () => void
-) {
+export function mutationTypeButton(count: number, label: string, color: string, onClick: () => void) {
 	return (
 		<span key={label} onClick={onClick} style={{ cursor: "pointer" }}>
 			<span
@@ -44,14 +31,9 @@ export function mutationTypeButton(
 }
 
 @observer
-export default class ProteinImpactTypePanel extends React.Component<
-	IProteinImpactTypePanelProps,
-	{}
-> {
+export default class ProteinImpactTypePanel extends React.Component<IProteinImpactTypePanelProps, {}> {
 	public handleMutationClick(type: string) {
-		this.props.dataStore.setFilter(
-			(d: Mutation[]) => getProteinImpactType(d[0].mutationType) === type
-		);
+		this.props.dataStore.setFilter((d: Mutation[]) => getProteinImpactType(d[0].mutationType) === type);
 		this.props.dataStore.filterString = "";
 	}
 
@@ -61,8 +43,7 @@ export default class ProteinImpactTypePanel extends React.Component<
 		} = {};
 		for (const datum of this.props.dataStore.sortedFilteredData) {
 			const type = getProteinImpactType(datum[0].mutationType);
-			proteinImpactTypeToCount[type] =
-				proteinImpactTypeToCount[type] || 0;
+			proteinImpactTypeToCount[type] = proteinImpactTypeToCount[type] || 0;
 			proteinImpactTypeToCount[type] += 1;
 		}
 		return (
@@ -95,11 +76,8 @@ export default class ProteinImpactTypePanel extends React.Component<
 						)}
 					</td>
 					<td>
-						{mutationTypeButton(
-							proteinImpactTypeToCount["other"],
-							"Other",
-							this.props.otherColor,
-							() => this.handleMutationClick("other")
+						{mutationTypeButton(proteinImpactTypeToCount["other"], "Other", this.props.otherColor, () =>
+							this.handleMutationClick("other")
 						)}
 					</td>
 				</tr>

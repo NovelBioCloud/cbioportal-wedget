@@ -179,9 +179,11 @@ export function buildDefaultOQLProfile(
 	zScoreThreshold: number,
 	rppaScoreThreshold: number
 ) {
-	var default_oql_uniq: any = {};
+	// tslint:disable-next-line:variable-name
+	const default_oql_uniq: any = {};
 	for (var i = 0; i < profilesTypes.length; i++) {
 		var type = profilesTypes[i];
+		// tslint:disable-next-line:switch-default
 		switch (type) {
 			case "MUTATION_EXTENDED":
 				default_oql_uniq["MUT"] = true;
@@ -234,13 +236,13 @@ export function countAlterationOccurences(
 			};
 
 			// for each sample in cancer type
-			_.forIn(samples, (sample: Sample) => {
+			_.forEach(samples, (sample: ExtendedSample, index: number) => {
 				// there are alterations corresponding to that sample
 				if (sample.uniqueSampleKey in alterationsBySampleId) {
 					const alterations =
 						alterationsBySampleId[sample.uniqueSampleKey];
 
-					//a sample could have multiple mutations.  we only want to to count one
+					// a sample could have multiple mutations.  we only want to to count one
 					const uniqueAlterations = _.uniqBy(
 						alterations,
 						alteration => alteration.alterationType
@@ -264,6 +266,7 @@ export function countAlterationOccurences(
 						_.forEach(
 							uniqueAlterations,
 							(alteration: ExtendedAlteration) => {
+								// tslint:disable-next-line:switch-default
 								switch (alteration.alterationType) {
 									case AlterationTypeConstants.COPY_NUMBER_ALTERATION:
 										// to do: type oqlfilter so that we can be sure alterationSubType is truly key of interface
@@ -344,12 +347,12 @@ export function extendSamplesWithCancerType(
 		return sample;
 	});
 
-	//make a map by studyId for easy access in following loop
+	// make a map by studyId for easy access in following loop
 	const studyMap = _.keyBy(studies, (study: CancerStudy) => study.studyId);
 
 	// now we need to fix any samples which do not have both cancerType and cancerTypeDetailed
 	extendedSamples.forEach((sample: ExtendedSample) => {
-		//if we have no cancer subtype, then make the subtype the parent type
+		// if we have no cancer subtype, then make the subtype the parent type
 		if (!sample.cancerType) {
 			// we need to fall back to studies cancerType
 			const study = studyMap[sample.studyId];
@@ -466,7 +469,8 @@ export class ResultsViewPageStore {
 			this.samples
 		],
 		invoke: () => {
-			// we get mutations with mutations endpoint, all other alterations with this one, so filter out mutation genetic profile
+			// we get mutations with mutations endpoint,
+			// all other alterations with this one, so filter out mutation genetic profile
 			const profilesWithoutMutationProfile = _.filter(
 				this.selectedMolecularProfiles.result,
 				(profile: MolecularProfile) =>
@@ -1117,6 +1121,7 @@ export class ResultsViewPageStore {
 			if (_.isArray(objValue)) {
 				return objValue.concat(srcValue);
 			}
+			return null;
 		}
 		const merged: {
 			[uniqueSampleKey: string]: ExtendedAlteration[];
@@ -1836,6 +1841,7 @@ export class ResultsViewPageStore {
 								return 3;
 							}
 						}
+						return null;
 					}
 				)
 			);
@@ -2072,7 +2078,7 @@ export class ResultsViewPageStore {
 			});
 		}
 	});
-	//OncoKb
+	// OncoKb
 	readonly uniqueSampleKeyToTumorType = remoteData<{
 		[uniqueSampleKey: string]: string;
 	}>({
@@ -2114,8 +2120,8 @@ export class ResultsViewPageStore {
 		ONCOKB_DEFAULT
 	);
 
-	//we need seperate oncokb data because oncoprint requires onkb queries across cancertype
-	//mutations tab the opposite
+	// we need seperate oncokb data because oncoprint requires onkb queries across cancertype
+	// mutations tab the opposite
 	readonly oncoKbDataForOncoprint = remoteData<IOncoKbData>(
 		{
 			await: () => [
@@ -2155,8 +2161,8 @@ export class ResultsViewPageStore {
 		ONCOKB_DEFAULT
 	);
 
-	//we need seperate oncokb data because oncoprint requires onkb queries across cancertype
-	//mutations tab the opposite
+	// we need seperate oncokb data because oncoprint requires onkb queries across cancertype
+	// mutations tab the opposite
 	readonly cnaOncoKbDataForOncoprint = remoteData<IOncoKbData>(
 		{
 			await: () => [
@@ -2257,7 +2263,7 @@ export class ResultsViewPageStore {
 			});
 		}
 	});
-	//COSMIC count
+	// COSMIC count
 	readonly cosmicCountData = remoteData<CosmicMutation[]>({
 		await: () => [this.mutations],
 		invoke: () => {

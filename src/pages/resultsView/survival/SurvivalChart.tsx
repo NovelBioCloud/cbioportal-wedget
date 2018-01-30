@@ -46,10 +46,7 @@ export interface ISurvivalChartProps {
 }
 
 @observer
-export default class SurvivalChart extends React.Component<
-	ISurvivalChartProps,
-	{}
-> {
+export default class SurvivalChart extends React.Component<ISurvivalChartProps, {}> {
 	@observable tooltipModel: any;
 	private isTooltipHovered: boolean = false;
 	private tooltipCounter: number = 0;
@@ -69,16 +66,12 @@ export default class SurvivalChart extends React.Component<
 
 	@computed
 	get sortedAlteredPatientSurvivals(): PatientSurvival[] {
-		return this.props.alteredPatientSurvivals.sort(
-			(a, b) => a.months - b.months
-		);
+		return this.props.alteredPatientSurvivals.sort((a, b) => a.months - b.months);
 	}
 
 	@computed
 	get sortedUnalteredPatientSurvivals(): PatientSurvival[] {
-		return this.props.unalteredPatientSurvivals.sort(
-			(a, b) => a.months - b.months
-		);
+		return this.props.unalteredPatientSurvivals.sort((a, b) => a.months - b.months);
 	}
 
 	@computed
@@ -93,10 +86,7 @@ export default class SurvivalChart extends React.Component<
 
 	@computed
 	get logRank(): number {
-		return calculateLogRank(
-			this.sortedAlteredPatientSurvivals,
-			this.sortedUnalteredPatientSurvivals
-		);
+		return calculateLogRank(this.sortedAlteredPatientSurvivals, this.sortedUnalteredPatientSurvivals);
 	}
 
 	private tooltipMouseEnter(): void {
@@ -109,30 +99,18 @@ export default class SurvivalChart extends React.Component<
 	}
 
 	private downloadSvg() {
-		this.svgsaver.asSvg(
-			this.svgContainer.firstChild,
-			this.props.fileName + ".svg"
-		);
+		this.svgsaver.asSvg(this.svgContainer.firstChild, this.props.fileName + ".svg");
 	}
 
 	private downloadPng() {
-		this.svgsaver.asPng(
-			this.svgContainer.firstChild,
-			this.props.fileName + ".png"
-		);
+		this.svgsaver.asPng(this.svgContainer.firstChild, this.props.fileName + ".png");
 	}
 
 	private downloadData() {
 		fileDownload(
 			getDownloadContent(
-				getScatterData(
-					this.sortedAlteredPatientSurvivals,
-					this.alteredEstimates
-				),
-				getScatterData(
-					this.sortedUnalteredPatientSurvivals,
-					this.unalteredEstimates
-				),
+				getScatterData(this.sortedAlteredPatientSurvivals, this.alteredEstimates),
+				getScatterData(this.sortedUnalteredPatientSurvivals, this.unalteredEstimates),
 				this.props.title,
 				this.alteredLegendText,
 				this.unalteredLegendText
@@ -171,10 +149,7 @@ export default class SurvivalChart extends React.Component<
 								target: "labels",
 								mutation: async () => {
 									await sleep(100);
-									if (
-										!this.isTooltipHovered &&
-										this.tooltipCounter === 1
-									) {
+									if (!this.isTooltipHovered && this.tooltipCounter === 1) {
 										this.tooltipModel = null;
 									}
 									this.tooltipCounter--;
@@ -189,27 +164,14 @@ export default class SurvivalChart extends React.Component<
 		return (
 			<div className="posRelative">
 				<div className="borderedChart">
-					<div
-						className="btn-group"
-						style={{ position: "absolute", zIndex: 10, right: 10 }}
-						role="group"
-					>
-						<button
-							className={`btn btn-default btn-xs`}
-							onClick={this.downloadSvg}
-						>
+					<div className="btn-group" style={{ position: "absolute", zIndex: 10, right: 10 }} role="group">
+						<button className={`btn btn-default btn-xs`} onClick={this.downloadSvg}>
 							SVG <i className="fa fa-cloud-download" />
 						</button>
-						<button
-							className={`btn btn-default btn-xs`}
-							onClick={this.downloadPng}
-						>
+						<button className={`btn btn-default btn-xs`} onClick={this.downloadPng}>
 							PNG <i className="fa fa-cloud-download" />
 						</button>
-						<button
-							className={`btn btn-default btn-xs`}
-							onClick={this.downloadData}
-						>
+						<button className={`btn btn-default btn-xs`} onClick={this.downloadData}>
 							Data <i className="fa fa-cloud-download" />
 						</button>
 					</div>
@@ -218,9 +180,7 @@ export default class SurvivalChart extends React.Component<
 						containerComponent={
 							<VictoryContainer
 								responsive={false}
-								containerRef={(ref: any) =>
-									(this.svgContainer = ref)
-								}
+								containerRef={(ref: any) => (this.svgContainer = ref)}
 							/>
 						}
 						height={620}
@@ -255,25 +215,16 @@ export default class SurvivalChart extends React.Component<
 						/>
 						<VictoryLine
 							interpolation="stepAfter"
-							data={getLineData(
-								this.sortedAlteredPatientSurvivals,
-								this.alteredEstimates
-							)}
+							data={getLineData(this.sortedAlteredPatientSurvivals, this.alteredEstimates)}
 							style={{ data: { stroke: "red", strokeWidth: 1 } }}
 						/>
 						<VictoryLine
 							interpolation="stepAfter"
-							data={getLineData(
-								this.sortedUnalteredPatientSurvivals,
-								this.unalteredEstimates
-							)}
+							data={getLineData(this.sortedUnalteredPatientSurvivals, this.unalteredEstimates)}
 							style={{ data: { stroke: "blue", strokeWidth: 1 } }}
 						/>
 						<VictoryScatter
-							data={getScatterDataWithOpacity(
-								this.sortedAlteredPatientSurvivals,
-								this.alteredEstimates
-							)}
+							data={getScatterDataWithOpacity(this.sortedAlteredPatientSurvivals, this.alteredEstimates)}
 							symbol="plus"
 							style={{ data: { fill: "red" } }}
 							size={3}
@@ -288,32 +239,24 @@ export default class SurvivalChart extends React.Component<
 							size={3}
 						/>
 						<VictoryScatter
-							data={getScatterData(
-								this.sortedAlteredPatientSurvivals,
-								this.alteredEstimates
-							)}
+							data={getScatterData(this.sortedAlteredPatientSurvivals, this.alteredEstimates)}
 							symbol="circle"
 							style={{
 								data: {
 									fill: "red",
-									fillOpacity: (datum: any, active: any) =>
-										active ? 0.3 : 0
+									fillOpacity: (datum: any, active: any) => (active ? 0.3 : 0)
 								}
 							}}
 							size={10}
 							events={events}
 						/>
 						<VictoryScatter
-							data={getScatterData(
-								this.sortedUnalteredPatientSurvivals,
-								this.unalteredEstimates
-							)}
+							data={getScatterData(this.sortedUnalteredPatientSurvivals, this.unalteredEstimates)}
 							symbol="circle"
 							style={{
 								data: {
 									fill: "blue",
-									fillOpacity: (datum: any, active: any) =>
-										active ? 0.3 : 0
+									fillOpacity: (datum: any, active: any) => (active ? 0.3 : 0)
 								}
 							}}
 							size={10}
@@ -332,9 +275,7 @@ export default class SurvivalChart extends React.Component<
 									symbol: { fill: "blue", type: "square" }
 								},
 								{
-									name: `Logrank Test P-Value: ${this.logRank.toPrecision(
-										3
-									)}`,
+									name: `Logrank Test P-Value: ${this.logRank.toPrecision(3)}`,
 									symbol: { opacity: 0 }
 								}
 							]}
@@ -364,8 +305,7 @@ export default class SurvivalChart extends React.Component<
 								{this.tooltipModel.datum.patientId}
 							</a>
 							<br />
-							{this.props.yLabelTooltip}:{" "}
-							{this.tooltipModel.datum.y.toFixed(2)}%<br />
+							{this.props.yLabelTooltip}: {this.tooltipModel.datum.y.toFixed(2)}%<br />
 							{this.tooltipModel.datum.status
 								? this.props.xLabelWithEventTooltip
 								: this.props.xLabelWithoutEventTooltip}
@@ -375,10 +315,7 @@ export default class SurvivalChart extends React.Component<
 					</Popover>
 				)}
 
-				<table
-					className="table table-striped"
-					style={{ marginTop: 20 }}
-				>
+				<table className="table table-striped" style={{ marginTop: 20 }}>
 					<tbody>
 						<tr>
 							<td />
@@ -388,10 +325,7 @@ export default class SurvivalChart extends React.Component<
 						</tr>
 						<tr>
 							<td>{this.alteredLegendText}</td>
-							{getStats(
-								this.sortedAlteredPatientSurvivals,
-								this.alteredEstimates
-							).map(stat => (
+							{getStats(this.sortedAlteredPatientSurvivals, this.alteredEstimates).map(stat => (
 								<td>
 									<b>{stat}</b>
 								</td>
@@ -399,10 +333,7 @@ export default class SurvivalChart extends React.Component<
 						</tr>
 						<tr>
 							<td>{this.unalteredLegendText}</td>
-							{getStats(
-								this.sortedUnalteredPatientSurvivals,
-								this.unalteredEstimates
-							).map(stat => (
+							{getStats(this.sortedUnalteredPatientSurvivals, this.unalteredEstimates).map(stat => (
 								<td>
 									<b>{stat}</b>
 								</td>

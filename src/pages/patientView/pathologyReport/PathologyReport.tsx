@@ -11,10 +11,7 @@ export type IPathologyReportProps = {
 };
 
 @observer
-export default class PathologyReport extends React.Component<
-	IPathologyReportProps,
-	{ pdfUrl: string }
-> {
+export default class PathologyReport extends React.Component<IPathologyReportProps, { pdfUrl: string }> {
 	pdfSelectList: any;
 	pdfEmbed: any;
 
@@ -36,10 +33,7 @@ export default class PathologyReport extends React.Component<
 
 	handleSelection() {
 		this.setState({
-			pdfUrl: this.buildPDFUrl(
-				this.pdfSelectList.options[this.pdfSelectList.selectedIndex]
-					.value
-			)
+			pdfUrl: this.buildPDFUrl(this.pdfSelectList.options[this.pdfSelectList.selectedIndex].value)
 		});
 	}
 

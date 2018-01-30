@@ -17,28 +17,20 @@ export function placeArrow(tooltipEl: any) {
  * @author Selcuk Onur Sumer
  */
 export default class CosmicColumnFormatter {
-	public static getData(
-		rowData: Mutation[] | undefined,
-		cosmicData?: ICosmicData
-	) {
+	public static getData(rowData: Mutation[] | undefined, cosmicData?: ICosmicData) {
 		let value: CosmicMutation[] | null = null;
 
 		if (rowData && cosmicData) {
 			const mutation: Mutation = rowData[0];
-			const cosmicMutations: CosmicMutation[] | null =
-				cosmicData[mutation.keyword];
+			const cosmicMutations: CosmicMutation[] | null = cosmicData[mutation.keyword];
 
 			// further filtering by protein change
 			if (cosmicMutations) {
-				const mutPos = CosmicColumnFormatter.extractPosition(
-					mutation.proteinChange
-				);
+				const mutPos = CosmicColumnFormatter.extractPosition(mutation.proteinChange);
 
 				// not comparing the entire protein change value, only the position!
 				value = cosmicMutations.filter((cosmic: CosmicMutation) => {
-					const cosmicPos = CosmicColumnFormatter.extractPosition(
-						cosmic.proteinChange
-					);
+					const cosmicPos = CosmicColumnFormatter.extractPosition(cosmic.proteinChange);
 					return mutPos && cosmicPos && mutPos === cosmicPos;
 				});
 			}
@@ -58,14 +50,8 @@ export default class CosmicColumnFormatter {
 		}
 	}
 
-	public static getSortValue(
-		data: Mutation[],
-		cosmicData?: ICosmicData
-	): number | null {
-		const cosmic: CosmicMutation[] | null = CosmicColumnFormatter.getData(
-			data,
-			cosmicData
-		);
+	public static getSortValue(data: Mutation[], cosmicData?: ICosmicData): number | null {
+		const cosmic: CosmicMutation[] | null = CosmicColumnFormatter.getData(data, cosmicData);
 		let value: number | null = null;
 
 		// calculate sum of the all counts
@@ -92,10 +78,7 @@ export default class CosmicColumnFormatter {
 		return value;
 	}
 
-	public static getDownloadValue(
-		data: Mutation[],
-		cosmicData?: ICosmicData
-	): string {
+	public static getDownloadValue(data: Mutation[], cosmicData?: ICosmicData): string {
 		let value = CosmicColumnFormatter.getSortValue(data, cosmicData);
 
 		if (value) {
@@ -106,10 +89,7 @@ export default class CosmicColumnFormatter {
 	}
 
 	public static renderFunction(data: Mutation[], cosmicData?: ICosmicData) {
-		const cosmic: CosmicMutation[] | null = CosmicColumnFormatter.getData(
-			data,
-			cosmicData
-		);
+		const cosmic: CosmicMutation[] | null = CosmicColumnFormatter.getData(data, cosmicData);
 
 		let value: number = -1;
 		let display: string = "";
@@ -128,8 +108,7 @@ export default class CosmicColumnFormatter {
 
 			overlay = () => (
 				<span className={styles["cosmic-table"]}>
-					<b>{value}</b> occurrences of <b>{cosmic[0].keyword}</b>{" "}
-					mutations in COSMIC
+					<b>{value}</b> occurrences of <b>{cosmic[0].keyword}</b> mutations in COSMIC
 					<CosmicMutationTable data={cosmic} />
 				</span>
 			);
@@ -138,9 +117,7 @@ export default class CosmicColumnFormatter {
 		}
 
 		// basic content is the value
-		content = (
-			<div className={generalStyles["integer-data"]}>{display}</div>
-		);
+		content = <div className={generalStyles["integer-data"]}>{display}</div>;
 
 		// add a tooltip if the cosmic value is valid
 		if (overlay) {

@@ -28,10 +28,7 @@ export interface ICopyDownloadData {
  * @author Aaron Lisman
  */
 @observer
-export class CopyDownloadControls extends React.Component<
-	ICopyDownloadControlsProps,
-	{}
-> {
+export class CopyDownloadControls extends React.Component<ICopyDownloadControlsProps, {}> {
 	@observable downloadingData = false;
 	@observable copyingData = false;
 	@observable showErrorMessage = false;
@@ -64,15 +61,12 @@ export class CopyDownloadControls extends React.Component<
 		}
 	}
 
-	public bindCopyButton(
-		button: HTMLButtonElement | null,
-		cotainer?: HTMLElement | null
-	) {
+	public bindCopyButton(button: HTMLButtonElement | null, cotainer?: HTMLElement | null) {
 		if (button) {
 			new Clipboard(button, {
-				text: function() {
+				text: () => {
 					return this.getText();
-				}.bind(this),
+				},
 				// we need to pass a container to the clipboard when we use it in a Modal element
 				// see https://stackoverflow.com/questions/38398070/bootstrap-modal-does-not-work-with-clipboard-js-on-firefox
 				container: cotainer
@@ -85,10 +79,7 @@ export class CopyDownloadControls extends React.Component<
 
 		return (
 			<span>
-				<ButtonGroup
-					className={this.props.className}
-					style={{ marginLeft: 10 }}
-				>
+				<ButtonGroup className={this.props.className} style={{ marginLeft: 10 }}>
 					<If condition={this.props.showCopy}>
 						<DefaultTooltip
 							overlay={<span>Copy</span>}
@@ -118,10 +109,7 @@ export class CopyDownloadControls extends React.Component<
 							placement="top"
 							arrowContent={arrowContent}
 						>
-							<Button
-								className="btn-sm"
-								onClick={this.handleDownload}
-							>
+							<Button className="btn-sm" onClick={this.handleDownload}>
 								<i className="fa fa-cloud-download" />
 							</Button>
 						</DefaultTooltip>
@@ -129,37 +117,27 @@ export class CopyDownloadControls extends React.Component<
 				</ButtonGroup>
 				<Modal
 					show={this.downloadingData}
-					onHide={() => undefined}
+					onHide={(): any => undefined}
 					bsSize="sm"
 					className={`${copyDownloadStyles["centered-modal-dialog"]}`}
 				>
 					<Modal.Body>
-						<ThreeBounce
-							style={{ display: "inline-block", marginRight: 10 }}
-						/>
+						<ThreeBounce style={{ display: "inline-block", marginRight: 10 }} />
 						<span>Downloading Table Data...</span>
 					</Modal.Body>
 				</Modal>
 				<Modal
 					show={this.copyingData}
-					onHide={() => undefined}
+					onHide={(): any => undefined}
 					onEntered={() => {
-						this.bindCopyButton(
-							this._modalCopyButton,
-							this._modalCopyButtonContainer
-						);
+						this.bindCopyButton(this._modalCopyButton, this._modalCopyButtonContainer);
 					}}
 					bsSize="sm"
 					className={`${copyDownloadStyles["centered-modal-dialog"]}`}
 				>
-					<Modal.Header>
-						{this.showErrorMessage
-							? "Download Error!"
-							: "Download Complete!"}
-					</Modal.Header>
+					<Modal.Header>{this.showErrorMessage ? "Download Error!" : "Download Complete!"}</Modal.Header>
 					<Modal.Body>
-						{this.showErrorMessage &&
-							"An error occurred while downloading the data. "}
+						{this.showErrorMessage && "An error occurred while downloading the data. "}
 						Please click on Copy to copy the data to clipboard.
 					</Modal.Body>
 					<Modal.Footer>
@@ -190,14 +168,10 @@ export class CopyDownloadControls extends React.Component<
 				>
 					<Modal.Header>Download Error!</Modal.Header>
 					<Modal.Body>
-						An error occurred while downloading the data. Downloaded
-						file may contain incomplete data.
+						An error occurred while downloading the data. Downloaded file may contain incomplete data.
 					</Modal.Body>
 					<Modal.Footer>
-						<Button
-							onClick={this.handleModalClose}
-							className="btn btn-primary"
-						>
+						<Button onClick={this.handleModalClose} className="btn btn-primary">
 							Close
 						</Button>
 					</Modal.Footer>

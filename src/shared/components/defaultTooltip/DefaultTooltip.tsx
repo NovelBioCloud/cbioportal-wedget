@@ -4,11 +4,8 @@ import "rc-tooltip/assets/bootstrap_white.css";
 import $ from "jquery";
 import "./styles.scss";
 
-export type DefaultTooltipProps = Tooltip.Props & { disabled?: boolean };
-export default class DefaultTooltip extends React.Component<
-	DefaultTooltipProps,
-	{}
-> {
+export type DefaultTooltipProps = RCTooltip.RCTooltip.Props & { disabled?: boolean };
+export default class DefaultTooltip extends React.Component<DefaultTooltipProps, {}> {
 	static readonly defaultProps = {
 		mouseEnterDelay: 0.5,
 		mouseLeaveDelay: 0.05,
@@ -18,7 +15,7 @@ export default class DefaultTooltip extends React.Component<
 
 	render() {
 		let { disabled, visible, ...restProps } = this.props;
-		let tooltipProps: Tooltip.Props = restProps;
+		let tooltipProps: RCTooltip.RCTooltip.Props = restProps;
 		if (disabled) {
 			visible = false;
 		}
@@ -31,18 +28,10 @@ export default class DefaultTooltip extends React.Component<
 
 function setArrowLeft(tooltipEl: Element, align: any) {
 	// Corrects for screen overflow adjustment (should really be handled by the library...)
-	const arrowEl: HTMLDivElement = tooltipEl.querySelector(
-		"div.rc-tooltip-arrow"
-	) as HTMLDivElement;
-	const targetEl = this.getRootDomNode(); // eslint-disable-line no-invalid-this
+	const arrowEl: HTMLDivElement = tooltipEl.querySelector("div.rc-tooltip-arrow") as HTMLDivElement;
+	const targetEl = this.getRootDomNode();
 
-	if (
-		arrowEl &&
-		align &&
-		align.points &&
-		align.points[1] &&
-		align.points[1][1] === "c"
-	) {
+	if (arrowEl && align && align.points && align.points[1] && align.points[1][1] === "c") {
 		// if aligning to the horizontal center, set arrow left to the horizontal center of the target
 		const offset = $(targetEl).offset();
 		const width = $(targetEl).width();

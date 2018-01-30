@@ -10,10 +10,7 @@ export interface ISurvivalTabProps {
 }
 
 @observer
-export default class SurvivalTab extends React.Component<
-	ISurvivalTabProps,
-	{}
-> {
+export default class SurvivalTab extends React.Component<ISurvivalTabProps, {}> {
 	private overallSurvivalTitleText = "Overall Survival Kaplan-Meier Estimate";
 	private diseaseFreeSurvivalTitleText = "Disease/Progression-free Kaplan-Meier Estimate";
 
@@ -39,18 +36,10 @@ export default class SurvivalTab extends React.Component<
 		) {
 			content.push(
 				<div style={{ marginBottom: 40 }}>
-					<h4 className="forceHeaderStyle h4">
-						{this.overallSurvivalTitleText}
-					</h4>
+					<h4 className="forceHeaderStyle h4">{this.overallSurvivalTitleText}</h4>
 					<SurvivalChart
-						alteredPatientSurvivals={
-							this.props.store.overallAlteredPatientSurvivals
-								.result
-						}
-						unalteredPatientSurvivals={
-							this.props.store.overallUnalteredPatientSurvivals
-								.result
-						}
+						alteredPatientSurvivals={this.props.store.overallAlteredPatientSurvivals.result}
+						unalteredPatientSurvivals={this.props.store.overallUnalteredPatientSurvivals.result}
 						title={this.overallSurvivalTitleText}
 						xAxisLabel="Months Survival"
 						yAxisLabel="Overall Survival"
@@ -71,25 +60,15 @@ export default class SurvivalTab extends React.Component<
 		if (
 			this.props.store.diseaseFreeAlteredPatientSurvivals.isComplete &&
 			this.props.store.diseaseFreeUnalteredPatientSurvivals.isComplete &&
-			this.props.store.diseaseFreeAlteredPatientSurvivals.result.length >
-				0 &&
-			this.props.store.diseaseFreeUnalteredPatientSurvivals.result
-				.length > 0
+			this.props.store.diseaseFreeAlteredPatientSurvivals.result.length > 0 &&
+			this.props.store.diseaseFreeUnalteredPatientSurvivals.result.length > 0
 		) {
 			content.push(
 				<div>
-					<h4 className="forceHeaderStyle h4">
-						{this.diseaseFreeSurvivalTitleText}
-					</h4>
+					<h4 className="forceHeaderStyle h4">{this.diseaseFreeSurvivalTitleText}</h4>
 					<SurvivalChart
-						alteredPatientSurvivals={
-							this.props.store.diseaseFreeAlteredPatientSurvivals
-								.result
-						}
-						unalteredPatientSurvivals={
-							this.props.store
-								.diseaseFreeUnalteredPatientSurvivals.result
-						}
+						alteredPatientSurvivals={this.props.store.diseaseFreeAlteredPatientSurvivals.result}
+						unalteredPatientSurvivals={this.props.store.diseaseFreeUnalteredPatientSurvivals.result}
 						title={this.diseaseFreeSurvivalTitleText}
 						xAxisLabel="Months Disease/Progression-free"
 						yAxisLabel="Disease/Progression-free Survival"
@@ -108,16 +87,8 @@ export default class SurvivalTab extends React.Component<
 		}
 
 		if (overallNotAvailable && diseaseFreeNotAvailable) {
-			content.push(
-				<div className={styles.NotAvailable}>
-					{this.overallSurvivalTitleText} not available
-				</div>
-			);
-			content.push(
-				<div className={styles.NotAvailable}>
-					{this.diseaseFreeSurvivalTitleText} not available
-				</div>
-			);
+			content.push(<div className={styles.NotAvailable}>{this.overallSurvivalTitleText} not available</div>);
+			content.push(<div className={styles.NotAvailable}>{this.diseaseFreeSurvivalTitleText} not available</div>);
 		}
 
 		return <div>{content}</div>;

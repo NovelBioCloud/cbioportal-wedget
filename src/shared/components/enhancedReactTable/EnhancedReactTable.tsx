@@ -55,10 +55,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 
 			if (column.visible) {
 				if (_.isFunction(column.visible)) {
-					visibility = (column.visible as IColumnVisibilityFunction)(
-						tableData,
-						column.columnProps
-					);
+					visibility = (column.visible as IColumnVisibilityFunction)(tableData, column.columnProps);
 				} else {
 					visibility = column.visible as ColumnVisibility;
 				}
@@ -74,10 +71,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 		return visibilityState;
 	}
 
-	public static columnSort(
-		a: IEnhancedReactTableColumnDef,
-		b: IEnhancedReactTableColumnDef
-	): number {
+	public static columnSort(a: IEnhancedReactTableColumnDef, b: IEnhancedReactTableColumnDef): number {
 		if (a.priority && b.priority) {
 			return a.priority - b.priority;
 		} else if (a.priority) {
@@ -99,18 +93,11 @@ export default class EnhancedReactTable<T> extends React.Component<
 
 	private shouldSetState: boolean;
 
-	private rawDataSelector = (
-		state: IEnhancedReactTableState,
-		props: IEnhancedReactTableProps<T>
-	) => props.rawData;
+	private rawDataSelector = (state: IEnhancedReactTableState, props: IEnhancedReactTableProps<T>) => props.rawData;
 
-	private columnsSelector = (
-		state: IEnhancedReactTableState,
-		props: IEnhancedReactTableProps<T>
-	) => props.columns;
+	private columnsSelector = (state: IEnhancedReactTableState, props: IEnhancedReactTableProps<T>) => props.columns;
 
-	private columnVisibilitySelector = (state: IEnhancedReactTableState) =>
-		state.columnVisibility;
+	private columnVisibilitySelector = (state: IEnhancedReactTableState) => state.columnVisibility;
 
 	// visible columns depend on both column definitions and visibility
 	private visibleColsSelector = createSelector(
@@ -121,47 +108,34 @@ export default class EnhancedReactTable<T> extends React.Component<
 	);
 
 	// sorted list of visible columns are required to calculate table header
-	private sortedVisibleColsSelector = createSelector(
-		this.visibleColsSelector,
-		(visibleCols: IColumnDefMap) => this.resolveOrder(visibleCols)
+	private sortedVisibleColsSelector = createSelector(this.visibleColsSelector, (visibleCols: IColumnDefMap) =>
+		this.resolveOrder(visibleCols)
 	);
 
 	// sorted columns depend on column definition, but not on the visibility
-	private sortedColsSelector = createSelector(
-		this.columnsSelector,
-		(columns: IColumnDefMap) => this.resolveOrder(columns)
+	private sortedColsSelector = createSelector(this.columnsSelector, (columns: IColumnDefMap) =>
+		this.resolveOrder(columns)
 	);
 
 	private columnVisibilityArraySelector = createSelector(
 		this.sortedColsSelector,
 		this.columnVisibilitySelector,
-		(
-			sortedColumns: Array<IEnhancedReactTableColumnDef>,
-			columnVisibility: IColumnVisibilityState
-		) =>
-			this.resolveColumnVisibility(
-				this.colNameToId,
-				sortedColumns,
-				columnVisibility
-			)
+		(sortedColumns: Array<IEnhancedReactTableColumnDef>, columnVisibility: IColumnVisibilityState) =>
+			this.resolveColumnVisibility(this.colNameToId, sortedColumns, columnVisibility)
 	);
 
 	private downloadDataSelector = createSelector(
 		this.sortedColsSelector,
 		this.columnVisibilitySelector,
 		this.rawDataSelector,
-		(
-			sortedCols: Array<IEnhancedReactTableColumnDef>,
-			visibility: IColumnVisibilityState,
-			rawData: Array<T>
-		) => this.generateDownloadData(sortedCols, visibility, rawData)
+		(sortedCols: Array<IEnhancedReactTableColumnDef>, visibility: IColumnVisibilityState, rawData: Array<T>) =>
+			this.generateDownloadData(sortedCols, visibility, rawData)
 	);
 
 	// we need to calculate the header values every time the visibility or column definitions change
 	private headersSelector = createSelector(
 		this.sortedVisibleColsSelector,
-		(sortedCols: Array<IEnhancedReactTableColumnDef>) =>
-			this.generateHeaders(sortedCols)
+		(sortedCols: Array<IEnhancedReactTableColumnDef>) => this.generateHeaders(sortedCols)
 	);
 
 	// no need to calculate column render values every time the visibility changes,
@@ -170,8 +144,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 	private rowsSelector = createSelector(
 		this.sortedColsSelector,
 		this.rawDataSelector,
-		(sortedCols: Array<IEnhancedReactTableColumnDef>, rawData: Array<T>) =>
-			this.generateRows(sortedCols, rawData)
+		(sortedCols: Array<IEnhancedReactTableColumnDef>, rawData: Array<T>) => this.generateRows(sortedCols, rawData)
 	);
 
 	constructor(props: IEnhancedReactTableProps<T>) {
@@ -180,10 +153,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 		this.colNameToId = this.mapColNameToId(props.columns);
 
 		this.state = {
-			columnVisibility: EnhancedReactTable.resolveVisibility(
-				props.columns,
-				props.rawData
-			),
+			columnVisibility: EnhancedReactTable.resolveVisibility(props.columns, props.rawData),
 			sortableColumns: this.resolveSortable(this.props.columns || {}),
 			filterableColumns: this.resolveFilterable(this.props.columns || {}),
 			filter: "",
@@ -206,14 +176,10 @@ export default class EnhancedReactTable<T> extends React.Component<
 		};
 
 		const sendVisibleRows = (tableRenderResult: JSX.Element) => {
-			const tbodyElt = tableRenderResult.props.children.find(
-				(x: JSX.Element) => x.type === "tbody"
-			);
+			const tbodyElt = tableRenderResult.props.children.find((x: JSX.Element) => x.type === "tbody");
 			const visibleRows = tbodyElt.props.children || [];
 			if (this.props.onVisibleRowsChange)
-				this.props.onVisibleRowsChange(
-					visibleRows.map((r: JSX.Element) => r.props.rowData)
-				);
+				this.props.onVisibleRowsChange(visibleRows.map((r: JSX.Element) => r.props.rowData));
 		};
 
 		const Table_applyFilter = Table.prototype.applyFilter;
@@ -234,9 +200,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 		this.handleDownload = this.handleDownload.bind(this);
 		this.handleFilterInput = this.handleFilterInput.bind(this);
 		this.handleVisibilityToggle = this.handleVisibilityToggle.bind(this);
-		this.handleChangeItemsPerPage = this.handleChangeItemsPerPage.bind(
-			this
-		);
+		this.handleChangeItemsPerPage = this.handleChangeItemsPerPage.bind(this);
 		this.handlePreviousPageClick = this.handlePreviousPageClick.bind(this);
 		this.handleNextPageClick = this.handleNextPageClick.bind(this);
 	}
@@ -246,9 +210,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 
 		// always use the initially sorted columns (this.sortedColumns),
 		// otherwise already hidden columns will never appear in the dropdown menu!
-		let columnVisibility: Array<
-			IColumnVisibilityDef
-		> = this.columnVisibilityArraySelector(this.state, this.props);
+		let columnVisibility: Array<IColumnVisibilityDef> = this.columnVisibilityArraySelector(this.state, this.props);
 
 		// column headers: an array of Th components
 		const headers = this.headersSelector(this.state, this.props);
@@ -280,14 +242,10 @@ export default class EnhancedReactTable<T> extends React.Component<
 						onChangeItemsPerPage: this.handleChangeItemsPerPage,
 						onPreviousPageClick: this.handlePreviousPageClick,
 						onNextPageClick: this.handleNextPageClick,
-						textBetweenButtons: `${
-							this.filteredDataLength ? firstIndex + 1 : 0
-						}-${firstIndex + numIndexes} of ${
-							this.filteredDataLength
-						}`,
+						textBetweenButtons: `${this.filteredDataLength ? firstIndex + 1 : 0}-${firstIndex +
+							numIndexes} of ${this.filteredDataLength}`,
 						previousPageDisabled: this.state.currentPage === 0,
-						nextPageDisabled:
-							this.state.currentPage >= this.numPages() - 1
+						nextPageDisabled: this.state.currentPage >= this.numPages() - 1
 					}}
 					{...headerControlsProps}
 				/>
@@ -295,11 +253,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 					sortable={this.state.sortableColumns}
 					filterable={this.state.filterableColumns}
 					filterBy={this.state.filter}
-					itemsPerPage={
-						this.state.itemsPerPage === -1
-							? undefined
-							: this.state.itemsPerPage
-					}
+					itemsPerPage={this.state.itemsPerPage === -1 ? undefined : this.state.itemsPerPage}
 					currentPage={this.state.currentPage}
 					{...reactTableProps as any}
 				>
@@ -311,10 +265,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 		);
 	}
 
-	componentWillUpdate(
-		nextProps: IEnhancedReactTableProps<T>,
-		nextState: IEnhancedReactTableState
-	) {
+	componentWillUpdate(nextProps: IEnhancedReactTableProps<T>, nextState: IEnhancedReactTableState) {
 		if (nextState.filter.length === 0) {
 			// Normally, the way we update this.filteredDataLength is when Table.applyFilter is
 			// called (see "monkey patching" of Table.prototype.applyFilter).
@@ -328,10 +279,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 		if (this.shouldSetState) {
 			this.shouldSetState = false;
 			this.setState({
-				currentPage: Math.max(
-					0,
-					Math.min(this.state.currentPage, this.numPages() - 1)
-				)
+				currentPage: Math.max(0, Math.min(this.state.currentPage, this.numPages() - 1))
 			} as IEnhancedReactTableState);
 		}
 	}
@@ -344,10 +292,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 			numIndexes = this.filteredDataLength;
 		} else {
 			firstIndex = this.state.itemsPerPage * this.state.currentPage;
-			numIndexes = Math.min(
-				this.filteredDataLength - firstIndex,
-				this.state.itemsPerPage
-			);
+			numIndexes = Math.min(this.filteredDataLength - firstIndex, this.state.itemsPerPage);
 		}
 		return { firstIndex, numIndexes };
 	}
@@ -361,16 +306,11 @@ export default class EnhancedReactTable<T> extends React.Component<
 		}
 	}
 
-	private mapColNameToId(
-		columns: IColumnDefMap | undefined
-	): { [key: string]: string } {
+	private mapColNameToId(columns: IColumnDefMap | undefined): { [key: string]: string } {
 		let colNameToId: { [key: string]: string } = {};
 
 		if (columns) {
-			_.each(columns, function(
-				value: IEnhancedReactTableColumnDef,
-				key: string
-			) {
+			_.each(columns, function(value: IEnhancedReactTableColumnDef, key: string) {
 				if (value.name) {
 					if (colNameToId[value.name] != null) {
 						// TODO console.log("[EnhancedReactTable] Warning: Duplicate column name: " + value.name);
@@ -389,9 +329,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 	 * @param columns
 	 * @returns {Array<IEnhancedReactTableColumnDef>}
 	 */
-	private resolveOrder(
-		columns: IColumnDefMap | undefined
-	): Array<IEnhancedReactTableColumnDef> {
+	private resolveOrder(columns: IColumnDefMap | undefined): Array<IEnhancedReactTableColumnDef> {
 		if (columns) {
 			return _.values(columns).sort(EnhancedReactTable.columnSort);
 		} else {
@@ -434,9 +372,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 
 		_.each(columns, function(columnDef: IEnhancedReactTableColumnDef) {
 			// basic content (with no tooltip)
-			let headerContent = columnDef.header || (
-				<span>{columnDef.name}</span>
-			);
+			let headerContent = columnDef.header || <span>{columnDef.name}</span>;
 
 			// if description is provided, add a tooltip
 			if (columnDef.description) {
@@ -490,23 +426,12 @@ export default class EnhancedReactTable<T> extends React.Component<
 
 				// include both visible and hidden columns, but not the excluded ones
 				if (colId in visibility && visibility[colId] !== "excluded") {
-					const columnData = this.getColumnData(
-						columnDef,
-						tableData,
-						rowData
-					);
+					const columnData = this.getColumnData(columnDef, tableData, rowData);
 
 					if (columnDef.downloader) {
-						rowDownloadData.push(
-							columnDef.downloader(
-								columnData,
-								columnDef.columnProps
-							)
-						);
+						rowDownloadData.push(columnDef.downloader(columnData, columnDef.columnProps));
 					} else {
-						rowDownloadData.push(
-							(columnData.columnData || "").toString()
-						);
+						rowDownloadData.push((columnData.columnData || "").toString());
 					}
 				}
 			});
@@ -554,10 +479,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 		return data;
 	}
 
-	private generateRows(
-		columns: Array<IEnhancedReactTableColumnDef>,
-		tableData: Array<T>
-	) {
+	private generateRows(columns: Array<IEnhancedReactTableColumnDef>, tableData: Array<T>) {
 		const rows: Array<any> = [];
 
 		_.each(tableData, (rowData: T, index: number) => {
@@ -574,48 +496,30 @@ export default class EnhancedReactTable<T> extends React.Component<
 		return rows;
 	}
 
-	private generateColumns(
-		columns: Array<IEnhancedReactTableColumnDef>,
-		tableData: Array<T>,
-		rowData: T
-	) {
+	private generateColumns(columns: Array<IEnhancedReactTableColumnDef>, tableData: Array<T>, rowData: T) {
 		const cols: Array<any> = [];
 
 		_.each(columns, (columnDef: IEnhancedReactTableColumnDef) => {
-			const columnData = this.getColumnData(
-				columnDef,
-				tableData,
-				rowData
-			);
+			const columnData = this.getColumnData(columnDef, tableData, rowData);
 			cols.push(this.generateColumn(columnData, columnDef));
 		});
 
 		return cols;
 	}
 
-	private generateColumn(
-		data: IColumnFormatterData<T>,
-		columnDef: IEnhancedReactTableColumnDef
-	) {
+	private generateColumn(data: IColumnFormatterData<T>, columnDef: IEnhancedReactTableColumnDef) {
 		if (columnDef.formatter) {
 			return columnDef.formatter(data, columnDef.columnProps);
 		} else {
 			return (
-				<Td
-					key={columnDef.name}
-					column={columnDef.name}
-					value={data.columnData}
-				>
+				<Td key={columnDef.name} column={columnDef.name} value={data.columnData}>
 					{data.columnData}
 				</Td>
 			);
 		}
 	}
 
-	private resolveVisible(
-		columns: IColumnDefMap,
-		visibility: IColumnVisibilityState
-	): IColumnDefMap {
+	private resolveVisible(columns: IColumnDefMap, visibility: IColumnVisibilityState): IColumnDefMap {
 		let visibleCols: IColumnDefMap = {};
 
 		_.each(_.keys(visibility), function(key: string) {
@@ -627,9 +531,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 		return visibleCols;
 	}
 
-	private resolveSortable(
-		columns: IColumnDefMap
-	): Array<string | IColumnSort> {
+	private resolveSortable(columns: IColumnDefMap): Array<string | IColumnSort> {
 		let sortable: Array<string | IColumnSort> = [];
 
 		_.each(columns, function(column: IEnhancedReactTableColumnDef) {
@@ -646,9 +548,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 		return sortable;
 	}
 
-	private resolveFilterable(
-		columns: IColumnDefMap
-	): Array<string | IColumnFilter> {
+	private resolveFilterable(columns: IColumnDefMap): Array<string | IColumnFilter> {
 		let filterable: Array<string | IColumnFilter> = [];
 
 		_.each(columns, function(column: IEnhancedReactTableColumnDef) {
@@ -699,10 +599,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 	private handleChangeItemsPerPage(itemsPerPage: number) {
 		this.setState({
 			itemsPerPage,
-			currentPage: Math.min(
-				this.state.currentPage,
-				this.numPages(itemsPerPage) - 1
-			)
+			currentPage: Math.min(this.state.currentPage, this.numPages(itemsPerPage) - 1)
 		} as IEnhancedReactTableState);
 	}
 
@@ -714,10 +611,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 
 	private handleNextPageClick() {
 		this.setState({
-			currentPage: Math.min(
-				this.state.currentPage + 1,
-				this.numPages() - 1
-			)
+			currentPage: Math.min(this.state.currentPage + 1, this.numPages() - 1)
 		} as IEnhancedReactTableState);
 	}
 }

@@ -2,9 +2,7 @@ import * as React from "react";
 import { ObservableMap, observable } from "mobx";
 import { observer } from "mobx-react";
 import GenesetsJsTree from "./GenesetsJsTree";
-import GenesetsHierarchyFilterForm, {
-	validPercentile
-} from "./GenesetsHierarchyFilterForm";
+import GenesetsHierarchyFilterForm, { validPercentile } from "./GenesetsHierarchyFilterForm";
 
 export interface GenesetsHierarchySelectorProps {
 	initialSelection: string[];
@@ -14,10 +12,7 @@ export interface GenesetsHierarchySelectorProps {
 }
 
 @observer
-export default class GenesetsHierarchySelector extends React.Component<
-	GenesetsHierarchySelectorProps,
-	{}
-> {
+export default class GenesetsHierarchySelector extends React.Component<GenesetsHierarchySelectorProps, {}> {
 	@observable percentile: validPercentile = 75;
 	@observable pvalueThreshold = 0.05;
 	@observable scoreThreshold = 0.5;
@@ -25,16 +20,10 @@ export default class GenesetsHierarchySelector extends React.Component<
 
 	constructor(props: GenesetsHierarchySelectorProps) {
 		super(props);
-		this.updateSelectionParameters = this.updateSelectionParameters.bind(
-			this
-		);
+		this.updateSelectionParameters = this.updateSelectionParameters.bind(this);
 	}
 
-	updateSelectionParameters(
-		percentile: validPercentile,
-		pvalueThreshold: number,
-		scoreThreshold: number
-	) {
+	updateSelectionParameters(percentile: validPercentile, pvalueThreshold: number, scoreThreshold: number) {
 		this.percentile = percentile;
 		this.pvalueThreshold = pvalueThreshold;
 		this.scoreThreshold = scoreThreshold;
@@ -44,24 +33,16 @@ export default class GenesetsHierarchySelector extends React.Component<
 		return (
 			<div>
 				<text>Search hierarchy</text>
-				<div
-					className={`form-group has-feedback input-group-sm`}
-					style={{ display: "inline-block" }}
-				>
+				<div className={`form-group has-feedback input-group-sm`} style={{ display: "inline-block" }}>
 					<input
 						type="text"
 						id="geneset-hierarchy-search"
 						className="form-control tableSearchInput"
 						style={{ width: 768 }}
 						value={this.searchValue}
-						onChange={event =>
-							(this.searchValue = event.target.value)
-						}
+						onChange={event => (this.searchValue = event.target.value)}
 					/>
-					<span
-						className="fa fa-search form-control-feedback"
-						aria-hidden="true"
-					/>
+					<span className="fa fa-search form-control-feedback" aria-hidden="true" />
 				</div>
 				<GenesetsHierarchyFilterForm
 					percentile={this.percentile}

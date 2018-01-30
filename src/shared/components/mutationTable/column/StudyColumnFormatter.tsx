@@ -1,10 +1,6 @@
 import * as React from "react";
 import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
-import {
-	CancerStudy,
-	MolecularProfile,
-	Mutation
-} from "shared/api/generated/CBioPortalAPI";
+import { CancerStudy, MolecularProfile, Mutation } from "shared/api/generated/CBioPortalAPI";
 import TruncatedText from "../../TruncatedText";
 import { getStudySummaryUrl } from "../../../api/urls";
 
@@ -16,12 +12,10 @@ export default class StudyColumnFormatter {
 		},
 		studyIdToStudy?: { [studyId: string]: CancerStudy }
 	): CancerStudy | null {
-		if (!molecularProfileIdToMolecularProfile || !studyIdToStudy)
-			return null;
+		if (!molecularProfileIdToMolecularProfile || !studyIdToStudy) return null;
 
 		const molecularProfileId = d[0].molecularProfileId;
-		const geneticProfile =
-			molecularProfileIdToMolecularProfile[molecularProfileId];
+		const geneticProfile = molecularProfileIdToMolecularProfile[molecularProfileId];
 		if (!geneticProfile) return null;
 		const study = studyIdToStudy[geneticProfile.studyId];
 		return study || null;
@@ -33,11 +27,7 @@ export default class StudyColumnFormatter {
 		},
 		studyIdToStudy?: { [studyId: string]: CancerStudy }
 	) {
-		const study = StudyColumnFormatter.getStudy(
-			d,
-			molecularProfileIdToMolecularProfile,
-			studyIdToStudy
-		);
+		const study = StudyColumnFormatter.getStudy(d, molecularProfileIdToMolecularProfile, studyIdToStudy);
 		if (!study) {
 			return <span />;
 		} else {
@@ -49,9 +39,7 @@ export default class StudyColumnFormatter {
 							<div
 								style={{ maxWidth: 300 }}
 								dangerouslySetInnerHTML={{
-									__html: `${study.name}: ${
-										study.description
-									}`
+									__html: `${study.name}: ${study.description}`
 								}}
 							/>
 						}
@@ -69,11 +57,7 @@ export default class StudyColumnFormatter {
 		},
 		studyIdToStudy?: { [studyId: string]: CancerStudy }
 	) {
-		const study = StudyColumnFormatter.getStudy(
-			d,
-			molecularProfileIdToMolecularProfile,
-			studyIdToStudy
-		);
+		const study = StudyColumnFormatter.getStudy(d, molecularProfileIdToMolecularProfile, studyIdToStudy);
 		if (!study) {
 			return "";
 		} else {
@@ -89,11 +73,7 @@ export default class StudyColumnFormatter {
 		},
 		studyIdToStudy?: { [studyId: string]: CancerStudy }
 	) {
-		const study = StudyColumnFormatter.getStudy(
-			d,
-			geneticProfileIdToGeneticProfile,
-			studyIdToStudy
-		);
+		const study = StudyColumnFormatter.getStudy(d, geneticProfileIdToGeneticProfile, studyIdToStudy);
 		if (!study) {
 			return false;
 		} else {

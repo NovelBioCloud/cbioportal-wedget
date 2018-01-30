@@ -24,19 +24,8 @@ export default class LetterIcon extends React.Component<ILetterIconProps, {}> {
 	public render() {
 		let content = (
 			<svg width="12" height="12">
-				<circle
-					r="5"
-					cx="6"
-					cy="6"
-					stroke={this.props.stroke}
-					fill={this.props.circleFill}
-				/>
-				<text
-					x="3"
-					y="8.5"
-					fontSize={this.props.fontSize}
-					fill={this.props.textFill}
-				>
+				<circle r="5" cx="6" cy="6" stroke={this.props.stroke} fill={this.props.circleFill} />
+				<text x="3" y="8.5" fontSize={this.props.fontSize} fill={this.props.textFill}>
 					{this.props.text.slice(0, 1)}
 				</text>
 			</svg>

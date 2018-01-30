@@ -10,11 +10,7 @@ import { ResultsViewPageStore } from "../ResultsViewPageStore";
 import DiscreteCNACache from "../../../shared/cache/DiscreteCNACache";
 import { If, Then, Else } from "react-if";
 import Loader from "../../../shared/components/loadingIndicator/LoadingIndicator";
-import {
-	getCountsText,
-	getData,
-	getFilteredData
-} from "./MutualExclusivityUtil";
+import { getCountsText, getData, getFilteredData } from "./MutualExclusivityUtil";
 
 export interface IMutualExclusivityTabProps {
 	// a mapping from Hugo Gene Symbol to list of booleans,
@@ -23,23 +19,16 @@ export interface IMutualExclusivityTabProps {
 }
 
 @observer
-export default class MutualExclusivityTab extends React.Component<
-	IMutualExclusivityTabProps,
-	{}
-> {
+export default class MutualExclusivityTab extends React.Component<IMutualExclusivityTabProps, {}> {
 	@observable mutualExclusivityFilter: boolean = true;
 	@observable coOccurenceFilter: boolean = true;
 	@observable significantPairsFilter: boolean = false;
 
 	constructor(props: IMutualExclusivityTabProps) {
 		super(props);
-		this.mutualExclusivityFilterChange = this.mutualExclusivityFilterChange.bind(
-			this
-		);
+		this.mutualExclusivityFilterChange = this.mutualExclusivityFilterChange.bind(this);
 		this.coOccurenceFilterChange = this.coOccurenceFilterChange.bind(this);
-		this.significantPairsFilterChange = this.significantPairsFilterChange.bind(
-			this
-		);
+		this.significantPairsFilterChange = this.significantPairsFilterChange.bind(this);
 	}
 
 	@computed
@@ -84,10 +73,7 @@ export default class MutualExclusivityTab extends React.Component<
 							>
 								Mutual exclusivity
 							</Checkbox>
-							<Checkbox
-								checked={this.coOccurenceFilter}
-								onChange={this.coOccurenceFilterChange}
-							>
+							<Checkbox checked={this.coOccurenceFilter} onChange={this.coOccurenceFilterChange}>
 								Co-occurrence
 							</Checkbox>
 							<Checkbox
@@ -101,12 +87,7 @@ export default class MutualExclusivityTab extends React.Component<
 					</div>
 				);
 			} else {
-				return (
-					<div>
-						Mutual exclusivity analysis cannot be provided when only
-						a single gene is selected.
-					</div>
-				);
+				return <div>Mutual exclusivity analysis cannot be provided when only a single gene is selected.</div>;
 			}
 		} else {
 			return null;

@@ -17,36 +17,20 @@ const styles = styles_any as {
 };
 
 @observer
-export default class DataTypePrioritySelector extends QueryStoreComponent<
-	{},
-	{}
-> {
+export default class DataTypePrioritySelector extends QueryStoreComponent<{}, {}> {
 	render() {
 		if (!this.store.isVirtualCohortQuery) return null;
 
 		let flexRowContents: JSX.Element[] = [];
-		flexRowContents.push(
-			<LoadingIndicator
-				key="loading"
-				isLoading={this.profileAvailability.isPending}
-			/>
-		);
+		flexRowContents.push(<LoadingIndicator key="loading" isLoading={this.profileAvailability.isPending} />);
 		if (this.profileAvailability.isError) {
-			flexRowContents.push(
-				<span key="error">
-					Error loading profiles for selected studies.
-				</span>
-			);
+			flexRowContents.push(<span key="error">Error loading profiles for selected studies.</span>);
 		} else if (this.profileAvailability.isComplete) {
-			flexRowContents = flexRowContents.concat(
-				radioButtons(this.profileAvailability.result, this.store)
-			);
+			flexRowContents = flexRowContents.concat(radioButtons(this.profileAvailability.result, this.store));
 		}
 		return (
 			<FlexRow padded className={styles.DataTypePrioritySelector}>
-				<SectionHeader className="sectionLabel">
-					Select Data Type Priority:
-				</SectionHeader>
+				<SectionHeader className="sectionLabel">Select Data Type Priority:</SectionHeader>
 				<FlexRow>{flexRowContents}</FlexRow>
 			</FlexRow>
 		);
@@ -55,31 +39,19 @@ export default class DataTypePrioritySelector extends QueryStoreComponent<
 	readonly profileAvailability = remoteData({
 		await: () => [this.store.molecularProfilesInSelectedStudies],
 		invoke: () => {
-			return Promise.resolve(
-				profileAvailability(
-					this.store.molecularProfilesInSelectedStudies.result!
-				)
-			);
+			return Promise.resolve(profileAvailability(this.store.molecularProfilesInSelectedStudies.result!));
 		}
 	});
 }
 
 export const DataTypePriorityRadio = observer(
-	(props: {
-		label: string;
-		state: QueryStore["dataTypePriority"];
-		store: QueryStore;
-	}) => (
+	(props: { label: string; state: QueryStore["dataTypePriority"]; store: QueryStore }) => (
 		<label className={styles.DataTypePriorityLabel}>
 			<input
 				type="radio"
-				checked={_.isEqual(
-					toJS(props.store.dataTypePriority),
-					props.state
-				)}
+				checked={_.isEqual(toJS(props.store.dataTypePriority), props.state)}
 				onChange={event => {
-					if (event.currentTarget.checked)
-						props.store.dataTypePriority = props.state;
+					if (event.currentTarget.checked) props.store.dataTypePriority = props.state;
 				}}
 			/>
 			{props.label}
@@ -87,10 +59,7 @@ export const DataTypePriorityRadio = observer(
 	)
 );
 
-export function radioButtons(
-	availability: { mutation: boolean; cna: boolean },
-	store: QueryStore
-): JSX.Element[] {
+export function radioButtons(availability: { mutation: boolean; cna: boolean }, store: QueryStore): JSX.Element[] {
 	let buttons = [];
 	let hasBoth = false;
 	if (availability.mutation && availability.cna) {

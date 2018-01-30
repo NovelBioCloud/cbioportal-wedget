@@ -24,12 +24,6 @@ export class HomePageStore {
 	});
 }
 
-function getRootElement() {
-	for (let node of document.childNodes)
-		if (node instanceof HTMLElement) return node;
-	throw new Error("No HTMLElement found");
-}
-
 interface IHomePageProps {
 	queryStore: QueryStore;
 }
@@ -38,10 +32,7 @@ interface IHomePageState {}
 
 @inject("queryStore")
 @observer
-export default class HomePage extends React.Component<
-	IHomePageProps,
-	IHomePageState
-> {
+export default class HomePage extends React.Component<IHomePageProps, IHomePageState> {
 	constructor(props: IHomePageProps) {
 		super(props);
 	}
@@ -52,10 +43,7 @@ export default class HomePage extends React.Component<
 
 	public render() {
 		const blurb: JSX.Element | null = AppConfig.skinBlurb ? (
-			<p
-				style={{ marginBottom: "20px" }}
-				dangerouslySetInnerHTML={{ __html: AppConfig.skinBlurb }}
-			/>
+			<p style={{ marginBottom: "20px" }} dangerouslySetInnerHTML={{ __html: AppConfig.skinBlurb }} />
 		) : null;
 		return (
 			<div>

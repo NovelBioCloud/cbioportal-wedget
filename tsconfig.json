@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"outDir": "build/dist",
-		"module": "umd",
+		"module": "commonjs",
 		"allowSyntheticDefaultImports": true,
 		"target": "es6",
 		"lib": ["es6", "dom"],
@@ -13,9 +13,9 @@
 		"rootDir": "src",
 		"forceConsistentCasingInFileNames": true,
 		"noImplicitReturns": true,
-		"noImplicitThis": true,
-		"noImplicitAny": true,
-		"strictNullChecks": true,
+		"noImplicitThis": false,
+		"noImplicitAny": false,
+		"strictNullChecks": false,
 		"experimentalDecorators": true,
 		"suppressImplicitAnyIndexErrors": true,
 		"noUnusedLocals": false

@@ -3,10 +3,9 @@ import * as _ from "lodash";
 import wordwrap from "word-wrap";
 import { ThreeBounce } from "better-react-spinkit";
 import { CancerStudy } from "shared/api/generated/CBioPortalAPI";
-import { ChartTooltipItem } from "chart.js";
 const convertCssColorNameToHex = require("convert-css-color-name-to-hex");
-import Chart from "chart.js";
-
+import * as Chart from "chart.js";
+import { ChartTooltipItem } from "chart.js";
 interface ICancerTypeStudy {
 	shortName: string;
 	color: string;
@@ -81,12 +80,7 @@ export default class BarGraph extends React.Component<IBarGraphProps, {}> {
 
 	get byPrimarySiteStudies() {
 		return this.props.data.filter(cancers =>
-			_.every(
-				cancers.studies,
-				study =>
-					study.cancerTypeId !== "other" &&
-					study.cancerTypeId !== "mixed"
-			)
+			_.every(cancers.studies, study => study.cancerTypeId !== "other" && study.cancerTypeId !== "mixed")
 		);
 	}
 
@@ -95,10 +89,7 @@ export default class BarGraph extends React.Component<IBarGraphProps, {}> {
 
 		if (!cancerStudies.length) return;
 		cancerStudies.forEach(study => {
-			study.caseCount = study.studies.reduce(
-				(sum: number, cStudy) => sum + cStudy.allSampleCount,
-				0
-			);
+			study.caseCount = study.studies.reduce((sum: number, cStudy) => sum + cStudy.allSampleCount, 0);
 		});
 
 		const cancerTypeStudiesArray = cancerStudies
@@ -109,10 +100,7 @@ export default class BarGraph extends React.Component<IBarGraphProps, {}> {
 		const datasets: any = _.flattenDeep(
 			cancerTypeStudiesArray.map((cancerStudySet, i) =>
 				cancerStudySet.studies
-					.sort(
-						(a: CancerStudy, b: CancerStudy) =>
-							b.allSampleCount - a.allSampleCount
-					)
+					.sort((a: CancerStudy, b: CancerStudy) => b.allSampleCount - a.allSampleCount)
 					.map((cancerStudy: CancerStudy, j: number) => {
 						let lightenColorConstant = 3;
 						const cancerColor = cancerStudySet.color;
@@ -122,17 +110,7 @@ export default class BarGraph extends React.Component<IBarGraphProps, {}> {
 							lightenColorConstant = 18;
 						} else if (cancerColor === "Yellow") {
 							lightenColorConstant = 11;
-						} else if (
-							_.includes(
-								[
-									"LightBlue",
-									"LightSkyBlue",
-									"PeachPuff",
-									"LightYellow"
-								],
-								cancerColor
-							)
-						) {
+						} else if (_.includes(["LightBlue", "LightSkyBlue", "PeachPuff", "LightYellow"], cancerColor)) {
 							lightenColorConstant = 0;
 						} else if (cancerColor === "Teal") {
 							lightenColorConstant = 1;
@@ -141,26 +119,17 @@ export default class BarGraph extends React.Component<IBarGraphProps, {}> {
 						} else if (cancerColor === "Black") {
 							lightenColorConstant = 6;
 						}
-						const color = this.lightenDarkenColor(
-							cancerColor,
-							(j + lightenColorConstant) / max * 90
-						);
+						const color = this.lightenDarkenColor(cancerColor, (j + lightenColorConstant) / max * 90);
 						return {
 							studyId,
-							borderColor: _.includes(
-								["Gainsboro", "White", "LightYellow"],
-								cancerColor
-							)
+							borderColor: _.includes(["Gainsboro", "White", "LightYellow"], cancerColor)
 								? "#dddddd"
 								: "#F1F6FE",
 							backgroundColor: color,
 							borderWidth: 1,
 							label: name,
 							total: cancerStudySet.caseCount,
-							data:
-								i === 0
-									? [allSampleCount]
-									: [...Array(i).fill(0), allSampleCount]
+							data: i === 0 ? [allSampleCount] : [...Array(i).fill(0), allSampleCount]
 						};
 					})
 			)
@@ -179,10 +148,9 @@ export default class BarGraph extends React.Component<IBarGraphProps, {}> {
 				fontStyle: "normal"
 			},
 			onClick: function(e: Event) {
-				if (this.getElementAtEvent(e)[0]) {
-					const { studyId } = datasets[
-						this.getElementAtEvent(e)[0]._datasetIndex
-					];
+				const self = this as any;
+				if (self.getElementAtEvent(e)[0]) {
+					const { studyId } = datasets[self.getElementAtEvent(e)[0]._datasetIndex];
 					window.location.href = "study?id=" + studyId + "#summary";
 				}
 				return false;
@@ -212,18 +180,15 @@ export default class BarGraph extends React.Component<IBarGraphProps, {}> {
 							const label =
 								tooltipItems.yLabel +
 								": " +
-								_data.datasets[tooltipItems.datasetIndex!]
-									.total +
+								_data.datasets[tooltipItems.datasetIndex!].total +
 								" cases";
 							return this.formatTooltipString(label);
 						}
+						return "";
 					},
 					label: (tooltipItems: ChartTooltipItem, _data: any) => {
 						const label =
-							_data.datasets[tooltipItems.datasetIndex!].label +
-							": " +
-							tooltipItems.xLabel +
-							" cases";
+							_data.datasets[tooltipItems.datasetIndex!].label + ": " + tooltipItems.xLabel + " cases";
 						return this.formatTooltipString(label);
 					}
 				}

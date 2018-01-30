@@ -22,9 +22,7 @@ export default class Lollipop extends React.Component<LollipopProps, {}> {
 
 	@computed
 	private get headRadius() {
-		return this.isHovered
-			? this.props.hoverHeadRadius
-			: this.props.headRadius;
+		return this.isHovered ? this.props.hoverHeadRadius : this.props.headRadius;
 	}
 
 	@computed
@@ -59,12 +57,7 @@ export default class Lollipop extends React.Component<LollipopProps, {}> {
 					}}
 					textAnchor="middle"
 					x={this.props.x}
-					y={
-						this.props.stickBaseY -
-						this.props.stickHeight -
-						this.props.headRadius -
-						5
-					}
+					y={this.props.stickBaseY - this.props.stickHeight - this.props.headRadius - 5}
 				>
 					{this.props.label}
 				</text>

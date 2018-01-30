@@ -1,22 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
-import {
-	Button,
-	ButtonGroup,
-	ButtonToolbar,
-	Form,
-	FormGroup,
-	MenuItem
-} from "react-bootstrap";
+import { Button, ButtonGroup, ButtonToolbar, Form, FormGroup, MenuItem } from "react-bootstrap";
 var ClipboardButton = require("react-clipboard.js");
 var Clipboard = require("clipboard");
 import fileDownload from "react-file-download";
 import * as _ from "lodash";
-import {
-	PaginationControls,
-	IPaginationControlsProps
-} from "../paginationControls/PaginationControls";
+import { PaginationControls, IPaginationControlsProps } from "../paginationControls/PaginationControls";
 import { If } from "react-if";
 import {
 	IColumnVisibilityControlsProps,
@@ -48,9 +38,7 @@ function serializeTableData(tableData: Array<any>, containsHeader?: boolean) {
 	if (!containsHeader) {
 		// try to get the header from object keys in case no header provided
 		// if contains header, assuming that the first element represents the header values
-		Object.keys(tableData[0]).forEach((col: any) =>
-			content.push(col, delim)
-		);
+		Object.keys(tableData[0]).forEach((col: any) => content.push(col, delim));
 
 		content.pop();
 		content.push("\r\n");
@@ -68,10 +56,7 @@ function serializeTableData(tableData: Array<any>, containsHeader?: boolean) {
 	return content.join("");
 }
 
-export default class TableHeaderControls extends React.Component<
-	ITableHeaderControlsProps,
-	{}
-> {
+export default class TableHeaderControls extends React.Component<ITableHeaderControlsProps, {}> {
 	private searchTimeout: number | null;
 
 	private _copyButton: HTMLElement;
@@ -134,23 +119,15 @@ export default class TableHeaderControls extends React.Component<
 			<div className={(this.props.className || "") + ""}>
 				<ButtonToolbar>
 					<If condition={this.props.showPagination}>
-						<PaginationControls
-							className="pull-left"
-							{...this.props.paginationProps}
-						/>
+						<PaginationControls className="pull-left" {...this.props.paginationProps} />
 					</If>
 
 					<If condition={this.props.showHideShowColumnButton}>
-						<ColumnVisibilityControls
-							{...this.props.columnVisibilityProps}
-						/>
+						<ColumnVisibilityControls {...this.props.columnVisibilityProps} />
 					</If>
 
 					<If condition={this.props.showCopyAndDownload}>
-						<ButtonGroup
-							className={this.props.copyDownloadClassName}
-							style={{ marginLeft: 10 }}
-						>
+						<ButtonGroup className={this.props.copyDownloadClassName} style={{ marginLeft: 10 }}>
 							<DefaultTooltip
 								overlay={<span>Copy</span>}
 								placement="top"
@@ -178,10 +155,7 @@ export default class TableHeaderControls extends React.Component<
 								placement="top"
 								arrowContent={arrowContent}
 							>
-								<Button
-									className="btn-sm"
-									onClick={this.downloadData}
-								>
+								<Button className="btn-sm" onClick={this.downloadData}>
 									<i className="fa fa-cloud-download" />
 								</Button>
 							</DefaultTooltip>
@@ -190,9 +164,7 @@ export default class TableHeaderControls extends React.Component<
 
 					<If condition={this.props.showSearch}>
 						<div
-							className={`${
-								this.props.searchClassName
-							} form-group has-feedback input-group-sm`}
+							className={`${this.props.searchClassName} form-group has-feedback input-group-sm`}
 							style={{ display: "inline-block", marginLeft: 10 }}
 						>
 							<input
@@ -201,10 +173,7 @@ export default class TableHeaderControls extends React.Component<
 								className="form-control tableSearchInput"
 								style={{ width: 200 }}
 							/>
-							<span
-								className="fa fa-search form-control-feedback"
-								aria-hidden="true"
-							/>
+							<span className="fa fa-search form-control-feedback" aria-hidden="true" />
 						</div>
 					</If>
 				</ButtonToolbar>
@@ -214,33 +183,21 @@ export default class TableHeaderControls extends React.Component<
 
 	public getText() {
 		if (this.props.downloadDataGenerator) {
-			return serializeTableData(
-				this.props.downloadDataGenerator() || [],
-				this.props.downloadDataContainsHeader
-			);
+			return serializeTableData(this.props.downloadDataGenerator() || [], this.props.downloadDataContainsHeader);
 		} else {
-			return serializeTableData(
-				this.props.tableData || [],
-				this.props.downloadDataContainsHeader
-			);
+			return serializeTableData(this.props.tableData || [], this.props.downloadDataContainsHeader);
 		}
 	}
 
 	private downloadData = () => {
 		if (this.props.downloadDataGenerator) {
 			fileDownload(
-				serializeTableData(
-					this.props.downloadDataGenerator() || [],
-					this.props.downloadDataContainsHeader
-				),
+				serializeTableData(this.props.downloadDataGenerator() || [], this.props.downloadDataContainsHeader),
 				this.props.downloadFilename
 			);
 		} else {
 			fileDownload(
-				serializeTableData(
-					this.props.tableData || [],
-					this.props.downloadDataContainsHeader
-				),
+				serializeTableData(this.props.tableData || [], this.props.downloadDataContainsHeader),
 				this.props.downloadFilename
 			);
 		}

@@ -14,10 +14,7 @@ type TableCellStatusIndicatorProps = {
 	naAlt?: string;
 };
 
-export default class TableCellStatusIndicator extends React.Component<
-	TableCellStatusIndicatorProps,
-	{}
-> {
+export default class TableCellStatusIndicator extends React.Component<TableCellStatusIndicatorProps, {}> {
 	public render() {
 		let alt: string = "";
 		let text: string = "";

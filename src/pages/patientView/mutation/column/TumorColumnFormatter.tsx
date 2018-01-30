@@ -4,10 +4,7 @@ import SampleManager from "../../sampleManager";
 import { isUncalled } from "shared/lib/MutationUtils";
 
 export default class TumorColumnFormatter {
-	public static renderFunction<T extends { sampleId: string }>(
-		data: T[],
-		sampleManager: SampleManager | null
-	) {
+	public static renderFunction<T extends { sampleId: string }>(data: T[], sampleManager: SampleManager | null) {
 		if (!sampleManager) {
 			return <span />;
 		}
@@ -22,9 +19,7 @@ export default class TumorColumnFormatter {
 					{sampleManager.getComponentForSample(
 						sample.id,
 						presentSamples[sample.id] ? 1 : 0.1,
-						presentSamples[sample.id]
-							? ""
-							: "Mutation has supporting reads, but wasn't called"
+						presentSamples[sample.id] ? "" : "Mutation has supporting reads, but wasn't called"
 					)}
 				</li>
 			);
@@ -32,30 +27,21 @@ export default class TumorColumnFormatter {
 
 		return (
 			<div style={{ position: "relative" }}>
-				<ul
-					style={{ marginBottom: 0 }}
-					className="list-inline list-unstyled"
-				>
+				<ul style={{ marginBottom: 0 }} className="list-inline list-unstyled">
 					{tdValue}
 				</ul>
 			</div>
 		);
 	}
 
-	public static getSortValue<T extends { sampleId: string }>(
-		d: T[],
-		sampleManager: SampleManager | null
-	) {
+	public static getSortValue<T extends { sampleId: string }>(d: T[], sampleManager: SampleManager | null) {
 		if (!sampleManager) {
 			return [];
 		} else {
 			const presentSamples = TumorColumnFormatter.getPresentSamples(d);
 			const ret = [];
 			// First, we sort by the number of present and called samples
-			ret.push(
-				Object.keys(presentSamples).filter(s => presentSamples[s])
-					.length
-			);
+			ret.push(Object.keys(presentSamples).filter(s => presentSamples[s]).length);
 			// Then, we sort by the particular ones present
 			for (const sampleId of sampleManager.getSampleIdsInOrder()) {
 				ret.push(+!!presentSamples[sampleId]);
@@ -76,10 +62,7 @@ export default class TumorColumnFormatter {
 				// Indicate called mutations with true,
 				// uncalled mutations with supporting reads as false
 				// exclude uncalled mutations without supporting reads completely
-				if (
-					next.molecularProfileId &&
-					isUncalled(next.molecularProfileId)
-				) {
+				if (next.molecularProfileId && isUncalled(next.molecularProfileId)) {
 					if (next.tumorAltCount && next.tumorAltCount > 0) {
 						map[next.sampleId] = false;
 					}
@@ -92,9 +75,7 @@ export default class TumorColumnFormatter {
 		);
 	}
 
-	public static getSample(
-		data: Array<{ sampleId: string }>
-	): string | string[] {
+	public static getSample(data: Array<{ sampleId: string }>): string | string[] {
 		let result: string[] = [];
 		if (data) {
 			data.forEach((datum: { sampleId: string }) => {

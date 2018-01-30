@@ -69,7 +69,7 @@ import {
 	ICivicGeneData,
 	ICivicVariant,
 	ICivicGene
-} from "shared/model/Civic.ts";
+} from "shared/model/Civic";
 import CancerHotspotsAPI from "shared/api/generated/CancerHotspotsAPI";
 import {
 	MOLECULAR_PROFILE_MUTATIONS_SUFFIX,

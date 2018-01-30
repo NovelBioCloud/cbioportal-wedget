@@ -11,15 +11,10 @@ export default class OrganismColumnFormatter {
 		let organism = "NA";
 
 		_.find(pdbHeader.compound, (mol: any) => {
-			if (
-				_.indexOf(mol.chain, chainId.toLowerCase()) != -1 &&
-				pdbHeader.source[mol.mol_id] != null
-			) {
+			if (_.indexOf(mol.chain, chainId.toLowerCase()) != -1 && pdbHeader.source[mol.mol_id] != null) {
 				// chain is associated with this mol,
 				// get the organism info from the source
-				organism =
-					pdbHeader.source[mol.mol_id].organism_scientific ||
-					organism;
+				organism = pdbHeader.source[mol.mol_id].organism_scientific || organism;
 				return mol;
 			}
 		});
@@ -27,19 +22,13 @@ export default class OrganismColumnFormatter {
 		return organism;
 	}
 
-	public static getOrganismFromCache(
-		cache: PdbHeaderCache | undefined,
-		chain: IPdbChain
-	): string {
+	public static getOrganismFromCache(cache: PdbHeaderCache | undefined, chain: IPdbChain): string {
 		if (!cache) {
 			return "";
 		}
 		const cacheData = cache.get(chain.pdbId);
 		if (cacheData && cacheData.data) {
-			return OrganismColumnFormatter.getOrganism(
-				cacheData.data,
-				chain.chain
-			);
+			return OrganismColumnFormatter.getOrganism(cacheData.data, chain.chain);
 		} else {
 			return "";
 		}

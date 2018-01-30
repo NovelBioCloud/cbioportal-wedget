@@ -8,17 +8,11 @@ import MyCancerGenome from "shared/components/annotation/MyCancerGenome";
 import OncoKB from "shared/components/annotation/OncoKB";
 import Civic from "shared/components/annotation/Civic";
 import { IOncoKbData, IOncoKbDataWrapper } from "shared/model/OncoKB";
-import {
-	IMyCancerGenomeData,
-	IMyCancerGenome
-} from "shared/model/MyCancerGenome";
+import { IMyCancerGenomeData, IMyCancerGenome } from "shared/model/MyCancerGenome";
 import { IHotspotData } from "shared/model/CancerHotspots";
 import { Mutation } from "shared/api/generated/CBioPortalAPI";
 import { IndicatorQueryResp, Query } from "shared/api/generated/OncoKbAPI";
-import {
-	generateQueryVariantId,
-	generateQueryVariant
-} from "shared/lib/OncoKbUtils";
+import { generateQueryVariantId, generateQueryVariant } from "shared/lib/OncoKbUtils";
 import { isHotspot, is3dHotspot } from "shared/lib/AnnotationUtils";
 import {
 	ICivicVariant,
@@ -28,7 +22,7 @@ import {
 	ICivicGeneData,
 	ICivicGeneDataWrapper,
 	ICivicVariantDataWrapper
-} from "shared/model/Civic.ts";
+} from "shared/model/Civic";
 import { buildCivicEntry } from "shared/lib/CivicUtils";
 
 export interface IAnnotationColumnProps {
@@ -94,58 +88,29 @@ export default class AnnotationColumnFormatter {
 			let oncoKbIndicator: IndicatorQueryResp | undefined;
 			let hugoGeneSymbol = mutation.gene.hugoGeneSymbol;
 
-			const oncoKbGeneExist = !!oncoKbAnnotatedGenes[
-				mutation.entrezGeneId
-			];
+			const oncoKbGeneExist = !!oncoKbAnnotatedGenes[mutation.entrezGeneId];
 
 			value = {
 				hugoGeneSymbol,
 				oncoKbGeneExist,
 				civicEntry:
-					civicGenes &&
-					civicGenes.result &&
-					civicVariants &&
-					civicVariants.result
-						? AnnotationColumnFormatter.getCivicEntry(
-								mutation,
-								civicGenes.result,
-								civicVariants.result
-							)
+					civicGenes && civicGenes.result && civicVariants && civicVariants.result
+						? AnnotationColumnFormatter.getCivicEntry(mutation, civicGenes.result, civicVariants.result)
 						: undefined,
 				civicStatus:
-					civicGenes &&
-					civicGenes.status &&
-					civicVariants &&
-					civicVariants.status
-						? AnnotationColumnFormatter.getCivicStatus(
-								civicGenes.status,
-								civicVariants.status
-							)
+					civicGenes && civicGenes.status && civicVariants && civicVariants.status
+						? AnnotationColumnFormatter.getCivicStatus(civicGenes.status, civicVariants.status)
 						: "pending",
 				hasCivicVariants: true,
 				myCancerGenomeLinks: myCancerGenomeData
-					? AnnotationColumnFormatter.getMyCancerGenomeLinks(
-							mutation,
-							myCancerGenomeData
-						)
+					? AnnotationColumnFormatter.getMyCancerGenomeLinks(mutation, myCancerGenomeData)
 					: [],
-				isHotspot: hotspotsData
-					? isHotspot(mutation, hotspotsData.single)
-					: false,
-				is3dHotspot: hotspotsData
-					? is3dHotspot(mutation, hotspotsData.clustered)
-					: false
+				isHotspot: hotspotsData ? isHotspot(mutation, hotspotsData.single) : false,
+				is3dHotspot: hotspotsData ? is3dHotspot(mutation, hotspotsData.clustered) : false
 			};
 			if (oncoKbGeneExist) {
-				if (
-					oncoKbData &&
-					oncoKbData.result &&
-					oncoKbData.status === "complete"
-				) {
-					oncoKbIndicator = AnnotationColumnFormatter.getIndicatorData(
-						mutation,
-						oncoKbData.result
-					);
+				if (oncoKbData && oncoKbData.result && oncoKbData.status === "complete") {
+					oncoKbIndicator = AnnotationColumnFormatter.getIndicatorData(mutation, oncoKbData.result);
 				}
 
 				value = {
@@ -168,7 +133,8 @@ export default class AnnotationColumnFormatter {
 	}
 
 	/**
-	 * Returns an ICivicEntry if the civicGenes and civicVariants have information about the gene and the mutation (variant) specified. Otherwise it returns null.
+	 * Returns an ICivicEntry if the civicGenes and civicVariants
+	 * have information about the gene and the mutation (variant) specified. Otherwise it returns null.
 	 */
 	public static getCivicEntry(
 		mutation: Mutation,
@@ -177,14 +143,10 @@ export default class AnnotationColumnFormatter {
 	): ICivicEntry | null {
 		let geneSymbol: string = mutation.gene.hugoGeneSymbol;
 		let civicEntry = null;
-		//Only search for matching Civic variants if the gene mutation exists in the Civic API
-		if (
-			civicVariants[geneSymbol] &&
-			civicVariants[geneSymbol][mutation.proteinChange]
-		) {
+		// Only search for matching Civic variants if the gene mutation exists in the Civic API
+		if (civicVariants[geneSymbol] && civicVariants[geneSymbol][mutation.proteinChange]) {
 			let geneVariants: { [name: string]: ICivicVariantData } = {
-				[mutation.proteinChange]:
-					civicVariants[geneSymbol][mutation.proteinChange]
+				[mutation.proteinChange]: civicVariants[geneSymbol][mutation.proteinChange]
 			};
 			let geneEntry: ICivicGeneData = civicGenes[geneSymbol];
 			civicEntry = buildCivicEntry(geneEntry, geneVariants);
@@ -197,27 +159,18 @@ export default class AnnotationColumnFormatter {
 		civicGenesStatus: "pending" | "error" | "complete",
 		civicVariantsStatus: "pending" | "error" | "complete"
 	): "pending" | "error" | "complete" {
-		if (civicGenesStatus == "error" || civicVariantsStatus == "error") {
+		if (civicGenesStatus === "error" || civicVariantsStatus === "error") {
 			return "error";
 		}
-		if (
-			civicGenesStatus == "complete" &&
-			civicVariantsStatus == "complete"
-		) {
+		if (civicGenesStatus === "complete" && civicVariantsStatus === "complete") {
 			return "complete";
 		}
 
 		return "pending";
 	}
 
-	public static getIndicatorData(
-		mutation: Mutation,
-		oncoKbData: IOncoKbData
-	): IndicatorQueryResp | undefined {
-		if (
-			oncoKbData.uniqueSampleKeyToTumorType === null ||
-			oncoKbData.indicatorMap === null
-		) {
+	public static getIndicatorData(mutation: Mutation, oncoKbData: IOncoKbData): IndicatorQueryResp | undefined {
+		if (oncoKbData.uniqueSampleKeyToTumorType === null || oncoKbData.indicatorMap === null) {
 			return undefined;
 		}
 
@@ -231,17 +184,12 @@ export default class AnnotationColumnFormatter {
 		return oncoKbData.indicatorMap[id];
 	}
 
-	public static getEvidenceQuery(
-		mutation: Mutation,
-		oncoKbData: IOncoKbData
-	): Query | undefined {
+	public static getEvidenceQuery(mutation: Mutation, oncoKbData: IOncoKbData): Query | undefined {
 		// return null in case sampleToTumorMap is null
 		return oncoKbData.uniqueSampleKeyToTumorType
 			? generateQueryVariant(
 					mutation.gene.entrezGeneId,
-					oncoKbData.uniqueSampleKeyToTumorType[
-						mutation.uniqueSampleKey
-					],
+					oncoKbData.uniqueSampleKeyToTumorType[mutation.uniqueSampleKey],
 					mutation.proteinChange,
 					mutation.mutationType,
 					mutation.proteinPosStart,
@@ -250,51 +198,33 @@ export default class AnnotationColumnFormatter {
 			: undefined;
 	}
 
-	public static getMyCancerGenomeLinks(
-		mutation: Mutation,
-		myCancerGenomeData: IMyCancerGenomeData
-	): string[] {
-		const myCancerGenomes: IMyCancerGenome[] | null =
-			myCancerGenomeData[mutation.gene.hugoGeneSymbol];
+	public static getMyCancerGenomeLinks(mutation: Mutation, myCancerGenomeData: IMyCancerGenomeData): string[] {
+		const myCancerGenomes: IMyCancerGenome[] | null = myCancerGenomeData[mutation.gene.hugoGeneSymbol];
 		let links: string[] = [];
 
 		if (myCancerGenomes) {
 			// further filtering required by alteration field
-			links = AnnotationColumnFormatter.filterByAlteration(
-				mutation,
-				myCancerGenomes
-			).map((myCancerGenome: IMyCancerGenome) => myCancerGenome.linkHTML);
+			links = AnnotationColumnFormatter.filterByAlteration(mutation, myCancerGenomes).map(
+				(myCancerGenome: IMyCancerGenome) => myCancerGenome.linkHTML
+			);
 		}
 
 		return links;
 	}
 
 	// TODO for now ignoring anything but protein change position, this needs to be improved!
-	public static filterByAlteration(
-		mutation: Mutation,
-		myCancerGenomes: IMyCancerGenome[]
-	): IMyCancerGenome[] {
+	public static filterByAlteration(mutation: Mutation, myCancerGenomes: IMyCancerGenome[]): IMyCancerGenome[] {
 		return myCancerGenomes.filter((myCancerGenome: IMyCancerGenome) => {
 			const proteinChangeRegExp: RegExp = /^[A-Za-z][0-9]+[A-Za-z]/;
 			const numericalRegExp: RegExp = /[0-9]+/;
 
-			const matched = myCancerGenome.alteration
-				.trim()
-				.match(proteinChangeRegExp);
+			const matched = myCancerGenome.alteration.trim().match(proteinChangeRegExp);
 
 			if (matched && mutation.proteinChange) {
-				const mutationPos = mutation.proteinChange.match(
-					numericalRegExp
-				);
-				const alterationPos = myCancerGenome.alteration.match(
-					numericalRegExp
-				);
+				const mutationPos = mutation.proteinChange.match(numericalRegExp);
+				const alterationPos = myCancerGenome.alteration.match(numericalRegExp);
 
-				return (
-					mutationPos &&
-					alterationPos &&
-					mutationPos[0] === alterationPos[0]
-				);
+				return mutationPos && alterationPos && mutationPos[0] === alterationPos[0];
 			}
 
 			return false;
@@ -324,10 +254,7 @@ export default class AnnotationColumnFormatter {
 			OncoKB.sortValue(annotationData.oncoKbIndicator),
 			Civic.sortValue(annotationData.civicEntry),
 			MyCancerGenome.sortValue(annotationData.myCancerGenomeLinks),
-			CancerHotspots.sortValue(
-				annotationData.isHotspot,
-				annotationData.is3dHotspot
-			)
+			CancerHotspots.sortValue(annotationData.isHotspot, annotationData.is3dHotspot)
 		]);
 	}
 
@@ -353,18 +280,13 @@ export default class AnnotationColumnFormatter {
 		return [
 			`OncoKB: ${OncoKB.download(annotationData.oncoKbIndicator)}`,
 			`CIViC: ${Civic.download(annotationData.civicEntry)}`,
-			`MyCancerGenome: ${MyCancerGenome.download(
-				annotationData.myCancerGenomeLinks
-			)}`,
+			`MyCancerGenome: ${MyCancerGenome.download(annotationData.myCancerGenomeLinks)}`,
 			`CancerHotspot: ${annotationData.isHotspot ? "yes" : "no"}`,
 			`3DHotspot: ${annotationData.is3dHotspot ? "yes" : "no"}`
 		].join(";");
 	}
 
-	public static renderFunction(
-		data: Mutation[],
-		columnProps: IAnnotationColumnProps
-	) {
+	public static renderFunction(data: Mutation[], columnProps: IAnnotationColumnProps) {
 		const annotation: IAnnotation = AnnotationColumnFormatter.getData(
 			data,
 			columnProps.oncoKbAnnotatedGenes,
@@ -378,10 +300,7 @@ export default class AnnotationColumnFormatter {
 		let evidenceQuery: Query | undefined;
 
 		if (columnProps.oncoKbData && columnProps.oncoKbData.result) {
-			evidenceQuery = this.getEvidenceQuery(
-				data[0],
-				columnProps.oncoKbData.result
-			);
+			evidenceQuery = this.getEvidenceQuery(data[0], columnProps.oncoKbData.result);
 		}
 
 		return AnnotationColumnFormatter.mainContent(
@@ -422,15 +341,10 @@ export default class AnnotationColumnFormatter {
 					/>
 				</If>
 				<If condition={columnProps.enableMyCancerGenome || false}>
-					<MyCancerGenome
-						linksHTML={annotation.myCancerGenomeLinks}
-					/>
+					<MyCancerGenome linksHTML={annotation.myCancerGenomeLinks} />
 				</If>
 				<If condition={columnProps.enableHotspot || false}>
-					<CancerHotspots
-						isHotspot={annotation.isHotspot}
-						is3dHotspot={annotation.is3dHotspot}
-					/>
+					<CancerHotspots isHotspot={annotation.isHotspot} is3dHotspot={annotation.is3dHotspot} />
 				</If>
 			</span>
 		);

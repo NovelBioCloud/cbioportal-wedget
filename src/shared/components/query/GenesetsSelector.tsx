@@ -27,15 +27,10 @@ const styles = styles_any as {
 export interface GenesetsSelectorProps {}
 
 @observer
-export default class GenesetsSelector extends QueryStoreComponent<
-	GenesetsSelectorProps,
-	{}
-> {
+export default class GenesetsSelector extends QueryStoreComponent<GenesetsSelectorProps, {}> {
 	@computed
 	get selectedGeneListOption() {
-		const option = this.geneListOptions.find(
-			opt => opt.value === this.store.geneQuery
-		);
+		const option = this.geneListOptions.find(opt => opt.value === this.store.geneQuery);
 		return option ? option.value : "";
 	}
 
@@ -74,17 +69,13 @@ export default class GenesetsSelector extends QueryStoreComponent<
 	render() {
 		return (
 			<FlexRow padded overflow className={styles.GeneSetSelector}>
-				<SectionHeader className="sectionLabel">
-					Enter Gene Sets:
-				</SectionHeader>
+				<SectionHeader className="sectionLabel">Enter Gene Sets:</SectionHeader>
 
 				<FlexCol overflow>
 					<FlexRow padded className={styles.buttonRow}>
 						<button
 							className="btn btn-default btn-sm"
-							onClick={() =>
-								(this.store.showGenesetsHierarchyPopup = true)
-							}
+							onClick={() => (this.store.showGenesetsHierarchyPopup = true)}
 						>
 							Select Gene Sets
 						</button>
@@ -92,56 +83,33 @@ export default class GenesetsSelector extends QueryStoreComponent<
 
 					<textarea
 						ref={this.textAreaRef}
-						className={classNames(
-							styles.geneSet,
-							this.store.genesetQuery
-								? styles.notEmpty
-								: styles.empty
-						)}
+						className={classNames(styles.geneSet, this.store.genesetQuery ? styles.notEmpty : styles.empty)}
 						rows={5}
 						cols={80}
 						placeholder="Enter Gene Sets"
 						title="Enter Gene Sets"
 						value={this.store.genesetQuery}
-						onChange={event =>
-							(this.store.genesetQuery =
-								event.currentTarget.value)
-						}
+						onChange={event => (this.store.genesetQuery = event.currentTarget.value)}
 						data-test="geneSet"
 					/>
 
 					<GenesetsValidator />
 
 					<Modal
-						className={classNames(
-							"cbioportal-frontend",
-							styles.GenesetsSelectorWindow
-						)}
+						className={classNames("cbioportal-frontend", styles.GenesetsSelectorWindow)}
 						show={this.store.showGenesetsHierarchyPopup}
-						onHide={() =>
-							(this.store.showGenesetsHierarchyPopup = false)
-						}
+						onHide={() => (this.store.showGenesetsHierarchyPopup = false)}
 					>
 						<Modal.Header closeButton>
-							<Modal.Title>
-								Select Gene Sets From Hierarchy
-							</Modal.Title>
+							<Modal.Title>Select Gene Sets From Hierarchy</Modal.Title>
 						</Modal.Header>
 						<Modal.Body>
 							<GenesetsHierarchySelector
 								initialSelection={this.store.genesetIds}
-								gsvaProfile={
-									this.store.getFilteredProfiles(
-										"GENESET_SCORE"
-									)[0].molecularProfileId
-								}
-								sampleListId={
-									this.store.defaultSelectedSampleListId
-								}
+								gsvaProfile={this.store.getFilteredProfiles("GENESET_SCORE")[0].molecularProfileId}
+								sampleListId={this.store.defaultSelectedSampleListId}
 								onSelect={map_geneset_selected => {
-									this.store.applyGenesetsSelection(
-										map_geneset_selected
-									);
+									this.store.applyGenesetsSelection(map_geneset_selected);
 									this.store.showGenesetsHierarchyPopup = false;
 								}}
 							/>

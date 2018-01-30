@@ -24,10 +24,7 @@ export default class Container extends React.Component<IContainerProps, {}> {
 		const headerNode = document.getElementById("reactHeader");
 		if (headerNode !== null) {
 			ReactDOM.render(
-				<PageHeader
-					router={this.context.router}
-					currentRoutePath={this.props.location.pathname}
-				/>,
+				<PageHeader router={this.context.router} currentRoutePath={this.props.location.pathname} />,
 				headerNode
 			);
 		}
@@ -36,9 +33,7 @@ export default class Container extends React.Component<IContainerProps, {}> {
 	renderChildren() {
 		const childProps = { ...this.props };
 		const { children } = this.props;
-		return React.Children.map(children, c =>
-			React.cloneElement(c as React.ReactElement<any>, childProps)
-		);
+		return React.Children.map(children, c => React.cloneElement(c as React.ReactElement<any>, childProps));
 	}
 
 	render() {

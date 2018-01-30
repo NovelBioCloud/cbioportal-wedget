@@ -1,6 +1,12 @@
-export declare class SyntaxError
-{
-	constructor(message:string, expected:string, found:string, offset:number, line:number, column:number);
+export declare class SyntaxError {
+	constructor(
+		message: string,
+		expected: string,
+		found: string,
+		offset: number,
+		line: number,
+		column: number
+	);
 
 	message: string;
 	expected: string;
@@ -11,8 +17,8 @@ export declare class SyntaxError
 	name: "SyntaxError";
 }
 
-export declare function parse(str:string):OQLQuery | undefined;
-export declare function parseGeneset(str:string):OQLGenesetQuery | undefined;
+export declare function parse(str: string): OQLQuery | undefined;
+export declare function parseGeneset(str: string): OQLGenesetQuery | undefined;
 
 // start
 // 	= Query
@@ -30,7 +36,27 @@ export declare function parseGeneset(str:string):OQLGenesetQuery | undefined;
 //         / whole_part:NaturalNumber {return whole_part;}
 // String = word:[-_.@/a-zA-Z0-9*]+ { return word.join("") }
 // AminoAcid = letter:[GPAVLIMCFYWHKRQNEDST] { return letter; }
-export declare type AminoAcid = 'G'|'P'|'A'|'V'|'L'|'I'|'M'|'C'|'F'|'Y'|'W'|'H'|'K'|'R'|'Q'|'N'|'E'|'D'|'S'|'T';
+export declare type AminoAcid =
+	| "G"
+	| "P"
+	| "A"
+	| "V"
+	| "L"
+	| "I"
+	| "M"
+	| "C"
+	| "F"
+	| "Y"
+	| "W"
+	| "H"
+	| "K"
+	| "R"
+	| "Q"
+	| "N"
+	| "E"
+	| "D"
+	| "S"
+	| "T";
 //
 // sp = space:[ \t\r]+
 // msp = space:[ \t\r]*
@@ -62,8 +88,14 @@ export declare type OQLGenesetQuery = SingleGenesetQuery[];
 // SingleGeneQuery
 // 	= geneName:String msp ":" msp alts:Alterations { return {"gene": geneName, "alterations": alts}; }
 // 	/ geneName:String { return {"gene": geneName, "alterations":false}; }
-export declare type SingleGeneQuery = {gene:string, alterations:false|Alteration[]};
-export declare type SingleGenesetQuery = {geneset:string, alterations:false|Alteration[]};
+export declare type SingleGeneQuery = {
+	gene: string;
+	alterations: false | Alteration[];
+};
+export declare type SingleGenesetQuery = {
+	geneset: string;
+	alterations: false | Alteration[];
+};
 //
 // Alterations
 // 	= a1:Alteration sp a2:Alterations { return [a1].concat(a2);}
@@ -76,48 +108,70 @@ export declare type SingleGenesetQuery = {geneset:string, alterations:false|Alte
 //         / cmd:FUSIONCommand { return cmd; }
 // // MUT has to go at the end because it matches an arbitrary string at the end as a type of mutation
 // 	/ cmd:MUTCommand { return cmd; }
-export declare type Alteration = CNACommand | EXPCommand | PROTCommand | FUSIONCommand | MUTCommand<Mutation>;
+export declare type Alteration =
+	| CNACommand
+	| EXPCommand
+	| PROTCommand
+	| FUSIONCommand
+	| MUTCommand<Mutation>;
 //
 // CNAType
 //         = "AMP"i { return "AMP"; }
 //         / "HOMDEL"i { return "HOMDEL"; }
 //         / "GAIN"i { return "GAIN"; }
 //         / "HETLOSS"i { return "HETLOSS"; }
-export declare type CNAType = 'AMP' | 'HOMDEL' | 'GAIN' | 'HETLOSS';
+export declare type CNAType = "AMP" | "HOMDEL" | "GAIN" | "HETLOSS";
 //
 // CNACommand
 // 	= "CNA"i msp op:ComparisonOp msp constrval:CNAType { return {"alteration_type":"cna", "constr_rel":op, "constr_val":constrval}; }
 //         / constrval:CNAType { return {"alteration_type":"cna", "constr_rel":"=", "constr_val":constrval}; }
-export declare type CNACommand = {alteration_type:'cna', constr_rel:ComparisonOp, constr_val:CNAType};
+export declare type CNACommand = {
+	alteration_type: "cna";
+	constr_rel: ComparisonOp;
+	constr_val: CNAType;
+};
 //
 // MUTCommand
 // 	= "MUT" msp "=" msp mutation:Mutation { return {"alteration_type":"mut", "constr_rel": "=", "constr_type":mutation.type, "constr_val":mutation.value, "info":mutation.info}; }
 // 	/ "MUT" msp "!=" msp mutation:Mutation { return {"alteration_type":"mut", "constr_rel": "!=", "constr_type":mutation.type, "constr_val":mutation.value, "info":mutation.info}; }
 // 	/ "MUT" { return {"alteration_type":"mut"}; }
 // 	/ mutation:Mutation { return {"alteration_type":"mut", "constr_rel": "=", "constr_type":mutation.type, "constr_val":mutation.value, "info":mutation.info}; }
-export declare type MUTCommand<M extends Mutation> = (
-	{alteration_type:'mut', info:{}} |
-	{alteration_type:'mut', constr_rel:'='|'!=', constr_type:M['type'], constr_val:M['value'], info:M['info']}
-);
+export declare type MUTCommand<M extends Mutation> =
+	| { alteration_type: "mut"; info: {} }
+	| {
+			alteration_type: "mut";
+			constr_rel: "=" | "!=";
+			constr_type: M["type"];
+			constr_val: M["value"];
+			info: M["info"];
+		};
 //
 // EXPCommand
 // 	= "EXP" msp op:ComparisonOp msp constrval:Number { return {"alteration_type":"exp", "constr_rel":op, "constr_val":parseFloat(constrval)}; }
-export declare type EXPCommand = {alteration_type:'exp', constr_rel:ComparisonOp, constr_val:number};
+export declare type EXPCommand = {
+	alteration_type: "exp";
+	constr_rel: ComparisonOp;
+	constr_val: number;
+};
 //
 // FUSIONCommand
 //         = "FUSION" { return {"alteration_type":"fusion"}; }
-export declare type FUSIONCommand = {alteration_type:'fusion'};
+export declare type FUSIONCommand = { alteration_type: "fusion" };
 //
 // PROTCommand
 // 	= "PROT" msp op:ComparisonOp msp constrval:Number { return {"alteration_type":"prot", "constr_rel":op, "constr_val":parseFloat(constrval)}; }
-export declare type PROTCommand = {alteration_type:'prot', constr_rel:ComparisonOp, constr_val:number};
+export declare type PROTCommand = {
+	alteration_type: "prot";
+	constr_rel: ComparisonOp;
+	constr_val: number;
+};
 //
 // ComparisonOp
 // 	= ">=" { return ">="; }
 // 	/ "<=" { return "<="; }
 // 	/ ">" { return ">"; }
 // 	/ "<" { return "<"; }
-export declare type ComparisonOp = '>=' | '<=' | '>' | '<';
+export declare type ComparisonOp = ">=" | "<=" | ">" | "<";
 //
 // Mutation
 // 	= "MISSENSE"i { return {"type":"class", "value":"MISSENSE", "info":{}}; }
@@ -132,10 +186,18 @@ export declare type ComparisonOp = '>=' | '<=' | '>' | '<';
 //         / letter:AminoAcid position:NaturalNumber string:String { return {"type":"name" , "value":(letter+position+string), "info":{}};}
 //         / letter:AminoAcid position:NaturalNumber { return {"type":"position", "value":parseInt(position), "info":{"amino_acid":letter.toUpperCase()}}; }
 // 	/ mutation_name:String { return {"type":"name", "value":mutation_name, "info":{}}; }
-export declare type MutationType = 'MISSENSE'|'NONSENSE'|'NONSTART'|'NONSTOP'|'FRAMESHIFT'|'INFRAME'|'SPLICE'|'TRUNC'|'PROMOTER';
+export declare type MutationType =
+	| "MISSENSE"
+	| "NONSENSE"
+	| "NONSTART"
+	| "NONSTOP"
+	| "FRAMESHIFT"
+	| "INFRAME"
+	| "SPLICE"
+	| "TRUNC"
+	| "PROMOTER";
 
-export declare type Mutation = (
-	{type:'class', value:MutationType, info:{}} |
-	{type:'name', value:string, info:{unrecognized?:boolean}} |
-	{type:'position', value:number, info:{amino_acid:AminoAcid}}
-);
+export declare type Mutation =
+	| { type: "class"; value: MutationType; info: {} }
+	| { type: "name"; value: string; info: { unrecognized?: boolean } }
+	| { type: "position"; value: number; info: { amino_acid: AminoAcid } };
