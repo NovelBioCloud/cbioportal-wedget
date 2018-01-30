@@ -35,6 +35,7 @@
     "mobx-react-devtools": "^4.2.15",
     "mobx-utils": "^3.2.2",
     "mobxpromise": "^1.2.0",
+    "oncoprintjs": "^1.0.78",
     "prop-types": "^15.6.0",
     "rc-tooltip": "^3.7.0",
     "react": "^16.2.0",
