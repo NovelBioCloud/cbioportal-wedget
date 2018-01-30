@@ -21,6 +21,8 @@ export default class CnaColumnFormatter {
 			case 2:
 				color = "#FF0000";
 				break;
+			default:
+				break;
 		}
 		if (!color) {
 			return <span />;

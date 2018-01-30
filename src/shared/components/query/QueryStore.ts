@@ -971,7 +971,7 @@ export class QueryStore {
 
 	@computed
 	get singleSelectedStudyId() {
-		return this.selectedStudyIds.length == 1
+		return this.selectedStudyIds.length === 1
 			? this.selectedStudyIds[0]
 			: undefined;
 	}
@@ -1117,7 +1117,7 @@ export class QueryStore {
 		molecularAlterationType: MolecularProfile["molecularAlterationType"]
 	) {
 		return this.molecularProfiles.result.filter(profile => {
-			if (profile.molecularAlterationType != molecularAlterationType)
+			if (profile.molecularAlterationType !== molecularAlterationType)
 				return false;
 
 			return profile.showProfileInAnalysisTab || this.forDownloadTab;
@@ -1760,7 +1760,7 @@ export class QueryStore {
 		historyUrl = historyUrl.split('#crosscancer').join('#/home#crosscancer');
 
 		let newUrl = buildCBioPortalUrl(urlParams);
-		if (historyUrl != newUrl)
+		if (historyUrl !== newUrl)
 			window.history.pushState(null, window.document.title, historyUrl);*/
 
 		formSubmit(urlParams.pathname, urlParams.query, undefined, "smart");

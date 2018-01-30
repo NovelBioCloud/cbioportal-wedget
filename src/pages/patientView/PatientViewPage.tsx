@@ -99,7 +99,7 @@ export default class PatientViewPage extends React.Component<IPatientViewPagePro
 	}
 
 	public componentWillUnmount() {
-		//dispose reaction
+		// dispose reaction
 		this.updatePageTitleReaction();
 	}
 
@@ -128,7 +128,7 @@ export default class PatientViewPage extends React.Component<IPatientViewPagePro
 
 	private handlePatientClick(id: string) {
 		let values = id.split(":");
-		if (values.length == 2) {
+		if (values.length === 2) {
 			this.props.routing.updateRoute({
 				studyId: values[0],
 				caseId: values[1],
@@ -331,7 +331,7 @@ export default class PatientViewPage extends React.Component<IPatientViewPagePro
 								</table>
 							</div>
 							<div className="studyMetaBar">
-								{studyName} <If condition={cohortNav != null}>{cohortNav}</If>
+								{studyName} <If condition={cohortNav !== null}>{cohortNav}</If>
 							</div>
 						</div>
 					)}

@@ -15,7 +15,7 @@ export interface ITruncatedTextProps {
 }
 
 export function isTooLong(text: string, maxLength: number, buffer?: number): boolean {
-	return text != null && text.length > maxLength + (buffer || 0);
+	return text !== null && text.length > maxLength + (buffer || 0);
 }
 
 export function truncateText(text: string, suffix: string, maxLength: number, buffer?: number) {

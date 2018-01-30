@@ -31,8 +31,8 @@ export function getPatientSurvivals(
 					if (
 						statusClinicalData &&
 						monthsClinicalData &&
-						statusClinicalData.value != "NA" &&
-						monthsClinicalData.value != "NA" &&
+						statusClinicalData.value !== "NA" &&
+						monthsClinicalData.value !== "NA" &&
 						!Number.isNaN(Number(monthsClinicalData.value))
 					) {
 						const patient: Patient = patients.filter(

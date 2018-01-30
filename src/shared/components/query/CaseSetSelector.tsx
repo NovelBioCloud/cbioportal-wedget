@@ -132,7 +132,7 @@ export default class CaseSetSelector extends QueryStoreComponent<{}, {}> {
 		<label>
 			<input
 				type="radio"
-				checked={this.store.caseIdsMode == props.state}
+				checked={this.store.caseIdsMode === props.state}
 				onChange={event => {
 					if (event.currentTarget.checked) this.store.caseIdsMode = props.state;
 				}}

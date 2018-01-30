@@ -35,9 +35,8 @@ export default class MutationRateSummary extends React.Component<IMutationRateSu
 				{rate.toFixed(1)}%
 				<DefaultTooltip
 					placement="right"
-					overlay={
-						<span>{"Percentage of samples with a somatic mutation in " + this.props.hugoGeneSymbol}</span>
-					}
+					overlay={<span>{"Percentage of samples with a somatic mutation in " + this.props.hugoGeneSymbol}
+					</span>}
 				>
 					<i className="glyphicon glyphicon-info-sign" style={{ marginLeft: 5 }} />
 				</DefaultTooltip>
@@ -77,8 +76,8 @@ export default class MutationRateSummary extends React.Component<IMutationRateSu
 				<DefaultTooltip
 					placement="right"
 					overlay={
-						<span>{"Percentage of samples with a germline mutation in " + this.props.hugoGeneSymbol}</span>
-					}
+						<span>{"Percentage of samples with a germline mutation in " + this.props.hugoGeneSymbol}
+						</span>}
 				>
 					<i className="glyphicon glyphicon-info-sign" style={{ marginLeft: 5 }} />
 				</DefaultTooltip>

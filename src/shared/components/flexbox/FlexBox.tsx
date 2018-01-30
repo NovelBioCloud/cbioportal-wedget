@@ -27,7 +27,7 @@ function renderBox<T>(props: IFlexBoxProps<T>, flexDirection: "row" | "column"):
 		flexDirection
 	};
 	let className = classNames(props.className, styles[flexDirection], padded && styles.padded);
-	const newAttributes = (attributes as any);
+	const newAttributes = attributes as any;
 	return <div {...newAttributes} style={style} className={className} />;
 }
 

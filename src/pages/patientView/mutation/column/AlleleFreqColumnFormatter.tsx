@@ -11,8 +11,9 @@ export default class AlleleFreqColumnFormatter {
 	static barWidth = 6;
 	static barSpacing = 3;
 	static maxBarHeight = 12;
-	static indexToBarLeft = (n: number) =>
-		n * (AlleleFreqColumnFormatter.barWidth + AlleleFreqColumnFormatter.barSpacing);
+	static indexToBarLeft = (n: number) => {
+		return n * (AlleleFreqColumnFormatter.barWidth + AlleleFreqColumnFormatter.barSpacing);
+	};
 
 	public static getComponentForSampleArgs<T extends { tumorAltCount: number; molecularProfileId: string }>(
 		mutation: T

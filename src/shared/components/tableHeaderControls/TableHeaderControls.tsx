@@ -109,7 +109,7 @@ export default class TableHeaderControls extends React.Component<ITableHeaderCon
 			if (this.props.handleInput) {
 				this.props.handleInput(filterValue);
 			}
-		}, this.props.searchDelayMs);
+		}, this.props.searchDelayMs) as any;
 	}
 
 	public render() {

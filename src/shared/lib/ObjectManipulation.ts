@@ -23,7 +23,7 @@ export function renameKeys(dict: any, keyMap: { [key: string]: string }) {
 /*
  * Return new dict w/o given keys (only works on flat dicts)
  */
-export function dropKeys<T>(dict: T, keys: string[]): T {
+export function dropKeys<T>(dict: T[], keys: string[]): T {
 	return reduce(
 		dict,
 		(newDict: any, val: any, key: string) => {

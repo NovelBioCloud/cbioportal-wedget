@@ -120,7 +120,7 @@ export default class MolecularProfileSelector extends QueryStoreComponent<{}, {}
 			/>
 		));
 
-		if (this.store.forDownloadTab || profiles.length == 1) output.push(...profileToggles);
+		if (this.store.forDownloadTab || profiles.length === 1) output.push(...profileToggles);
 		else
 			output.push(
 				<div key={"group:" + molecularAlterationType} className={styles.group}>
@@ -130,7 +130,7 @@ export default class MolecularProfileSelector extends QueryStoreComponent<{}, {}
 
 		if (this.store.forDownloadTab) return output;
 
-		if (groupIsSelected && molecularAlterationType == "MRNA_EXPRESSION") {
+		if (groupIsSelected && molecularAlterationType === "MRNA_EXPRESSION") {
 			output.push(
 				<div key={output.length} className={styles.zScore}>
 					Enter a z-score threshold{" "}
@@ -150,7 +150,7 @@ export default class MolecularProfileSelector extends QueryStoreComponent<{}, {}
 			);
 		}
 
-		if (groupIsSelected && molecularAlterationType == "PROTEIN_LEVEL") {
+		if (groupIsSelected && molecularAlterationType === "PROTEIN_LEVEL") {
 			output.push(
 				<div key={output.length} className={styles.zScore}>
 					Enter a z-score threshold{" "}

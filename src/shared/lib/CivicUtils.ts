@@ -128,8 +128,8 @@ export function getCivicVariants(
 				for (let variantName in geneVariants) {
 					// Only retrieve CNA variants
 					if (
-						variantName == "AMPLIFICATION" ||
-						variantName == "DELETION"
+						variantName === "AMPLIFICATION" ||
+						variantName === "DELETION"
 					) {
 						promises.push(
 							addCivicVariant(

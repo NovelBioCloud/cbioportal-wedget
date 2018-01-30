@@ -800,7 +800,7 @@ var EnhancedFixedDataTable = (function () {
                 var allFlag = false; // Current row contains the global keyword
                 for (var col in filters) {
                     if (!filters[col].hide) {
-                        if (filters[col].type == "STRING") {
+                        if (filters[col].type === "STRING") {
                             if (!row[col] && hasGroupHeader) {
                                 if (filters[col].key.length > 0) {
                                     return false;
@@ -813,7 +813,7 @@ var EnhancedFixedDataTable = (function () {
                                     allFlag = true;
                                 }
                             }
-                        } else if (filters[col].type === "NUMBER" || filters[col].type == 'PERCENTAGE') {
+                        } else if (filters[col].type === "NUMBER" || filters[col].type === 'PERCENTAGE') {
                             var cell = _.isUndefined(row[col]) ? row[col] : Number(row[col].toString().replace('%', ''));
                             if (!isNaN(cell)) {
                                 if (hasGroupHeader) {
@@ -860,15 +860,15 @@ var EnhancedFixedDataTable = (function () {
 
             filteredRows.sort(function (a, b) {
                 var sortVal = 0, aVal = a.row[sortBy], bVal = b.row[sortBy];
-                if (type == "NUMBER") {
+                if (type === "NUMBER") {
                     aVal = (aVal && !isNaN(aVal)) ? Number(aVal) : aVal;
                     bVal = (bVal && !isNaN(bVal)) ? Number(bVal) : bVal;
                 }
-                if (type == 'PERCENTAGE') {
+                if (type === 'PERCENTAGE') {
                     aVal = aVal ? Number(aVal.replace('%', '')) : aVal;
                     bVal = bVal ? Number(bVal.replace('%', '')) : bVal;
                 }
-                if (typeof aVal != "undefined" && !isNaN(aVal) && typeof bVal != "undefined" && !isNaN(bVal)) {
+                if (typeof aVal !== "undefined" && !isNaN(aVal) && typeof bVal !== "undefined" && !isNaN(bVal)) {
                     if (aVal > bVal) {
                         sortVal = 1;
                     }
@@ -879,7 +879,7 @@ var EnhancedFixedDataTable = (function () {
                     if (sortDir === SortTypes.ASC) {
                         sortVal = sortVal * -1;
                     }
-                } else if (typeof aVal != "undefined" && typeof bVal != "undefined") {
+                } else if (typeof aVal !== "undefined" && typeof bVal !== "undefined") {
                     if (!isNaN(aVal)) {
                         sortVal = -1;
                     } else if (!isNaN(bVal)) {
@@ -943,7 +943,7 @@ var EnhancedFixedDataTable = (function () {
             var self = this;
             var id = setTimeout(function () {
                 var filterAll = self.state.filterAll, filters = self.state.filters;
-                if (e.target.getAttribute("data-column") == "all") {
+                if (e.target.getAttribute("data-column") === "all") {
                     filterAll = e.target.value;
                 } else {
                     filters[e.target.getAttribute("data-column")].key = e.target.value;
@@ -1115,11 +1115,11 @@ var EnhancedFixedDataTable = (function () {
                     hide: !col.show
                 };
 
-                if (col.type == "NUMBER" || col.type == "PERCENTAGE") {
+                if (col.type === "NUMBER" || col.type === "PERCENTAGE") {
                     var min = Number.MAX_VALUE, max = -Number.MAX_VALUE;
                     for (var j = 0; j < rows.length; j++) {
                         cell = _.isUndefined(rows[j][col.name]) ? rows[j][col.name] : rows[j][col.name].toString().replace('%');
-                        if (typeof cell != "undefined" && !isNaN(cell)) {
+                        if (typeof cell !== "undefined" && !isNaN(cell)) {
                             cell = Number(cell);
                             max = cell > max ? cell : max;
                             min = cell < min ? cell : min;

@@ -55,7 +55,9 @@ export default class ClinicalInformationSamplesTable extends React.Component<
 	public prepareData(sampleInvertedData: IConvertedSamplesData) {
 		const tableData: ISampleRow[] = [];
 
-		for (const key in sampleInvertedData.items) {
+		// tslint:disable-next-line:whitespace
+		// tslint:disable-next-line:forin
+		for (let key in sampleInvertedData.items) {
 			const rowData = sampleInvertedData.items[key];
 
 			const row: ISampleRow = {

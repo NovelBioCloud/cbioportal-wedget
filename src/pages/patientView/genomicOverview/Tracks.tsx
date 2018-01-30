@@ -69,7 +69,7 @@ export default class Tracks extends React.Component<TracksPropTypes, {}> {
 						x: parseInt($container.attr("x"), 10) - 10,
 						y: parseInt($container.attr("y"), 10) - 5
 					};
-					const $newContainer = $('<svg height="12" width="12" />').attr(pos);
+					const $newContainer = $(`<svg height="12" width="12" />`).attr(pos);
 					$container.replaceWith($newContainer);
 
 					let comp: any = this.props.sampleManager.getComponentForSample(sample.id);

@@ -1,7 +1,7 @@
 import { Mutation } from "../../shared/api/generated/CBioPortalAPI";
 import { getSimplifiedMutationType } from "../../shared/lib/oql/accessors";
 
-//testIt
+// testIt
 export function countMutations(mutations: Mutation[]) {
 	const mutationPositionIdentifiers: any = {};
 	for (const mutation of mutations) {

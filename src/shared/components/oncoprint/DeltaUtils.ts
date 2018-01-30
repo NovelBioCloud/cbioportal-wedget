@@ -674,7 +674,7 @@ function transitionClinicalTrack(
 			},
 			sort_direction_changeable: true,
 			tooltipFn: makeClinicalTrackTooltip(nextSpec, true),
-			//track_info: "\u23f3",
+			// track_info: "\u23f3",
 			sortCmpFn: getClinicalTrackSortComparator(nextSpec),
 			init_sort_direction: 0 as 0,
 			target_group: CLINICAL_TRACK_GROUP_INDEX,

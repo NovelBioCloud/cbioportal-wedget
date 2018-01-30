@@ -24,7 +24,11 @@ export default class AjaxErrorModal extends React.Component<IAjaxErrorModalProps
 				</Modal.Header>
 				<Modal.Body>
 					<p>Troubleshooting:</p>
-					<ul>{(this.props.troubleshooting || this.defaultTroubleshooting).map(s => <li>{s}</li>)}</ul>
+					<ul>
+						{(this.props.troubleshooting || this.defaultTroubleshooting).map((s, index) => {
+							return <li key={index}>{s}</li>;
+						})}
+					</ul>
 				</Modal.Body>
 			</Modal>
 		);

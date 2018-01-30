@@ -167,6 +167,8 @@ export function fillGeneticTrackDatum(
 					dispMutCounts[oncoprintMutationType] += 1;
 				}
 				break;
+			default:
+				break;
 		}
 	}
 	if (dispFusion) {

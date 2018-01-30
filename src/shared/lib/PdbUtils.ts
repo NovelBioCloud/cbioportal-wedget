@@ -206,9 +206,9 @@ function calcIdentityPerc(alignment: string): number {
 			// increment gap count (gaps excluded from ratio calculation)
 			gap++;
 		} else if (
-			symbol == ALIGNMENT_MINUS ||
-			symbol == ALIGNMENT_PLUS ||
-			symbol == ALIGNMENT_SPACE
+			symbol === ALIGNMENT_MINUS ||
+			symbol === ALIGNMENT_PLUS ||
+			symbol === ALIGNMENT_SPACE
 		) {
 			// any special symbol other than a gap is considered as a mismatch
 			// TODO is it better to assign a different weight for each symbol?

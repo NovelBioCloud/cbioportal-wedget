@@ -11,11 +11,11 @@ export default class TumorColumnFormatter {
 
 		const presentSamples = TumorColumnFormatter.getPresentSamples(data);
 
-		let tdValue = sampleManager.samples.map((sample: any) => {
+		let tdValue = sampleManager.samples.map((sample: any, index: number) => {
 			// hide labels for non-existent mutation data
 			// decreased opacity for uncalled mutations
 			return (
-				<li className={sample.id in presentSamples ? "" : "invisible"}>
+				<li className={sample.id in presentSamples ? "" : "invisible"} key={index}>
 					{sampleManager.getComponentForSample(
 						sample.id,
 						presentSamples[sample.id] ? 1 : 0.1,
@@ -82,7 +82,7 @@ export default class TumorColumnFormatter {
 				result.push(datum.sampleId);
 			});
 		}
-		if (result.length == 1) {
+		if (result.length === 1) {
 			return result[0];
 		}
 		return result;

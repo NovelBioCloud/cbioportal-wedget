@@ -57,7 +57,7 @@ export default class GenomicOverview extends React.Component<
 			<div style={{ display: "flex" }}>
 				<Tracks
 					mutations={_.flatten(this.props.mergedMutations)}
-					key={Math.random() /* Force remounting on every render */}
+					key={Math.random()}
 					sampleManager={this.props.sampleManager}
 					width={this.getTracksWidth()}
 					cnaSegments={this.props.cnaSegments}

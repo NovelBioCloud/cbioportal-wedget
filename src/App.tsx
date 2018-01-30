@@ -14,9 +14,6 @@ import {
 import { setInterval } from "timers";
 // import onMobxPromise from './onMobxPromist';
 // useStrict(true);
-/**
- * Constructs a MobxPromise which will call seamlessImmutable.from() on the result and the default value.
- */
 const delay = (time: number) => {
 	return new Promise((resolve, reject) => {
 		setTimeout(resolve, time);

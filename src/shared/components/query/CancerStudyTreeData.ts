@@ -103,7 +103,7 @@ export default class CancerStudyTreeData {
 		// initialize lookups and metadata entries
 		for (nodes of [cancerTypes, studies]) {
 			for (node of nodes) {
-				let isCancerType = nodes == cancerTypes;
+				let isCancerType = nodes === cancerTypes;
 				if (isCancerType) {
 					this.map_cancerTypeId_cancerType.set(
 						node.cancerTypeId,

@@ -71,10 +71,10 @@ export default class Civic extends React.Component<ICivicProps, {}> {
 			civicImgSrc = require("./images/civic-logo-no-variants.png");
 		}
 
-		if (this.props.civicStatus == "error") {
+		if (this.props.civicStatus === "error") {
 			civicContent = this.errorIcon();
 		} else if (this.props.civicEntry !== undefined) {
-			if (this.props.civicEntry !== null && this.props.civicStatus == "complete") {
+			if (this.props.civicEntry !== null && this.props.civicStatus === "complete") {
 				civicContent = (
 					<span className={`${annotationStyles["annotation-item"]}`}>
 						<img

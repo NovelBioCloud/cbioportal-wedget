@@ -234,13 +234,13 @@ export class FilteredCancerTreeView {
 			let checked = shownAndSelectedStudies.length > 0;
 			let indeterminate =
 				checked &&
-				shownAndSelectedStudies.length != shownStudies.length;
+				shownAndSelectedStudies.length !== shownStudies.length;
 
 			return { checked, indeterminate };
 		} else {
 			let study = node as CancerStudy;
 			let checked = !!this.store.selectedStudyIds.find(
-				id => id == study.studyId
+				id => id === study.studyId
 			);
 			return { checked };
 		}

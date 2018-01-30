@@ -8,7 +8,7 @@ const config: IAppConfig = {
 		"tcga -provisional",
 		"tcga -moratorium",
 		"tcga OR icgc",
-		'-"cell line"',
+		`-"cell line"`,
 		"prostate mskcc",
 		"esophageal OR stomach",
 		"serous",

@@ -43,7 +43,7 @@ export default class GeneSymbolValidator extends QueryStoreComponent<{}, {}> {
 				</div>
 			);
 
-		if (this.store.genes.isPending && this.store.genes.result.suggestions.length == 0)
+		if (this.store.genes.isPending && this.store.genes.result.suggestions.length === 0)
 			return (
 				<div className={styles.GeneSymbolValidator}>
 					<span className={styles.pendingMessage}>Validating gene symbols...</span>
@@ -73,7 +73,7 @@ export default class GeneSymbolValidator extends QueryStoreComponent<{}, {}> {
 	}
 
 	renderSuggestion({ alias, genes }: GeneReplacement, key: number) {
-		if (genes.length == 0) {
+		if (genes.length === 0) {
 			let title = "Could not find gene symbol. Click to remove it from the gene list.";
 			let onClick = () => this.store.replaceGene(alias, "");
 			return (
@@ -84,7 +84,7 @@ export default class GeneSymbolValidator extends QueryStoreComponent<{}, {}> {
 			);
 		}
 
-		if (genes.length == 1) {
+		if (genes.length === 1) {
 			let { hugoGeneSymbol } = genes[0];
 			let title = `'${alias}' is a synonym for '${hugoGeneSymbol}'. Click here to replace it with the official symbol.`;
 			let onClick = () => this.store.replaceGene(alias, hugoGeneSymbol);

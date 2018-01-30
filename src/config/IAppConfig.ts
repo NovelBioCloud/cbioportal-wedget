@@ -5,10 +5,10 @@ export interface IAppConfig {
 	skinExampleStudyQueries: string[]; // in query the example searches
 	priorityStudies: PriorityStudies;
 	maxTreeDepth: number;
-	//priorityStudies: {
+	// priorityStudies: {
 	//    'Shared institutional Data Sets': ['mskimpact', 'cellline_mskcc'],
 	//    'Priority Studies': ['blca_tcga_pub', 'coadread_tcga_pub', 'brca_tcga_pub2015'], // for demo
-	//},
+	// },
 	showCivic?: boolean;
 	showHotspot?: boolean;
 	showMyCancerGenome?: boolean;

@@ -107,7 +107,7 @@ export default class StudyList extends QueryStoreComponent<IStudyListProps, {}> 
 		let heading: JSX.Element | undefined;
 		let indentArrow: JSX.Element | undefined;
 
-		if (cancerType != this.rootCancerType) {
+		if (cancerType !== this.rootCancerType) {
 			let liClassName = classNames(
 				styles.CancerType,
 				styles.Level(currentLevel),

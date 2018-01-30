@@ -86,10 +86,7 @@ export default class Genome2StructureAPI {
 		resolve: CallbackHandler,
 		errorHandlers: CallbackHandler[]
 	) {
-		let req = (new (request as any).Request(
-			method,
-			url
-		) as request.Request).query(queryParameters);
+		let req = (new (request as any).Request(method, url) as request.Request).query(queryParameters);
 		Object.keys(headers).forEach(key => {
 			req.set(key, headers[key]);
 		});
@@ -133,9 +130,7 @@ export default class Genome2StructureAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -145,29 +140,21 @@ export default class Genome2StructureAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
 
 	/**
-    * Get PDB Alignments by Protein Sequence
-    * @method
-    * @name Genome2StructureAPI#getPdbAlignmentBySequenceUsingGET
-         * @param {string} sequence - Input Protein Sequence: ETGQSVNDPGNMSFVKETVDKLLKGYDIRLRPDFGGPP
-         * @param {array} paramList - Default Blast Parameters:
-     Evalue=1e-10,Wordsize=3,Gapopen=11,Gapextend=1,
-     Matrix=BLOSUM62,Comp_based_stats=2,
-    Threshold=11,Windowsize=40
-    */
+	 * Get PDB Alignments by Protein Sequence
+	 * @method
+	 * @name Genome2StructureAPI#getPdbAlignmentBySequenceUsingGET
+	 * @param {string} sequence - Input Protein Sequence: ETGQSVNDPGNMSFVKETVDKLLKGYDIRLRPDFGGPP
+	 * @param {array} paramList - Default Blast Parameters:
+	 *  Evalue=1e-10,Wordsize=3,Gapopen=11,Gapextend=1,
+	 *  Matrix=BLOSUM62,Comp_based_stats=2,
+	 * Threshold=11,Windowsize=40
+	 */
 	getPdbAlignmentBySequenceUsingGET(parameters: {
 		sequence: string;
 		paramList?: Array<string>;
@@ -200,25 +187,13 @@ export default class Genome2StructureAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -240,9 +215,7 @@ export default class Genome2StructureAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -252,29 +225,21 @@ export default class Genome2StructureAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
 
 	/**
-    * Get PDB Alignments by Protein Sequence
-    * @method
-    * @name Genome2StructureAPI#getPdbAlignmentBySequenceUsingPOST
-         * @param {string} sequence - Input Protein Sequence: ETGQSVNDPGNMSFVKETVDKLLKGYDIRLRPDFGGPP
-         * @param {array} paramList - Default Blast Parameters:
-     Evalue=1e-10,Wordsize=3,Gapopen=11,Gapextend=1,
-     Matrix=BLOSUM62,Comp_based_stats=2,
-    Threshold=11,Windowsize=40
-    */
+	 * Get PDB Alignments by Protein Sequence
+	 * @method
+	 * @name Genome2StructureAPI#getPdbAlignmentBySequenceUsingPOST
+	 * @param {string} sequence - Input Protein Sequence: ETGQSVNDPGNMSFVKETVDKLLKGYDIRLRPDFGGPP
+	 * @param {array} paramList - Default Blast Parameters:
+	 *  Evalue=1e-10,Wordsize=3,Gapopen=11,Gapextend=1,
+	 *  Matrix=BLOSUM62,Comp_based_stats=2,
+	 * Threshold=11,Windowsize=40
+	 */
 	getPdbAlignmentBySequenceUsingPOST(parameters: {
 		sequence: string;
 		paramList?: Array<string>;
@@ -307,25 +272,13 @@ export default class Genome2StructureAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -352,9 +305,7 @@ export default class Genome2StructureAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -364,30 +315,22 @@ export default class Genome2StructureAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
 
 	/**
-    * Get PDB Residue Mapping by Protein Sequence and Residue position
-    * @method
-    * @name Genome2StructureAPI#getPdbAlignmentReisudeBySequenceUsingGET
-         * @param {string} sequence - Input Protein Sequence: ETGQSVNDPGNMSFVKETVDKLLKGYDIRLRPDFGGPP
-         * @param {array} positionList - Input Residue Positions e.g. 10,20
-         * @param {array} paramList - Default Blast Parameters:
-     Evalue=1e-10,Wordsize=3,Gapopen=11,Gapextend=1,
-     Matrix=BLOSUM62,Comp_based_stats=2,
-    Threshold=11,Windowsize=40
-    */
+	 * Get PDB Residue Mapping by Protein Sequence and Residue position
+	 * @method
+	 * @name Genome2StructureAPI#getPdbAlignmentReisudeBySequenceUsingGET
+	 * @param {string} sequence - Input Protein Sequence: ETGQSVNDPGNMSFVKETVDKLLKGYDIRLRPDFGGPP
+	 * @param {array} positionList - Input Residue Positions e.g. 10,20
+	 * @param {array} paramList - Default Blast Parameters:
+	 *  Evalue=1e-10,Wordsize=3,Gapopen=11,Gapextend=1,
+	 *  Matrix=BLOSUM62,Comp_based_stats=2,
+	 * Threshold=11,Windowsize=40
+	 */
 	getPdbAlignmentReisudeBySequenceUsingGET(parameters: {
 		sequence: string;
 		positionList?: Array<string>;
@@ -425,25 +368,13 @@ export default class Genome2StructureAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -470,9 +401,7 @@ export default class Genome2StructureAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -482,30 +411,22 @@ export default class Genome2StructureAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
 
 	/**
-    * Get PDB Residue Mapping by Protein Sequence and Residue position
-    * @method
-    * @name Genome2StructureAPI#getPdbAlignmentReisudeBySequenceUsingPOST
-         * @param {string} sequence - Input Protein Sequence: ETGQSVNDPGNMSFVKETVDKLLKGYDIRLRPDFGGPP
-         * @param {array} positionList - Input Residue Positions e.g. 10,20
-         * @param {array} paramList - Default Blast Parameters:
-     Evalue=1e-10,Wordsize=3,Gapopen=11,Gapextend=1,
-     Matrix=BLOSUM62,Comp_based_stats=2,
-    Threshold=11,Windowsize=40
-    */
+	 * Get PDB Residue Mapping by Protein Sequence and Residue position
+	 * @method
+	 * @name Genome2StructureAPI#getPdbAlignmentReisudeBySequenceUsingPOST
+	 * @param {string} sequence - Input Protein Sequence: ETGQSVNDPGNMSFVKETVDKLLKGYDIRLRPDFGGPP
+	 * @param {array} positionList - Input Residue Positions e.g. 10,20
+	 * @param {array} paramList - Default Blast Parameters:
+	 *  Evalue=1e-10,Wordsize=3,Gapopen=11,Gapextend=1,
+	 *  Matrix=BLOSUM62,Comp_based_stats=2,
+	 * Threshold=11,Windowsize=40
+	 */
 	getPdbAlignmentReisudeBySequenceUsingPOST(parameters: {
 		sequence: string;
 		positionList?: Array<string>;
@@ -543,35 +464,19 @@ export default class Genome2StructureAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
 	}
 
-	getAlignmentUsingGETURL(parameters: {
-		idType: string;
-		id: string;
-		$queryParameters?: any;
-	}): string {
+	getAlignmentUsingGETURL(parameters: { idType: string; id: string; $queryParameters?: any }): string {
 		let queryParameters: any = {};
 		let path = "/api/alignments/{id_type}/{id}";
 
@@ -580,9 +485,7 @@ export default class Genome2StructureAPI {
 		path = path.replace("{id}", parameters["id"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -592,27 +495,19 @@ export default class Genome2StructureAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
 
 	/**
-    * Get PDB Alignments by ProteinId
-    * @method
-    * @name Genome2StructureAPI#getAlignmentUsingGET
-         * @param {string} idType - Input id_type: ensembl; uniprot; uniprot_isoform
-         * @param {string} id - Input id e.g.
-    ensembl:ENSP00000484409.1/ENSG00000141510.16/ENST00000504290.5; uniprot:P04637/P53_HUMAN; uniprot_isoform:P04637_9/P53_HUMAN_9 
-    */
+	 * Get PDB Alignments by ProteinId
+	 * @method
+	 * @name Genome2StructureAPI#getAlignmentUsingGET
+	 * @param {string} idType - Input id_type: ensembl; uniprot; uniprot_isoform
+	 * @param {string} id - Input id e.g.
+	 *  ensembl:ENSP00000484409.1/ENSG00000141510.16/ENST00000504290.5; uniprot:P04637/P53_HUMAN; uniprot_isoform:P04637_9/P53_HUMAN_9
+	 */
 	getAlignmentUsingGET(parameters: {
 		idType: string;
 		id: string;
@@ -646,25 +541,13 @@ export default class Genome2StructureAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -689,9 +572,7 @@ export default class Genome2StructureAPI {
 		path = path.replace("{chain_id}", parameters["chainId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -701,29 +582,21 @@ export default class Genome2StructureAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
 
 	/**
-    * Get PDB Alignments by ProteinId, PDBId and Chain
-    * @method
-    * @name Genome2StructureAPI#getAlignmentByPDBUsingGET
-         * @param {string} idType - Input id_type: ensembl; uniprot; uniprot_isoform
-         * @param {string} id - Input id e.g.
-    ensembl:ENSP00000484409.1/ENSG00000141510.16/ENST00000504290.5; uniprot:P04637/P53_HUMAN; uniprot_isoform:P04637_9/P53_HUMAN_9 
-         * @param {string} pdbId - Input PDB Id e.g. 2fej
-         * @param {string} chainId - Input Chain e.g. A
-    */
+	 * Get PDB Alignments by ProteinId, PDBId and Chain
+	 * @method
+	 * @name Genome2StructureAPI#getAlignmentByPDBUsingGET
+	 * @param {string} idType - Input id_type: ensembl; uniprot; uniprot_isoform
+	 * @param {string} id - Input id e.g.
+	 * ensembl:ENSP00000484409.1/ENSG00000141510.16/ENST00000504290.5; uniprot:P04637/P53_HUMAN; uniprot_isoform:P04637_9/P53_HUMAN_9
+	 * @param {string} pdbId - Input PDB Id e.g. 2fej
+	 * @param {string} chainId - Input Chain e.g. A
+	 */
 	getAlignmentByPDBUsingGET(parameters: {
 		idType: string;
 		id: string;
@@ -773,25 +646,13 @@ export default class Genome2StructureAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -806,8 +667,7 @@ export default class Genome2StructureAPI {
 		$queryParameters?: any;
 	}): string {
 		let queryParameters: any = {};
-		let path =
-			"/api/alignments/{id_type}/{id}/pdb/{pdb_id}_{chain_id}/residueMapping";
+		let path = "/api/alignments/{id_type}/{id}/pdb/{pdb_id}_{chain_id}/residueMapping";
 
 		path = path.replace("{id_type}", parameters["idType"] + "");
 
@@ -821,9 +681,7 @@ export default class Genome2StructureAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -833,35 +691,27 @@ export default class Genome2StructureAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
 
 	/**
-    * Post Residue Mapping by ProteinId, PDBId and Chain
-    * @method
-    * @name Genome2StructureAPI#postResidueMappingByPDBUsingGET
-         * @param {string} idType - Input id_type: ensembl; uniprot; uniprot_isoform; hgvs; hgvs38
-         * @param {string} id - Input id e.g. 
-    ensembl:ENSP00000484409.1/ENSG00000141510.16/ENST00000504290.5;
-    uniprot:P04637/P53_HUMAN;
-    uniprot_isoform:P04637_9/P53_HUMAN_9;
-    hgvs:17:g.79478130C>G;
-    hgvs38:17:g.7676594T>G
-         * @param {string} pdbId - Input PDB Id e.g. 2fej
-         * @param {string} chainId - Input Chain e.g. A
-         * @param {array} positionList - Input Residue Positions e.g. 10,100 (Anynumber for hgvs);
-    Return all residue mappings if none
-    */
+	 * Post Residue Mapping by ProteinId, PDBId and Chain
+	 * @method
+	 * @name Genome2StructureAPI#postResidueMappingByPDBUsingGET
+	 * @param {string} idType - Input id_type: ensembl; uniprot; uniprot_isoform; hgvs; hgvs38
+	 * @param {string} id - Input id e.g.
+	 *  ensembl:ENSP00000484409.1/ENSG00000141510.16/ENST00000504290.5;
+	 *  uniprot:P04637/P53_HUMAN;
+	 *  uniprot_isoform:P04637_9/P53_HUMAN_9;
+	 *  hgvs:17:g.79478130C>G;
+	 *  hgvs38:17:g.7676594T>G
+	 * @param {string} pdbId - Input PDB Id e.g. 2fej
+	 * @param {string} chainId - Input Chain e.g. A
+	 * @param {array} positionList - Input Residue Positions e.g. 10,100 (Anynumber for hgvs);
+	 *  Return all residue mappings if none
+	 */
 	postResidueMappingByPDBUsingGET(parameters: {
 		idType: string;
 		id: string;
@@ -874,8 +724,7 @@ export default class Genome2StructureAPI {
 		const domain = parameters.$domain ? parameters.$domain : this.domain;
 		const errorHandlers = this.errorHandlers;
 		const request = this.request;
-		let path =
-			"/api/alignments/{id_type}/{id}/pdb/{pdb_id}_{chain_id}/residueMapping";
+		let path = "/api/alignments/{id_type}/{id}/pdb/{pdb_id}_{chain_id}/residueMapping";
 		let body: any;
 		let queryParameters: any = {};
 		let headers: any = {};
@@ -917,25 +766,13 @@ export default class Genome2StructureAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -950,8 +787,7 @@ export default class Genome2StructureAPI {
 		$queryParameters?: any;
 	}): string {
 		let queryParameters: any = {};
-		let path =
-			"/api/alignments/{id_type}/{id}/pdb/{pdb_id}_{chain_id}/residueMapping";
+		let path = "/api/alignments/{id_type}/{id}/pdb/{pdb_id}_{chain_id}/residueMapping";
 
 		path = path.replace("{id_type}", parameters["idType"] + "");
 
@@ -965,9 +801,7 @@ export default class Genome2StructureAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -977,35 +811,27 @@ export default class Genome2StructureAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
 
 	/**
-    * Post Residue Mapping by ProteinId, PDBId and Chain
-    * @method
-    * @name Genome2StructureAPI#postResidueMappingByPDBUsingPOST
-         * @param {string} idType - Input id_type: ensembl; uniprot; uniprot_isoform; hgvs; hgvs38
-         * @param {string} id - Input id e.g. 
-    ensembl:ENSP00000484409.1/ENSG00000141510.16/ENST00000504290.5;
-    uniprot:P04637/P53_HUMAN;
-    uniprot_isoform:P04637_9/P53_HUMAN_9;
-    hgvs:17:g.79478130C>G;
-    hgvs38:17:g.7676594T>G
-         * @param {string} pdbId - Input PDB Id e.g. 2fej
-         * @param {string} chainId - Input Chain e.g. A
-         * @param {array} positionList - Input Residue Positions e.g. 10,100 (Anynumber for hgvs);
-    Return all residue mappings if none
-    */
+	 * Post Residue Mapping by ProteinId, PDBId and Chain
+	 * @method
+	 * @name Genome2StructureAPI#postResidueMappingByPDBUsingPOST
+	 * @param {string} idType - Input id_type: ensembl; uniprot; uniprot_isoform; hgvs; hgvs38
+	 * @param {string} id - Input id e.g.
+	 *  ensembl:ENSP00000484409.1/ENSG00000141510.16/ENST00000504290.5;
+	 *  uniprot:P04637/P53_HUMAN;
+	 *  uniprot_isoform:P04637_9/P53_HUMAN_9;
+	 *   hgvs:17:g.79478130C>G;
+	 *   hgvs38:17:g.7676594T>G
+	 * @param {string} pdbId - Input PDB Id e.g. 2fej
+	 * @param {string} chainId - Input Chain e.g. A
+	 * @param {array} positionList - Input Residue Positions e.g. 10,100 (Anynumber for hgvs);
+	 *  Return all residue mappings if none
+	 */
 	postResidueMappingByPDBUsingPOST(parameters: {
 		idType: string;
 		id: string;
@@ -1018,8 +844,7 @@ export default class Genome2StructureAPI {
 		const domain = parameters.$domain ? parameters.$domain : this.domain;
 		const errorHandlers = this.errorHandlers;
 		const request = this.request;
-		let path =
-			"/api/alignments/{id_type}/{id}/pdb/{pdb_id}_{chain_id}/residueMapping";
+		let path = "/api/alignments/{id_type}/{id}/pdb/{pdb_id}_{chain_id}/residueMapping";
 		let body: any;
 		let queryParameters: any = {};
 		let headers: any = {};
@@ -1061,25 +886,13 @@ export default class Genome2StructureAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -1102,9 +915,7 @@ export default class Genome2StructureAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -1114,34 +925,26 @@ export default class Genome2StructureAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
 
 	/**
-    * POST PDB Residue Mapping by ProteinId
-    * @method
-    * @name Genome2StructureAPI#postResidueMappingUsingGET
-         * @param {string} idType - Input id_type: ensembl; uniprot;
-    uniprot_isoform; hgvs; hgvs38
-         * @param {string} id - Input id e.g.
-    ensembl:ENSP00000484409.1/ENSG00000141510.16/ENST00000504290.5;
-    uniprot:P04637/P53_HUMAN;
-    uniprot_isoform:P04637_9/P53_HUMAN_9;
-    hgvs:17:g.79478130C>G;
-    hgvs38:17:g.7676594T>G
-         * @param {array} positionList - Input Residue Positions e.g. 10,100; Anynumber for hgvs;
-    Return all residue mappings if none
-    */
+	 * POST PDB Residue Mapping by ProteinId
+	 * @method
+	 * @name Genome2StructureAPI#postResidueMappingUsingGET
+	 * @param {string} idType - Input id_type: ensembl; uniprot;
+	 *  uniprot_isoform; hgvs; hgvs38
+	 * @param {string} id - Input id e.g.
+	 * ensembl:ENSP00000484409.1/ENSG00000141510.16/ENST00000504290.5;
+	 *  uniprot:P04637/P53_HUMAN;
+	 *  uniprot_isoform:P04637_9/P53_HUMAN_9;
+	 *  hgvs:17:g.79478130C>G;
+	 *  hgvs38:17:g.7676594T>G
+	 * @param {array} positionList - Input Residue Positions e.g. 10,100; Anynumber for hgvs;
+	 * Return all residue mappings if none
+	 */
 	postResidueMappingUsingGET(parameters: {
 		idType: string;
 		id: string;
@@ -1180,25 +983,13 @@ export default class Genome2StructureAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -1221,9 +1012,7 @@ export default class Genome2StructureAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -1233,34 +1022,26 @@ export default class Genome2StructureAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
 
 	/**
-    * POST PDB Residue Mapping by ProteinId
-    * @method
-    * @name Genome2StructureAPI#postResidueMappingUsingPOST
-         * @param {string} idType - Input id_type: ensembl; uniprot;
-    uniprot_isoform; hgvs; hgvs38
-         * @param {string} id - Input id e.g.
-    ensembl:ENSP00000484409.1/ENSG00000141510.16/ENST00000504290.5;
-    uniprot:P04637/P53_HUMAN;
-    uniprot_isoform:P04637_9/P53_HUMAN_9;
-    hgvs:17:g.79478130C>G;
-    hgvs38:17:g.7676594T>G
-         * @param {array} positionList - Input Residue Positions e.g. 10,100; Anynumber for hgvs;
-    Return all residue mappings if none
-    */
+	 * POST PDB Residue Mapping by ProteinId
+	 * @method
+	 * @name Genome2StructureAPI#postResidueMappingUsingPOST
+	 * @param {string} idType - Input id_type: ensembl; uniprot;
+	 *  uniprot_isoform; hgvs; hgvs38
+	 * @param {string} id - Input id e.g.
+	 *  ensembl:ENSP00000484409.1/ENSG00000141510.16/ENST00000504290.5;
+	 *  uniprot:P04637/P53_HUMAN;
+	 *  uniprot_isoform:P04637_9/P53_HUMAN_9;
+	 *  hgvs:17:g.79478130C>G;
+	 * hgvs38:17:g.7676594T>G
+	 * @param {array} positionList - Input Residue Positions e.g. 10,100; Anynumber for hgvs;
+	 *  Return all residue mappings if none
+	 */
 	postResidueMappingUsingPOST(parameters: {
 		idType: string;
 		id: string;
@@ -1299,25 +1080,13 @@ export default class Genome2StructureAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});

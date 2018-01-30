@@ -86,7 +86,7 @@ export default class SimpleCache<T, Query> {
 
 		// put the data into the actual cache
 		if (Object.keys(data).length > 0) {
-			this._cache = this._cache.merge(data, {
+			this._cache = this._cache.merge(data as any, {
 				deep: true
 			}) as ImmutableCache<T>;
 		}

@@ -215,7 +215,7 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 	public oncogenicImageClassNames(indicator?: IndicatorQueryResp): string {
 		let classNames: string[];
 
-		if (indicator && indicator.oncogenic != null) {
+		if (indicator && indicator.oncogenic !== null) {
 			classNames = oncogenicImageClassNames(
 				indicator.oncogenic,
 				indicator.vus,

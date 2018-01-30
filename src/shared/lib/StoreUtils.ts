@@ -442,7 +442,7 @@ export async function fetchCosmicData(
 			{
 				keywords: _.filter(
 					queryKeywords,
-					(query: string) => query != null
+					(query: string) => query !== null
 				)
 			}
 		);

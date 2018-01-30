@@ -542,10 +542,7 @@ export default class CBioPortalAPI {
 		resolve: CallbackHandler,
 		errorHandlers: CallbackHandler[]
 	) {
-		let req = (new (request as any).Request(
-			method,
-			url
-		) as request.Request).query(queryParameters);
+		let req = (new (request as any).Request(method, url) as request.Request).query(queryParameters);
 		Object.keys(headers).forEach(key => {
 			req.set(key, headers[key]);
 		});
@@ -577,13 +574,7 @@ export default class CBioPortalAPI {
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		pageSize?: number;
 		pageNumber?: number;
-		sortBy?:
-			| "cancerTypeId"
-			| "name"
-			| "clinicalTrialKeywords"
-			| "dedicatedColor"
-			| "shortName"
-			| "parent";
+		sortBy?: "cancerTypeId" | "name" | "clinicalTrialKeywords" | "dedicatedColor" | "shortName" | "parent";
 		direction?: "ASC" | "DESC";
 		$queryParameters?: any;
 	}): string {
@@ -610,9 +601,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -622,15 +611,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -649,13 +630,7 @@ export default class CBioPortalAPI {
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		pageSize?: number;
 		pageNumber?: number;
-		sortBy?:
-			| "cancerTypeId"
-			| "name"
-			| "clinicalTrialKeywords"
-			| "dedicatedColor"
-			| "shortName"
-			| "parent";
+		sortBy?: "cancerTypeId" | "name" | "clinicalTrialKeywords" | "dedicatedColor" | "shortName" | "parent";
 		direction?: "ASC" | "DESC";
 		$queryParameters?: any;
 		$domain?: string;
@@ -693,43 +668,26 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
 	}
 
-	getCancerTypeUsingGETURL(parameters: {
-		cancerTypeId: string;
-		$queryParameters?: any;
-	}): string {
+	getCancerTypeUsingGETURL(parameters: { cancerTypeId: string; $queryParameters?: any }): string {
 		let queryParameters: any = {};
 		let path = "/cancer-types/{cancerTypeId}";
 
 		path = path.replace("{cancerTypeId}", parameters["cancerTypeId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -739,15 +697,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -775,10 +725,7 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{cancerTypeId}",
-				parameters["cancerTypeId"] + ""
-			);
+			path = path.replace("{cancerTypeId}", parameters["cancerTypeId"] + "");
 
 			if (parameters["cancerTypeId"] === undefined) {
 				reject(new Error("Missing required  parameter: cancerTypeId"));
@@ -786,25 +733,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -848,9 +783,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -860,15 +793,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -932,25 +857,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -969,9 +882,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -981,15 +892,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -1033,25 +936,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -1066,8 +957,7 @@ export default class CBioPortalAPI {
 		let queryParameters: any = {};
 		let path = "/clinical-data/fetch";
 		if (parameters["clinicalDataType"] !== undefined) {
-			queryParameters["clinicalDataType"] =
-				parameters["clinicalDataType"];
+			queryParameters["clinicalDataType"] = parameters["clinicalDataType"];
 		}
 
 		if (parameters["projection"] !== undefined) {
@@ -1075,9 +965,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -1087,15 +975,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -1128,8 +1008,7 @@ export default class CBioPortalAPI {
 			headers["Content-Type"] = "application/json";
 
 			if (parameters["clinicalDataType"] !== undefined) {
-				queryParameters["clinicalDataType"] =
-					parameters["clinicalDataType"];
+				queryParameters["clinicalDataType"] = parameters["clinicalDataType"];
 			}
 
 			if (parameters["clinicalDataMultiStudyFilter"] !== undefined) {
@@ -1137,11 +1016,7 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["clinicalDataMultiStudyFilter"] === undefined) {
-				reject(
-					new Error(
-						"Missing required  parameter: clinicalDataMultiStudyFilter"
-					)
-				);
+				reject(new Error("Missing required  parameter: clinicalDataMultiStudyFilter"));
 				return;
 			}
 
@@ -1150,25 +1025,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -1187,9 +1050,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -1199,15 +1060,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -1242,9 +1095,7 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["sampleIdentifiers"] === undefined) {
-				reject(
-					new Error("Missing required  parameter: sampleIdentifiers")
-				);
+				reject(new Error("Missing required  parameter: sampleIdentifiers"));
 				return;
 			}
 
@@ -1253,25 +1104,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -1285,9 +1124,7 @@ export default class CBioPortalAPI {
 		let path = "/gene-panel-data/fetch";
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -1297,15 +1134,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -1338,34 +1167,18 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["genePanelMultipleStudyFilter"] === undefined) {
-				reject(
-					new Error(
-						"Missing required  parameter: genePanelMultipleStudyFilter"
-					)
-				);
+				reject(new Error("Missing required  parameter: genePanelMultipleStudyFilter"));
 				return;
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -1402,9 +1215,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -1414,15 +1225,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -1479,43 +1282,26 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
 	}
 
-	getGenePanelUsingGETURL(parameters: {
-		genePanelId: string;
-		$queryParameters?: any;
-	}): string {
+	getGenePanelUsingGETURL(parameters: { genePanelId: string; $queryParameters?: any }): string {
 		let queryParameters: any = {};
 		let path = "/gene-panels/{genePanelId}";
 
 		path = path.replace("{genePanelId}", parameters["genePanelId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -1525,15 +1311,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -1561,10 +1339,7 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{genePanelId}",
-				parameters["genePanelId"] + ""
-			);
+			path = path.replace("{genePanelId}", parameters["genePanelId"] + "");
 
 			if (parameters["genePanelId"] === undefined) {
 				reject(new Error("Missing required  parameter: genePanelId"));
@@ -1572,25 +1347,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -1601,12 +1364,7 @@ export default class CBioPortalAPI {
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		pageSize?: number;
 		pageNumber?: number;
-		sortBy?:
-			| "entrezGeneId"
-			| "hugoGeneSymbol"
-			| "type"
-			| "cytoband"
-			| "length";
+		sortBy?: "entrezGeneId" | "hugoGeneSymbol" | "type" | "cytoband" | "length";
 		direction?: "ASC" | "DESC";
 		$queryParameters?: any;
 	}): string {
@@ -1637,9 +1395,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -1649,15 +1405,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -1678,12 +1426,7 @@ export default class CBioPortalAPI {
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		pageSize?: number;
 		pageNumber?: number;
-		sortBy?:
-			| "entrezGeneId"
-			| "hugoGeneSymbol"
-			| "type"
-			| "cytoband"
-			| "length";
+		sortBy?: "entrezGeneId" | "hugoGeneSymbol" | "type" | "cytoband" | "length";
 		direction?: "ASC" | "DESC";
 		$queryParameters?: any;
 		$domain?: string;
@@ -1725,25 +1468,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -1766,9 +1497,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -1778,15 +1507,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -1836,43 +1557,26 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
 	}
 
-	getGeneUsingGETURL(parameters: {
-		geneId: string;
-		$queryParameters?: any;
-	}): string {
+	getGeneUsingGETURL(parameters: { geneId: string; $queryParameters?: any }): string {
 		let queryParameters: any = {};
 		let path = "/genes/{geneId}";
 
 		path = path.replace("{geneId}", parameters["geneId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -1882,15 +1586,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -1901,11 +1597,7 @@ export default class CBioPortalAPI {
 	 * @name CBioPortalAPI#getGeneUsingGET
 	 * @param {string} geneId - Entrez Gene ID or Hugo Gene Symbol e.g. 1 or A1BG
 	 */
-	getGeneUsingGET(parameters: {
-		geneId: string;
-		$queryParameters?: any;
-		$domain?: string;
-	}): Promise<Gene> {
+	getGeneUsingGET(parameters: { geneId: string; $queryParameters?: any; $domain?: string }): Promise<Gene> {
 		const domain = parameters.$domain ? parameters.$domain : this.domain;
 		const errorHandlers = this.errorHandlers;
 		const request = this.request;
@@ -1926,43 +1618,26 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
 	}
 
-	getAliasesOfGeneUsingGETURL(parameters: {
-		geneId: string;
-		$queryParameters?: any;
-	}): string {
+	getAliasesOfGeneUsingGETURL(parameters: { geneId: string; $queryParameters?: any }): string {
 		let queryParameters: any = {};
 		let path = "/genes/{geneId}/aliases";
 
 		path = path.replace("{geneId}", parameters["geneId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -1972,15 +1647,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -2016,25 +1683,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -2053,9 +1708,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -2065,15 +1718,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -2108,11 +1753,7 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["molecularDataMultipleStudyFilter"] === undefined) {
-				reject(
-					new Error(
-						"Missing required  parameter: molecularDataMultipleStudyFilter"
-					)
-				);
+				reject(new Error("Missing required  parameter: molecularDataMultipleStudyFilter"));
 				return;
 			}
 
@@ -2121,25 +1762,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -2182,9 +1811,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -2194,15 +1821,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -2265,25 +1884,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -2302,9 +1909,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -2314,15 +1919,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -2357,11 +1954,7 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["molecularProfileFilter"] === undefined) {
-				reject(
-					new Error(
-						"Missing required  parameter: molecularProfileFilter"
-					)
-				);
+				reject(new Error("Missing required  parameter: molecularProfileFilter"));
 				return;
 			}
 
@@ -2370,46 +1963,26 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
 	}
 
-	getMolecularProfileUsingGETURL(parameters: {
-		molecularProfileId: string;
-		$queryParameters?: any;
-	}): string {
+	getMolecularProfileUsingGETURL(parameters: { molecularProfileId: string; $queryParameters?: any }): string {
 		let queryParameters: any = {};
 		let path = "/molecular-profiles/{molecularProfileId}";
 
-		path = path.replace(
-			"{molecularProfileId}",
-			parameters["molecularProfileId"] + ""
-		);
+		path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -2419,15 +1992,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -2455,38 +2020,21 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{molecularProfileId}",
-				parameters["molecularProfileId"] + ""
-			);
+			path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 			if (parameters["molecularProfileId"] === undefined) {
-				reject(
-					new Error("Missing required  parameter: molecularProfileId")
-				);
+				reject(new Error("Missing required  parameter: molecularProfileId"));
 				return;
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -2495,32 +2043,20 @@ export default class CBioPortalAPI {
 	getDiscreteCopyNumbersInMolecularProfileUsingGETURL(parameters: {
 		molecularProfileId: string;
 		sampleListId: string;
-		discreteCopyNumberEventType?:
-			| "HOMDEL_AND_AMP"
-			| "HOMDEL"
-			| "AMP"
-			| "GAIN"
-			| "HETLOSS"
-			| "DIPLOID"
-			| "ALL";
+		discreteCopyNumberEventType?: "HOMDEL_AND_AMP" | "HOMDEL" | "AMP" | "GAIN" | "HETLOSS" | "DIPLOID" | "ALL";
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		$queryParameters?: any;
 	}): string {
 		let queryParameters: any = {};
-		let path =
-			"/molecular-profiles/{molecularProfileId}/discrete-copy-number";
+		let path = "/molecular-profiles/{molecularProfileId}/discrete-copy-number";
 
-		path = path.replace(
-			"{molecularProfileId}",
-			parameters["molecularProfileId"] + ""
-		);
+		path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 		if (parameters["sampleListId"] !== undefined) {
 			queryParameters["sampleListId"] = parameters["sampleListId"];
 		}
 
 		if (parameters["discreteCopyNumberEventType"] !== undefined) {
-			queryParameters["discreteCopyNumberEventType"] =
-				parameters["discreteCopyNumberEventType"];
+			queryParameters["discreteCopyNumberEventType"] = parameters["discreteCopyNumberEventType"];
 		}
 
 		if (parameters["projection"] !== undefined) {
@@ -2528,9 +2064,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -2540,15 +2074,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -2565,14 +2091,7 @@ export default class CBioPortalAPI {
 	getDiscreteCopyNumbersInMolecularProfileUsingGET(parameters: {
 		molecularProfileId: string;
 		sampleListId: string;
-		discreteCopyNumberEventType?:
-			| "HOMDEL_AND_AMP"
-			| "HOMDEL"
-			| "AMP"
-			| "GAIN"
-			| "HETLOSS"
-			| "DIPLOID"
-			| "ALL";
+		discreteCopyNumberEventType?: "HOMDEL_AND_AMP" | "HOMDEL" | "AMP" | "GAIN" | "HETLOSS" | "DIPLOID" | "ALL";
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		$queryParameters?: any;
 		$domain?: string;
@@ -2580,8 +2099,7 @@ export default class CBioPortalAPI {
 		const domain = parameters.$domain ? parameters.$domain : this.domain;
 		const errorHandlers = this.errorHandlers;
 		const request = this.request;
-		let path =
-			"/molecular-profiles/{molecularProfileId}/discrete-copy-number";
+		let path = "/molecular-profiles/{molecularProfileId}/discrete-copy-number";
 		let body: any;
 		let queryParameters: any = {};
 		let headers: any = {};
@@ -2590,15 +2108,10 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{molecularProfileId}",
-				parameters["molecularProfileId"] + ""
-			);
+			path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 			if (parameters["molecularProfileId"] === undefined) {
-				reject(
-					new Error("Missing required  parameter: molecularProfileId")
-				);
+				reject(new Error("Missing required  parameter: molecularProfileId"));
 				return;
 			}
 
@@ -2612,8 +2125,7 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["discreteCopyNumberEventType"] !== undefined) {
-				queryParameters["discreteCopyNumberEventType"] =
-					parameters["discreteCopyNumberEventType"];
+				queryParameters["discreteCopyNumberEventType"] = parameters["discreteCopyNumberEventType"];
 			}
 
 			if (parameters["projection"] !== undefined) {
@@ -2621,25 +2133,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -2651,18 +2151,12 @@ export default class CBioPortalAPI {
 		$queryParameters?: any;
 	}): string {
 		let queryParameters: any = {};
-		let path =
-			"/molecular-profiles/{molecularProfileId}/discrete-copy-number-counts/fetch";
+		let path = "/molecular-profiles/{molecularProfileId}/discrete-copy-number-counts/fetch";
 
-		path = path.replace(
-			"{molecularProfileId}",
-			parameters["molecularProfileId"] + ""
-		);
+		path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -2672,15 +2166,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -2701,8 +2187,7 @@ export default class CBioPortalAPI {
 		const domain = parameters.$domain ? parameters.$domain : this.domain;
 		const errorHandlers = this.errorHandlers;
 		const request = this.request;
-		let path =
-			"/molecular-profiles/{molecularProfileId}/discrete-copy-number-counts/fetch";
+		let path = "/molecular-profiles/{molecularProfileId}/discrete-copy-number-counts/fetch";
 		let body: any;
 		let queryParameters: any = {};
 		let headers: any = {};
@@ -2711,15 +2196,10 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{molecularProfileId}",
-				parameters["molecularProfileId"] + ""
-			);
+			path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 			if (parameters["molecularProfileId"] === undefined) {
-				reject(
-					new Error("Missing required  parameter: molecularProfileId")
-				);
+				reject(new Error("Missing required  parameter: molecularProfileId"));
 				return;
 			}
 
@@ -2728,34 +2208,18 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["copyNumberCountIdentifiers"] === undefined) {
-				reject(
-					new Error(
-						"Missing required  parameter: copyNumberCountIdentifiers"
-					)
-				);
+				reject(new Error("Missing required  parameter: copyNumberCountIdentifiers"));
 				return;
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -2763,29 +2227,17 @@ export default class CBioPortalAPI {
 
 	fetchDiscreteCopyNumbersInMolecularProfileUsingPOSTURL(parameters: {
 		molecularProfileId: string;
-		discreteCopyNumberEventType?:
-			| "HOMDEL_AND_AMP"
-			| "HOMDEL"
-			| "AMP"
-			| "GAIN"
-			| "HETLOSS"
-			| "DIPLOID"
-			| "ALL";
+		discreteCopyNumberEventType?: "HOMDEL_AND_AMP" | "HOMDEL" | "AMP" | "GAIN" | "HETLOSS" | "DIPLOID" | "ALL";
 		discreteCopyNumberFilter: DiscreteCopyNumberFilter;
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		$queryParameters?: any;
 	}): string {
 		let queryParameters: any = {};
-		let path =
-			"/molecular-profiles/{molecularProfileId}/discrete-copy-number/fetch";
+		let path = "/molecular-profiles/{molecularProfileId}/discrete-copy-number/fetch";
 
-		path = path.replace(
-			"{molecularProfileId}",
-			parameters["molecularProfileId"] + ""
-		);
+		path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 		if (parameters["discreteCopyNumberEventType"] !== undefined) {
-			queryParameters["discreteCopyNumberEventType"] =
-				parameters["discreteCopyNumberEventType"];
+			queryParameters["discreteCopyNumberEventType"] = parameters["discreteCopyNumberEventType"];
 		}
 
 		if (parameters["projection"] !== undefined) {
@@ -2793,9 +2245,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -2805,15 +2255,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -2829,14 +2271,7 @@ export default class CBioPortalAPI {
 	 */
 	fetchDiscreteCopyNumbersInMolecularProfileUsingPOST(parameters: {
 		molecularProfileId: string;
-		discreteCopyNumberEventType?:
-			| "HOMDEL_AND_AMP"
-			| "HOMDEL"
-			| "AMP"
-			| "GAIN"
-			| "HETLOSS"
-			| "DIPLOID"
-			| "ALL";
+		discreteCopyNumberEventType?: "HOMDEL_AND_AMP" | "HOMDEL" | "AMP" | "GAIN" | "HETLOSS" | "DIPLOID" | "ALL";
 		discreteCopyNumberFilter: DiscreteCopyNumberFilter;
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		$queryParameters?: any;
@@ -2845,8 +2280,7 @@ export default class CBioPortalAPI {
 		const domain = parameters.$domain ? parameters.$domain : this.domain;
 		const errorHandlers = this.errorHandlers;
 		const request = this.request;
-		let path =
-			"/molecular-profiles/{molecularProfileId}/discrete-copy-number/fetch";
+		let path = "/molecular-profiles/{molecularProfileId}/discrete-copy-number/fetch";
 		let body: any;
 		let queryParameters: any = {};
 		let headers: any = {};
@@ -2855,21 +2289,15 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{molecularProfileId}",
-				parameters["molecularProfileId"] + ""
-			);
+			path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 			if (parameters["molecularProfileId"] === undefined) {
-				reject(
-					new Error("Missing required  parameter: molecularProfileId")
-				);
+				reject(new Error("Missing required  parameter: molecularProfileId"));
 				return;
 			}
 
 			if (parameters["discreteCopyNumberEventType"] !== undefined) {
-				queryParameters["discreteCopyNumberEventType"] =
-					parameters["discreteCopyNumberEventType"];
+				queryParameters["discreteCopyNumberEventType"] = parameters["discreteCopyNumberEventType"];
 			}
 
 			if (parameters["discreteCopyNumberFilter"] !== undefined) {
@@ -2877,11 +2305,7 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["discreteCopyNumberFilter"] === undefined) {
-				reject(
-					new Error(
-						"Missing required  parameter: discreteCopyNumberFilter"
-					)
-				);
+				reject(new Error("Missing required  parameter: discreteCopyNumberFilter"));
 				return;
 			}
 
@@ -2890,25 +2314,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -2920,18 +2332,12 @@ export default class CBioPortalAPI {
 		$queryParameters?: any;
 	}): string {
 		let queryParameters: any = {};
-		let path =
-			"/molecular-profiles/{molecularProfileId}/gene-panel-data/fetch";
+		let path = "/molecular-profiles/{molecularProfileId}/gene-panel-data/fetch";
 
-		path = path.replace(
-			"{molecularProfileId}",
-			parameters["molecularProfileId"] + ""
-		);
+		path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -2941,15 +2347,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -2970,8 +2368,7 @@ export default class CBioPortalAPI {
 		const domain = parameters.$domain ? parameters.$domain : this.domain;
 		const errorHandlers = this.errorHandlers;
 		const request = this.request;
-		let path =
-			"/molecular-profiles/{molecularProfileId}/gene-panel-data/fetch";
+		let path = "/molecular-profiles/{molecularProfileId}/gene-panel-data/fetch";
 		let body: any;
 		let queryParameters: any = {};
 		let headers: any = {};
@@ -2980,15 +2377,10 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{molecularProfileId}",
-				parameters["molecularProfileId"] + ""
-			);
+			path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 			if (parameters["molecularProfileId"] === undefined) {
-				reject(
-					new Error("Missing required  parameter: molecularProfileId")
-				);
+				reject(new Error("Missing required  parameter: molecularProfileId"));
 				return;
 			}
 
@@ -2997,34 +2389,18 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["genePanelDataFilter"] === undefined) {
-				reject(
-					new Error(
-						"Missing required  parameter: genePanelDataFilter"
-					)
-				);
+				reject(new Error("Missing required  parameter: genePanelDataFilter"));
 				return;
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -3040,10 +2416,7 @@ export default class CBioPortalAPI {
 		let queryParameters: any = {};
 		let path = "/molecular-profiles/{molecularProfileId}/molecular-data";
 
-		path = path.replace(
-			"{molecularProfileId}",
-			parameters["molecularProfileId"] + ""
-		);
+		path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 		if (parameters["sampleListId"] !== undefined) {
 			queryParameters["sampleListId"] = parameters["sampleListId"];
 		}
@@ -3057,9 +2430,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -3069,15 +2440,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -3111,15 +2474,10 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{molecularProfileId}",
-				parameters["molecularProfileId"] + ""
-			);
+			path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 			if (parameters["molecularProfileId"] === undefined) {
-				reject(
-					new Error("Missing required  parameter: molecularProfileId")
-				);
+				reject(new Error("Missing required  parameter: molecularProfileId"));
 				return;
 			}
 
@@ -3146,25 +2504,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -3177,22 +2523,16 @@ export default class CBioPortalAPI {
 		$queryParameters?: any;
 	}): string {
 		let queryParameters: any = {};
-		let path =
-			"/molecular-profiles/{molecularProfileId}/molecular-data/fetch";
+		let path = "/molecular-profiles/{molecularProfileId}/molecular-data/fetch";
 
-		path = path.replace(
-			"{molecularProfileId}",
-			parameters["molecularProfileId"] + ""
-		);
+		path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 		if (parameters["projection"] !== undefined) {
 			queryParameters["projection"] = parameters["projection"];
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -3202,15 +2542,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -3233,8 +2565,7 @@ export default class CBioPortalAPI {
 		const domain = parameters.$domain ? parameters.$domain : this.domain;
 		const errorHandlers = this.errorHandlers;
 		const request = this.request;
-		let path =
-			"/molecular-profiles/{molecularProfileId}/molecular-data/fetch";
+		let path = "/molecular-profiles/{molecularProfileId}/molecular-data/fetch";
 		let body: any;
 		let queryParameters: any = {};
 		let headers: any = {};
@@ -3243,15 +2574,10 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{molecularProfileId}",
-				parameters["molecularProfileId"] + ""
-			);
+			path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 			if (parameters["molecularProfileId"] === undefined) {
-				reject(
-					new Error("Missing required  parameter: molecularProfileId")
-				);
+				reject(new Error("Missing required  parameter: molecularProfileId"));
 				return;
 			}
 
@@ -3260,11 +2586,7 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["molecularDataFilter"] === undefined) {
-				reject(
-					new Error(
-						"Missing required  parameter: molecularDataFilter"
-					)
-				);
+				reject(new Error("Missing required  parameter: molecularDataFilter"));
 				return;
 			}
 
@@ -3273,25 +2595,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -3305,18 +2615,13 @@ export default class CBioPortalAPI {
 		let queryParameters: any = {};
 		let path = "/molecular-profiles/{molecularProfileId}/mutation-counts";
 
-		path = path.replace(
-			"{molecularProfileId}",
-			parameters["molecularProfileId"] + ""
-		);
+		path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 		if (parameters["sampleListId"] !== undefined) {
 			queryParameters["sampleListId"] = parameters["sampleListId"];
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -3326,15 +2631,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -3364,15 +2661,10 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{molecularProfileId}",
-				parameters["molecularProfileId"] + ""
-			);
+			path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 			if (parameters["molecularProfileId"] === undefined) {
-				reject(
-					new Error("Missing required  parameter: molecularProfileId")
-				);
+				reject(new Error("Missing required  parameter: molecularProfileId"));
 				return;
 			}
 
@@ -3386,25 +2678,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -3416,18 +2696,12 @@ export default class CBioPortalAPI {
 		$queryParameters?: any;
 	}): string {
 		let queryParameters: any = {};
-		let path =
-			"/molecular-profiles/{molecularProfileId}/mutation-counts/fetch";
+		let path = "/molecular-profiles/{molecularProfileId}/mutation-counts/fetch";
 
-		path = path.replace(
-			"{molecularProfileId}",
-			parameters["molecularProfileId"] + ""
-		);
+		path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -3437,15 +2711,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -3466,8 +2732,7 @@ export default class CBioPortalAPI {
 		const domain = parameters.$domain ? parameters.$domain : this.domain;
 		const errorHandlers = this.errorHandlers;
 		const request = this.request;
-		let path =
-			"/molecular-profiles/{molecularProfileId}/mutation-counts/fetch";
+		let path = "/molecular-profiles/{molecularProfileId}/mutation-counts/fetch";
 		let body: any;
 		let queryParameters: any = {};
 		let headers: any = {};
@@ -3476,15 +2741,10 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{molecularProfileId}",
-				parameters["molecularProfileId"] + ""
-			);
+			path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 			if (parameters["molecularProfileId"] === undefined) {
-				reject(
-					new Error("Missing required  parameter: molecularProfileId")
-				);
+				reject(new Error("Missing required  parameter: molecularProfileId"));
 				return;
 			}
 
@@ -3498,25 +2758,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -3556,10 +2804,7 @@ export default class CBioPortalAPI {
 		let queryParameters: any = {};
 		let path = "/molecular-profiles/{molecularProfileId}/mutations";
 
-		path = path.replace(
-			"{molecularProfileId}",
-			parameters["molecularProfileId"] + ""
-		);
+		path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 		if (parameters["sampleListId"] !== undefined) {
 			queryParameters["sampleListId"] = parameters["sampleListId"];
 		}
@@ -3585,9 +2830,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -3597,15 +2840,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -3666,15 +2901,10 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{molecularProfileId}",
-				parameters["molecularProfileId"] + ""
-			);
+			path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 			if (parameters["molecularProfileId"] === undefined) {
-				reject(
-					new Error("Missing required  parameter: molecularProfileId")
-				);
+				reject(new Error("Missing required  parameter: molecularProfileId"));
 				return;
 			}
 
@@ -3708,25 +2938,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -3766,10 +2984,7 @@ export default class CBioPortalAPI {
 		let queryParameters: any = {};
 		let path = "/molecular-profiles/{molecularProfileId}/mutations/fetch";
 
-		path = path.replace(
-			"{molecularProfileId}",
-			parameters["molecularProfileId"] + ""
-		);
+		path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 		if (parameters["projection"] !== undefined) {
 			queryParameters["projection"] = parameters["projection"];
@@ -3792,9 +3007,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -3804,15 +3017,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -3873,15 +3078,10 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{molecularProfileId}",
-				parameters["molecularProfileId"] + ""
-			);
+			path = path.replace("{molecularProfileId}", parameters["molecularProfileId"] + "");
 
 			if (parameters["molecularProfileId"] === undefined) {
-				reject(
-					new Error("Missing required  parameter: molecularProfileId")
-				);
+				reject(new Error("Missing required  parameter: molecularProfileId"));
 				return;
 			}
 
@@ -3890,9 +3090,7 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["mutationFilter"] === undefined) {
-				reject(
-					new Error("Missing required  parameter: mutationFilter")
-				);
+				reject(new Error("Missing required  parameter: mutationFilter"));
 				return;
 			}
 
@@ -3917,25 +3115,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -3949,9 +3135,7 @@ export default class CBioPortalAPI {
 		let path = "/mutation-counts-by-position/fetch";
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -3961,15 +3145,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -4002,34 +3178,18 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["mutationPositionIdentifiers"] === undefined) {
-				reject(
-					new Error(
-						"Missing required  parameter: mutationPositionIdentifiers"
-					)
-				);
+				reject(new Error("Missing required  parameter: mutationPositionIdentifiers"));
 				return;
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -4089,9 +3249,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -4101,15 +3259,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -4173,11 +3323,7 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["mutationMultipleStudyFilter"] === undefined) {
-				reject(
-					new Error(
-						"Missing required  parameter: mutationMultipleStudyFilter"
-					)
-				);
+				reject(new Error("Missing required  parameter: mutationMultipleStudyFilter"));
 				return;
 			}
 
@@ -4202,25 +3348,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -4239,9 +3373,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -4251,15 +3383,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -4294,9 +3418,7 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["patientIdentifiers"] === undefined) {
-				reject(
-					new Error("Missing required  parameter: patientIdentifiers")
-				);
+				reject(new Error("Missing required  parameter: patientIdentifiers"));
 				return;
 			}
 
@@ -4305,25 +3427,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -4333,12 +3443,7 @@ export default class CBioPortalAPI {
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		pageSize?: number;
 		pageNumber?: number;
-		sortBy?:
-			| "sampleListId"
-			| "category"
-			| "studyId"
-			| "name"
-			| "description";
+		sortBy?: "sampleListId" | "category" | "studyId" | "name" | "description";
 		direction?: "ASC" | "DESC";
 		$queryParameters?: any;
 	}): string {
@@ -4365,9 +3470,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -4377,15 +3480,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -4404,12 +3499,7 @@ export default class CBioPortalAPI {
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		pageSize?: number;
 		pageNumber?: number;
-		sortBy?:
-			| "sampleListId"
-			| "category"
-			| "studyId"
-			| "name"
-			| "description";
+		sortBy?: "sampleListId" | "category" | "studyId" | "name" | "description";
 		direction?: "ASC" | "DESC";
 		$queryParameters?: any;
 		$domain?: string;
@@ -4447,25 +3537,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -4484,9 +3562,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -4496,15 +3572,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -4548,43 +3616,26 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
 	}
 
-	getSampleListUsingGETURL(parameters: {
-		sampleListId: string;
-		$queryParameters?: any;
-	}): string {
+	getSampleListUsingGETURL(parameters: { sampleListId: string; $queryParameters?: any }): string {
 		let queryParameters: any = {};
 		let path = "/sample-lists/{sampleListId}";
 
 		path = path.replace("{sampleListId}", parameters["sampleListId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -4594,15 +3645,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -4630,10 +3673,7 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{sampleListId}",
-				parameters["sampleListId"] + ""
-			);
+			path = path.replace("{sampleListId}", parameters["sampleListId"] + "");
 
 			if (parameters["sampleListId"] === undefined) {
 				reject(new Error("Missing required  parameter: sampleListId"));
@@ -4641,43 +3681,26 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
 	}
 
-	getAllSampleIdsInSampleListUsingGETURL(parameters: {
-		sampleListId: string;
-		$queryParameters?: any;
-	}): string {
+	getAllSampleIdsInSampleListUsingGETURL(parameters: { sampleListId: string; $queryParameters?: any }): string {
 		let queryParameters: any = {};
 		let path = "/sample-lists/{sampleListId}/sample-ids";
 
 		path = path.replace("{sampleListId}", parameters["sampleListId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -4687,15 +3710,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -4723,10 +3738,7 @@ export default class CBioPortalAPI {
 			headers["Accept"] = "application/json";
 			headers["Content-Type"] = "application/json";
 
-			path = path.replace(
-				"{sampleListId}",
-				parameters["sampleListId"] + ""
-			);
+			path = path.replace("{sampleListId}", parameters["sampleListId"] + "");
 
 			if (parameters["sampleListId"] === undefined) {
 				reject(new Error("Missing required  parameter: sampleListId"));
@@ -4734,25 +3746,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -4771,9 +3771,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -4783,15 +3781,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -4835,25 +3825,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -4901,9 +3879,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -4913,15 +3889,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -4989,25 +3957,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -5026,9 +3982,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -5038,15 +3992,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -5090,43 +4036,26 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
 	}
 
-	getStudyUsingGETURL(parameters: {
-		studyId: string;
-		$queryParameters?: any;
-	}): string {
+	getStudyUsingGETURL(parameters: { studyId: string; $queryParameters?: any }): string {
 		let queryParameters: any = {};
 		let path = "/studies/{studyId}";
 
 		path = path.replace("{studyId}", parameters["studyId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -5136,15 +4065,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -5155,11 +4076,7 @@ export default class CBioPortalAPI {
 	 * @name CBioPortalAPI#getStudyUsingGET
 	 * @param {string} studyId - Study ID e.g. acc_tcga
 	 */
-	getStudyUsingGET(parameters: {
-		studyId: string;
-		$queryParameters?: any;
-		$domain?: string;
-	}): Promise<CancerStudy> {
+	getStudyUsingGET(parameters: { studyId: string; $queryParameters?: any; $domain?: string }): Promise<CancerStudy> {
 		const domain = parameters.$domain ? parameters.$domain : this.domain;
 		const errorHandlers = this.errorHandlers;
 		const request = this.request;
@@ -5180,25 +4097,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -5245,9 +4150,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -5257,15 +4160,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -5338,25 +4233,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -5368,20 +4251,14 @@ export default class CBioPortalAPI {
 		$queryParameters?: any;
 	}): string {
 		let queryParameters: any = {};
-		let path =
-			"/studies/{studyId}/clinical-attributes/{clinicalAttributeId}";
+		let path = "/studies/{studyId}/clinical-attributes/{clinicalAttributeId}";
 
 		path = path.replace("{studyId}", parameters["studyId"] + "");
 
-		path = path.replace(
-			"{clinicalAttributeId}",
-			parameters["clinicalAttributeId"] + ""
-		);
+		path = path.replace("{clinicalAttributeId}", parameters["clinicalAttributeId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -5391,15 +4268,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -5420,8 +4289,7 @@ export default class CBioPortalAPI {
 		const domain = parameters.$domain ? parameters.$domain : this.domain;
 		const errorHandlers = this.errorHandlers;
 		const request = this.request;
-		let path =
-			"/studies/{studyId}/clinical-attributes/{clinicalAttributeId}";
+		let path = "/studies/{studyId}/clinical-attributes/{clinicalAttributeId}";
 		let body: any;
 		let queryParameters: any = {};
 		let headers: any = {};
@@ -5437,40 +4305,21 @@ export default class CBioPortalAPI {
 				return;
 			}
 
-			path = path.replace(
-				"{clinicalAttributeId}",
-				parameters["clinicalAttributeId"] + ""
-			);
+			path = path.replace("{clinicalAttributeId}", parameters["clinicalAttributeId"] + "");
 
 			if (parameters["clinicalAttributeId"] === undefined) {
-				reject(
-					new Error(
-						"Missing required  parameter: clinicalAttributeId"
-					)
-				);
+				reject(new Error("Missing required  parameter: clinicalAttributeId"));
 				return;
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -5496,8 +4345,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters["clinicalDataType"] !== undefined) {
-			queryParameters["clinicalDataType"] =
-				parameters["clinicalDataType"];
+			queryParameters["clinicalDataType"] = parameters["clinicalDataType"];
 		}
 
 		if (parameters["projection"] !== undefined) {
@@ -5521,9 +4369,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -5533,15 +4379,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -5595,8 +4433,7 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["clinicalDataType"] !== undefined) {
-				queryParameters["clinicalDataType"] =
-					parameters["clinicalDataType"];
+				queryParameters["clinicalDataType"] = parameters["clinicalDataType"];
 			}
 
 			if (parameters["projection"] !== undefined) {
@@ -5620,25 +4457,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -5656,8 +4481,7 @@ export default class CBioPortalAPI {
 
 		path = path.replace("{studyId}", parameters["studyId"] + "");
 		if (parameters["clinicalDataType"] !== undefined) {
-			queryParameters["clinicalDataType"] =
-				parameters["clinicalDataType"];
+			queryParameters["clinicalDataType"] = parameters["clinicalDataType"];
 		}
 
 		if (parameters["projection"] !== undefined) {
@@ -5665,9 +4489,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -5677,15 +4499,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -5727,8 +4541,7 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["clinicalDataType"] !== undefined) {
-				queryParameters["clinicalDataType"] =
-					parameters["clinicalDataType"];
+				queryParameters["clinicalDataType"] = parameters["clinicalDataType"];
 			}
 
 			if (parameters["clinicalDataSingleStudyFilter"] !== undefined) {
@@ -5736,11 +4549,7 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters["clinicalDataSingleStudyFilter"] === undefined) {
-				reject(
-					new Error(
-						"Missing required  parameter: clinicalDataSingleStudyFilter"
-					)
-				);
+				reject(new Error("Missing required  parameter: clinicalDataSingleStudyFilter"));
 				return;
 			}
 
@@ -5749,25 +4558,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"POST",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("POST", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -5813,9 +4610,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -5825,15 +4620,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -5905,25 +4692,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -5960,9 +4735,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -5972,30 +4745,21 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
 
 	/**
-    * Get all patients in a study
-    * @method
-    * @name CBioPortalAPI#getAllPatientsInStudyUsingGET
-         * @param {string} studyId - Study ID e.g. acc_tcga
-         * @param {string} projection - Level of detail of the response
-         * @param {integer} pageSize - Page size of the result list
-         * @param {integer} pageNumber - Page number of the result list
-        
-         * @param {string} direction - Direction of the sort
-    */
+	 * Get all patients in a study
+	 * @method
+	 * @name CBioPortalAPI#getAllPatientsInStudyUsingGET
+	 * @param {string} studyId - Study ID e.g. acc_tcga
+	 * @param {string} projection - Level of detail of the response
+	 * @param {integer} pageSize - Page size of the result list
+	 * @param {integer} pageNumber - Page number of the result list
+	 * @param {string} direction - Direction of the sort
+	 */
 	getAllPatientsInStudyUsingGET(parameters: {
 		studyId: string;
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
@@ -6043,35 +4807,19 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
 	}
 
-	getPatientInStudyUsingGETURL(parameters: {
-		studyId: string;
-		patientId: string;
-		$queryParameters?: any;
-	}): string {
+	getPatientInStudyUsingGETURL(parameters: { studyId: string; patientId: string; $queryParameters?: any }): string {
 		let queryParameters: any = {};
 		let path = "/studies/{studyId}/patients/{patientId}";
 
@@ -6080,9 +4828,7 @@ export default class CBioPortalAPI {
 		path = path.replace("{patientId}", parameters["patientId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -6092,15 +4838,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -6145,25 +4883,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -6211,9 +4937,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -6223,15 +4947,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -6312,25 +5028,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -6342,10 +5046,7 @@ export default class CBioPortalAPI {
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		pageSize?: number;
 		pageNumber?: number;
-		sortBy?:
-			| "eventType"
-			| "startNumberOfDaysSinceDiagnosis"
-			| "endNumberOfDaysSinceDiagnosis";
+		sortBy?: "eventType" | "startNumberOfDaysSinceDiagnosis" | "endNumberOfDaysSinceDiagnosis";
 		direction?: "ASC" | "DESC";
 		$queryParameters?: any;
 	}): string {
@@ -6376,9 +5077,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -6388,15 +5087,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -6419,10 +5110,7 @@ export default class CBioPortalAPI {
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		pageSize?: number;
 		pageNumber?: number;
-		sortBy?:
-			| "eventType"
-			| "startNumberOfDaysSinceDiagnosis"
-			| "endNumberOfDaysSinceDiagnosis";
+		sortBy?: "eventType" | "startNumberOfDaysSinceDiagnosis" | "endNumberOfDaysSinceDiagnosis";
 		direction?: "ASC" | "DESC";
 		$queryParameters?: any;
 		$domain?: string;
@@ -6474,25 +5162,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -6535,9 +5211,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -6547,15 +5221,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -6630,25 +5296,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -6659,12 +5313,7 @@ export default class CBioPortalAPI {
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		pageSize?: number;
 		pageNumber?: number;
-		sortBy?:
-			| "sampleListId"
-			| "category"
-			| "studyId"
-			| "name"
-			| "description";
+		sortBy?: "sampleListId" | "category" | "studyId" | "name" | "description";
 		direction?: "ASC" | "DESC";
 		$queryParameters?: any;
 	}): string {
@@ -6693,9 +5342,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -6705,15 +5352,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -6734,12 +5373,7 @@ export default class CBioPortalAPI {
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		pageSize?: number;
 		pageNumber?: number;
-		sortBy?:
-			| "sampleListId"
-			| "category"
-			| "studyId"
-			| "name"
-			| "description";
+		sortBy?: "sampleListId" | "category" | "studyId" | "name" | "description";
 		direction?: "ASC" | "DESC";
 		$queryParameters?: any;
 		$domain?: string;
@@ -6784,25 +5418,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -6842,9 +5464,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -6854,15 +5474,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -6928,35 +5540,19 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
 	}
 
-	getSampleInStudyUsingGETURL(parameters: {
-		studyId: string;
-		sampleId: string;
-		$queryParameters?: any;
-	}): string {
+	getSampleInStudyUsingGETURL(parameters: { studyId: string; sampleId: string; $queryParameters?: any }): string {
 		let queryParameters: any = {};
 		let path = "/studies/{studyId}/samples/{sampleId}";
 
@@ -6965,9 +5561,7 @@ export default class CBioPortalAPI {
 		path = path.replace("{sampleId}", parameters["sampleId"] + "");
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -6977,15 +5571,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -7030,25 +5616,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -7096,9 +5670,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -7108,15 +5680,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -7197,25 +5761,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});
@@ -7227,12 +5779,7 @@ export default class CBioPortalAPI {
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		pageSize?: number;
 		pageNumber?: number;
-		sortBy?:
-			| "chromosome"
-			| "start"
-			| "end"
-			| "numberOfProbes"
-			| "segmentMean";
+		sortBy?: "chromosome" | "start" | "end" | "numberOfProbes" | "segmentMean";
 		direction?: "ASC" | "DESC";
 		$queryParameters?: any;
 	}): string {
@@ -7263,9 +5810,7 @@ export default class CBioPortalAPI {
 		}
 
 		if (parameters.$queryParameters) {
-			Object.keys(parameters.$queryParameters).forEach(function(
-				parameterName
-			) {
+			Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 				var parameter = parameters.$queryParameters[parameterName];
 				queryParameters[parameterName] = parameter;
 			});
@@ -7275,15 +5820,7 @@ export default class CBioPortalAPI {
 			this.domain +
 			path +
 			(keys.length > 0
-				? "?" +
-					keys
-						.map(
-							key =>
-								key +
-								"=" +
-								encodeURIComponent(queryParameters[key])
-						)
-						.join("&")
+				? "?" + keys.map(key => key + "=" + encodeURIComponent(queryParameters[key])).join("&")
 				: "")
 		);
 	}
@@ -7306,12 +5843,7 @@ export default class CBioPortalAPI {
 		projection?: "ID" | "SUMMARY" | "DETAILED" | "META";
 		pageSize?: number;
 		pageNumber?: number;
-		sortBy?:
-			| "chromosome"
-			| "start"
-			| "end"
-			| "numberOfProbes"
-			| "segmentMean";
+		sortBy?: "chromosome" | "start" | "end" | "numberOfProbes" | "segmentMean";
 		direction?: "ASC" | "DESC";
 		$queryParameters?: any;
 		$domain?: string;
@@ -7363,25 +5895,13 @@ export default class CBioPortalAPI {
 			}
 
 			if (parameters.$queryParameters) {
-				Object.keys(parameters.$queryParameters).forEach(function(
-					parameterName
-				) {
+				Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
 					var parameter = parameters.$queryParameters[parameterName];
 					queryParameters[parameterName] = parameter;
 				});
 			}
 
-			request(
-				"GET",
-				domain + path,
-				body,
-				headers,
-				queryParameters,
-				form,
-				reject,
-				resolve,
-				errorHandlers
-			);
+			request("GET", domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
 		}).then(function(response: request.Response) {
 			return response.body;
 		});

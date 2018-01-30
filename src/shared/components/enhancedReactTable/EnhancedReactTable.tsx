@@ -312,7 +312,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 		if (columns) {
 			_.each(columns, function(value: IEnhancedReactTableColumnDef, key: string) {
 				if (value.name) {
-					if (colNameToId[value.name] != null) {
+					if (colNameToId[value.name] !== null) {
 						// TODO console.log("[EnhancedReactTable] Warning: Duplicate column name: " + value.name);
 					}
 					colNameToId[value.name] = key;

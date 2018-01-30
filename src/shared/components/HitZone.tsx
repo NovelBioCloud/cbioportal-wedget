@@ -14,7 +14,7 @@ type HitZoneProps = {
 	onMouseLeave?: () => void;
 };
 
-//@observer
+// @observer
 export class HitZone extends React.Component<HitZoneProps, {}> {
 	private handlers: any;
 

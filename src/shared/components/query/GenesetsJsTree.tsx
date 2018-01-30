@@ -1,7 +1,7 @@
 import React from "react";
 import $ from "jquery";
 import { getHierarchyData } from "shared/lib/StoreUtils";
-//Import jstree.min and style for jstree to work
+// Import jstree.min and style for jstree to work
 import "jstree/dist/jstree.min"; // tslint:disable-line
 import "shared/components/query/styles/jstree/style.css"; // tslint:disable-line
 import * as _ from "lodash";
@@ -39,7 +39,8 @@ export default class GenesetsJsTree extends React.Component<GenesetsJsTreeProps,
 	}
 
 	componentDidMount() {
-		this.promisedTree = this.initTree(this.tree as Element); //React only sets the div to null when the component unmounts
+		// React only sets the div to null when the component unmounts
+		this.promisedTree = this.initTree(this.tree as Element);
 		this.promisedTree.then(tree => ((this.isLoading = false), tree));
 	}
 
@@ -111,7 +112,7 @@ export default class GenesetsJsTree extends React.Component<GenesetsJsTreeProps,
 
 					// Build label and add styling
 					const genesetNameText =
-						genesetName + '<span style="font-weight:normal;font-style:italic;"> ' + genesetInfo + "</span>";
+						genesetName + `<span style="font-weight:normal;font-style:italic;"> ` + genesetInfo + "</span>";
 
 					flatData.push({
 						// Add compulsory information
@@ -146,7 +147,7 @@ export default class GenesetsJsTree extends React.Component<GenesetsJsTreeProps,
 			this.props.pvalueThreshold,
 			this.props.sampleListId
 		);
-		$(tree).jstree({
+		($(tree) as any).jstree({
 			search: {
 				show_only_matches: true,
 				show_only_matches_children: true
@@ -168,9 +169,7 @@ export default class GenesetsJsTree extends React.Component<GenesetsJsTreeProps,
 	}
 
 	destroyTree(tree: Element) {
-		$(tree)
-			.jstree(true)
-			.destroy();
+		($(tree) as any).jstree(true).destroy();
 	}
 
 	async replaceTree(tree: Element): Promise<Element> {
@@ -180,7 +179,7 @@ export default class GenesetsJsTree extends React.Component<GenesetsJsTreeProps,
 
 	submitGeneSets(tree: Element | null) {
 		if (tree) {
-			const selectedNodes = $(tree).jstree("get_selected", true);
+			const selectedNodes = ($(tree) as any).jstree("get_selected", true);
 			for (const geneSet of selectedNodes) {
 				if (geneSet.original.geneset) {
 					this.map_geneSets_selected.set(geneSet.original.description, true);
@@ -191,9 +190,7 @@ export default class GenesetsJsTree extends React.Component<GenesetsJsTreeProps,
 	}
 
 	searchTree(tree: Element, searchValue: string) {
-		$(tree)
-			.jstree(true)
-			.search(searchValue);
+		($(tree) as any).jstree(true).search(searchValue);
 		return tree;
 	}
 

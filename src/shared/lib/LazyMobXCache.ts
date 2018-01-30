@@ -296,7 +296,7 @@ export default class LazyMobXCache<Data, Query, Metadata = any> {
 	@action
 	private updateCache(toMerge: Cache<Data, Metadata>) {
 		if (Object.keys(toMerge).length > 0) {
-			this._cache = this._cache.merge(toMerge, {
+			this._cache = this._cache.merge(toMerge as any, {
 				deep: true
 			}) as ImmutableCache<Data, Metadata>;
 		}

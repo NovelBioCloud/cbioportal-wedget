@@ -68,7 +68,7 @@ class CNASegmentIframe extends React.Component<CNSegmentsIframeProps, {}> {
 				a.download = self.props.studyId + "_segments.seg";
 				a.style.display = "none";
 				document.body.appendChild(a);
-				//triger download
+				// triger download
 				a.click();
 				setTimeout(function() {
 					$(a).remove();

@@ -59,7 +59,7 @@ export default class SummaryBarGraph extends React.Component<ISummaryBarGraphPro
 
 		// Hide if no tooltip
 		if (tooltipModel.opacity === 0) {
-			//tooltipEl.style.opacity = '0';
+			// tooltipEl.style.opacity = '0';
 			tooltipEl.style.display = "none";
 			return;
 		}
@@ -145,7 +145,7 @@ export default class SummaryBarGraph extends React.Component<ISummaryBarGraphPro
 	}
 
 	private getLegendNames(id: string) {
-		//TODO: figure out ts issue with index signature.
+		// TODO: figure out ts issue with index signature.
 		return this.props.orderedLabels[id] || id;
 	}
 

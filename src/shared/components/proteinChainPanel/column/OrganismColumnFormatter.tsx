@@ -11,7 +11,7 @@ export default class OrganismColumnFormatter {
 		let organism = "NA";
 
 		_.find(pdbHeader.compound, (mol: any) => {
-			if (_.indexOf(mol.chain, chainId.toLowerCase()) != -1 && pdbHeader.source[mol.mol_id] != null) {
+			if (_.indexOf(mol.chain, chainId.toLowerCase()) !== -1 && pdbHeader.source[mol.mol_id] !== null) {
 				// chain is associated with this mol,
 				// get the organism info from the source
 				organism = pdbHeader.source[mol.mol_id].organism_scientific || organism;

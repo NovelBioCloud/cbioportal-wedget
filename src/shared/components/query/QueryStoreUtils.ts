@@ -41,7 +41,7 @@ export function queryUrl(
 	store: QueryStore,
 	nonMolecularProfileParams: NonMolecularProfileQueryParams
 ) {
-	/*if (store.selectedStudyIds.length != 1)
+	/*if (store.selectedStudyIds.length !== 1)
     {
         let studyIds = store.selectedStudyIds;
         if (!studyIds.length) {

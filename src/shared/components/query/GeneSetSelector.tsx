@@ -32,7 +32,7 @@ export interface GeneSetSelectorProps {}
 export default class GeneSetSelector extends QueryStoreComponent<GeneSetSelectorProps, {}> {
 	@computed
 	get selectedGeneListOption() {
-		let option = this.geneListOptions.find(opt => opt.value == this.store.geneQuery);
+		let option = this.geneListOptions.find(opt => opt.value === this.store.geneQuery);
 		return option ? option.value : "";
 	}
 

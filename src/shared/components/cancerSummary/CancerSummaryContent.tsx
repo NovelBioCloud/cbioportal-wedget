@@ -143,7 +143,7 @@ export class CancerSummaryContent extends React.Component<ICancerSummaryContentP
 	}
 
 	public componentWillMount() {
-		//if there is only one cancer type, then we want to default to show cancer sub types
+		// if there is only one cancer type, then we want to default to show cancer sub types
 	}
 
 	@computed
@@ -154,7 +154,7 @@ export class CancerSummaryContent extends React.Component<ICancerSummaryContentP
 	@computed
 	get countsData() {
 		return this.props.groupedAlterationData;
-		//return (this.viewCountsByCancerSubType || this.onlyOneSelected)? this.props.dataByCancerSubType : this.props.dataByCancerType;
+		// return (this.viewCountsByCancerSubType || this.onlyOneSelected)? this.props.dataByCancerSubType : this.props.dataByCancerType;
 	}
 
 	@computed
@@ -265,7 +265,7 @@ export class CancerSummaryContent extends React.Component<ICancerSummaryContentP
 				this.tempAltCasesInputValue = 0;
 				return;
 			}
-			//removes leading 0s
+			// removes leading 0s
 			this.tempAltCasesInputValue = Number(this.tempAltCasesInputValue);
 			this.tempAltCasesValue = this.tempAltCasesInputValue;
 			this.handleAltSliderChangeComplete();
@@ -278,7 +278,7 @@ export class CancerSummaryContent extends React.Component<ICancerSummaryContentP
 				this.tempTotalCasesInputValue = 0;
 				return;
 			}
-			//removes leading 0s
+			// removes leading 0s
 			this.tempTotalCasesInputValue = Number(this.tempTotalCasesInputValue);
 			this.tempTotalCasesValue = this.tempTotalCasesInputValue;
 			this.handleTotalSliderChangeComplete();
@@ -550,6 +550,7 @@ export class CancerSummaryContent extends React.Component<ICancerSummaryContentP
 							<ButtonGroup>
 								{GroupByOptions.map((option, i) => {
 									return (
+										// tslint:disable-next-line:jsx-key
 										<Radio
 											checked={option.value === this.props.groupAlterationsBy}
 											onChange={e => {

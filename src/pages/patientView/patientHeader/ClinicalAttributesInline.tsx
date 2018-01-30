@@ -6,7 +6,7 @@ export type IClinicalAttributesInlineProps = {
 	cancerStudyId: string;
 };
 
-//export default class ClinicalAttributesInline extends React.Component<IClinicalAttributesInlineProps, {}> {
+// export default class ClinicalAttributesInline extends React.Component<IClinicalAttributesInlineProps, {}> {
 //    public render() {
 //        switch (this.props.status) {
 //            case 'fetching':
@@ -22,7 +22,7 @@ export type IClinicalAttributesInlineProps = {
 //                return <div />;
 //        }
 //    }
-//}
+// }
 
 type IClinicalAttributeProps = {
 	key: string;

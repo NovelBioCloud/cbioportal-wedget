@@ -17,7 +17,7 @@ export function gsUploadByGet(config: {
 	let gsUploadUrl = jsuiRoot + "/upload/loadUrlToGenomespace.html?uploadUrl=";
 	let dest = encodeURIComponent(config.url);
 	let filenameParam = "";
-	if (config["filename"] != null) {
+	if (config["filename"] !== null) {
 		filenameParam = "&fileName=" + config.filename;
 	}
 
@@ -29,11 +29,11 @@ export function gsUploadByGet(config: {
 	if (!newWin) return alert("GenomeSpace popup was blocked by the browser");
 	newWin.focus();
 
-	if (config["successCallback"] != null)
+	if (config["successCallback"] !== null)
 		(newWin as any).setCallbackOnGSUploadComplete =
 			config["successCallback"];
 
-	if (config["errorCallback"] != null)
+	if (config["errorCallback"] !== null)
 		(newWin as any).setCallbackOnGSUploadError = config["errorCallback"];
 }
 
@@ -63,7 +63,7 @@ export function gsLocationByGet(config: {
 
 	newWin.focus();
 
-	if (config["errorCallback"] != null)
+	if (config["errorCallback"] !== null)
 		(newWin as any).setCallbackOnGSUploadError = config["errorCallback"];
 }
 
@@ -83,7 +83,7 @@ export function gsSelectFileByGet(config: {
 
 	(newWin as any).setCallbackOnGSLocationComplete = config["successCallback"];
 
-	if (config["errorCallback"] != null)
+	if (config["errorCallback"] !== null)
 		(newWin as any).setCallbackOnGSUploadError = config["errorCallback"];
 }
 
@@ -95,7 +95,7 @@ export async function gsUploadByPost(formData: any) {
 	}
 
 	function gsUploadByPostCompleteHandler(responseObj: any) {
-		if (typeof responseObj == "string") {
+		if (typeof responseObj === "string") {
 			responseObj = JSON.parse(responseObj);
 		}
 		let newWin = window.open(
@@ -106,13 +106,13 @@ export async function gsUploadByPost(formData: any) {
 		newWin.focus();
 	}
 	let params = {
-		url: jsuiRoot + "/postToGenomeSpace", //server script to process data
+		url: jsuiRoot + "/postToGenomeSpace", // server script to process data
 		type: "POST",
 		crossDomain: true,
 		success: gsUploadByPostCompleteHandler,
 		error: gsUploadByPostErrorHandler,
 		data: formData,
-		//Options to tell JQuery not to process data or worry about content-type
+		// Options to tell JQuery not to process data or worry about content-type
 		cache: false,
 		contentType: false,
 		processData: false

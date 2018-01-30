@@ -51,7 +51,7 @@ export default class AlleleCountColumnFormatter {
 				result.push((mutation as any)[dataField]);
 			}
 		}
-		if (result.length == 1) {
+		if (result.length === 1) {
 			return result[0];
 		}
 		return result;

@@ -6,7 +6,7 @@ import URL, { QueryParams } from "url";
 export default class ExtendedRouterStore extends RouterStore {
 	@action
 	updateRoute(newParams: QueryParams, path = this.location.pathname) {
-		let newQuery = _.clone(this.location.query);
+		let newQuery = _.clone((this.location as any).query);
 
 		_.each(newParams, (v, k: string) => {
 			if (v === undefined) {
