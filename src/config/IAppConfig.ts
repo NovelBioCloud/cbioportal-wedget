@@ -60,3 +60,5 @@ export type VirtualCohort = {
 	samples: { sampleId: string; studyId: string }[];
 	constituentStudyIds: string[];
 };
+
+export const AppConfig: IAppConfig = {} as any;

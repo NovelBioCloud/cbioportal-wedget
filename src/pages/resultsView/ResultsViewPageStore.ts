@@ -76,13 +76,11 @@ import Accessors, {
 } from "../../shared/lib/oql/accessors";
 import { filterCBioPortalWebServiceData } from "../../shared/lib/oql/oqlfilter.js";
 import { keepAlive } from "mobx-utils";
-import MutationMapper from "./mutation/MutationMapper";
 import { CacheData } from "../../shared/lib/LazyMobXCache";
 import {
 	IAlterationCountMap,
 	IAlterationData
 } from "../../shared/components/cancerSummary/CancerSummaryContent";
-import { writeTest } from "../../shared/lib/writeTest";
 import { PatientSurvival } from "../../shared/model/PatientSurvival";
 import {
 	filterCBioPortalWebServiceDataByOQLLine,
@@ -179,11 +177,9 @@ export function buildDefaultOQLProfile(
 	zScoreThreshold: number,
 	rppaScoreThreshold: number
 ) {
-	//  tslint:disable-next-line:variable-name
 	const default_oql_uniq: any = {};
 	for (var i = 0; i < profilesTypes.length; i++) {
 		var type = profilesTypes[i];
-		//  tslint:disable-next-line:switch-default
 		switch (type) {
 			case "MUTATION_EXTENDED":
 				default_oql_uniq["MUT"] = true;

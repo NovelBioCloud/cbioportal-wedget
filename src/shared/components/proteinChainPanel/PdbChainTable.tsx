@@ -8,7 +8,7 @@ import PdbHeaderCache from "../../cache/PdbHeaderCache";
 import { computed } from "mobx";
 import { PdbHeader } from "../../api/generated/PdbAnnotationAPI";
 import OrganismColumnFormatter from "./column/OrganismColumnFormatter";
-import LazyLoadedTableCell from "shared/lib/LazyLoadedTableCell";
+import LazyLoadedTableCell from "../../../shared/lib/LazyLoadedTableCell";
 import { generatePdbInfoSummary } from "../../lib/PdbUtils";
 
 class PdbChainTableComponent extends LazyMobXTable<IPdbChain> {}

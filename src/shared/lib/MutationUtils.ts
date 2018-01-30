@@ -9,11 +9,11 @@ import {
 	MolecularProfile,
 	Mutation,
 	SampleIdentifier
-} from "shared/api/generated/CBioPortalAPI";
+} from "../../shared/api/generated/CBioPortalAPI";
 import {
 	MUTATION_STATUS_GERMLINE,
 	MOLECULAR_PROFILE_UNCALLED_MUTATIONS_SUFFIX
-} from "shared/constants";
+} from "../../shared/constants";
 import { findFirstMostCommonElt } from "./findFirstMostCommonElt";
 import { toSampleUuid } from "./UuidUtils";
 import { stringListToSet } from "./StringUtils";

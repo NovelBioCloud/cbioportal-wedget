@@ -18,7 +18,7 @@ import {
 	ICopyDownloadControlsProps,
 	ICopyDownloadData
 } from "../copyDownloadControls/CopyDownloadControls";
-import { serializeData } from "shared/lib/Serializer";
+import { serializeData } from "../../../shared/lib/Serializer";
 import DefaultTooltip from "../defaultTooltip/DefaultTooltip";
 import { ButtonToolbar } from "react-bootstrap";
 import { If } from "react-if";
@@ -809,16 +809,7 @@ export default class LazyMobXTable<T> extends React.Component<LazyMobXTableProps
 					) : (
 						""
 					)}
-					{this.props.showCopyDownload ? (
-						<CopyDownloadControls
-							className="pull-right"
-							downloadData={this.getDownloadData}
-							downloadFilename="table.tsv"
-							{...this.props.copyDownloadProps}
-						/>
-					) : (
-						""
-					)}
+					{this.props.showCopyDownload ? "" : ""}
 					{this.props.showPagination && this.props.showPaginationAtTop ? (
 						<Observer>{this.getPaginationControls}</Observer>
 					) : null}

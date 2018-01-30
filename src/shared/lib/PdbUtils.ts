@@ -1,6 +1,6 @@
 import * as _ from "lodash";
-import { PdbHeader } from "shared/api/generated/PdbAnnotationAPI";
-import { Alignment } from "shared/api/generated/Genome2StructureAPI";
+import { PdbHeader } from "../../shared/api/generated/PdbAnnotationAPI";
+import { Alignment } from "../../shared/api/generated/Genome2StructureAPI";
 import {
 	IPdbPositionRange,
 	IPdbChain,
@@ -9,7 +9,7 @@ import {
 	ALIGNMENT_MINUS,
 	ALIGNMENT_PLUS,
 	ALIGNMENT_SPACE
-} from "shared/model/Pdb";
+} from "../../shared/model/Pdb";
 
 /**
  * Generates a pdb info summary for the given pdb header and the chain id.

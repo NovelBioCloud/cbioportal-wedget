@@ -8,22 +8,22 @@ import {
 	Sample,
 	MolecularProfile,
 	SampleIdentifier
-} from "shared/api/generated/CBioPortalAPI";
-import client from "shared/api/cbioportalClientInstance";
+} from "../../../shared/api/generated/CBioPortalAPI";
+import client from "../../../shared/api/cbioportalClientInstance";
 import { computed, observable } from "mobx";
-import { remoteData } from "shared/api/remoteData";
+import { remoteData } from "../../../shared/api/remoteData";
 import { labelMobxPromises, MobxPromise, cached } from "mobxpromise";
-import { IOncoKbData, IOncoKbDataWrapper } from "shared/model/OncoKB";
-import { IHotspotData } from "shared/model/CancerHotspots";
-import { IPdbChain, PdbAlignmentIndex } from "shared/model/Pdb";
-import { ICivicGene, ICivicVariant } from "shared/model/Civic";
-import PdbPositionMappingCache from "shared/cache/PdbPositionMappingCache";
-import ResidueMappingCache from "shared/cache/ResidueMappingCache";
+import { IOncoKbData, IOncoKbDataWrapper } from "../../../shared/model/OncoKB";
+import { IHotspotData } from "../../../shared/model/CancerHotspots";
+import { IPdbChain, PdbAlignmentIndex } from "../../../shared/model/Pdb";
+import { ICivicGene, ICivicVariant } from "../../../shared/model/Civic";
+import PdbPositionMappingCache from "../../../shared/cache/PdbPositionMappingCache";
+import ResidueMappingCache from "../../../shared/cache/ResidueMappingCache";
 import {
 	calcPdbIdNumericalValue,
 	mergeIndexedPdbAlignments
-} from "shared/lib/PdbUtils";
-import { lazyMobXTableSort } from "shared/components/lazyMobXTable/LazyMobXTable";
+} from "../../../shared/lib/PdbUtils";
+import { lazyMobXTableSort } from "../../../shared/components/lazyMobXTable/LazyMobXTable";
 import {
 	indexHotspotData,
 	fetchHotspotsData,
@@ -42,19 +42,19 @@ import {
 	fetchCivicVariants,
 	IDataQueryFilter,
 	fetchCanonicalTranscript
-} from "shared/lib/StoreUtils";
+} from "../../../shared/lib/StoreUtils";
 import MutationMapperDataStore from "./MutationMapperDataStore";
 import PdbChainDataStore from "./PdbChainDataStore";
 import { IMutationMapperConfig } from "./MutationMapper";
-import MutationDataCache from "shared/cache/MutationDataCache";
-import GenomeNexusEnrichmentCache from "shared/cache/GenomeNexusEnrichment";
-import MutationCountCache from "shared/cache/MutationCountCache";
+import MutationDataCache from "../../../shared/cache/MutationDataCache";
+import GenomeNexusEnrichmentCache from "../../../shared/cache/GenomeNexusEnrichment";
+import MutationCountCache from "../../../shared/cache/MutationCountCache";
 import {
 	EnsemblTranscript,
 	PfamDomain,
 	PfamDomainRange
-} from "shared/api/generated/GenomeNexusAPI";
-import { MutationTableDownloadDataFetcher } from "shared/lib/MutationTableDownloadDataFetcher";
+} from "../../../shared/api/generated/GenomeNexusAPI";
+import { MutationTableDownloadDataFetcher } from "../../../shared/lib/MutationTableDownloadDataFetcher";
 
 export class MutationMapperStore {
 	constructor(

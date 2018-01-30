@@ -1,9 +1,9 @@
 import * as React from "react";
-import { MolecularProfile, Mutation, SampleIdentifier } from "shared/api/generated/CBioPortalAPI";
-import { germlineMutationRate, somaticMutationRate } from "shared/lib/MutationUtils";
+import { MolecularProfile, Mutation, SampleIdentifier } from "../../../shared/api/generated/CBioPortalAPI";
+import { germlineMutationRate, somaticMutationRate } from "../../../shared/lib/MutationUtils";
 import { MobxPromise } from "mobxpromise";
 import { observer } from "mobx-react";
-import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
+import DefaultTooltip from "../../../shared/components/defaultTooltip/DefaultTooltip";
 
 export interface IMutationRateSummaryProps {
 	mutations: Mutation[];

@@ -15,9 +15,8 @@ import {
 	generateResiduePosToSelectorMap,
 	findUpdatedResidues
 } from "./PdbResidueUtils";
-
+import * as $3Dmol from '3dmol'
 //  3Dmol expects "this" to be the global context
-const $3Dmol = require("imports-loader?this=>window!3dmol/build/3Dmol-nojquery.js");
 
 //  ideally these types should be defined in 3Dmol.js lib.
 //  manually adding complete style and selector models is quite complicated,
