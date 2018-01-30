@@ -28,7 +28,7 @@ export default class PdbChainTable extends React.Component<IPdbChainTableProps, 
 			name: "PDB Id",
 			render: (d: IPdbChain) => {
 				return (
-					<a href={`http:// www.rcsb.org/pdb/explore/explore.do?structureId=${d.pdbId}`} target="_blank">
+					<a href={`http://www.rcsb.org/pdb/explore/explore.do?structureId=${d.pdbId}`} target="_blank">
 						{d.pdbId}
 					</a>
 				);

@@ -15,7 +15,7 @@ async function fetch(
 			//  TODO better to separate this call to a configurable client
 			request
 				.post(
-					"https:// eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json"
+					"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json"
 				)
 				.type("form")
 				.send({ id: pmids.join(",") })

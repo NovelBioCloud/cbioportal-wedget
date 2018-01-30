@@ -70,7 +70,7 @@ import {
 } from "../../shared/lib/StringUtils";
 import { toSampleUuid } from "../../shared/lib/UuidUtils";
 import MutationDataCache from "../../shared/cache/MutationDataCache";
-import accessors, {
+import Accessors, {
 	getSimplifiedMutationType,
 	SimplifiedMutationType
 } from "../../shared/lib/oql/accessors";
@@ -425,7 +425,7 @@ export class ResultsViewPageStore {
 	readonly bitlyShortenedURL = remoteData({
 		invoke: () => {
 			return request.get(
-				"http:// " +
+				"http://" +
 					location.host +
 					"/api/url-shortener?url=" +
 					this.sessionIdURL
@@ -536,7 +536,7 @@ export class ResultsViewPageStore {
 				filterCBioPortalWebServiceData(
 					this.oqlQuery,
 					this.unfilteredAlterations.result!,
-					new accessors(this.selectedMolecularProfiles.result!),
+					new Accessors(this.selectedMolecularProfiles.result!),
 					this.defaultOQLQuery.result!
 				)
 			);
@@ -556,7 +556,7 @@ export class ResultsViewPageStore {
 				filterCBioPortalWebServiceDataByOQLLine(
 					this.oqlQuery,
 					this.unfilteredAlterations.result!,
-					new accessors(this.selectedMolecularProfiles.result!),
+					new Accessors(this.selectedMolecularProfiles.result!),
 					this.defaultOQLQuery.result!
 				)
 			);
@@ -613,7 +613,7 @@ export class ResultsViewPageStore {
 			>[] = filterCBioPortalWebServiceDataByOQLLine(
 				this.oqlQuery,
 				unfilteredAlterations,
-				new accessors(this.selectedMolecularProfiles.result!),
+				new Accessors(this.selectedMolecularProfiles.result!),
 				this.defaultOQLQuery.result!
 			);
 

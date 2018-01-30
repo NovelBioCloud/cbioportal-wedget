@@ -73,7 +73,7 @@ export default class CivicAPI {
 	 */
 	getCivicGenesBatch(ids: string): Promise<Array<ICivicGeneData>> {
 		return request
-			.get("https:// civic.genome.wustl.edu/api/genes/" + ids)
+			.get("https://civic.genome.wustl.edu/api/genes/" + ids)
 			.query({ identifier_type: "entrez_symbol" })
 			.then(res => {
 				let response = res.body;
@@ -88,7 +88,7 @@ export default class CivicAPI {
 					name: record.name,
 					description: record.description,
 					url:
-						"https:// civic.genome.wustl.edu/#/events/genes/" +
+						"https://civic.genome.wustl.edu/#/events/genes/" +
 						record.id +
 						"/summary",
 					variants: createVariantMap(record.variants)
@@ -105,7 +105,7 @@ export default class CivicAPI {
 		geneId: number
 	): Promise<ICivicVariantData> {
 		return request
-			.get("https:// civic.genome.wustl.edu/api/variants/" + id)
+			.get("https://civic.genome.wustl.edu/api/variants/" + id)
 			.then(res => {
 				let result = res.body;
 				return {
@@ -114,7 +114,7 @@ export default class CivicAPI {
 					geneId,
 					description: result.description,
 					url:
-						"https:// civic.genome.wustl.edu/#/events/genes/" +
+						"https://civic.genome.wustl.edu/#/events/genes/" +
 						geneId +
 						"/summary/variants/" +
 						id +

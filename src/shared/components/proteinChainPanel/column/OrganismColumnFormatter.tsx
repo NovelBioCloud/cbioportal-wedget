@@ -6,7 +6,7 @@ import { IPdbChain } from "../../../model/Pdb";
 
 export default class OrganismColumnFormatter {
 	public static getOrganism(pdbHeader: PdbHeader, chainId: string): string {
-		//  source: https:// github.com/cBioPortal/mutation-mapper/blob/1475afb5a42c18a3859f45741c68908b34d08692/src/js/util/PdbDataUtil.js#L206
+		//  source: https://github.com/cBioPortal/mutation-mapper/blob/1475afb5a42c18a3859f45741c68908b34d08692/src/js/util/PdbDataUtil.js#L206
 
 		let organism = "NA";
 

@@ -93,7 +93,7 @@ export default class PyMolScriptGenerator extends StructureVisualizer {
 
 	protected setTransparency(transparency: number) {
 		//  TODO cartoon_transparency doesn't work for chain or residue selections
-		//  see issue:  http:// sourceforge.net/p/pymol/bugs/129/
+		//  see issue:  http://sourceforge.net/p/pymol/bugs/129/
 		this._script.push(`set transparency, ${transparency / 10}, sele;`);
 		this._script.push(
 			`set cartoon_transparency, ${transparency / 10}, sele;`

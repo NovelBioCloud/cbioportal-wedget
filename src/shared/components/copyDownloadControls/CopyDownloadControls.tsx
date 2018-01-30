@@ -68,7 +68,7 @@ export class CopyDownloadControls extends React.Component<ICopyDownloadControlsP
 					return this.getText();
 				},
 				//  we need to pass a container to the clipboard when we use it in a Modal element
-				//  see https:// stackoverflow.com/questions/38398070/bootstrap-modal-does-not-work-with-clipboard-js-on-firefox
+				//  see https://stackoverflow.com/questions/38398070/bootstrap-modal-does-not-work-with-clipboard-js-on-firefox
 				container: cotainer
 			});
 		}

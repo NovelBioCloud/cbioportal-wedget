@@ -2,7 +2,7 @@
 
 import request from "superagent";
 
-let jsuiRoot = "https:// gsui.genomespace.org/jsui/";
+let jsuiRoot = "https://gsui.genomespace.org/jsui/";
 
 type Callback = (data: any) => void;
 

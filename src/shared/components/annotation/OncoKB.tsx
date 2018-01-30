@@ -151,7 +151,7 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 	}
 
 	public feedbackModal(hugoSymbol?: string, alteration?: string) {
-		const url = "https:// docs.google.com/forms/d/1lt6TtecxHrhIE06gAKVF_JW4zKFoowNFzxn6PJv4g7A/viewform";
+		const url = "https://docs.google.com/forms/d/1lt6TtecxHrhIE06gAKVF_JW4zKFoowNFzxn6PJv4g7A/viewform";
 		const geneParam = `entry.1744186665=${hugoSymbol || ""}`;
 		const alterationParam = `entry.1671960263=${alteration || ""}`;
 		const userParam = `entry.1381123986=${this.props.userEmailAddress || ""}`;

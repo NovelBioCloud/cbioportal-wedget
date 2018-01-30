@@ -43,7 +43,7 @@ export function getCivicGenes(geneSymbols: Array<string>): Promise<ICivicGene> {
 	let ids: Array<String> = [];
 	geneSymbols.forEach(function(geneSymbol: string) {
 		// Encode "/" characters
-		geneSymbol = geneSymbol.replace(/\// g, "%2F");
+		geneSymbol = geneSymbol.replace(/\//g, "%2F");
 		//  Check if we already have it in the cache
 		if (civicGenes.hasOwnProperty(geneSymbol)) {
 			return;

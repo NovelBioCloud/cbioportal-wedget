@@ -4,7 +4,7 @@ export function getMouseIcon(): JSX.Element {
 	return (
 		<svg
 			id="Layer_2"
-			xmlns="http:// www.w3.org/2000/svg"
+			xmlns="http://www.w3.org/2000/svg"
 			x="0px"
 			y="0px"
 			width="15px"

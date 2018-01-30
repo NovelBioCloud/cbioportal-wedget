@@ -484,7 +484,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 				.remove();
 			return svg;
 		} else {
-			return document.createElementNS("http:// www.w3.org/2000/svg", "svg");
+			return document.createElementNS("http://www.w3.org/2000/svg", "svg");
 		}
 	}
 
@@ -492,7 +492,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 		return (
 			<div onMouseOver={this.handlers.onMouseOver}>
 				<svg
-					xmlns="http:// www.w3.org/2000/svg"
+					xmlns="http://www.w3.org/2000/svg"
 					ref={this.handlers.ref}
 					width={this.svgWidth}
 					height={this.svgHeight}

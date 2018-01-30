@@ -548,7 +548,7 @@ export default class PatientViewPage extends React.Component<IPatientViewPagePro
 								<div style={{ position: "relative" }}>
 									<IFrameLoader
 										height={700}
-										url={`http:// cancer.digitalslidearchive.net/index_mskcc.php?slide_name=${
+										url={`http://cancer.digitalslidearchive.net/index_mskcc.php?slide_name=${
 											patientViewPageStore.patientId
 										}`}
 									/>

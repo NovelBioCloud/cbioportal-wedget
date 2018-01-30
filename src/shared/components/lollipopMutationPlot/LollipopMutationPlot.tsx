@@ -213,7 +213,7 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 				<div>
 					<a
 						style={{ marginRight: "5px" }}
-						href={`http:// pfam.xfam.org/family/${pfamAccession}`}
+						href={`http://pfam.xfam.org/family/${pfamAccession}`}
 						target="_blank"
 					>
 						PFAM
@@ -279,7 +279,7 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 	private sequenceTooltip(): JSX.Element {
 		return (
 			<div style={{ maxWidth: 200 }}>
-				<a href={`http:// www.uniprot.org/uniprot/${this.props.store.uniprotId.result}`} target="_blank">
+				<a href={`http://www.uniprot.org/uniprot/${this.props.store.uniprotId.result}`} target="_blank">
 					{this.props.store.uniprotId.result}
 				</a>
 			</div>
@@ -314,13 +314,13 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 					{this.hugoGeneSymbol}
 				</text>
 			);
-			const labelGroup = document.createElementNS("http:// www.w3.org/2000/svg", "g");
+			const labelGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
 			ReactDOM.render(label, labelGroup);
 			plotSvg.appendChild(labelGroup);
 
 			return plotSvg;
 		} else {
-			return document.createElementNS("http:// www.w3.org/2000/svg", "svg");
+			return document.createElementNS("http://www.w3.org/2000/svg", "svg");
 		}
 		//  Add label to top
 	}

@@ -81,14 +81,14 @@ export default class MutationMapper extends React.Component<IMutationMapperProps
 				<h4>{hugoGeneSymbol}</h4>
 				<div className={this.props.store.uniprotId.result ? "" : "invisible"}>
 					<span>UniProt: </span>
-					<a href={`http:// www.uniprot.org/uniprot/${uniprotId}`} target="_blank">
+					<a href={`http://www.uniprot.org/uniprot/${uniprotId}`} target="_blank">
 						{uniprotId}
 					</a>
 				</div>
 				<div className={this.props.store.canonicalTranscript.result ? "" : "invisible"}>
 					<span>Transcript: </span>
 					<a
-						href={`http:// grch37.ensembl.org/homo_sapiens/Transcript/Summary?t=${transcriptId}`}
+						href={`http://grch37.ensembl.org/homo_sapiens/Transcript/Summary?t=${transcriptId}`}
 						target="_blank"
 					>
 						{transcriptId}

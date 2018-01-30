@@ -76,10 +76,10 @@ export function getPatientViewUrl(studyId: string, patientId: string) {
 	);
 }
 export function getPubMedUrl(pmid: string) {
-	return `https:// www.ncbi.nlm.nih.gov/pubmed/${pmid}`;
+	return `https://www.ncbi.nlm.nih.gov/pubmed/${pmid}`;
 }
 export function getMyGeneUrl(entrezGeneId: number) {
-	return `https:// mygene.info/v3/gene/${entrezGeneId}?fields=uniprot`;
+	return `https://mygene.info/v3/gene/${entrezGeneId}?fields=uniprot`;
 }
 export function getUniprotIdUrl(swissProtAccession: string) {
 	return cbioUrl(
@@ -122,10 +122,10 @@ export function getGenomeNexusApiUrl() {
 	}
 }
 export function getPdbAnnotationApiUrl() {
-	return "https:// cbioportal.mskcc.org/pdb-annotation";
+	return "https://cbioportal.mskcc.org/pdb-annotation";
 }
 export function getG2SApiUrl() {
-	return "https:// g2s.genomenexus.org";
+	return "https://g2s.genomenexus.org";
 }
 export function getTissueImageCheckUrl(filter: string) {
 	return cbioUrl(

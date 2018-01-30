@@ -78,7 +78,7 @@ export interface IStructureVisualizerProps {
 
 abstract class StructureVisualizer {
 	public static defaultProps = {
-		pdbUri: "https:// files.rcsb.org/view/",
+		pdbUri: "https://files.rcsb.org/view/",
 		proteinScheme: ProteinScheme.CARTOON,
 		displayBoundMolecules: true,
 		backgroundColor: "#FFFFFF",

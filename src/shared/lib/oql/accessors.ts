@@ -86,7 +86,7 @@ export function getSimplifiedMutationType(
 	return ret;
 }
 
-export default class accessors {
+export default class Accessors {
 	private molecularProfileIdToMolecularProfile: {
 		[molecularProfileId: string]: MolecularProfile;
 	};

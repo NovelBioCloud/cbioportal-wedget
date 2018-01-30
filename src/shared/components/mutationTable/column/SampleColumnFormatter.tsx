@@ -37,7 +37,7 @@ export default class SampleColumnFormatter {
 				/**
 				 * HACK to deal with having mutation mapper on index.do
 				 * Change it to case.do
-				 * https:// github.com/cBioPortal/cbioportal/issues/2783
+				 * https://github.com/cBioPortal/cbioportal/issues/2783
 				 */
 				const indexLocation: number = window.location.href.search("index.do");
 				if (indexLocation > -1) {

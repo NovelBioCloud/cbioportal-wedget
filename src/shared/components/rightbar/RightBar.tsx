@@ -69,7 +69,7 @@ export default class RightBar extends React.Component<IRightBarProps, IRightBarS
 				<div className="rightBarSection" style={{ paddingBottom: 20 }}>
 					<h3 style={{ borderBottom: 0 }}>
 						What's New
-						<a href="http:// www.twitter.com/cbioportal" className="pull-right">
+						<a href="http://www.twitter.com/cbioportal" className="pull-right">
 							@cbioportal <i className="fa fa-twitter" aria-hidden="true" />
 						</a>
 					</h3>
@@ -94,7 +94,7 @@ export default class RightBar extends React.Component<IRightBarProps, IRightBarS
 								<a
 									target="_blank"
 									className="btn btn-default btn-sm"
-									href="http:// groups.google.com/group/cbioportal-news/boxsubscribe"
+									href="http://groups.google.com/group/cbioportal-news/boxsubscribe"
 									style={{ width: "100%" }}
 								>
 									Subscribe

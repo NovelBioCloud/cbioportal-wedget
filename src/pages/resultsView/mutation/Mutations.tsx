@@ -7,7 +7,7 @@ import { observable, computed } from "mobx";
 import AppConfig from "appConfig";
 import "./mutations.scss";
 import { filterCBioPortalWebServiceData } from "../../../shared/lib/oql/oqlfilter";
-import accessors from "../../../shared/lib/oql/accessors";
+import Accessors from "../../../shared/lib/oql/accessors";
 import Loader from "../../../shared/components/loadingIndicator/LoadingIndicator";
 
 export interface IMutationsPageProps {

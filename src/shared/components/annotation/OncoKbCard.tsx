@@ -211,7 +211,7 @@ export default class OncoKbCard extends React.Component<OncoKbCardProps, IOncoKb
 	public pmidItem(title: string, author: string, source: string, date: string, pmid: string) {
 		return (
 			<li key={pmid} className="list-group-item" style={{ width: "100%" }}>
-				<a href={`http:// www.ncbi.nlm.nih.gov/pubmed/${pmid}`} target="_blank">
+				<a href={`http://www.ncbi.nlm.nih.gov/pubmed/${pmid}`} target="_blank">
 					<b>{title}</b>
 				</a>
 				<br />
@@ -324,7 +324,7 @@ export default class OncoKbCard extends React.Component<OncoKbCardProps, IOncoKb
 											<p>
 												{this.insertLink(this.props.variantSummary, {
 													keyword: "Chang et al. 2016",
-													link: "https:// www.ncbi.nlm.nih.gov/pubmed/26619011"
+													link: "https://www.ncbi.nlm.nih.gov/pubmed/26619011"
 												})}
 											</p>
 											<p>{this.props.tumorTypeSummary}</p>
@@ -437,7 +437,7 @@ export default class OncoKbCard extends React.Component<OncoKbCardProps, IOncoKb
 					)}
 
 					<div className="item footer">
-						<a href="http:// oncokb.org/#/gene/{{gene}}" target="_blank">
+						<a href="http://oncokb.org/#/gene/{{gene}}" target="_blank">
 							<img src={require("./images/oncokb.png")} className="oncokb-logo" alt="OncoKB" />
 						</a>
 						<span className="pull-right feedback">
@@ -510,10 +510,10 @@ export default class OncoKbCard extends React.Component<OncoKbCardProps, IOncoKb
 		let prefix: string | undefined;
 
 		if (str.toLowerCase().indexOf("pmid") >= 0) {
-			baseUrl = "http:// www.ncbi.nlm.nih.gov/pubmed/";
+			baseUrl = "http://www.ncbi.nlm.nih.gov/pubmed/";
 			prefix = "PMID: ";
 		} else if (str.toLowerCase().indexOf("nct") >= 0) {
-			baseUrl = "http:// www.ncbi.nlm.nih.gov/pubmed/";
+			baseUrl = "http://www.ncbi.nlm.nih.gov/pubmed/";
 			prefix = "NCT";
 		}
 

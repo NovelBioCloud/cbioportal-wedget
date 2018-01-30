@@ -16,7 +16,7 @@ export function hideArrow(tooltipEl: any) {
 }
 
 export default class MutationAssessor extends React.Component<IMutationAssessorProps, {}> {
-	static MUTATION_ASSESSOR_URL: string = "http:// mutationassessor.org/r3/";
+	static MUTATION_ASSESSOR_URL: string = "http://mutationassessor.org/r3/";
 
 	constructor(props: IMutationAssessorProps) {
 		super(props);
@@ -70,7 +70,7 @@ export default class MutationAssessor extends React.Component<IMutationAssessorP
 	private tooltipContent() {
 		const maData = this.props.mutationAssessor;
 		const xVarLink = MutationAssessor.maLink(
-			`http:// mutationassessor.org/r3/?cm=var&p=${maData.uniprotId}&var=${maData.variant}`
+			`http://mutationassessor.org/r3/?cm=var&p=${maData.uniprotId}&var=${maData.variant}`
 		);
 		const msaLink = MutationAssessor.maLink(maData.msaLink);
 		const pdbLink = MutationAssessor.maLink(maData.pdbLink);
@@ -81,7 +81,7 @@ export default class MutationAssessor extends React.Component<IMutationAssessorP
 					<tr>
 						<td>Source</td>
 						<td>
-							<a href="http:// mutationassessor.org/r3">MutationAssessor</a>
+							<a href="http://mutationassessor.org/r3">MutationAssessor</a>
 						</td>
 					</tr>
 					<tr>
@@ -156,9 +156,9 @@ export default class MutationAssessor extends React.Component<IMutationAssessorP
 			//  getma.org is the legacy link, need to replace it with the actual value
 			url = link.replace("getma.org", "mutationassessor.org/r3");
 
-			//  prepend "http:// " if needed
-			if (url.indexOf("http:// ") !== 0) {
-				url = `http:// ${url}`;
+			//  prepend "http://" if needed
+			if (url.indexOf("http://") !== 0) {
+				url = `http://${url}`;
 			}
 		}
 
