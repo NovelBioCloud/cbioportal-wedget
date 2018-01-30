@@ -24,7 +24,7 @@ async function fetchForStudy(
 		const uniqueGenes = _.uniq(queries.map(q => q.entrezGeneId));
 		let filters: DiscreteCopyNumberFilter[];
 		if (uniqueSamples.length < uniqueGenes.length) {
-			// Make one query per sample, since there are fewer samples than genes
+			//  Make one query per sample, since there are fewer samples than genes
 			const sampleToEntrezList: { [sampleId: string]: number[] } = {};
 			for (const query of queries) {
 				sampleToEntrezList[query.sampleId] =
@@ -38,7 +38,7 @@ async function fetchForStudy(
 				} as DiscreteCopyNumberFilter;
 			});
 		} else {
-			// Make one query per gene
+			//  Make one query per gene
 			const entrezToSampleList: { [entrez: string]: string[] } = {};
 			for (const query of queries) {
 				entrezToSampleList[query.entrezGeneId] =

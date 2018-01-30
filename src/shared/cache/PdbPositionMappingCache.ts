@@ -32,8 +32,8 @@ async function fetch(
 	const uniqueAlignments = _.uniq(queries.map(q => q.alignmentId));
 	const uniquePositions = _.uniq(queries.map(q => q.uniprotPosition));
 
-	// TODO postPositionMap actually returns a map of <uniprotPosition: PdbUniprotResidueMapping[]>
-	// so we need to flatten to match the actual promise data
+	//  TODO postPositionMap actually returns a map of <uniprotPosition: PdbUniprotResidueMapping[]>
+	//  so we need to flatten to match the actual promise data
 	return _.flatten(
 		_.values(
 			await fetchPdbPositionMappingData(uniquePositions, uniqueAlignments)

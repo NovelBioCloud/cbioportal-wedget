@@ -21,30 +21,30 @@ export default class Tracks extends React.Component<TracksPropTypes, {}> {
 	}
 
 	componentDidMount() {
-		// --- construct params ---
+		//  --- construct params ---
 		let cnaSamples = _.keyBy(this.props.samples.filter(s => s.copyNumberSegmentPresent), s => s.sampleId);
 		let mutSamples = _.keyBy(this.props.samples.filter(s => s.sequenced), s => s.sampleId);
 		var config = tracksHelper.GenomicOverviewConfig(
 			Object.keys(cnaSamples).length + Object.keys(mutSamples).length,
 			this.props.width
 		);
-		// --- end of params ---
+		//  --- end of params ---
 
-		// --- raphael config ---
+		//  --- raphael config ---
 		let rowIndex: number = 0;
 		var paper = tracksHelper.createRaphaelCanvas(
 			document.getElementsByClassName("genomicOverviewTracksContainer")[0],
 			config
 		);
-		// --- end of raphael config ---
+		//  --- end of raphael config ---
 
-		// --- chromosome chart ---
+		//  --- chromosome chart ---
 		var chmInfo = tracksHelper.getChmInfo();
 		tracksHelper.plotChromosomes(paper, config, chmInfo);
-		// --- end of chromosome chart ---
+		//  --- end of chromosome chart ---
 
 		_.each(this.props.sampleManager.samples, (sample: ClinicalDataBySampleId) => {
-			// --- CNA bar chart ---
+			//  --- CNA bar chart ---
 			if (cnaSamples[sample.id]) {
 				let raphaelData: Array<any> = [];
 				var _trackData = _.filter(this.props.cnaSegments, function(_cnaObj: CopyNumberSeg) {
@@ -78,9 +78,9 @@ export default class Tracks extends React.Component<TracksPropTypes, {}> {
 				}
 			}
 		});
-		// --- end of CNA bar chart ---
+		//  --- end of CNA bar chart ---
 
-		// --- mutation events bar chart ---
+		//  --- mutation events bar chart ---
 		_.each(this.props.sampleManager.samples, (sample: ClinicalDataBySampleId) => {
 			if (mutSamples[sample.id]) {
 				var _trackData = _.filter(this.props.mutations, function(_mutObj: any) {
@@ -106,7 +106,7 @@ export default class Tracks extends React.Component<TracksPropTypes, {}> {
 				}
 			}
 		});
-		// --- end of mutation events bar chart ---
+		//  --- end of mutation events bar chart ---
 	}
 
 	public render() {

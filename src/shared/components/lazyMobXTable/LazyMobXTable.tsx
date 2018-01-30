@@ -63,7 +63,7 @@ type LazyMobXTableProps<T> = {
 	showCopyDownload?: boolean;
 	copyDownloadProps?: ICopyDownloadControlsProps;
 	showPagination?: boolean;
-	// used only when showPagination === true (show pagination at bottom otherwise)
+	//  used only when showPagination === true (show pagination at bottom otherwise)
 	showPaginationAtTop?: boolean;
 	paginationProps?: IPaginationControlsProps;
 	showColumnVisibility?: boolean;
@@ -77,23 +77,23 @@ function compareValues<U extends number | string>(a: U | null, b: U | null, asc:
 	let ret: number = 0;
 	if (a !== b) {
 		if (a === null) {
-			// a sorted to end
+			//  a sorted to end
 			ret = 1;
 		} else if (b === null) {
-			// b sorted to end
+			//  b sorted to end
 			ret = -1;
 		} else {
-			// neither are null
+			//  neither are null
 			if (typeof a === "number") {
-				// sort numbers
+				//  sort numbers
 				if (a < b) {
 					ret = asc ? -1 : 1;
 				} else {
-					// we know a !== b here so this case is a > b
+					//  we know a !== b here so this case is a > b
 					ret = asc ? 1 : -1;
 				}
 			} else if (typeof a === "string") {
-				// sort strings
+				//  sort strings
 				ret = (asc ? 1 : -1) * (a as string).localeCompare(b as string);
 			}
 		}
@@ -120,8 +120,8 @@ function compareLists<U extends number | string>(a: (U | null)[], b: (U | null)[
 }
 
 export function lazyMobXTableSort<T>(data: T[], metric: SortMetric<T>, ascending: boolean = true): T[] {
-	// Separating this for testing, so that classes can test their comparators
-	//  against how the table will sort.
+	//  Separating this for testing, so that classes can test their comparators
+	//   against how the table will sort.
 	const dataAndValue: {
 		data: T;
 		initialPosition: number;
@@ -129,20 +129,20 @@ export function lazyMobXTableSort<T>(data: T[], metric: SortMetric<T>, ascending
 	}[] = [];
 
 	for (let i = 0; i < data.length; i++) {
-		// Have to do this loop instead of using data.map because we need dataAndValue to be mutable,
-		//  and Immutable.js makes .map return another immutable structure;
+		//  Have to do this loop instead of using data.map because we need dataAndValue to be mutable,
+		//   and Immutable.js makes .map return another immutable structure;
 		const d = data[i];
 		dataAndValue.push({
 			data: d,
-			initialPosition: i, // for stable sorting
-			sortBy: ([] as any[]).concat(metric(d)) // ensure it's wrapped in an array, even if metric is number or string
+			initialPosition: i, //  for stable sorting
+			sortBy: ([] as any[]).concat(metric(d)) //  ensure it's wrapped in an array, even if metric is number or string
 		});
 	}
 	let cmp: number, initialPositionA: number, initialPositionB: number;
 	dataAndValue.sort((a, b) => {
 		cmp = compareLists(a.sortBy, b.sortBy, ascending);
 		if (cmp === 0) {
-			// stable sort
+			//  stable sort
 			initialPositionA = a.initialPosition;
 			initialPositionB = b.initialPosition;
 			if (initialPositionA < initialPositionB) {
@@ -225,7 +225,7 @@ class LazyMobXTableStore<T> {
 
 	public set itemsPerPage(i: number) {
 		this._itemsPerPage = i;
-		this.page = this.page; // trigger clamping in page setter
+		this.page = this.page; //  trigger clamping in page setter
 	}
 
 	@computed
@@ -288,31 +288,31 @@ class LazyMobXTableStore<T> {
 	public get downloadData() {
 		const tableDownloadData: string[][] = [];
 
-		// add header (including hidden columns)
+		//  add header (including hidden columns)
 		tableDownloadData[0] = [];
 		this.columns.forEach((column: Column<T>) => {
 			tableDownloadData[0].push(column.name);
 		});
 
-		// add rows (including hidden columns). The purpose of this part is to ensure that
-		// if any element of rowData contains a column with multiple values, rowData is written as
-		// multiple rows in tableDownloadData
+		//  add rows (including hidden columns). The purpose of this part is to ensure that
+		//  if any element of rowData contains a column with multiple values, rowData is written as
+		//  multiple rows in tableDownloadData
 		this.dataStore.sortedData.forEach((rowData: T) => {
-			// retrieve all the download information for each row and store it in an object,
-			// and calculate the maxColLength (max number of elements found in a column).
+			//  retrieve all the download information for each row and store it in an object,
+			//  and calculate the maxColLength (max number of elements found in a column).
 			let downloadObject = getDownloadObject(this.columns, rowData);
-			// normalize the length of all columns based on the maxColLength (so that every column contains the
-			// same number of elements)
+			//  normalize the length of all columns based on the maxColLength (so that every column contains the
+			//  same number of elements)
 			const rowDownloadData: string[][] = getAsList(downloadObject.data, downloadObject.maxColLength);
 
-			// rowDownloadData is list of lists, containing all the elements per column.
-			// processedRowsDownloadData becomes the transposed of rowDownloadData.
+			//  rowDownloadData is list of lists, containing all the elements per column.
+			//  processedRowsDownloadData becomes the transposed of rowDownloadData.
 			let processedRowsDownloadData = rowDownloadData[0].map(function(row: string, i: number) {
 				return rowDownloadData.map(function(col: string[]) {
 					return col[i];
 				});
 			});
-			// Writing the transposed list to tableDownloadData to build the final table.
+			//  Writing the transposed list to tableDownloadData to build the final table.
 			processedRowsDownloadData.forEach((processedRowDownloadData: string[]) => {
 				tableDownloadData.push(processedRowDownloadData);
 			});
@@ -336,10 +336,10 @@ class LazyMobXTableStore<T> {
 
 	private getNextSortAscending(clickedColumn: Column<T>) {
 		if (this.sortColumn === clickedColumn.name) {
-			// if current sort column is clicked column, simply toggle
+			//  if current sort column is clicked column, simply toggle
 			return !this.sortAscending;
 		} else {
-			// otherwise, use columns initial sort direction, or default ascending
+			//  otherwise, use columns initial sort direction, or default ascending
 			const sortDirection: SortDirection = clickedColumn.defaultSortDirection || "asc";
 			return sortDirection === "asc";
 		}
@@ -449,8 +449,8 @@ class LazyMobXTableStore<T> {
 
 		let itemsLabel: string = this.itemsLabel;
 		if (itemsLabel.length) {
-			// we need to prepend the space here instead of within the actual return value
-			// to avoid unnecessary white-space at the end of the string
+			//  we need to prepend the space here instead of within the actual return value
+			//  to avoid unnecessary white-space at the end of the string
 			itemsLabel = ` ${itemsLabel}`;
 		}
 
@@ -479,7 +479,7 @@ class LazyMobXTableStore<T> {
 
 	@computed
 	get rows(): JSX.Element[] {
-		// We separate this so that highlighting isn't such a costly operation
+		//  We separate this so that highlighting isn't such a costly operation
 		const ret = [];
 		for (let i = 0; i < this.visibleData.length; i++) {
 			const rowProps: any = {};
@@ -520,7 +520,7 @@ class LazyMobXTableStore<T> {
 	@computed
 	get itemsLabel() {
 		if (this._itemsLabel) {
-			// use itemsLabel for plural in case no itemsLabelPlural provided
+			//  use itemsLabel for plural in case no itemsLabelPlural provided
 			if (!this._itemsLabelPlural || this.displayData.length === 1) {
 				return this._itemsLabel;
 			} else {
@@ -546,12 +546,12 @@ class LazyMobXTableStore<T> {
 			this.dataStore = new SimpleMobXApplicationDataStore<T>(props.data || []);
 		}
 
-		// even if dataStore passed in, we need to initialize sort props if undefined
-		// otherwise we lose the functionality of 'initialSortColumn' and 'initialSortDirection' props
+		//  even if dataStore passed in, we need to initialize sort props if undefined
+		//  otherwise we lose the functionality of 'initialSortColumn' and 'initialSortDirection' props
 		if (this.dataStore.sortAscending === undefined) {
 			this.dataStore.sortAscending = this.sortAscending;
 		} else {
-			// inherit the current state if defined
+			//  inherit the current state if defined
 			this.sortAscending = this.dataStore.sortAscending;
 		}
 
@@ -575,7 +575,7 @@ class LazyMobXTableStore<T> {
 		const colVis: { [columnId: string]: boolean } = {};
 
 		columns.forEach((column: Column<T>) => {
-			// every column is visible by default unless it is flagged otherwise
+			//  every column is visible by default unless it is flagged otherwise
 			let visible: boolean = true;
 
 			if (column.visible !== undefined) {
@@ -591,7 +591,7 @@ class LazyMobXTableStore<T> {
 	constructor(lazyMobXTableProps: LazyMobXTableProps<T>) {
 		this.filterString = "";
 		this.sortColumn = lazyMobXTableProps.initialSortColumn || "";
-		this.sortAscending = lazyMobXTableProps.initialSortDirection !== "desc"; // default ascending
+		this.sortAscending = lazyMobXTableProps.initialSortDirection !== "desc"; //  default ascending
 		this.setProps(lazyMobXTableProps);
 
 		this._page = 0;
@@ -625,31 +625,31 @@ export default class LazyMobXTable<T> extends React.Component<LazyMobXTableProps
 	};
 
 	public getDownloadData(): Promise<ICopyDownloadData> {
-		// returning a promise instead of a string allows us to prevent triggering fetchAndCacheAllLazyData
-		// until the copy/download button is clicked.
+		//  returning a promise instead of a string allows us to prevent triggering fetchAndCacheAllLazyData
+		//  until the copy/download button is clicked.
 		return new Promise<ICopyDownloadData>(resolve => {
-			// we need to download all the lazy data before initiating the download process.
+			//  we need to download all the lazy data before initiating the download process.
 			if (this.store.downloadDataFetcher) {
-				// populate the cache instances with all available data for the lazy loaded columns
+				//  populate the cache instances with all available data for the lazy loaded columns
 				this.store.downloadDataFetcher
 					.fetchAndCacheAllLazyData()
 					.then(allLazyData => {
-						// we don't use allData directly,
-						// we rely on the data cached by the download data fetcher
+						//  we don't use allData directly,
+						//  we rely on the data cached by the download data fetcher
 						resolve({
 							status: "complete",
 							text: serializeData(this.store.downloadData)
 						});
 					})
 					.catch(() => {
-						// even if loading of all lazy data fails, resolve with partial data
+						//  even if loading of all lazy data fails, resolve with partial data
 						resolve({
 							status: "incomplete",
 							text: serializeData(this.store.downloadData)
 						});
 					});
 			} else {
-				// no lazy data to preload, just return the current download data
+				//  no lazy data to preload, just return the current download data
 				resolve({
 					status: "complete",
 					text: serializeData(this.store.downloadData)
@@ -678,9 +678,9 @@ export default class LazyMobXTable<T> extends React.Component<LazyMobXTableProps
 				};
 			})(),
 			visibilityToggle: (columnId: string): void => {
-				// ignore undefined columns
+				//  ignore undefined columns
 				if (this.store.columnVisibility[columnId] !== undefined) {
-					// toggle visibility
+					//  toggle visibility
 					this.store.updateColumnVisibility(columnId, !this.store.columnVisibility[columnId]);
 				}
 			},
@@ -729,8 +729,8 @@ export default class LazyMobXTable<T> extends React.Component<LazyMobXTableProps
 	}
 
 	private getPaginationControls() {
-		// if (this.props.showPagination) {
-		// default paginationProps
+		//  if (this.props.showPagination) {
+		//  default paginationProps
 		let paginationProps: IPaginationControlsProps = {
 			className: "text-center topPagination",
 			itemsPerPage: this.store.itemsPerPage,
@@ -746,9 +746,9 @@ export default class LazyMobXTable<T> extends React.Component<LazyMobXTableProps
 			groupButtons: false,
 			bsStyle: "primary"
 		};
-		// override with given paginationProps if they exist
+		//  override with given paginationProps if they exist
 		if (this.props.paginationProps) {
-			// put status text between button if no show more button
+			//  put status text between button if no show more button
 			if (this.props.paginationProps.showMoreButton === false) {
 				delete paginationProps["textBeforeButtons"];
 				paginationProps["textBetweenButtons"] = this.store.paginationStatusText;
@@ -756,9 +756,9 @@ export default class LazyMobXTable<T> extends React.Component<LazyMobXTableProps
 			paginationProps = Object.assign(paginationProps, this.props.paginationProps);
 		}
 		return <PaginationControls {...paginationProps} />;
-		// } else {
-		//     return null;
-		// }
+		//  } else {
+		//      return null;
+		//  }
 	}
 
 	private get countHeader() {

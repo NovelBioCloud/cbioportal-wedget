@@ -36,8 +36,8 @@ function serializeTableData(tableData: Array<any>, containsHeader?: boolean) {
 	let delim = ",";
 
 	if (!containsHeader) {
-		// try to get the header from object keys in case no header provided
-		// if contains header, assuming that the first element represents the header values
+		//  try to get the header from object keys in case no header provided
+		//  if contains header, assuming that the first element represents the header values
 		Object.keys(tableData[0]).forEach((col: any) => content.push(col, delim));
 
 		content.pop();
@@ -69,8 +69,8 @@ export default class TableHeaderControls extends React.Component<ITableHeaderCon
 	}
 
 	componentDidMount() {
-		// this is necessary because the clipboard wrapper library
-		// doesn't work with tooltips :(
+		//  this is necessary because the clipboard wrapper library
+		//  doesn't work with tooltips :(
 		if (this.props.showCopyAndDownload && this._copyButton) {
 			this.bindCopyButton();
 		}

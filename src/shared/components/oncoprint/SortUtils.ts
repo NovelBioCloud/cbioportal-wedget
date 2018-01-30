@@ -97,14 +97,14 @@ export function getGeneticTrackSortComparator(
 		d1: GeneticTrackDatum,
 		d2: GeneticTrackDatum
 	): 0 | 1 | -1 {
-		// Test fusion
+		//  Test fusion
 		if (d1.disp_fusion && !d2.disp_fusion) {
 			return -1;
 		} else if (!d1.disp_fusion && d2.disp_fusion) {
 			return 1;
 		}
 
-		// Next, CNA
+		//  Next, CNA
 		const cna_diff = sign(
 			cna_order[d1.disp_cna + ""] - cna_order[d2.disp_cna + ""]
 		);
@@ -112,7 +112,7 @@ export function getGeneticTrackSortComparator(
 			return cna_diff;
 		}
 
-		// Next, mutation type
+		//  Next, mutation type
 		const mut_type_diff = sign(
 			mut_order(d1.disp_mut) - mut_order(d2.disp_mut)
 		);
@@ -120,7 +120,7 @@ export function getGeneticTrackSortComparator(
 			return mut_type_diff;
 		}
 
-		// Next, mrna expression
+		//  Next, mrna expression
 		const mrna_diff = sign(
 			regulation_order[d1.disp_mrna + ""] -
 				regulation_order[d2.disp_mrna + ""]
@@ -129,7 +129,7 @@ export function getGeneticTrackSortComparator(
 			return mrna_diff;
 		}
 
-		// Next, protein expression
+		//  Next, protein expression
 		const rppa_diff = sign(
 			regulation_order[d1.disp_prot + ""] -
 				regulation_order[d2.disp_prot + ""]
@@ -138,14 +138,14 @@ export function getGeneticTrackSortComparator(
 			return rppa_diff;
 		}
 
-		// If we reach this point, there's no order difference
+		//  If we reach this point, there's no order difference
 		return 0;
 	}
 	function preferred(
 		d1: GeneticTrackDatum,
 		d2: GeneticTrackDatum
 	): 0 | 1 | -1 {
-		// First, test if either is not sequenced
+		//  First, test if either is not sequenced
 		const ns_diff = sign(+!!d1.na - +!!d2.na);
 		if (ns_diff !== 0) {
 			return ns_diff;
@@ -209,7 +209,7 @@ function makeCountsMapClinicalComparator(categories: string[]) {
 			} else {
 				var d1_max_category = 0;
 				var d2_max_category = 0;
-				for (var i = 0; i < categories.length; i++) {
+				for (let i = 0; i < categories.length; i++) {
 					if (
 						d1.attr_val[categories[i]] >
 						d1.attr_val[categories[d1_max_category]]

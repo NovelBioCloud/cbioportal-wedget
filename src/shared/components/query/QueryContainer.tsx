@@ -56,10 +56,10 @@ export default class QueryContainer extends React.Component<QueryContainerProps,
 	}
 
 	render(): JSX.Element {
-		// {Remove until #3395 is implemented
-		//
-		//    <OverlappingStudiesWarning studies={this.store.selectedStudies}/>
-		//}
+		//  {Remove until #3395 is implemented
+		// 
+		//     <OverlappingStudiesWarning studies={this.store.selectedStudies}/>
+		// }
 		return (
 			<FlexCol padded overflow className={styles.QueryContainer}>
 				{<UnknownStudiesWarning ids={this.store.unknownStudyIds} />}

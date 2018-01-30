@@ -146,12 +146,12 @@ export default class CohortColumnFormatter {
 		let summary: IGisticSummary | undefined;
 
 		if (gistic) {
-			// here we are assuming that we have at most 2 values in the GisticSummary array:
-			// one for amp === true, and one for amp === false
+			//  here we are assuming that we have at most 2 values in the GisticSummary array:
+			//  one for amp === true, and one for amp === false
 			const targetAmp = data[0].alteration === 2;
 			summary = gistic.find((gs: IGisticSummary) => {
-				// alteration === 2 => amplified
-				// otherwise => not amplified (deleted)
+				//  alteration === 2 => amplified
+				//  otherwise => not amplified (deleted)
 				return gs.amp === targetAmp;
 			});
 		}

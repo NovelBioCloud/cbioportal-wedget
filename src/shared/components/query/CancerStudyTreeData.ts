@@ -16,9 +16,9 @@ export type NodeMetadata = {
 	childStudies: CancerStudy[];
 	descendantStudies: CancerStudy[];
 	descendantCancerTypes: CancerType[];
-	ancestors: CancerType[]; // in order of ascending distance from node, ending in root node
-	siblings: CancerStudy[]; // descendants of highest level non-root ancestor
-	searchTerms: string; // all related text in a single string for easy searching
+	ancestors: CancerType[]; //  in order of ascending distance from node, ending in root node
+	siblings: CancerStudy[]; //  descendants of highest level non-root ancestor
+	searchTerms: string; //  all related text in a single string for easy searching
 };
 
 export default class CancerStudyTreeData {
@@ -55,12 +55,12 @@ export default class CancerStudyTreeData {
 		let node: CancerTreeNode;
 		let meta: NodeMetadata;
 
-		// sort by name
+		//  sort by name
 		cancerTypes = CancerStudyTreeData.sortNodes(cancerTypes);
 		studies = CancerStudyTreeData.sortNodes(studies);
 
-		// add virtual cohort category, and studies
-		// disabled, for now
+		//  add virtual cohort category, and studies
+		//  disabled, for now
 		/*const virtualCohortsName = "My Virtual Studies";
 		const virtualCohortsCategory = {
 			clinicalTrialKeywords: '',
@@ -82,7 +82,7 @@ export default class CancerStudyTreeData {
 			virtualCohortStudies.push(study);
 		}*/
 
-		// add priority categories
+		//  add priority categories
 		for (let name in priorityStudies) {
 			this.priorityCategories.push({
 				clinicalTrialKeywords: "",
@@ -93,14 +93,14 @@ export default class CancerStudyTreeData {
 				cancerTypeId: name
 			});
 		}
-		//cancerTypes = [virtualCohortsCategory].concat(this.priorityCategories).concat(this.rootCancerType, cancerTypes);
-		//studies = virtualCohortStudies.concat(studies);
+		// cancerTypes = [virtualCohortsCategory].concat(this.priorityCategories).concat(this.rootCancerType, cancerTypes);
+		// studies = virtualCohortStudies.concat(studies);
 		cancerTypes = this.priorityCategories.concat(
 			this.rootCancerType,
 			cancerTypes
 		);
 
-		// initialize lookups and metadata entries
+		//  initialize lookups and metadata entries
 		for (nodes of [cancerTypes, studies]) {
 			for (node of nodes) {
 				let isCancerType = nodes === cancerTypes;
@@ -134,7 +134,7 @@ export default class CancerStudyTreeData {
 			}
 		}
 
-		// fill in childStudies for priorityCategories using existing CancerStudy objects
+		//  fill in childStudies for priorityCategories using existing CancerStudy objects
 		for (let category of this.priorityCategories) {
 			meta = this.map_node_meta.get(category) as NodeMetadata;
 			meta.isPriorityCategory = true;
@@ -151,7 +151,7 @@ export default class CancerStudyTreeData {
 			}
 		}
 
-		// fill in metadata values
+		//  fill in metadata values
 		for (nodes of [cancerTypes, studies]) {
 			for (node of nodes) {
 				meta = this.map_node_meta.get(node) as NodeMetadata;
@@ -196,10 +196,10 @@ export default class CancerStudyTreeData {
 			}
 		}
 
-		// get sibling studies
+		//  get sibling studies
 		for (node of studies) {
 			meta = this.map_node_meta.get(node) as NodeMetadata;
-			// firstLevelAncestor is the ancestor below the rootCancerType
+			//  firstLevelAncestor is the ancestor below the rootCancerType
 			let firstLevelAncestor = meta.ancestors[meta.ancestors.length - 2];
 			if (firstLevelAncestor) {
 				let ancestorMeta = this.map_node_meta.get(

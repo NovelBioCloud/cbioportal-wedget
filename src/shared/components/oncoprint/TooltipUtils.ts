@@ -130,7 +130,7 @@ export function makeHeatmapTrackTooltip(
 	};
 }
 export function makeGeneticTrackTooltip(link_id?: boolean) {
-	// TODO: all the data here is old API data
+	//  TODO: all the data here is old API data
 	function listOfMutationOrFusionDataToHTML(data: any[]) {
 		return data.map(function(d: any) {
 			var ret = $("<span>");
@@ -147,7 +147,7 @@ export function makeGeneticTrackTooltip(link_id?: boolean) {
 						'" style="height:11px; width:11px;margin-left:3px"/>'
 				);
 			}
-			//If we have data for the binary custom driver annotations, append an icon to the tooltip with the annotation information
+			//  If we have data for the binary custom driver annotations, append an icon to the tooltip with the annotation information
 			if (d.driver_filter && d.driver_filter === "Putative_Driver") {
 				ret.append(
 					'<img src="images/driver.png" title="' +
@@ -157,7 +157,7 @@ export function makeGeneticTrackTooltip(link_id?: boolean) {
 						'" alt="driver filter" style="height:11px; width:11px;margin-left:3px"/>'
 				);
 			}
-			//If we have data for the class custom driver annotations, append an icon to the tooltip with the annotation information
+			//  If we have data for the class custom driver annotations, append an icon to the tooltip with the annotation information
 			if (d.driver_tiers_filter) {
 				ret.append(
 					'<img src="images/driver_tiers.png" title="' +
@@ -294,7 +294,7 @@ export function makeGeneticTrackTooltip(link_id?: boolean) {
 		if (prot.length > 0) {
 			ret.append("PROT: <b>" + prot.join(", ") + "</b><br>");
 		}
-		// Coverage
+		//  Coverage
 		let coverage_elts: any[] = (d.coverage || []).map(
 			(x: GenePanelData) => {
 				return makeGenePanelPopupLink(x.genePanelId);

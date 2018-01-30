@@ -64,7 +64,7 @@ import getOverlappingStudies from "../../lib/getOverlappingStudies";
 import MolecularProfilesInStudyCache from "../../cache/MolecularProfilesInStudyCache";
 import { CacheData } from "../../lib/LazyMobXCache";
 
-// interface for communicating
+//  interface for communicating
 export type CancerStudyQueryUrlParams = {
 	cancer_study_id: string;
 	cancer_study_list?: string;
@@ -131,7 +131,7 @@ export const QueryParamsKeys: (keyof CancerStudyQueryParams)[] = [
 	"genesetQuery"
 ];
 
-// mobx observable
+//  mobx observable
 export class QueryStore {
 	private initialQueryParams: {
 		pathname: string;
@@ -200,12 +200,12 @@ export class QueryStore {
 	@computed
 	get virtualCohorts(): VirtualCohort[] {
 		const ret: VirtualCohort[] = [];
-		// if (this.temporaryVirtualCohort.result) {
-		// 	ret.push(this.temporaryVirtualCohort.result);
-		// }
-		// for (let i=0; i<this.savedVirtualCohorts.length; i++) {
-		// 	ret.push(this.savedVirtualCohorts[i]);
-		// }
+		//  if (this.temporaryVirtualCohort.result) {
+		//  	ret.push(this.temporaryVirtualCohort.result);
+		//  }
+		//  for (let i=0; i<this.savedVirtualCohorts.length; i++) {
+		//  	ret.push(this.savedVirtualCohorts[i]);
+		//  }
 		return ret;
 	}
 
@@ -222,7 +222,7 @@ export class QueryStore {
 
 	@computed
 	get studyIdsInSelection(): string[] {
-		// Gives selected study ids and study ids that are in selected virtual cohorts
+		//  Gives selected study ids and study ids that are in selected virtual cohorts
 		const virtualCohortsSet = this.virtualCohortsSet;
 		const ret: { [id: string]: boolean } = {};
 		for (const studyId of this.selectedStudyIds) {
@@ -269,7 +269,7 @@ export class QueryStore {
 				const virtualCohortData: Response = await request.get(
 					`${
 						window.location.protocol
-					}//${getHost()}/api-legacy/proxy/session-service/virtual_cohort/${
+					}// ${getHost()}/api-legacy/proxy/session-service/virtual_cohort/${
 						this.temporaryVirtualCohortId.result
 					}`
 				);
@@ -297,7 +297,7 @@ export class QueryStore {
 					constituentStudyIds
 				};
 			} catch (e) {
-				// In case anything related to fetching this data fails
+				//  In case anything related to fetching this data fails
 				return undefined;
 			}
 		},
@@ -313,7 +313,7 @@ export class QueryStore {
 	});
 
 	copyFrom(other: CancerStudyQueryParams) {
-		// download tab does not appear anywhere except home page
+		//  download tab does not appear anywhere except home page
 		this.forDownloadTab = false;
 
 		for (let key of QueryParamsKeys) this[key] = other[key];
@@ -324,9 +324,9 @@ export class QueryStore {
 		return _.pick(this, QueryParamsKeys);
 	}
 
-	////////////////////////////////////////////////////////////////////////////////
-	// QUERY PARAMETERS
-	////////////////////////////////////////////////////////////////////////////////
+	// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
+	//  QUERY PARAMETERS
+	// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
 
 	@observable forDownloadTab: boolean = false;
 
@@ -359,7 +359,7 @@ export class QueryStore {
 	@action
 	public setStudyIdSelected(studyId: string, selected: boolean) {
 		if (this.forDownloadTab) {
-			// only one can be selected at a time
+			//  only one can be selected at a time
 			let newMap: { [studyId: string]: boolean } = {};
 			if (selected) {
 				newMap[studyId] = selected;
@@ -379,9 +379,9 @@ export class QueryStore {
 
 	@observable dataTypePriority = { mutation: true, cna: true };
 
-	// molecular profile ids
+	//  molecular profile ids
 	@observable.ref
-	private _selectedProfileIds?: ReadonlyArray<string> = undefined; // user selection
+	private _selectedProfileIds?: ReadonlyArray<string> = undefined; //  user selection
 	@computed
 	get selectedProfileIds(): ReadonlyArray<string> {
 		let selectedIds;
@@ -389,7 +389,7 @@ export class QueryStore {
 		if (this._selectedProfileIds !== undefined) {
 			selectedIds = this._selectedProfileIds;
 		} else {
-			// compute default selection
+			//  compute default selection
 			const altTypes: MolecularProfile["molecularAlterationType"][] = [
 				"MUTATION_EXTENDED",
 				"COPY_NUMBER_ALTERATION"
@@ -402,10 +402,10 @@ export class QueryStore {
 			}
 		}
 
-		// download tab only allows one selected profile
+		//  download tab only allows one selected profile
 		if (this.forDownloadTab) return selectedIds.slice(0, 1);
 
-		// query tab only allows selecting profiles with showProfileInAnalysisTab=true
+		//  query tab only allows selecting profiles with showProfileInAnalysisTab=true
 		return selectedIds.filter(id => {
 			let profile = this.dict_molecularProfileId_molecularProfile[id];
 			return profile && profile.showProfileInAnalysisTab;
@@ -419,8 +419,8 @@ export class QueryStore {
 
 	@observable rppaScoreThreshold: string = "2.0";
 
-	// sample list id
-	@observable private _selectedSampleListId?: string = undefined; // user selection
+	//  sample list id
+	@observable private _selectedSampleListId?: string = undefined; //  user selection
 	@computed
 	get selectedSampleListId() {
 		if (this._selectedSampleListId !== undefined)
@@ -449,7 +449,7 @@ export class QueryStore {
 		return this._geneQuery;
 	}
 	set geneQuery(value: string) {
-		// clear error when gene query is modified
+		//  clear error when gene query is modified
 		this.geneQueryErrorDisplayStatus = "unfocused";
 		this._geneQuery = value;
 	}
@@ -459,14 +459,14 @@ export class QueryStore {
 		return this._genesetQuery.toUpperCase();
 	}
 	set genesetQuery(value: string) {
-		// clear error when gene query is modified
+		//  clear error when gene query is modified
 		this.genesetQueryErrorDisplayStatus = "unfocused";
 		this._genesetQuery = value;
 	}
 
-	////////////////////////////////////////////////////////////////////////////////
-	// VISUAL OPTIONS
-	////////////////////////////////////////////////////////////////////////////////
+	// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
+	//  VISUAL OPTIONS
+	// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
 
 	@observable
 	geneQueryErrorDisplayStatus:
@@ -502,16 +502,16 @@ export class QueryStore {
 		this._maxTreeDepth = value;
 	}
 
-	////////////////////////////////////////////////////////////////////////////////
-	// REMOTE DATA
-	////////////////////////////////////////////////////////////////////////////////
+	// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
+	//  REMOTE DATA
+	// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
 
 	readonly cancerTypes = remoteData(
 		{
 			invoke: async () => {
 				return client.getAllCancerTypesUsingGET({}).then(data => {
-					// all types should have parent. this is a correction for a data issue
-					// where there IS a top level (parent=null) item
+					//  all types should have parent. this is a correction for a data issue
+					//  where there IS a top level (parent=null) item
 					return data.filter(cancerType => {
 						return cancerType.parent !== "null";
 					});
@@ -798,15 +798,15 @@ export class QueryStore {
 				entity => {
 					let splitEntity = entity.split(":");
 					if (splitEntity.length === 1) {
-						// no study specified
+						//  no study specified
 						if (singleSelectedStudyId) {
-							// if only one study selected, fill it in
+							//  if only one study selected, fill it in
 							return {
 								id: entity,
 								study: singleSelectedStudyId
 							};
 						} else {
-							// otherwise, throw error
+							//  otherwise, throw error
 							throw new Error(
 								`No study specified for ${
 									this.caseIdsMode
@@ -858,7 +858,7 @@ export class QueryStore {
 							}),
 						990
 					);
-					// sort by input order
+					//  sort by input order
 					sampleObjs = _.sortBy(
 						sampleObjs,
 						sampleObj =>
@@ -876,7 +876,7 @@ export class QueryStore {
 					}
 				}
 			} else {
-				// convert patient IDs to sample IDs
+				//  convert patient IDs to sample IDs
 				const samplesPromises = cases.map(c =>
 					this.getSamplesForStudyAndPatient(c.study, c.id)
 				);
@@ -886,7 +886,7 @@ export class QueryStore {
 					samples: Sample[];
 					error?: Error;
 				}[] = await Promise.all(samplesPromises);
-				// sort by input order
+				//  sort by input order
 				result = _.sortBy(
 					result,
 					obj => caseOrder[`${obj.studyId}:${obj.patientId}`]
@@ -939,11 +939,11 @@ export class QueryStore {
 		500
 	);
 
-	////////////////////////////////////////////////////////////////////////////////
-	// DERIVED DATA
-	////////////////////////////////////////////////////////////////////////////////
+	// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
+	//  DERIVED DATA
+	// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
 
-	// CANCER STUDY
+	//  CANCER STUDY
 
 	@cached
 	get treeData() {
@@ -1003,7 +1003,7 @@ export class QueryStore {
 	}
 
 	public isVirtualCohort(studyId: string): boolean {
-		// if the study id doesn't correspond to one in this.cancerStudies, then its a virtual cohort
+		//  if the study id doesn't correspond to one in this.cancerStudies, then its a virtual cohort
 		return !this.cancerStudyIdsSet.result[studyId];
 	}
 
@@ -1067,7 +1067,7 @@ export class QueryStore {
 		}
 	}
 
-	// DATA TYPE PRIORITY
+	//  DATA TYPE PRIORITY
 
 	private calculateDataTypePriorityCode(dataTypePriority: {
 		mutation: boolean;
@@ -1101,7 +1101,7 @@ export class QueryStore {
 		return this.calculateDataTypePriorityCode(this.dataTypePriority);
 	}
 
-	// MOLECULAR PROFILE
+	//  MOLECULAR PROFILE
 
 	@computed
 	get dict_molecularProfileId_molecularProfile(): _.Dictionary<
@@ -1161,7 +1161,7 @@ export class QueryStore {
 		return result;
 	}
 
-	// SAMPLE LIST
+	//  SAMPLE LIST
 
 	@computed
 	get defaultSelectedSampleListId() {
@@ -1210,16 +1210,16 @@ export class QueryStore {
 		else if (!mutSelect && !cnaSelect && !expSelect && rppaSelect)
 			sampleListId = studyId + "_rppa";
 
-		// BEGIN HACK if not found
+		//  BEGIN HACK if not found
 		if (!this.dict_sampleListId_sampleList[sampleListId]) {
 			if (sampleListId === studyId + "_cnaseq")
 				sampleListId = studyId + "_cna_seq";
 			else if (sampleListId === studyId + "_3way_complete")
 				sampleListId = studyId + "_complete";
 		}
-		// END HACK
+		//  END HACK
 
-		// if still not found
+		//  if still not found
 		if (!this.dict_sampleListId_sampleList[sampleListId])
 			sampleListId = studyId + "_all";
 
@@ -1234,7 +1234,7 @@ export class QueryStore {
 		);
 	}
 
-	// GENES
+	//  GENES
 
 	@computed
 	get oql(): {
@@ -1284,7 +1284,7 @@ export class QueryStore {
 		}
 	}
 
-	// GENE SETS
+	//  GENE SETS
 	@computed
 	get genesetIdsOQL(): {
 		query: OQLGenesetQuery;
@@ -1335,7 +1335,7 @@ export class QueryStore {
 		}
 	}
 
-	// SUBMIT
+	//  SUBMIT
 
 	@computed
 	get submitEnabled() {
@@ -1344,7 +1344,7 @@ export class QueryStore {
 				(this.genes.isComplete || this.genesets.isComplete) &&
 				this.asyncUrlParams.isComplete) ||
 			(!!this.oql.error || !!this.genesetIdsOQL.error)
-		); // to make "Please click 'Submit' to see location of error." possible
+		); //  to make "Please click 'Submit' to see location of error." possible
 	}
 
 	@computed
@@ -1409,7 +1409,7 @@ export class QueryStore {
 		if (this.selectedProfileIds.length !== 0) {
 			if (this.selectedProfileIds.length === 1) {
 				if (this.isGenesetProfileSelected) {
-					//Only geneset profile selected
+					// Only geneset profile selected
 					if (!this.genesetQuery.length) {
 						return "Please enter one or more gene sets or deselect gene set profiles.";
 					}
@@ -1422,7 +1422,7 @@ export class QueryStore {
 					}
 				}
 			} else {
-				//Geneset and other genetic profiles selected
+				// Geneset and other genetic profiles selected
 				if (this.isGenesetProfileSelected) {
 					if (!this.genesetQuery.length && !this.oql.query.length) {
 						return "Please enter one or more gene symbols and gene sets.";
@@ -1488,9 +1488,9 @@ export class QueryStore {
 		invoke: async () => currentQueryParams(this)
 	});
 
-	////////////////////////////////////////////////////////////////////////////////
-	// ACTIONS
-	////////////////////////////////////////////////////////////////////////////////
+	// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
+	//  ACTIONS
+	// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
 
 	/**
 	 * This is used to prevent selections from being cleared automatically when new data is downloaded.
@@ -1503,7 +1503,7 @@ export class QueryStore {
 	@action
 	addParamsFromWindow() {
 		if ((window as any).serverVars) {
-			// Populate OQL
+			//  Populate OQL
 			this.geneQuery = normalizeQuery(
 				(window as any).serverVars.theQuery
 			);
@@ -1554,7 +1554,7 @@ export class QueryStore {
 			}
 		}
 
-		// Select studies from window
+		//  Select studies from window
 		const windowStudyId = (window as any).selectedCancerStudyId;
 		if (windowStudyId) {
 			this.setStudyIdSelected(windowStudyId, true);
@@ -1602,7 +1602,7 @@ export class QueryStore {
 		this.selectedSampleListId =
 			params.case_set_id !== "-1" ? params.case_set_id : "";
 		this.caseIds = params.case_ids || "";
-		this.caseIdsMode = "sample"; // url always contains sample IDs
+		this.caseIdsMode = "sample"; //  url always contains sample IDs
 		this.geneQuery = normalizeQuery(params.gene_list || "");
 		this.forDownloadTab = params.tab_index === "tab_download";
 		this.initiallySelected.profileIds = true;
@@ -1654,7 +1654,7 @@ export class QueryStore {
 			profile => profile.molecularProfileId
 		);
 		if (this.forDownloadTab) {
-			// download tab only allows a single selection
+			//  download tab only allows a single selection
 			this._selectedProfileIds = [profile.molecularProfileId];
 		} else {
 			let difference = _.difference(
@@ -1751,12 +1751,12 @@ export class QueryStore {
 
 		let urlParams = this.asyncUrlParams.result;
 
-		//TODO this is currently broken because of mobx-react-router
-		// this is supposed to allow you to go back in the browser history to
-		// return to the query page and restore the QueryStore state from the URL.
+		// TODO this is currently broken because of mobx-react-router
+		//  this is supposed to allow you to go back in the browser history to
+		//  return to the query page and restore the QueryStore state from the URL.
 		/*let historyUrl = URL.format({...urlParams, pathname: window.location.href.split('?')[0]});
 
-		// TODO remove this temporary HACK to make back button work
+		//  TODO remove this temporary HACK to make back button work
 		historyUrl = historyUrl.split('#crosscancer').join('#/home#crosscancer');
 
 		let newUrl = buildCBioPortalUrl(urlParams);

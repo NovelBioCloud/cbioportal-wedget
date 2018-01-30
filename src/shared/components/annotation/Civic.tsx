@@ -47,7 +47,7 @@ export default class Civic extends React.Component<ICivicProps, {}> {
 			});
 		}
 
-		// TODO actually this indicates that we have an entry but the evidence is empty
+		//  TODO actually this indicates that we have an entry but the evidence is empty
 		if (values.length === 0) {
 			return "NA";
 		}
@@ -102,7 +102,7 @@ export default class Civic extends React.Component<ICivicProps, {}> {
 				);
 			}
 		} else {
-			// It's still unknown (undefined) if the current gene has a Civic entry or not.
+			//  It's still unknown (undefined) if the current gene has a Civic entry or not.
 			civicContent = this.loaderIcon();
 		}
 

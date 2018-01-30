@@ -12,7 +12,7 @@ import {
  * @author Hongxin Zhang
  */
 
-// oncogenic value => oncogenic class name
+//  oncogenic value => oncogenic class name
 const ONCOGENIC_CLASS_NAMES: { [oncogenic: string]: string } = {
 	"Likely Neutral": "likely-neutral",
 	Unknown: "unknown-oncogenic",
@@ -22,8 +22,8 @@ const ONCOGENIC_CLASS_NAMES: { [oncogenic: string]: string } = {
 	Oncogenic: "oncogenic"
 };
 
-// oncogenic value => score
-// (used for sorting purposes)
+//  oncogenic value => score
+//  (used for sorting purposes)
 const ONCOGENIC_SCORE: { [oncogenic: string]: number } = {
 	Unknown: 1,
 	Inconclusive: 1,
@@ -33,8 +33,8 @@ const ONCOGENIC_SCORE: { [oncogenic: string]: number } = {
 	Oncogenic: 5
 };
 
-// sensitivity level => score
-// (used for sorting purposes)
+//  sensitivity level => score
+//  (used for sorting purposes)
 const SENSITIVITY_LEVEL_SCORE: { [level: string]: number } = {
 	"4": 1,
 	"3B": 2,
@@ -44,8 +44,8 @@ const SENSITIVITY_LEVEL_SCORE: { [level: string]: number } = {
 	"1": 6
 };
 
-// resistance level <-> score
-// (used for sorting purposes)
+//  resistance level <-> score
+//  (used for sorting purposes)
 const RESISTANCE_LEVEL_SCORE: { [level: string]: number } = {
 	R3: 1,
 	R2: 2,
@@ -110,7 +110,7 @@ export function generateQueryVariant(
 			mutationType
 		),
 		hugoSymbol: "",
-		tumorType: tumorType as string, // generated api typings are wrong, it can accept null
+		tumorType: tumorType as string, //  generated api typings are wrong, it can accept null
 		alterationType:
 			alterationType || AlterationTypes[AlterationTypes.Mutation],
 		entrezGeneId: entrezGeneId,
@@ -120,7 +120,7 @@ export function generateQueryVariant(
 		proteinEnd: proteinPosEnd === undefined ? -1 : proteinPosEnd,
 		type: "web",
 		hgvs: "",
-		svType: "DELETION" // TODO: hack because svType is not optional
+		svType: "DELETION" //  TODO: hack because svType is not optional
 	};
 }
 
@@ -143,7 +143,7 @@ export function generateQueryVariantId(
 	return id.trim().replace(/\s/g, "_");
 }
 
-// TODO evidence:IEvidence
+//  TODO evidence:IEvidence
 export function extractPmids(evidence: any) {
 	let refs: number[] = [];
 
@@ -264,7 +264,7 @@ export function initEvidence() {
 		treatments: {
 			sensitivity: [],
 			resistance: []
-		}, //separated by level type
+		}, // separated by level type
 		trials: [],
 		oncogenic: "",
 		oncogenicRefs: [],
@@ -282,11 +282,11 @@ export function initEvidence() {
 }
 
 export function processEvidence(evidences: EvidenceQueryRes[]) {
-	var result: any = {}; //id based.
+	var result: any = {}; // id based.
 	if (evidences && evidences.length > 0) {
 		evidences.forEach(function(record) {
 			var id = record.query.id;
-			let datum: any = initEvidence(); // TODO define an extended evidence model?
+			let datum: any = initEvidence(); //  TODO define an extended evidence model?
 			var hasHigherLevelEvidence = false;
 			var sensitivityTreatments: any = [];
 			var resistanceTreatments: any = [];
@@ -322,7 +322,7 @@ export function processEvidence(evidences: EvidenceQueryRes[]) {
 					}
 					datum.alteration.push(_datum);
 				} else if (evidence.levelOfEvidence) {
-					//if evidence has level information, that means this is treatment evidence.
+					// if evidence has level information, that means this is treatment evidence.
 					if (["LEVEL_0"].indexOf(evidence.levelOfEvidence) === -1) {
 						var _treatment: any = {};
 						_treatment.alterations = evidence.alterations;
@@ -393,9 +393,9 @@ export function processEvidence(evidences: EvidenceQueryRes[]) {
 					datum.drugs.resistance.push(treatment);
 				}
 			});
-			// id.split('*ONCOKB*').forEach(function(_id) {
-			//     result[_id] = datum;
-			// })
+			//  id.split('*ONCOKB*').forEach(function(_id) {
+			//      result[_id] = datum;
+			//  })
 			result[id] = datum;
 		});
 	}
@@ -617,7 +617,7 @@ export function mergeAlterations(alterations: string | string[]) {
 				positions[result[2]] = {};
 			}
 			if (!positions[result[2]].hasOwnProperty(result[1])) {
-				// Avoid duplication, use object instead of array
+				//  Avoid duplication, use object instead of array
 				positions[result[2]][result[1]] = {};
 			}
 			positions[result[2]][result[1]][result[3]] = 1;

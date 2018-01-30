@@ -24,11 +24,11 @@ export default class CosmicColumnFormatter {
 			const mutation: Mutation = rowData[0];
 			const cosmicMutations: CosmicMutation[] | null = cosmicData[mutation.keyword];
 
-			// further filtering by protein change
+			//  further filtering by protein change
 			if (cosmicMutations) {
 				const mutPos = CosmicColumnFormatter.extractPosition(mutation.proteinChange);
 
-				// not comparing the entire protein change value, only the position!
+				//  not comparing the entire protein change value, only the position!
 				value = cosmicMutations.filter((cosmic: CosmicMutation) => {
 					const cosmicPos = CosmicColumnFormatter.extractPosition(cosmic.proteinChange);
 					return mutPos && cosmicPos && mutPos === cosmicPos;
@@ -54,7 +54,7 @@ export default class CosmicColumnFormatter {
 		const cosmic: CosmicMutation[] | null = CosmicColumnFormatter.getData(data, cosmicData);
 		let value: number | null = null;
 
-		// calculate sum of the all counts
+		//  calculate sum of the all counts
 		if (cosmic) {
 			if (cosmic.length > 0) {
 				value = _.reduce(
@@ -69,8 +69,8 @@ export default class CosmicColumnFormatter {
 			}
 		}
 
-		// we don't want zero to be a valid value for sorting
-		// return null instead to exclude it from sorting
+		//  we don't want zero to be a valid value for sorting
+		//  return null instead to exclude it from sorting
 		if (value === 0) {
 			value = null;
 		}
@@ -96,7 +96,7 @@ export default class CosmicColumnFormatter {
 		let overlay: (() => JSX.Element) | null = null;
 		let content: JSX.Element;
 
-		// calculate sum of the all counts
+		//  calculate sum of the all counts
 		if (cosmic && cosmic.length > 0) {
 			value = _.reduce(
 				_.map(cosmic, "count"),
@@ -116,10 +116,10 @@ export default class CosmicColumnFormatter {
 			display = value.toString();
 		}
 
-		// basic content is the value
+		//  basic content is the value
 		content = <div className={generalStyles["integer-data"]}>{display}</div>;
 
-		// add a tooltip if the cosmic value is valid
+		//  add a tooltip if the cosmic value is valid
 		if (overlay) {
 			content = (
 				<DefaultTooltip
@@ -134,7 +134,7 @@ export default class CosmicColumnFormatter {
 			);
 		}
 
-		// TODO if(!columnProps.cosmicData) -> loader image
+		//  TODO if(!columnProps.cosmicData) -> loader image
 		return content;
 	}
 }

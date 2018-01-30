@@ -57,7 +57,7 @@ export default class Domain extends React.Component<DomainProps, {}> {
 
 	@computed
 	private get displayText() {
-		// Truncate text if necessary
+		//  Truncate text if necessary
 		const label = this.props.label || "";
 		if (!this.textElt || !this.isMounted) {
 			return label;
@@ -68,19 +68,19 @@ export default class Domain extends React.Component<DomainProps, {}> {
 		}
 
 		let substringLength = label.length;
-		// Find the number of characters that will fit inside
+		//  Find the number of characters that will fit inside
 		while (substringLength > 0 && this.textElt.getSubStringLength(0, substringLength) > this.props.width) {
 			substringLength -= 1;
 		}
 		let displayText = label;
 		if (substringLength < label.length) {
-			// If we have to do shortening
-			substringLength -= 2; // make room for ellipsis ".."
+			//  If we have to do shortening
+			substringLength -= 2; //  make room for ellipsis ".."
 			if (substringLength <= 0) {
-				// too short to show any string
+				//  too short to show any string
 				displayText = "";
 			} else {
-				// if it's long enough to show anything at all
+				//  if it's long enough to show anything at all
 				displayText = label.substr(0, substringLength) + "..";
 			}
 		}

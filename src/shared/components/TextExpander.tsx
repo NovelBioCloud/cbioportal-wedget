@@ -32,8 +32,8 @@ export default class TextExpander extends React.Component<ITextExpanderProps, {}
 	public render() {
 		let content = this.props.text;
 
-		// TextTruncate can only handle "string", otherwise we get a warning message
-		// If "text" is not string we just display it as is
+		//  TextTruncate can only handle "string", otherwise we get a warning message
+		//  If "text" is not string we just display it as is
 		if (typeof this.props.text === "string") {
 			content = (
 				<TextTruncate

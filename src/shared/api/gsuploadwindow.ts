@@ -1,8 +1,8 @@
-// Copyright 2013 Broad Institute, Inc.  All rights reserved.
+//  Copyright 2013 Broad Institute, Inc.  All rights reserved.
 
 import request from "superagent";
 
-let jsuiRoot = "https://gsui.genomespace.org/jsui/";
+let jsuiRoot = "https:// gsui.genomespace.org/jsui/";
 
 type Callback = (data: any) => void;
 
@@ -12,7 +12,7 @@ export function gsUploadByGet(config: {
 	successCallback?: Callback;
 	errorCallback?: Callback;
 }) {
-	// expect an object with url, filename (optional), successCallback(optional), errorCallback (optional)
+	//  expect an object with url, filename (optional), successCallback(optional), errorCallback (optional)
 
 	let gsUploadUrl = jsuiRoot + "/upload/loadUrlToGenomespace.html?uploadUrl=";
 	let dest = encodeURIComponent(config.url);
@@ -41,7 +41,7 @@ export function gsLocationByGet(config: {
 	successCallback: Callback;
 	errorCallback?: Callback;
 }) {
-	// expect an object with url, filename (optional), successCallback, errorCallback (optional)
+	//  expect an object with url, filename (optional), successCallback, errorCallback (optional)
 
 	let gsUploadUrl =
 		jsuiRoot + "/upload/loadUrlToGenomespace.html?getLocation=true";
@@ -71,7 +71,7 @@ export function gsSelectFileByGet(config: {
 	successCallback: Callback;
 	errorCallback?: Callback;
 }) {
-	// expect an object with url, filename (optional), successCallback, errorCallback (optional)
+	//  expect an object with url, filename (optional), successCallback, errorCallback (optional)
 	let gsUploadUrl =
 		jsuiRoot + "/upload/loadUrlToGenomespace.html?getFile=true";
 	let newWin = window.open(
@@ -88,7 +88,7 @@ export function gsSelectFileByGet(config: {
 }
 
 export async function gsUploadByPost(formData: any) {
-	// expects an object with formData( the file(s)),
+	//  expects an object with formData( the file(s)),
 
 	function gsUploadByPostErrorHandler(err: any) {
 		alert("An error occurred while posting the file to GenomeSpace");
@@ -106,19 +106,19 @@ export async function gsUploadByPost(formData: any) {
 		newWin.focus();
 	}
 	let params = {
-		url: jsuiRoot + "/postToGenomeSpace", // server script to process data
+		url: jsuiRoot + "/postToGenomeSpace", //  server script to process data
 		type: "POST",
 		crossDomain: true,
 		success: gsUploadByPostCompleteHandler,
 		error: gsUploadByPostErrorHandler,
 		data: formData,
-		// Options to tell JQuery not to process data or worry about content-type
+		//  Options to tell JQuery not to process data or worry about content-type
 		cache: false,
 		contentType: false,
 		processData: false
 	};
 
-	// $.ajax(params);
+	//  $.ajax(params);
 
 	let req = request
 		.agent()

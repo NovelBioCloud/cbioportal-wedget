@@ -60,7 +60,7 @@ export default class CancerTypeColumnFormatter {
 			}
 		});
 
-		// only visible if number of distinct tumor type values is greater than 1
+		//  only visible if number of distinct tumor type values is greater than 1
 		return _.keys(tumorTypeToSampleId).length > 1;
 	}
 

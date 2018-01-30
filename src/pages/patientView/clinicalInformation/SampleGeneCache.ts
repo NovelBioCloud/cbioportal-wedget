@@ -105,15 +105,15 @@ export default class SampleGeneCache<
 				this._cache[sampleId] &&
 				this._cache[sampleId].fetchedWithoutGeneArgument === "complete"
 			) {
-				// in this case, we infer there is no data, because we've already fetched all data for this sample
+				//  in this case, we infer there is no data, because we've already fetched all data for this sample
 				return {
 					status: "complete",
 					data: null
 				};
 			} else {
-				// if we have not fetched all data for this sample, there's no data yet, so we should query
+				//  if we have not fetched all data for this sample, there's no data yet, so we should query
 				this.debouncedPopulate(sampleId, entrezGeneId);
-				// return null indicating no data yet
+				//  return null indicating no data yet
 				return null;
 			}
 		} else {
@@ -122,9 +122,9 @@ export default class SampleGeneCache<
 	}
 
 	protected async populate(sampleToEntrezList: SampleToEntrezListOrNull) {
-		// Subclasses extending this need to redefine this with the proper argument,
-		// i.e. should it be SampleToEntrezList or SampleToEntrezListOrNull
-		// See MrnaExprRankCache for an example
+		//  Subclasses extending this need to redefine this with the proper argument,
+		//  i.e. should it be SampleToEntrezList or SampleToEntrezListOrNull
+		//  See MrnaExprRankCache for an example
 		const missing = this.getMissing(sampleToEntrezList);
 		if (Object.keys(missing).length === 0) {
 			return null;
@@ -220,7 +220,7 @@ export default class SampleGeneCache<
 		sampleToEntrezList: SampleToEntrezListOrNull,
 		status: boolean
 	) {
-		// Helper function for markPending and unmarkPending
+		//  Helper function for markPending and unmarkPending
 		const pending = this._pending;
 		for (const sampleId of Object.keys(sampleToEntrezList)) {
 			const entrezList = sampleToEntrezList[sampleId];
@@ -263,7 +263,7 @@ export default class SampleGeneCache<
 
 			if (entrezList === null) {
 				toMerge[sampleId].fetchedWithoutGeneArgument = "complete";
-				// Put all fetched data for this sample
+				//  Put all fetched data for this sample
 				if (sampleData) {
 					for (const entrezGene in sampleData) {
 						if (sampleData.hasOwnProperty(entrezGene)) {

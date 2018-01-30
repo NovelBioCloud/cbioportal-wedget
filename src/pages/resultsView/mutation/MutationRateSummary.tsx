@@ -48,10 +48,10 @@ export default class MutationRateSummary extends React.Component<IMutationRateSu
 		let samples: SampleIdentifier[] | undefined;
 
 		if (this.props.germlineConsentedSamples.status !== "pending") {
-			// for germline mutation rate
-			// - only use germline constented samples for impact study
-			// - in all other cases assume that every sample had germline testing
-			//   if > 0 germline mutations are found
+			//  for germline mutation rate
+			//  - only use germline constented samples for impact study
+			//  - in all other cases assume that every sample had germline testing
+			//    if > 0 germline mutations are found
 			samples =
 				this.props.germlineConsentedSamples &&
 				this.props.germlineConsentedSamples.result &&

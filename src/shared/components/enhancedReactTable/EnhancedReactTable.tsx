@@ -50,7 +50,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 		_.each(_.keys(columns), function(key: string) {
 			let column: IEnhancedReactTableColumnDef = columns[key];
 
-			// every column is visible by default unless otherwise marked as hidden or excluded
+			//  every column is visible by default unless otherwise marked as hidden or excluded
 			let visibility: ColumnVisibility = "visible";
 
 			if (column.visible) {
@@ -61,8 +61,8 @@ export default class EnhancedReactTable<T> extends React.Component<
 				}
 			}
 
-			// do not include "excluded" columns in the state, they will always remain hidden
-			// ones set initially to "hidden" can be toggled visible later on.
+			//  do not include "excluded" columns in the state, they will always remain hidden
+			//  ones set initially to "hidden" can be toggled visible later on.
 			if (visibility !== "excluded") {
 				visibilityState[key] = visibility;
 			}
@@ -79,14 +79,14 @@ export default class EnhancedReactTable<T> extends React.Component<
 		} else if (b.priority) {
 			return 1;
 		} else if (a.name > b.name) {
-			// sort alphabetically in case of no priority
+			//  sort alphabetically in case of no priority
 			return 1;
 		} else {
 			return -1;
 		}
 	}
 
-	// mapping of column name to column id
+	//  mapping of column name to column id
 	private colNameToId: { [key: string]: string };
 
 	private filteredDataLength: number;
@@ -99,7 +99,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 
 	private columnVisibilitySelector = (state: IEnhancedReactTableState) => state.columnVisibility;
 
-	// visible columns depend on both column definitions and visibility
+	//  visible columns depend on both column definitions and visibility
 	private visibleColsSelector = createSelector(
 		this.columnsSelector,
 		this.columnVisibilitySelector,
@@ -107,12 +107,12 @@ export default class EnhancedReactTable<T> extends React.Component<
 			this.resolveVisible(columns, columnVisibility)
 	);
 
-	// sorted list of visible columns are required to calculate table header
+	//  sorted list of visible columns are required to calculate table header
 	private sortedVisibleColsSelector = createSelector(this.visibleColsSelector, (visibleCols: IColumnDefMap) =>
 		this.resolveOrder(visibleCols)
 	);
 
-	// sorted columns depend on column definition, but not on the visibility
+	//  sorted columns depend on column definition, but not on the visibility
 	private sortedColsSelector = createSelector(this.columnsSelector, (columns: IColumnDefMap) =>
 		this.resolveOrder(columns)
 	);
@@ -132,15 +132,15 @@ export default class EnhancedReactTable<T> extends React.Component<
 			this.generateDownloadData(sortedCols, visibility, rawData)
 	);
 
-	// we need to calculate the header values every time the visibility or column definitions change
+	//  we need to calculate the header values every time the visibility or column definitions change
 	private headersSelector = createSelector(
 		this.sortedVisibleColsSelector,
 		(sortedCols: Array<IEnhancedReactTableColumnDef>) => this.generateHeaders(sortedCols)
 	);
 
-	// no need to calculate column render values every time the visibility changes,
-	// we only need to do it when the column definitions change
-	// reactable is clever enough to not render the column if its header is missing
+	//  no need to calculate column render values every time the visibility changes,
+	//  we only need to do it when the column definitions change
+	//  reactable is clever enough to not render the column if its header is missing
 	private rowsSelector = createSelector(
 		this.sortedColsSelector,
 		this.rawDataSelector,
@@ -161,10 +161,10 @@ export default class EnhancedReactTable<T> extends React.Component<
 			currentPage: this.props.initPage || 0
 		};
 
-		// Begin code designed to get around the fact that data filtering happens inside Table
-		// but we need that information to properly paginate.
+		//  Begin code designed to get around the fact that data filtering happens inside Table
+		//  but we need that information to properly paginate.
 
-		// Monkey patch to get access to filtered data for pagination num pages calculation
+		//  Monkey patch to get access to filtered data for pagination num pages calculation
 		this.filteredDataLength = props.rawData.length;
 		this.shouldSetState = false;
 
@@ -194,9 +194,9 @@ export default class EnhancedReactTable<T> extends React.Component<
 			sendVisibleRows(result);
 			return result;
 		};
-		//
+		// 
 
-		// binding "this" to handler functions
+		//  binding "this" to handler functions
 		this.handleDownload = this.handleDownload.bind(this);
 		this.handleFilterInput = this.handleFilterInput.bind(this);
 		this.handleVisibilityToggle = this.handleVisibilityToggle.bind(this);
@@ -208,14 +208,14 @@ export default class EnhancedReactTable<T> extends React.Component<
 	public render() {
 		let { className, reactTableProps, headerControlsProps } = this.props;
 
-		// always use the initially sorted columns (this.sortedColumns),
-		// otherwise already hidden columns will never appear in the dropdown menu!
+		//  always use the initially sorted columns (this.sortedColumns),
+		//  otherwise already hidden columns will never appear in the dropdown menu!
 		let columnVisibility: Array<IColumnVisibilityDef> = this.columnVisibilityArraySelector(this.state, this.props);
 
-		// column headers: an array of Th components
+		//  column headers: an array of Th components
 		const headers = this.headersSelector(this.state, this.props);
 
-		// table rows: an array of Tr components
+		//  table rows: an array of Tr components
 		const rows = this.rowsSelector(this.state, this.props);
 
 		const { firstIndex, numIndexes } = this.rowIndexesOnPage();
@@ -267,11 +267,11 @@ export default class EnhancedReactTable<T> extends React.Component<
 
 	componentWillUpdate(nextProps: IEnhancedReactTableProps<T>, nextState: IEnhancedReactTableState) {
 		if (nextState.filter.length === 0) {
-			// Normally, the way we update this.filteredDataLength is when Table.applyFilter is
-			// called (see "monkey patching" of Table.prototype.applyFilter).
-			// But if the filter text is empty, Table.applyFilter is not called and the
-			// entire input data is used, so we have to manually catch and handle this case here
-			// to keep this.filteredDataLength up to date.
+			//  Normally, the way we update this.filteredDataLength is when Table.applyFilter is
+			//  called (see "monkey patching" of Table.prototype.applyFilter).
+			//  But if the filter text is empty, Table.applyFilter is not called and the
+			//  entire input data is used, so we have to manually catch and handle this case here
+			//  to keep this.filteredDataLength up to date.
 			this.filteredDataLength = this.props.rawData.length;
 		}
 	}
@@ -313,7 +313,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 			_.each(columns, function(value: IEnhancedReactTableColumnDef, key: string) {
 				if (value.name) {
 					if (colNameToId[value.name] !== null) {
-						// TODO console.log("[EnhancedReactTable] Warning: Duplicate column name: " + value.name);
+						//  TODO console.log("[EnhancedReactTable] Warning: Duplicate column name: " + value.name);
 					}
 					colNameToId[value.name] = key;
 				}
@@ -371,10 +371,10 @@ export default class EnhancedReactTable<T> extends React.Component<
 		let headers: Array<any> = [];
 
 		_.each(columns, function(columnDef: IEnhancedReactTableColumnDef) {
-			// basic content (with no tooltip)
+			//  basic content (with no tooltip)
 			let headerContent = columnDef.header || <span>{columnDef.name}</span>;
 
-			// if description is provided, add a tooltip
+			//  if description is provided, add a tooltip
 			if (columnDef.description) {
 				const arrowContent = <div className="rc-tooltip-arrow-inner" />;
 
@@ -406,25 +406,25 @@ export default class EnhancedReactTable<T> extends React.Component<
 	) {
 		const tableDownloadData: string[][] = [];
 
-		// add header
+		//  add header
 		tableDownloadData[0] = [];
 		_.each(columns, (columnDef: IEnhancedReactTableColumnDef) => {
 			const colId = this.colNameToId[columnDef.name];
 
-			// don't include excluded columns
+			//  don't include excluded columns
 			if (colId in visibility && visibility[colId] !== "excluded") {
 				tableDownloadData[0].push(columnDef.name);
 			}
 		});
 
-		// add rows
+		//  add rows
 		_.each(tableData, (rowData: T, index: number) => {
 			const rowDownloadData: string[] = [];
 
 			_.each(columns, (columnDef: IEnhancedReactTableColumnDef) => {
 				const colId = this.colNameToId[columnDef.name];
 
-				// include both visible and hidden columns, but not the excluded ones
+				//  include both visible and hidden columns, but not the excluded ones
 				if (colId in visibility && visibility[colId] !== "excluded") {
 					const columnData = this.getColumnData(columnDef, tableData, rowData);
 
@@ -454,20 +454,20 @@ export default class EnhancedReactTable<T> extends React.Component<
 			columnData: null
 		};
 
-		// get column data (may end up being undefined)
+		//  get column data (may end up being undefined)
 		if (columnDef.columnDataFunction) {
 			data.columnData = columnDef.columnDataFunction(data);
 		} else if (columnDef.dataField) {
 			let instance: any = null;
 
-			// also taking into account that row data might be an array of instances
+			//  also taking into account that row data might be an array of instances
 			if (_.isArray(data.rowData) && data.rowData.length > 0) {
-				// In case row data is an array of instances, by default retrieving only the first
-				// element's data as the column data. For advanced combining of all elements' data,
-				// one needs to provide a custom columnData function.
+				//  In case row data is an array of instances, by default retrieving only the first
+				//  element's data as the column data. For advanced combining of all elements' data,
+				//  one needs to provide a custom columnData function.
 				instance = data.rowData[0];
 			} else {
-				// assuming that rowData is a flat type instance
+				//  assuming that rowData is a flat type instance
 				instance = data.rowData;
 			}
 
@@ -483,7 +483,7 @@ export default class EnhancedReactTable<T> extends React.Component<
 		const rows: Array<any> = [];
 
 		_.each(tableData, (rowData: T, index: number) => {
-			// columns for this row: an array of Td elements
+			//  columns for this row: an array of Td elements
 			const cols = this.generateColumns(columns, tableData, rowData);
 
 			rows.push(

@@ -48,12 +48,12 @@ export default class StructureViewer extends React.Component<IStructureViewerPro
 
 	public componentDidUpdate(prevProps: IStructureViewerProps) {
 		if (this.wrapper) {
-			// if pdbId is updated we need to reload the structure
+			//  if pdbId is updated we need to reload the structure
 			if (this.props.pdbId !== this._pdbId) {
 				this._pdbId = this.props.pdbId;
 				this.wrapper.loadPdb(this._pdbId, this.props.chainId, this.props.residues, this.props);
 			} else {
-				// other updates just require selection/style updates without reloading the structure
+				//  other updates just require selection/style updates without reloading the structure
 				this.wrapper.updateViewer(this.props.chainId, this.props.residues, this.props);
 			}
 

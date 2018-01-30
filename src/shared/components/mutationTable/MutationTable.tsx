@@ -572,7 +572,7 @@ export default class MutationTable<P extends IMutationTableProps> extends React.
 			let column = this._columns[next];
 
 			if (
-				column && // actual column definition may be missing for a specific enum
+				column && //  actual column definition may be missing for a specific enum
 				(!column.shouldExclude || !column.shouldExclude())
 			) {
 				columns.push(column);

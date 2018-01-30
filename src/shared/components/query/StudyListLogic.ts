@@ -23,7 +23,7 @@ export default class StudyListLogic {
 		for (let [node, meta] of this.store.treeData.map_node_meta.entries()) {
 			let filter = true;
 			if (meta.isCancerType) {
-				// exclude cancer types beyond max depth, or those with no descendant studies
+				//  exclude cancer types beyond max depth, or those with no descendant studies
 				if (
 					meta.ancestors.length > this.store.maxTreeDepth ||
 					!meta.descendantStudies.length
@@ -37,7 +37,7 @@ export default class StudyListLogic {
 
 	@cached
 	get map_node_filterBySearchText() {
-		// first compute individual node match results
+		//  first compute individual node match results
 		let parsedQuery = parse_search_query(this.store.searchText);
 		let map_node_searchResult = new Map<CancerTreeNode, SearchResult>();
 		for (let [node, meta] of this.store.treeData.map_node_meta.entries())
@@ -65,7 +65,7 @@ export default class StudyListLogic {
 			}
 			map_node_filter.set(node, filter);
 
-			// include ancestors of matching studies
+			//  include ancestors of matching studies
 			if (filter && !meta.isCancerType)
 				for (let cancerTypes of [
 					meta.ancestors,
@@ -84,7 +84,7 @@ export default class StudyListLogic {
 			for (let cancerType of this.store.selectedCancerTypes) {
 				let meta = this.getMetadata(cancerType);
 
-				// include selected cancerType and related nodes
+				//  include selected cancerType and related nodes
 				map_node_filter.set(cancerType, true);
 				for (let nodes of [
 					meta.ancestors,
@@ -94,7 +94,7 @@ export default class StudyListLogic {
 					for (let node of nodes) map_node_filter.set(node, true);
 			}
 		} else {
-			// include everything if no cancer types are selected
+			//  include everything if no cancer types are selected
 			for (let node of this.store.treeData.map_node_meta.keys())
 				map_node_filter.set(node, true);
 		}
@@ -110,7 +110,7 @@ export default class StudyListLogic {
 					study
 				) as NodeMetadata;
 
-				// include selected study and related nodes
+				//  include selected study and related nodes
 				map_node_filter.set(study, true);
 				for (let nodes of [
 					meta.descendantStudies,
@@ -303,7 +303,7 @@ export class FilteredCancerTreeView {
 		} = this.getSelectionReport();
 
 		if (shownStudies.length === shownAndSelectedStudies.length) {
-			// deselect
+			//  deselect
 			this.store.selectedStudyIds = _.without(
 				this.store.selectedStudyIds,
 				...shownStudies.map((study: CancerStudy) => study.studyId)

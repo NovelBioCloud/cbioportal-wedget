@@ -40,7 +40,7 @@ export const initializeCustomDriverAnnotationSettings = action(
 		enableCustomTiers: boolean,
 		enableOncoKbAndHotspotsIfNoCustomAnnotations: boolean
 	) => {
-		// initialize keys with all available tiers
+		//  initialize keys with all available tiers
 		for (const tier of report.tiers) {
 			mutationAnnotationSettings.driverTiers.set(tier, enableCustomTiers);
 		}
@@ -50,7 +50,7 @@ export const initializeCustomDriverAnnotationSettings = action(
 			!report.hasBinary &&
 			!report.tiers.length
 		) {
-			// enable hotspots and oncokb if there are no custom annotations
+			//  enable hotspots and oncokb if there are no custom annotations
 			mutationAnnotationSettings.hotspots = true;
 			mutationAnnotationSettings.oncoKb = true;
 		}
@@ -108,7 +108,7 @@ export function computePutativeDriverAnnotatedMutations(
 			const annotatedMutation = annotateMutationPutativeDriver(
 				mutation,
 				getPutativeDriverInfo(mutation)
-			); // annotate
+			); //  annotate
 			if (annotatedMutation.putativeDriver || !ignoreUnknown) {
 				annotated.push(annotatedMutation);
 			}

@@ -5,7 +5,7 @@ import { If, Then, Else } from "react-if";
 import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
 import { mergeAlterations } from "shared/lib/OncoKbUtils";
 import { ICache } from "shared/lib/SimpleCache";
-// TODO these need to be defined as modules, and class names used in this component need to be updated
+//  TODO these need to be defined as modules, and class names used in this component need to be updated
 import "./styles/oncoKbCard.scss";
 import "./styles/oncoKbCard.custom.scss";
 
@@ -105,7 +105,7 @@ export default class OncoKbCard extends React.Component<OncoKbCardProps, IOncoKb
 		this.handleLevelCollapse = this.handleLevelCollapse.bind(this);
 	}
 
-	// TODO abstracts:Abstract[]
+	//  TODO abstracts:Abstract[]
 	public treatmentRow(
 		index: number,
 		level: string,
@@ -139,8 +139,8 @@ export default class OncoKbCard extends React.Component<OncoKbCardProps, IOncoKb
 				<span />
 			);
 
-		// qtip-content="{{levelDes}}" position-my="top center" position-at="bottom center"
-		// qtip-treatment-index={treatmentIndex} position-my="top right" position-at="bottom left"
+		//  qtip-content="{{levelDes}}" position-my="top center" position-at="bottom center"
+		//  qtip-treatment-index={treatmentIndex} position-my="top right" position-at="bottom left"
 		return (
 			<tr key={index}>
 				<td key="level">
@@ -211,7 +211,7 @@ export default class OncoKbCard extends React.Component<OncoKbCardProps, IOncoKb
 	public pmidItem(title: string, author: string, source: string, date: string, pmid: string) {
 		return (
 			<li key={pmid} className="list-group-item" style={{ width: "100%" }}>
-				<a href={`http://www.ncbi.nlm.nih.gov/pubmed/${pmid}`} target="_blank">
+				<a href={`http:// www.ncbi.nlm.nih.gov/pubmed/${pmid}`} target="_blank">
 					<b>{title}</b>
 				</a>
 				<br />
@@ -286,8 +286,8 @@ export default class OncoKbCard extends React.Component<OncoKbCardProps, IOncoKb
 		return rows;
 	}
 
-	// TODO we should replace the tabs with an actual ReactBootstrap Tab,
-	// also divide this component into smaller components
+	//  TODO we should replace the tabs with an actual ReactBootstrap Tab,
+	//  also divide this component into smaller components
 	public render() {
 		return (
 			<div className="oncokb-card" data-test="oncokb-card">
@@ -324,7 +324,7 @@ export default class OncoKbCard extends React.Component<OncoKbCardProps, IOncoKb
 											<p>
 												{this.insertLink(this.props.variantSummary, {
 													keyword: "Chang et al. 2016",
-													link: "https://www.ncbi.nlm.nih.gov/pubmed/26619011"
+													link: "https:// www.ncbi.nlm.nih.gov/pubmed/26619011"
 												})}
 											</p>
 											<p>{this.props.tumorTypeSummary}</p>
@@ -437,7 +437,7 @@ export default class OncoKbCard extends React.Component<OncoKbCardProps, IOncoKb
 					)}
 
 					<div className="item footer">
-						<a href="http://oncokb.org/#/gene/{{gene}}" target="_blank">
+						<a href="http:// oncokb.org/#/gene/{{gene}}" target="_blank">
 							<img src={require("./images/oncokb.png")} className="oncokb-logo" alt="OncoKB" />
 						</a>
 						<span className="pull-right feedback">
@@ -510,10 +510,10 @@ export default class OncoKbCard extends React.Component<OncoKbCardProps, IOncoKb
 		let prefix: string | undefined;
 
 		if (str.toLowerCase().indexOf("pmid") >= 0) {
-			baseUrl = "http://www.ncbi.nlm.nih.gov/pubmed/";
+			baseUrl = "http:// www.ncbi.nlm.nih.gov/pubmed/";
 			prefix = "PMID: ";
 		} else if (str.toLowerCase().indexOf("nct") >= 0) {
-			baseUrl = "http://www.ncbi.nlm.nih.gov/pubmed/";
+			baseUrl = "http:// www.ncbi.nlm.nih.gov/pubmed/";
 			prefix = "NCT";
 		}
 
@@ -576,18 +576,18 @@ export default class OncoKbCard extends React.Component<OncoKbCardProps, IOncoKb
 
 		const content: Array<string | JSX.Element> = [];
 
-		// example delimiters:
-		//     (PMID: 11900253)
-		//     (PMID: 11753428, 16007150, 21467160)
-		//     (cBioPortal, MSKCC, May 2015, PMID: 24718888)
-		//     (NCT1234567)
+		//  example delimiters:
+		//      (PMID: 11900253)
+		//      (PMID: 11753428, 16007150, 21467160)
+		//      (cBioPortal, MSKCC, May 2015, PMID: 24718888)
+		//      (NCT1234567)
 		const regex = /(\(.*?[PMID|NCT].*?\))/i;
 
-		// split the string with delimiters included
+		//  split the string with delimiters included
 		const parts = str.split(regex);
 
 		parts.forEach((part: string) => {
-			// if delimiter convert to a JSX component
+			//  if delimiter convert to a JSX component
 			if (part.match(regex)) {
 				let component: JSX.Element | null = this.refComponent(part, type);
 

@@ -80,7 +80,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 			},
 			onBackgroundMouseMove: () => {
 				this.props.onBackgroundMouseMove && this.props.onBackgroundMouseMove();
-				// unhover all of the lollipops if mouse hits background
+				//  unhover all of the lollipops if mouse hits background
 				this.unhoverAllLollipops();
 			},
 			onLollipopClick: (codon: number) => {
@@ -101,7 +101,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 				}
 			},
 			onMouseOver: (e: SyntheticEvent<any>) => {
-				// No matter what, unhover all lollipops - if we're hovering one, we'll set it later in this method
+				//  No matter what, unhover all lollipops - if we're hovering one, we'll set it later in this method
 				this.unhoverAllLollipops();
 
 				const target = e.target as SVGElement;
@@ -187,7 +187,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 	}
 
 	componentDidMount() {
-		// Make it so that if you hold down shift, you can select more than one lollipop at once
+		//  Make it so that if you hold down shift, you can select more than one lollipop at once
 		$(document).on("keydown", this.handlers.onKeyDown);
 		$(document).on("keyup", this.handlers.onKeyUp);
 		this.props.onXAxisOffset && this.props.onXAxisOffset(this.geneX);
@@ -230,8 +230,8 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 		while (nextTick < rangeSize) {
 			let label: string | undefined = undefined;
 
-			// add label only for the even ticks
-			// but do not add label if it is too close to the end value
+			//  add label only for the even ticks
+			//  but do not add label if it is too close to the end value
 			if (labelEvenTicks && rangeSize - nextTick > 2 * tickInterval / 3 && nextTick % (2 * tickInterval) === 0) {
 				label = nextTick + "";
 			}
@@ -257,7 +257,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 	@computed
 	private get xTicks() {
 		let ret: Tick[] = [];
-		// Start and end, always there
+		//  Start and end, always there
 		ret.push({
 			position: 0,
 			label: "0"
@@ -266,7 +266,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 			position: this.props.xMax,
 			label: this.props.xMax + "aa"
 		});
-		// Intermediate ticks, every other one labeled
+		//  Intermediate ticks, every other one labeled
 		ret = ret.concat(this.calculateTicks(this.xAxisTickInterval, this.props.xMax, true));
 		return ret;
 	}
@@ -274,7 +274,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 	@computed
 	private get yTicks() {
 		let ret: Tick[] = [];
-		// Start and end, always there
+		//  Start and end, always there
 		ret.push({
 			position: 0,
 			label: "0"
@@ -283,7 +283,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 			position: this.yMax,
 			label: this.yMaxLabel
 		});
-		// Intermediate ticks, unlabeled
+		//  Intermediate ticks, unlabeled
 		ret = ret.concat(this.calculateTicks(this.yAxisTickInterval, this.yMax, false));
 		return ret;
 	}
@@ -323,7 +323,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 		return this.geneY - (this.domainHeight - this.geneHeight) / 2;
 	}
 
-	// we need to create segments for the sequence rectangle for better handling of the tooltip hit zone
+	//  we need to create segments for the sequence rectangle for better handling of the tooltip hit zone
 	@computed
 	private get sequenceSegments() {
 		const sequenceComponents: JSX.Element[] = [];
@@ -333,20 +333,20 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 		let segments = _.map(this.props.domains, (domain: DomainSpec) => {
 			const segment = {
 				start,
-				end: this.codonToX(domain.startCodon) // segment ends at the start of the current domain
+				end: this.codonToX(domain.startCodon) //  segment ends at the start of the current domain
 			};
 
-			// next segment starts at the end of the current domain
+			//  next segment starts at the end of the current domain
 			start = this.codonToX(domain.endCodon);
 
 			return segment;
 		});
 
-		// last segment after the last domain
+		//  last segment after the last domain
 		const end = this.props.vizWidth;
 		segments.push({ start, end });
 
-		// sort segments by start position
+		//  sort segments by start position
 		segments.sort((a: { start: number; end: number }, b: { start: number; end: number }) => {
 			return a.start - b.start;
 		});
@@ -477,14 +477,14 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 
 	public toSVGDOMNode(): Element {
 		if (this.svg) {
-			// Clone node
+			//  Clone node
 			const svg = this.svg.cloneNode(true) as Element;
 			$(svg)
 				.find("." + DELETE_FOR_DOWNLOAD_CLASS)
 				.remove();
 			return svg;
 		} else {
-			return document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			return document.createElementNS("http:// www.w3.org/2000/svg", "svg");
 		}
 	}
 
@@ -492,7 +492,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 		return (
 			<div onMouseOver={this.handlers.onMouseOver}>
 				<svg
-					xmlns="http://www.w3.org/2000/svg"
+					xmlns="http:// www.w3.org/2000/svg"
 					ref={this.handlers.ref}
 					width={this.svgWidth}
 					height={this.svgHeight}
@@ -508,11 +508,11 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 						onMouseMove={this.handlers.onBackgroundMouseMove}
 					/>
 					{
-						// Originally this had tooltips by having separate segments
-						// with hit zones. We disabled those separate segments with
-						// tooltips (this.sequenceSegments) and instead just draw
-						// one rectangle
-						// this.sequenceSegments
+						//  Originally this had tooltips by having separate segments
+						//  with hit zones. We disabled those separate segments with
+						//  tooltips (this.sequenceSegments) and instead just draw
+						//  one rectangle
+						//  this.sequenceSegments
 					}
 					<rect
 						fill="#BABDB6"
@@ -520,7 +520,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 						y={this.geneY}
 						height={this.geneHeight}
 						width={
-							// the x-axis start from 0, so the rectangle size should be (width + 1)
+							//  the x-axis start from 0, so the rectangle size should be (width + 1)
 							this.props.vizWidth + 1
 						}
 					/>

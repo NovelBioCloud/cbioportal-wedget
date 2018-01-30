@@ -5,7 +5,7 @@ import classNames from "classnames";
 import tooltipStyles from "./styles/polyPhen2Tooltip.module.scss";
 
 export interface IPolyPhen2Props {
-	polyPhenPrediction: string; // benign, possibly_damaging, probably_damging
+	polyPhenPrediction: string; //  benign, possibly_damaging, probably_damging
 	polyPhenScore: number;
 }
 
@@ -15,7 +15,7 @@ export function hideArrow(tooltipEl: any) {
 }
 
 export default class PolyPhen2 extends React.Component<IPolyPhen2Props, {}> {
-	static POLYPHEN2_URL: string = "http://genetics.bwh.harvard.edu/pph2/";
+	static POLYPHEN2_URL: string = "http:// genetics.bwh.harvard.edu/pph2/";
 
 	constructor(props: IPolyPhen2Props) {
 		super(props);
@@ -65,7 +65,7 @@ export default class PolyPhen2 extends React.Component<IPolyPhen2Props, {}> {
 					<tr>
 						<td>Source</td>
 						<td>
-							<a href="http://genetics.bwh.harvard.edu/pph2/">PolyPhen-2</a>
+							<a href="http:// genetics.bwh.harvard.edu/pph2/">PolyPhen-2</a>
 						</td>
 					</tr>
 					<tr>

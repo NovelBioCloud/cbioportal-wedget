@@ -16,9 +16,9 @@ export default function tabularDownload(
 ) {
 	const caseNames = uidOrder.map(getCaseId);
 	const prefixName =
-		columnMode === "sample" ? "SAMPLE_DATA_" : "PATIENT_DATA_"; //Name depending on the type of case
+		columnMode === "sample" ? "SAMPLE_DATA_" : "PATIENT_DATA_"; //  Name depending on the type of case
 
-	//Gather all the Oncoprint data
+	//  Gather all the Oncoprint data
 	const oncoprintData: any = {
 		CLINICAL: {},
 		CNA: {},
@@ -28,7 +28,7 @@ export default function tabularDownload(
 		FUSION: {}
 	};
 
-	//Create maps for genetic data
+	//  Create maps for genetic data
 	const cnaMap: any = {
 		amp: "Amplification",
 		gain: "Gain",
@@ -71,11 +71,11 @@ export default function tabularDownload(
 		true: "Fusion"
 	};
 
-	//Add genetic data
+	//  Add genetic data
 	for (const geneticTrack of geneticTracks) {
 		const currentTrackData = geneticTrack.data;
-		const currentGeneName = currentTrackData[0].gene; //The gene is the same for all entries of the track
-		//Add the currentGeneName to the oncoprintData if it does not exist
+		const currentGeneName = currentTrackData[0].gene; //  The gene is the same for all entries of the track
+		//  Add the currentGeneName to the oncoprintData if it does not exist
 		if (oncoprintData.CNA[currentGeneName] === undefined) {
 			oncoprintData.CNA[currentGeneName] = {};
 		}
@@ -91,7 +91,7 @@ export default function tabularDownload(
 		if (oncoprintData.FUSION[currentGeneName] === undefined) {
 			oncoprintData.FUSION[currentGeneName] = {};
 		}
-		//Iterate over all patients/samples of the track and add them to oncoprintData
+		//  Iterate over all patients/samples of the track and add them to oncoprintData
 		for (const geneticTrackDatum of currentTrackData) {
 			let id: string =
 				columnMode === "sample"
@@ -140,15 +140,15 @@ export default function tabularDownload(
 		}
 	}
 
-	//Add clinical data
+	//  Add clinical data
 	for (const clinicalTrack of clinicalTracks) {
 		const currentClinicalTrackData = clinicalTrack.data;
 		const currentAttributeName = clinicalTrack.label;
-		//Add the currentAttributeName to the oncoprintData if it does not exist
+		//  Add the currentAttributeName to the oncoprintData if it does not exist
 		if (oncoprintData.CLINICAL[currentAttributeName] === undefined) {
 			oncoprintData.CLINICAL[currentAttributeName] = {};
 		}
-		//Iterate over all patients/samples of the track and add them to oncoprintData
+		//  Iterate over all patients/samples of the track and add them to oncoprintData
 		for (const clinicalTrackDatum of currentClinicalTrackData) {
 			let id: string =
 				columnMode === "sample"
@@ -162,7 +162,7 @@ export default function tabularDownload(
 		}
 	}
 
-	//Add heatmap data
+	//  Add heatmap data
 	for (const heatmapTrack of heatmapTracks) {
 		const currentHeatmapGene = heatmapTrack.label;
 		const currentHeatmapType =
@@ -192,16 +192,16 @@ export default function tabularDownload(
 		}
 	}
 
-	//Put all the information of the oncoprintData in a variable with tabular form
+	//  Put all the information of the oncoprintData in a variable with tabular form
 	let content = "track_name\ttrack_type";
-	//Add the cases to the content
+	//  Add the cases to the content
 	for (let i = 0; i < caseNames.length; i++) {
 		content += "\t" + caseNames[i];
 	}
-	//Add final header line
+	//  Add final header line
 	content += "\n";
 
-	//Iterate over oncoprintData and write it to content
+	//  Iterate over oncoprintData and write it to content
 	Object.keys(oncoprintData).forEach(function(j) {
 		Object.keys(oncoprintData[j]).forEach(function(k) {
 			content += k + "\t" + j;

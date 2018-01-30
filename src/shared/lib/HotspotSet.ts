@@ -12,14 +12,14 @@
 export default class HotspotSet {
 	private regions: [number, number][];
 	constructor(intervals?: [number, number][]) {
-		// intervals: [L:number, U:number][] where L <= U
+		//  intervals: [L:number, U:number][] where L <= U
 		this.regions = intervals ? createHotspotRegions(intervals) : [];
 	}
 
 	public check(x: number, y?: number): boolean {
-		//	if only x given, check if x lies in a hotspot
-		//	if x and y given, check if [x,y] overlaps with a hotspot,
-		//	    meaning is there a region [A,B] with (A<=y && B>=x)
+		// 	if only x given, check if x lies in a hotspot
+		// 	if x and y given, check if [x,y] overlaps with a hotspot,
+		// 	    meaning is there a region [A,B] with (A<=y && B>=x)
 
 		if (typeof y === "undefined") {
 			y = x;
@@ -35,13 +35,13 @@ export default class HotspotSet {
 			testRegionIndex = Math.floor((lowerIndexIncl + upperIndexExcl) / 2);
 			testRegion = regions[testRegionIndex];
 			if (testRegion[0] > y) {
-				// too big
+				//  too big
 				upperIndexExcl = testRegionIndex;
 			} else if (testRegion[1] < x) {
-				// too small
+				//  too small
 				lowerIndexIncl = testRegionIndex + 1;
 			} else {
-				// both requirements met - success!
+				//  both requirements met - success!
 				success = true;
 				break;
 			}
@@ -55,7 +55,7 @@ export default class HotspotSet {
 	}
 
 	public _getHotspotRegions() {
-		// Do not use - for testing only
+		//  Do not use - for testing only
 		return this.regions;
 	}
 }
@@ -63,18 +63,18 @@ export default class HotspotSet {
 function createHotspotRegions(
 	intervals: [number, number][]
 ): [number, number][] {
-	// in: intervals:[L:number, U:number][] where L <= U
-	// out: a list of intervals (type [L:number, U:number][] where L <= U) such that
-	//	every interval is disjoint and the list is in sorted order
+	//  in: intervals:[L:number, U:number][] where L <= U
+	//  out: a list of intervals (type [L:number, U:number][] where L <= U) such that
+	// 	every interval is disjoint and the list is in sorted order
 	if (intervals.length === 0) {
 		return [];
 	}
 
-	// First, sort the intervals by lower bound
+	//  First, sort the intervals by lower bound
 	intervals.sort(function(a, b) {
 		return a[0] < b[0] ? -1 : 1;
 	});
-	// Then, consolidate them
+	//  Then, consolidate them
 	const ret: [number, number][] = [];
 	let currentCombinedInterval: [number, number] = [
 		intervals[0][0],
@@ -88,13 +88,13 @@ function createHotspotRegions(
 		} else {
 			currentInterval = intervals[i];
 			if (currentInterval[0] > currentCombinedInterval[1]) {
-				// disjoint, should move on
+				//  disjoint, should move on
 				ret.push(currentCombinedInterval);
 				currentCombinedInterval = [intervals[i][0], intervals[i][1]];
 			} else {
-				// overlaps, should combine
-				// by the sort order, we know that currentCombinedInterval[0] <= currentInterval[0],
-				//	so to combine we just need to take the max upper bound value
+				//  overlaps, should combine
+				//  by the sort order, we know that currentCombinedInterval[0] <= currentInterval[0],
+				// 	so to combine we just need to take the max upper bound value
 				currentCombinedInterval[1] = Math.max(
 					currentCombinedInterval[1],
 					currentInterval[1]

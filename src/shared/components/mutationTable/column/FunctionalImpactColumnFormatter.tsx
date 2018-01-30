@@ -249,7 +249,7 @@ export default class FunctionalImpactColumnFormatter {
 								height={14}
 								width={14}
 								src={require("./mutationAssessor.png")}
-								// className={tooltipStyles['mutation-assessor-main-img']}
+								//  className={tooltipStyles['mutation-assessor-main-img']}
 								alt="Sift"
 							/>
 						</span>
@@ -267,7 +267,7 @@ export default class FunctionalImpactColumnFormatter {
 								height={14}
 								width={14}
 								src={require("./siftFunnel.png")}
-								// className={tooltipStyles['mutation-assessor-main-img']}
+								//  className={tooltipStyles['mutation-assessor-main-img']}
 								alt="SIFT"
 							/>
 						</span>
@@ -285,7 +285,7 @@ export default class FunctionalImpactColumnFormatter {
 								height={14}
 								width={14}
 								src={require("./polyPhen-2.png")}
-								// className={tooltipStyles['mutation-assessor-main-img']}
+								//  className={tooltipStyles['mutation-assessor-main-img']}
 								alt="PolyPhen-2"
 							/>
 						</span>
@@ -300,7 +300,7 @@ export default class FunctionalImpactColumnFormatter {
 			return null;
 		}
 
-		// TODO: handle multiple transcripts instead of just picking the first one
+		//  TODO: handle multiple transcripts instead of just picking the first one
 		const mutationAssessor =
 			genomeNexusData.data.mutation_assessor && genomeNexusData.data.mutation_assessor.annotation;
 		const siftScore = parseFloat(genomeNexusData.data.transcript_consequences[0].sift_score);
@@ -377,7 +377,7 @@ export default class FunctionalImpactColumnFormatter {
 		}
 
 		if (status !== null) {
-			// show loading circle
+			//  show loading circle
 			if (status === TableCellStatus.LOADING) {
 				return <Circle size={18} scaleEnd={0.5} scaleStart={0.2} color="#aaa" className="pull-left" />;
 			} else {

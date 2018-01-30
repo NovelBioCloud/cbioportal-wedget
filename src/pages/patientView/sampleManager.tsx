@@ -8,28 +8,28 @@ import styles from "./patientHeader/style/clinicalAttributes.scss";
 import naturalSort from "javascript-natural-sort";
 import { ClinicalEvent, ClinicalEventData } from "../../shared/api/generated/CBioPortalAPI";
 
-// sort samples based on event, clinical data and id
-// 1. based on sample collection data (timeline event)
-// 2. if all cases have derived normalized case types, put primary first
-// 3. natural sort of sample ids
+//  sort samples based on event, clinical data and id
+//  1. based on sample collection data (timeline event)
+//  2. if all cases have derived normalized case types, put primary first
+//  3. natural sort of sample ids
 export function sortSamples(
 	samples: Array<ClinicalDataBySampleId>,
 	clinicalDataLegacyCleanAndDerived: { [s: string]: any },
 	events?: any
 ) {
-	// natural sort (use contrived concatenation, to avoid complaints about
-	// immutable types)
+	//  natural sort (use contrived concatenation, to avoid complaints about
+	//  immutable types)
 	let naturalSortedSampleIDs: string[] = [];
 	naturalSortedSampleIDs = naturalSortedSampleIDs.concat(samples.map(sample => sample.id)).sort(naturalSort);
 
-	// based on sample collection data (timeline event)
+	//  based on sample collection data (timeline event)
 	let collectionDayMap: { [s: string]: number } = {};
 	if (events) {
 		let specimenEvents = events.filter((e: ClinicalEvent) => e.eventType === "SPECIMEN");
 
 		collectionDayMap = specimenEvents.reduce((map: { [s: string]: number }, specimenEvent: ClinicalEvent) => {
 			let sampleAttr = _.find(specimenEvent.attributes, (attr: ClinicalEventData) => {
-				// TODO: This is legacy support for old timeline data that does not use SAMPLE_ID, but one of the specrefnum
+				//  TODO: This is legacy support for old timeline data that does not use SAMPLE_ID, but one of the specrefnum
 				return (
 					(attr.key === "SAMPLE_ID" ||
 						attr.key === "SpecimenReferenceNumber" ||
@@ -44,24 +44,24 @@ export function sortSamples(
 		}, {});
 	}
 
-	// create new object array, to allow sorting of samples by multiple fields
+	//  create new object array, to allow sorting of samples by multiple fields
 	type sampleOrderT = {
 		id: string;
-		// fields to sort by
+		//  fields to sort by
 		eventOrdering?: number;
 		sampleTypeIndex: number;
 		naturalSortIndex: number;
 	};
-	// put primaries first (could be extended with more if necessary)
+	//  put primaries first (could be extended with more if necessary)
 	let sampleTypeOrdering: string[] = ["Primary"];
 	let sampleOrder: sampleOrderT[] = [];
 
 	for (let i: number = 0; i < samples.length; i++) {
 		let id = samples[i].id;
-		// 1. based on sample collection data (timeline event)
+		//  1. based on sample collection data (timeline event)
 		let eventOrdering = collectionDayMap[id];
 
-		// 2. if cases have derived normalized case types, put primary first
+		//  2. if cases have derived normalized case types, put primary first
 		let sampleTypeIndex = sampleTypeOrdering.indexOf(
 			clinicalDataLegacyCleanAndDerived[id].DERIVED_NORMALIZED_CASE_TYPE
 		);
@@ -69,7 +69,7 @@ export function sortSamples(
 			sampleTypeIndex = sampleTypeOrdering.length;
 		}
 
-		// 3. natural sort of sample ids
+		//  3. natural sort of sample ids
 		let naturalSortIndex = naturalSortedSampleIDs.indexOf(id);
 
 		sampleOrder = sampleOrder.concat({
@@ -104,17 +104,17 @@ class SampleManager {
 		this.sampleLabels = {};
 		this.clinicalDataLegacyCleanAndDerived = {};
 		this.sampleColors = {};
-		// clinical attributes that should be displayed at patient level, since
-		// they are the same in all samples
+		//  clinical attributes that should be displayed at patient level, since
+		//  they are the same in all samples
 		this.commonClinicalDataLegacyCleanAndDerived = {};
 
 		samples.forEach((sample, i) => {
-			// add legacy clinical data
+			//  add legacy clinical data
 			this.clinicalDataLegacyCleanAndDerived[sample.id] = cleanAndDerive(
 				_.fromPairs(sample.clinicalData.map(x => [x.clinicalAttributeId, x.value]))
 			);
 
-			// determine color based on DERIVED_NORMALIZED_CASE_TYPE
+			//  determine color based on DERIVED_NORMALIZED_CASE_TYPE
 			let color = "black";
 			if (this.clinicalDataLegacyCleanAndDerived[sample.id]["DERIVED_NORMALIZED_CASE_TYPE"] === "Primary") {
 				color = styles.sampleColorPrimary;
@@ -136,8 +136,8 @@ class SampleManager {
 			this.sampleColors[sample.id] = color;
 		});
 
-		// remove common CANCER_TYPE/CANCER_TYPE_DETAILED in top bar (display on
-		// patient)
+		//  remove common CANCER_TYPE/CANCER_TYPE_DETAILED in top bar (display on
+		//  patient)
 		["CANCER_TYPE", "CANCER_TYPE_DETAILED"].forEach(attr => {
 			if (SampleManager.isSameClinicalAttributeInAllSamples(samples, attr)) {
 				this.commonClinicalDataLegacyCleanAndDerived[attr] = this.clinicalDataLegacyCleanAndDerived[
@@ -154,7 +154,7 @@ class SampleManager {
 			this.sampleIndex[sample.id] = i;
 			this.sampleLabels[sample.id] = String(i + 1);
 		});
-		// order as array of sample ids (used further downstream)
+		//  order as array of sample ids (used further downstream)
 		this.sampleOrder = _.sortBy(Object.keys(this.sampleIndex), k => this.sampleIndex[k]);
 	}
 

@@ -22,14 +22,14 @@ export function generatePdbInfoSummary(pdbHeader: PdbHeader, chainId: string) {
 		pdbInfo: pdbHeader.title
 	};
 
-	// get chain specific molecule info
+	//  get chain specific molecule info
 	_.find(pdbHeader.compound, (mol: any) => {
 		if (
 			mol.molecule &&
 			_.indexOf(mol.chain, chainId.toLowerCase()) !== -1
 		) {
-			// chain is associated with this mol,
-			// get the organism info from the source
+			//  chain is associated with this mol,
+			//  get the organism info from the source
 			summary.moleculeInfo = mol.molecule;
 			return mol;
 		}
@@ -47,7 +47,7 @@ export function mergeIndexedPdbAlignments(
 ): IPdbChain[] {
 	const chains: IPdbChain[] = [];
 
-	// generate chains
+	//  generate chains
 	_.each(indexedPdbData, (map: { [chainId: string]: Alignment[] }) => {
 		_.each(map, (chainAlignments: Alignment[]) => {
 			const chain = mergeAlignments(chainAlignments);
@@ -90,7 +90,7 @@ export function mergeAlignments(
 	let start: number;
 
 	if (alignments.length > 0) {
-		// start with the first alignment
+		//  start with the first alignment
 		start = alignments[0].seqFrom;
 	} else {
 		return undefined;
@@ -103,19 +103,19 @@ export function mergeAlignments(
 		if (alignment.seqFrom < start) {
 			let gapOrOverlap = Math.abs(alignmentStr.length - diff);
 
-			// overlap: we need to append non-overlapping segment of mergedAlignment to the current alignment
+			//  overlap: we need to append non-overlapping segment of mergedAlignment to the current alignment
 			if (alignmentStr.length >= diff) {
 				mergedAlignment =
 					alignmentStr + mergedAlignment.substr(gapOrOverlap);
 			} else {
-				// gap: we need to add some gap before appending mergedAlignment
+				//  gap: we need to add some gap before appending mergedAlignment
 				mergedAlignment =
 					alignmentStr + alignmentGap(gapOrOverlap) + mergedAlignment;
 			}
 		} else if (alignment.seqFrom >= start) {
 			let gapOrOverlap = Math.abs(mergedAlignment.length - diff);
 
-			// overlap: we need to "insert" current alignment into merged alignment
+			//  overlap: we need to "insert" current alignment into merged alignment
 			if (mergedAlignment.length >= diff) {
 				mergedAlignment =
 					mergedAlignment.substr(
@@ -129,7 +129,7 @@ export function mergeAlignments(
 							alignmentStr.length
 					);
 			} else {
-				// gap: we need to add some gap before appending current alignment
+				//  gap: we need to add some gap before appending current alignment
 				mergedAlignment =
 					mergedAlignment + alignmentGap(gapOrOverlap) + alignmentStr;
 			}
@@ -141,7 +141,7 @@ export function mergeAlignments(
 	return {
 		pdbId: alignments[0].pdbId,
 		chain: alignments[0].chain,
-		// to be consistent with the alignment API we would like uniprot position range to be inclusive
+		//  to be consistent with the alignment API we would like uniprot position range to be inclusive
 		uniprotStart: start,
 		uniprotEnd: start + mergedAlignment.length - 1,
 		alignment: mergedAlignment,
@@ -153,7 +153,7 @@ export function mergeAlignments(
 function alignmentGap(length: number) {
 	let gap: string[] = [];
 
-	// add gap characters (character count = distance)
+	//  add gap characters (character count = distance)
 	for (let i = 0; i < length; i++) {
 		gap.push(ALIGNMENT_GAP);
 	}
@@ -166,7 +166,7 @@ export function generateAlignmentString(
 ): string | undefined {
 	let alignmentStr: string | undefined;
 
-	// process 3 alignment strings and create a visualization string
+	//  process 3 alignment strings and create a visualization string
 	const midline = alignment.midlineAlign;
 	const uniprot = alignment.seqAlign;
 	const pdb = alignment.pdbAlign;
@@ -175,7 +175,7 @@ export function generateAlignmentString(
 		const stringBuilder = [];
 
 		for (let i = 0; i < midline.length; i++) {
-			// do not append anything if there is a gap in uniprot alignment
+			//  do not append anything if there is a gap in uniprot alignment
 			if (uniprot[i] !== "-") {
 				if (pdb[i] === "-") {
 					stringBuilder.push("-");
@@ -203,15 +203,15 @@ function calcIdentityPerc(alignment: string): number {
 		const symbol = alignment[i];
 
 		if (symbol === ALIGNMENT_GAP) {
-			// increment gap count (gaps excluded from ratio calculation)
+			//  increment gap count (gaps excluded from ratio calculation)
 			gap++;
 		} else if (
 			symbol === ALIGNMENT_MINUS ||
 			symbol === ALIGNMENT_PLUS ||
 			symbol === ALIGNMENT_SPACE
 		) {
-			// any special symbol other than a gap is considered as a mismatch
-			// TODO is it better to assign a different weight for each symbol?
+			//  any special symbol other than a gap is considered as a mismatch
+			//  TODO is it better to assign a different weight for each symbol?
 			mismatch++;
 		}
 	}
@@ -250,7 +250,7 @@ export function calcPdbIdNumericalValue(
 	const values = [0, 0, 0, 0];
 	const coeff = invert ? -1 : 1;
 
-	// assuming pdb id is no longer than 4 characters
+	//  assuming pdb id is no longer than 4 characters
 	for (let i = 0; i < pdbId.length || i < 5; i++) {
 		values.push(coeff * pdbId.charCodeAt(i));
 	}

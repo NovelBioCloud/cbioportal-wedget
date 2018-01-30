@@ -6,9 +6,9 @@ export type AccumulatingDebouncedFunction<ArgsType> = {
 export default function accumulatingDebounce<AccumulatorType, ArgsType>(
 	fn: (acc: AccumulatorType) => void,
 	addArgs: (acc: AccumulatorType, ...next: ArgsType[]) => AccumulatorType,
-	getInit: () => AccumulatorType, // getInit needs to be a function, otherwise we'd have to deal w/clonining the given init value to ensure we're resetting
+	getInit: () => AccumulatorType, //  getInit needs to be a function, otherwise we'd have to deal w/clonining the given init value to ensure we're resetting
 	wait: number,
-	afterTimeoutExpire?: (...args: any[]) => void // mainly useful for testing
+	afterTimeoutExpire?: (...args: any[]) => void //  mainly useful for testing
 ): AccumulatingDebouncedFunction<ArgsType> {
 	let timeout: number | null;
 	let shouldExecuteFn: boolean;

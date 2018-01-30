@@ -74,8 +74,8 @@ export class VAFPlot extends React.Component<IVAFPlotProps, IVAFPlotState> {
 	constructor(props: IVAFPlotProps) {
 		super(props);
 
-		// Compute contingent default params
-		// tslint:disable-next-line:variable-name
+		//  Compute contingent default params
+		//  tslint:disable-next-line:variable-name
 		const label_dist_to_axis = this.props.xticks === 0 ? 13 : 30;
 
 		let options = {
@@ -92,7 +92,7 @@ export class VAFPlot extends React.Component<IVAFPlotProps, IVAFPlotState> {
 			width: this.props.width,
 			height: this.props.height
 		};
-		// margin bottom must be computed before height because height computation makes use of it
+		//  margin bottom must be computed before height because height computation makes use of it
 		if (options.margin.bottom === undefined) {
 			options.margin.bottom = 30 + label_dist_to_axis / 2;
 		}
@@ -121,7 +121,7 @@ export class VAFPlot extends React.Component<IVAFPlotProps, IVAFPlotState> {
 	}
 
 	shouldComponentUpdate(nextProps: IVAFPlotProps, nextState: IVAFPlotState) {
-		// Hack around React for manually-handled DOM elements: handle updating here
+		//  Hack around React for manually-handled DOM elements: handle updating here
 		if (this.histogramCheckbox) {
 			if (nextState.show_histogram) {
 				$(this.div)
@@ -149,12 +149,12 @@ export class VAFPlot extends React.Component<IVAFPlotProps, IVAFPlotState> {
 	}
 
 	toggleShowHistogram() {
-		// tslint:disable-next-line:variable-name
+		//  tslint:disable-next-line:variable-name
 		const new_show_histogram = !this.state.show_histogram;
 		this.setState({ show_histogram: new_show_histogram });
 	}
 	toggleShowCurve() {
-		// tslint:disable-next-line:variable-name
+		//  tslint:disable-next-line:variable-name
 		const new_show_curve = !this.state.show_curve;
 		this.setState({ show_curve: new_show_curve });
 	}
@@ -191,5 +191,5 @@ export class VAFPlot extends React.Component<IVAFPlotProps, IVAFPlotState> {
 		);
 	}
 }
-// To pass in: colors: window.caseMetaData.color
-//              labels: window.caseMetaData.label
+//  To pass in: colors: window.caseMetaData.color
+//               labels: window.caseMetaData.label

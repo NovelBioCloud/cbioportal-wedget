@@ -2,7 +2,7 @@ import { SortMetric } from "./ISortMetric";
 import { observable, computed, action } from "mobx";
 import { lazyMobXTableSort } from "../components/lazyMobXTable/LazyMobXTable";
 export interface IMobXApplicationDataStore<T> {
-	// setter
+	//  setter
 	setFilter: (
 		fn: (
 			d: T,
@@ -12,17 +12,17 @@ export interface IMobXApplicationDataStore<T> {
 		) => boolean
 	) => void;
 
-	// mobX computed getters
+	//  mobX computed getters
 	allData: T[];
 	sortedData: T[];
 	sortedFilteredData: T[];
 	sortedFilteredSelectedData: T[];
 	tableData: T[];
 
-	// exposed methods for interacting with data
+	//  exposed methods for interacting with data
 	isHighlighted: (d: T) => boolean;
 
-	// mobX observable public properties (note you can still implement with getter and setter)
+	//  mobX observable public properties (note you can still implement with getter and setter)
 	filterString: string;
 	sortAscending: boolean | undefined;
 	sortMetric: SortMetric<T> | undefined;
@@ -51,7 +51,7 @@ export class SimpleMobXApplicationDataStore<T>
 	}
 	@computed
 	get sortedData() {
-		// if not defined, use default values for sortMetric and sortAscending
+		//  if not defined, use default values for sortMetric and sortAscending
 		const sortMetric = this.sortMetric || (() => 0);
 		const sortAscending =
 			this.sortAscending !== undefined ? this.sortAscending : true;

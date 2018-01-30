@@ -45,10 +45,10 @@ export default class QuerySummary extends React.Component<{ queryStore: QuerySto
 	}
 
 	private handleModifyQueryClick() {
-		// this will have no functional impact after initial invocation of this method
+		//  this will have no functional impact after initial invocation of this method
 		this.queryStoreInitialized = true;
 
-		// toggle visibility
+		//  toggle visibility
 		this.queryFormVisible = !this.queryFormVisible;
 	}
 

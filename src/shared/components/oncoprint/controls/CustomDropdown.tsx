@@ -10,7 +10,7 @@ export interface ICustomDropdownProps extends ButtonProps {
 }
 
 class CustomButton extends React.Component<any, {}> {
-	// cant type this more specifically because of some typing issues w ES6 classes not having component.replaceState
+	//  cant type this more specifically because of some typing issues w ES6 classes not having component.replaceState
 	render() {
 		const { bsRole, title, ...props } = this.props;
 		return (

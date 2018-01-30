@@ -26,7 +26,7 @@ export function emptyQueryIndicator(): IndicatorQueryResp {
 			tumorType: "",
 			type: "web",
 			hgvs: "",
-			svType: "DELETION" // TODO: hack because svType is not optional
+			svType: "DELETION" //  TODO: hack because svType is not optional
 		},
 		treatments: [],
 		tumorTypeSummary: "",

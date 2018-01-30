@@ -15,7 +15,7 @@ export interface IPaginationControlsProps {
 	currentPage?: number;
 	totalItems?: number;
 	itemsPerPage?: number;
-	itemsPerPageOptions?: number[]; // sorted ascending
+	itemsPerPageOptions?: number[]; //  sorted ascending
 	showAllOption?: boolean;
 	showMoreButton?: boolean;
 	textBeforeButtons?: string;
@@ -148,7 +148,7 @@ export class PaginationControls extends React.Component<IPaginationControlsProps
 						"disabled",
 						styles["default-cursor"]
 					)}
-					style={{ cursor: "default", color: "black" }} // HACK for parent project
+					style={{ cursor: "default", color: "black" }} //  HACK for parent project
 				>
 					<If condition={this.props.pageNumberEditable}>
 						<EditableSpan
@@ -187,9 +187,9 @@ export class PaginationControls extends React.Component<IPaginationControlsProps
 				</option>
 			);
 		}
-
+		let key = 0;
 		let buttons: any = [
-			<If condition={!!this.props.showFirstPage}>
+			<If condition={!!this.props.showFirstPage} key={key++}>
 				<Button
 					key="firstPageBtn"
 					bsSize="sm"
@@ -228,7 +228,7 @@ export class PaginationControls extends React.Component<IPaginationControlsProps
 			>
 				{this.props.nextButtonContent}
 			</Button>,
-			<If condition={!!this.props.showLastPage}>
+			<If condition={!!this.props.showLastPage} key={key++}>
 				<Button
 					key="lastPageBtn"
 					bsSize="sm"
@@ -240,7 +240,7 @@ export class PaginationControls extends React.Component<IPaginationControlsProps
 					{this.props.lastButtonContent}
 				</Button>
 			</If>,
-			<If condition={!!this.props.showMoreButton}>
+			<If condition={!!this.props.showMoreButton} key={key++}>
 				<Button
 					id="resetItemsPerPageButton"
 					bsStyle="link"

@@ -19,7 +19,7 @@ export default class ChromosomeColumnFormatter {
 		const matched: RegExpMatchArray | null = chromosome.match(numerical);
 		let value: number = -1;
 
-		// if no match, then search for X or Y
+		//  if no match, then search for X or Y
 		if (matched) {
 			value = parseInt(matched[0]);
 		} else if (chromosome.toLowerCase().indexOf("x") > -1) {

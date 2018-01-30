@@ -68,8 +68,8 @@ export default class StudyList extends QueryStoreComponent<IStudyListProps, {}> 
 	}
 
 	componentDidMount() {
-		// when rendering selected studies view,
-		// cache the view object so studies do not disappear immediately when deselected.
+		//  when rendering selected studies view,
+		//  cache the view object so studies do not disappear immediately when deselected.
 		if (this.props.showSelectedStudiesOnly) this._view = this.view;
 	}
 
@@ -179,16 +179,16 @@ export default class StudyList extends QueryStoreComponent<IStudyListProps, {}> 
 		);
 	};
 
-	// renderStudyName = (study:CancerStudy, afterName?:any) =>
-	// {
-	// 	return (
-	// 		<CancerTreeCheckbox view={this.view} node={study}>
-	// 			<span className={styles.StudyName}>
-	// 				{study.name} {afterName || null}
-	// 			</span>
-	// 		</CancerTreeCheckbox>
-	// 	);
-	// }
+	//  renderStudyName = (study:CancerStudy, afterName?:any) =>
+	//  {
+	//  	return (
+	//  		<CancerTreeCheckbox view={this.view} node={study}>
+	//  			<span className={styles.StudyName}>
+	//  				{study.name} {afterName || null}
+	//  			</span>
+	//  		</CancerTreeCheckbox>
+	//  	);
+	//  }
 
 	renderSamples = (study: CancerStudy) => {
 		return <span className={styles.StudySamples}>{`${study.allSampleCount} samples`}</span>;

@@ -161,7 +161,7 @@ export default class ResultsViewOncoprint extends React.Component<IResultsViewOn
 		this.onTrackSortDirectionChange = this.onTrackSortDirectionChange.bind(this);
 
 		onMobxPromise(this.props.store.heatmapMolecularProfiles, (profiles: MolecularProfile[]) => {
-			// select first initially
+			//  select first initially
 			if (profiles.length) {
 				this.selectedHeatmapProfile = profiles[0].molecularProfileId;
 			}
@@ -183,7 +183,7 @@ export default class ResultsViewOncoprint extends React.Component<IResultsViewOn
 			() => {
 				const parsedURL = URL.parse(window.location.href, true);
 				const query = Object.assign({}, parsedURL.query);
-				//this.props.routing.updateRoute({
+				//  this.props.routing.updateRoute({
 				query[SAMPLE_MODE_URL_PARAM] = (this.columnMode === "sample") + "";
 				if (!this.clinicalTracksUrlParam) {
 					delete query[CLINICAL_TRACKS_URL_PARAM];
@@ -195,7 +195,7 @@ export default class ResultsViewOncoprint extends React.Component<IResultsViewOn
 				} else {
 					query[HEATMAP_TRACKS_URL_PARAM] = this.heatmapTrackGroupsUrlParam;
 				}
-				//});
+				//  });
 				const newParsedURL = Object.assign(parsedURL, {
 					query,
 					search: null
@@ -462,7 +462,7 @@ export default class ResultsViewOncoprint extends React.Component<IResultsViewOn
 			onChangeSelectedClinicalTracks: this.onChangeSelectedClinicalTracks,
 			onChangeHeatmapGeneInputValue: action((s: string) => {
 				this.heatmapGeneInputValue = s;
-				this.heatmapGeneInputValueUpdater(); // stop updating heatmap input if user has typed
+				this.heatmapGeneInputValueUpdater(); //  stop updating heatmap input if user has typed
 			}),
 			onSelectHeatmapProfile: (id: string) => {
 				this.selectedHeatmapProfile = id;
@@ -564,6 +564,8 @@ export default class ResultsViewOncoprint extends React.Component<IResultsViewOn
 								);
 							}
 						);
+						break;
+					default:
 						break;
 				}
 			},
@@ -714,7 +716,7 @@ export default class ResultsViewOncoprint extends React.Component<IResultsViewOn
 	}
 
 	private onTrackSortDirectionChange(trackId: TrackId, dir: number) {
-		// called when a clinical or heatmap track is sorted a-Z or Z-a, selected from within oncoprintjs UI
+		//  called when a clinical or heatmap track is sorted a-Z or Z-a, selected from within oncoprintjs UI
 		if (dir === 1 || dir === -1) {
 			this.sortByData();
 		}
@@ -726,9 +728,9 @@ export default class ResultsViewOncoprint extends React.Component<IResultsViewOn
 			let clinicalAttributes: OncoprintClinicalAttribute[] = _.sortBy(
 				this.props.store.clinicalAttributes.result!,
 				x => x.displayName
-			); // sort server clinical attrs by display name
-			clinicalAttributes = specialClinicalAttributes.concat(clinicalAttributes); // put special clinical attrs at beginning
-			clinicalAttributes = _.uniqBy(clinicalAttributes, x => x.clinicalAttributeId); // remove duplicates in case of multiple studies w same attr
+			); //  sort server clinical attrs by display name
+			clinicalAttributes = specialClinicalAttributes.concat(clinicalAttributes); //  put special clinical attrs at beginning
+			clinicalAttributes = _.uniqBy(clinicalAttributes, x => x.clinicalAttributeId); //  remove duplicates in case of multiple studies w same attr
 			return Promise.resolve(clinicalAttributes);
 		}
 	});

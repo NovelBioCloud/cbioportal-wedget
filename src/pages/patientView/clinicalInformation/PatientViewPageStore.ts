@@ -88,7 +88,7 @@ export async function checkForTissueImage(patientId: string): Promise<boolean> {
 
 		let matches = resp.text.match(/<data total_count='([0-9]+)'>/);
 
-		// if the count is greater than 0, there is a slide for this patient
+		//  if the count is greater than 0, there is a slide for this patient
 		return (!!matches && parseInt(matches[1], 10)) > 0;
 	}
 }
@@ -103,7 +103,7 @@ export function handlePathologyReportCheckResponse(
 	resp: any
 ): PathologyReportPDF[] {
 	if (resp.total_count > 0) {
-		// only use pdfs starting with the patient id to prevent mismatches
+		//  only use pdfs starting with the patient id to prevent mismatches
 		const r = new RegExp("^" + patientId);
 		const filteredItems: any = _.filter(resp.items, (item: any) =>
 			r.test(item.name)
@@ -297,18 +297,18 @@ export class PatientViewPageStore {
 		{
 			await: () => [this.derivedPatientId],
 			invoke: () => {
-				// only check path report for tcga studies
+				//  only check path report for tcga studies
 				if (this.studyId.toLowerCase().indexOf("tcga") > -1) {
 					const pathLinkUrl =
-						"https://raw.githubusercontent.com/inodb/datahub" +
+						"https:// raw.githubusercontent.com/inodb/datahub" +
 						"/a0d36d77b242e32cda3175127de73805b028f595/tcga" +
 						"/pathology_reports/symlink_by_patient";
 					const rawPdfUrl =
-						"https://github.com/cBioPortal/datahub/raw" +
+						"https:// github.com/cBioPortal/datahub/raw" +
 						"/master/tcga/pathology_reports";
 					const reports: PathologyReportPDF[] = [];
 
-					// keep checking if patient has more reports recursively
+					//  keep checking if patient has more reports recursively
 					function getPathologyReport(
 						patientId: string,
 						i: number
@@ -316,13 +316,13 @@ export class PatientViewPageStore {
 						return request
 							.get(`${pathLinkUrl}/${patientId}.${i}`)
 							.then(function(resp: any) {
-								// add report
+								//  add report
 								let pdfName: string = resp.text.split("/")[1];
 								reports.push({
 									name: `${pdfName}`,
 									url: `${rawPdfUrl}/${pdfName}`
 								});
-								// check if patient has more reports
+								//  check if patient has more reports
 								return getPathologyReport(patientId, i + 1);
 							}, () => reports);
 					}
@@ -333,7 +333,7 @@ export class PatientViewPageStore {
 				}
 			},
 			onError: (err: Error) => {
-				// fail silently
+				//  fail silently
 			}
 		},
 		[]
@@ -358,7 +358,7 @@ export class PatientViewPageStore {
 			);
 		},
 		onError: () => {
-			// fail silently
+			//  fail silently
 		}
 	});
 
@@ -367,14 +367,14 @@ export class PatientViewPageStore {
 			await: () => [this.derivedPatientId],
 			invoke: async () => {
 				let resp: any = await request.get(
-					`//bioinformatics.mdanderson.org/dyce?app=chmdb&command=participant2maps&participant=${
+					`// bioinformatics.mdanderson.org/dyce?app=chmdb&command=participant2maps&participant=${
 						this.patientId
 					}`
 				);
 
 				const parsedResp: any = JSON.parse(resp.text);
 
-				// filecontent array is serialized :(
+				//  filecontent array is serialized :(
 				const fileContent: string[] = JSON.parse(
 					parsedResp.fileContent
 				);
@@ -382,13 +382,13 @@ export class PatientViewPageStore {
 				return fileContent.length > 0;
 			},
 			onError: () => {
-				// fail silently
+				//  fail silently
 			}
 		},
 		false
 	);
 
-	//
+	// 
 	readonly clinicalDataForSamples = remoteData(
 		{
 			await: () => [this.samples],
@@ -450,7 +450,7 @@ export class PatientViewPageStore {
 				);
 			},
 			onError: (err: Error) => {
-				// fail silently, leave the error handling responsibility to the data consumer
+				//  fail silently, leave the error handling responsibility to the data consumer
 			}
 		},
 		{}
@@ -509,8 +509,8 @@ export class PatientViewPageStore {
 				);
 			},
 			onResult: (result: DiscreteCopyNumberData[]) => {
-				// We want to take advantage of this loaded data, and not redownload the same data
-				//  for users of the cache
+				//  We want to take advantage of this loaded data, and not redownload the same data
+				//   for users of the cache
 				this.discreteCNACache.addData(result);
 			}
 		},
@@ -558,7 +558,7 @@ export class PatientViewPageStore {
 		{
 			await: () => [this.molecularProfileIdDiscrete],
 			invoke: async () => {
-				// we just need it in this form for input to DiscreteCNACache
+				//  we just need it in this form for input to DiscreteCNACache
 				const ret: { [studyId: string]: MolecularProfile } = {};
 				if (this.molecularProfileIdDiscrete.result) {
 					ret[
@@ -590,7 +590,7 @@ export class PatientViewPageStore {
 			}
 		},
 		onError: () => {
-			// fail silently
+			//  fail silently
 		}
 	});
 
@@ -601,7 +601,7 @@ export class PatientViewPageStore {
 				return checkForTissueImage(this.patientId);
 			},
 			onError: () => {
-				// fail silently
+				//  fail silently
 			}
 		},
 		false
@@ -650,7 +650,7 @@ export class PatientViewPageStore {
 		{
 			invoke: () => fetchOncoKbAnnotatedGenes(),
 			onError: (err: Error) => {
-				// fail silently, leave the error handling responsibility to the data consumer
+				//  fail silently, leave the error handling responsibility to the data consumer
 			}
 		},
 		{}
@@ -675,7 +675,7 @@ export class PatientViewPageStore {
 				);
 			},
 			onError: (err: Error) => {
-				// fail silently, leave the error handling responsibility to the data consumer
+				//  fail silently, leave the error handling responsibility to the data consumer
 			}
 		},
 		ONCOKB_DEFAULT
@@ -696,7 +696,7 @@ export class PatientViewPageStore {
 						)
 					: {},
 			onError: (err: Error) => {
-				// fail silently
+				//  fail silently
 			}
 		},
 		undefined
@@ -721,7 +721,7 @@ export class PatientViewPageStore {
 				}
 			},
 			onError: (err: Error) => {
-				// fail silently
+				//  fail silently
 			}
 		},
 		undefined
@@ -742,7 +742,7 @@ export class PatientViewPageStore {
 					this.discreteCNAData
 				),
 			onError: (err: Error) => {
-				// fail silently, leave the error handling responsibility to the data consumer
+				//  fail silently, leave the error handling responsibility to the data consumer
 			}
 		},
 		ONCOKB_DEFAULT
@@ -756,7 +756,7 @@ export class PatientViewPageStore {
 					? fetchCnaCivicGenes(this.discreteCNAData)
 					: {},
 			onError: (err: Error) => {
-				// fail silently
+				//  fail silently
 			}
 		},
 		undefined
@@ -773,7 +773,7 @@ export class PatientViewPageStore {
 				return null;
 			},
 			onError: (err: Error) => {
-				// fail silently
+				//  fail silently
 			}
 		},
 		undefined

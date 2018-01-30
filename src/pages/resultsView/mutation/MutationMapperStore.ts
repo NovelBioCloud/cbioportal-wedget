@@ -62,13 +62,13 @@ export class MutationMapperStore {
 		public gene: Gene,
 		public samples: MobxPromise<SampleIdentifier[]>,
 		public oncoKbAnnotatedGenes: { [entrezGeneId: number]: boolean },
-		// getMutationDataCache needs to be a getter for the following reason:
-		// when the input parameters to the mutationDataCache change, the cache
-		// is recomputed. Mobx needs to respond to this. But if we pass the mutationDataCache
-		// in as a value, then when using it we don't access the observable property mutationDataCache,
-		// so that when it changes we won't react. Thus we need to access it as store.mutationDataCache
-		// (which will be done in the getter thats passed in here) so that the cache itself is observable
-		// and we will react when it changes to a new object.
+		//  getMutationDataCache needs to be a getter for the following reason:
+		//  when the input parameters to the mutationDataCache change, the cache
+		//  is recomputed. Mobx needs to respond to this. But if we pass the mutationDataCache
+		//  in as a value, then when using it we don't access the observable property mutationDataCache,
+		//  so that when it changes we won't react. Thus we need to access it as store.mutationDataCache
+		//  (which will be done in the getter thats passed in here) so that the cache itself is observable
+		//  and we will react when it changes to a new object.
 		public mutations: Mutation[],
 		private getMutationDataCache: () => MutationDataCache,
 		private genomeNexusEnrichmentCache: () => GenomeNexusEnrichmentCache,
@@ -117,7 +117,7 @@ export class MutationMapperStore {
 				}
 			},
 			onError: (err: Error) => {
-				// fail silently
+				//  fail silently
 			}
 		},
 		[]
@@ -126,8 +126,8 @@ export class MutationMapperStore {
 	readonly swissProtId = remoteData(
 		{
 			invoke: async () => {
-				// do not try fetching swissprot data for invalid entrez gene ids,
-				// just return the default value
+				//  do not try fetching swissprot data for invalid entrez gene ids,
+				//  just return the default value
 				if (this.gene.entrezGeneId < 1) {
 					return "";
 				}
@@ -145,7 +145,7 @@ export class MutationMapperStore {
 				}
 			},
 			onError: (err: Error) => {
-				// fail silently
+				//  fail silently
 			}
 		},
 		""
@@ -162,7 +162,7 @@ export class MutationMapperStore {
 				}
 			},
 			onError: (err: Error) => {
-				// fail silently
+				//  fail silently
 			}
 		},
 		""
@@ -212,7 +212,7 @@ export class MutationMapperStore {
 			invoke: async () =>
 				this.config.showCivic ? fetchCivicGenes(this.mutationData) : {},
 			onError: (err: Error) => {
-				// fail silently
+				//  fail silently
 			}
 		},
 		undefined
@@ -232,7 +232,7 @@ export class MutationMapperStore {
 				}
 			},
 			onError: (err: Error) => {
-				// fail silently
+				//  fail silently
 			}
 		},
 		undefined
@@ -245,7 +245,7 @@ export class MutationMapperStore {
 
 	@computed
 	get processedMutationData(): Mutation[][] {
-		// just convert Mutation[] to Mutation[][]
+		//  just convert Mutation[] to Mutation[][]
 		return (this.mutationData.result || []).map((mutation: Mutation) => [
 			mutation
 		]);
@@ -264,12 +264,12 @@ export class MutationMapperStore {
 	@computed
 	get sortedMergedAlignmentData(): IPdbChain[] {
 		const sortMetric = (pdbChain: IPdbChain) => [
-			pdbChain.identity, // first, sort by identity
-			pdbChain.alignment.length, // then by alignment length
-			pdbChain.identityPerc, // then by identity percentage
-			// current sort metric cannot handle mixed values so generating numerical values for strings
-			...calcPdbIdNumericalValue(pdbChain.pdbId, true), // then by pdb id (A-Z): always returns an array of size 4
-			-1 * pdbChain.chain.charCodeAt(0) // then by chain id (A-Z): chain id is always one char
+			pdbChain.identity, //  first, sort by identity
+			pdbChain.alignment.length, //  then by alignment length
+			pdbChain.identityPerc, //  then by identity percentage
+			//  current sort metric cannot handle mixed values so generating numerical values for strings
+			...calcPdbIdNumericalValue(pdbChain.pdbId, true), //  then by pdb id (A-Z): always returns an array of size 4
+			-1 * pdbChain.chain.charCodeAt(0) //  then by chain id (A-Z): chain id is always one char
 		];
 
 		return lazyMobXTableSort(this.mergedAlignmentData, sortMetric, false);
@@ -291,7 +291,7 @@ export class MutationMapperStore {
 
 	@cached
 	get pdbChainDataStore(): PdbChainDataStore {
-		// initialize with sorted merged alignment data
+		//  initialize with sorted merged alignment data
 		return new PdbChainDataStore(this.sortedMergedAlignmentData);
 	}
 

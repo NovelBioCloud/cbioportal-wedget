@@ -143,7 +143,7 @@ export class CancerSummaryContent extends React.Component<ICancerSummaryContentP
 	}
 
 	public componentWillMount() {
-		// if there is only one cancer type, then we want to default to show cancer sub types
+		//  if there is only one cancer type, then we want to default to show cancer sub types
 	}
 
 	@computed
@@ -154,7 +154,7 @@ export class CancerSummaryContent extends React.Component<ICancerSummaryContentP
 	@computed
 	get countsData() {
 		return this.props.groupedAlterationData;
-		// return (this.viewCountsByCancerSubType || this.onlyOneSelected)? this.props.dataByCancerSubType : this.props.dataByCancerType;
+		//  return (this.viewCountsByCancerSubType || this.onlyOneSelected)? this.props.dataByCancerSubType : this.props.dataByCancerType;
 	}
 
 	@computed
@@ -172,9 +172,9 @@ export class CancerSummaryContent extends React.Component<ICancerSummaryContentP
 			(accum, alterationData, groupKey) => {
 				const cancerAlterations = alterationData.alterationTypeCounts;
 				let altTotalPercent = alterationData.alteredSampleCount / alterationData.sampleTotal * 100;
-				// if we meet the cases cut off
+				//  if we meet the cases cut off
 				if (alterationData.sampleTotal >= this.totalCasesValue) {
-					// lets look at alterations by alteration type
+					//  lets look at alterations by alteration type
 					const datasets = _.reduce(
 						cancerAlterations as any,
 						(memo, count: number, altType: string) => {
@@ -265,7 +265,7 @@ export class CancerSummaryContent extends React.Component<ICancerSummaryContentP
 				this.tempAltCasesInputValue = 0;
 				return;
 			}
-			// removes leading 0s
+			//  removes leading 0s
 			this.tempAltCasesInputValue = Number(this.tempAltCasesInputValue);
 			this.tempAltCasesValue = this.tempAltCasesInputValue;
 			this.handleAltSliderChangeComplete();
@@ -278,7 +278,7 @@ export class CancerSummaryContent extends React.Component<ICancerSummaryContentP
 				this.tempTotalCasesInputValue = 0;
 				return;
 			}
-			// removes leading 0s
+			//  removes leading 0s
 			this.tempTotalCasesInputValue = Number(this.tempTotalCasesInputValue);
 			this.tempTotalCasesValue = this.tempTotalCasesInputValue;
 			this.handleTotalSliderChangeComplete();
@@ -319,13 +319,13 @@ export class CancerSummaryContent extends React.Component<ICancerSummaryContentP
 			protExpressionDown: "#E0FFFF",
 			multiple: "#666"
 		};
-		// TODO: fix ts index signature issue so we don't have to cast alterationToColor as any
+		//  TODO: fix ts index signature issue so we don't have to cast alterationToColor as any
 		return this.showGenomicAlt ? (alterationToColor as any)[color] || "#000000" : "#aaaaaa";
 	}
 
 	@computed
 	private get cancerTypes() {
-		// build array of cancer type options and sort alphabetically
+		//  build array of cancer type options and sort alphabetically
 		const sortedCancerTypes = Object.keys(this.countsData)
 			.map(point => ({ label: point, value: point }))
 			.sort();
@@ -338,13 +338,13 @@ export class CancerSummaryContent extends React.Component<ICancerSummaryContentP
 		return Math.max(...this.barChartDatasets.map(data => data.sortCount));
 	}
 
-	// @computed private get selectedCancerTypes() {
-	//     const multiSelectValuesArray = this.multiSelectValue.toLowerCase().split(",");
-	//     return _.reduce(this.props.dataByCancerType, (accum, value, key) => {
-	//             accum[key] = !!_.intersection(["all", "", key.toLowerCase()], multiSelectValuesArray).length;
-	//             return accum;
-	//         }, {} as any);
-	// }
+	//  @computed private get selectedCancerTypes() {
+	//      const multiSelectValuesArray = this.multiSelectValue.toLowerCase().split(",");
+	//      return _.reduce(this.props.dataByCancerType, (accum, value, key) => {
+	//              accum[key] = !!_.intersection(["all", "", key.toLowerCase()], multiSelectValuesArray).length;
+	//              return accum;
+	//          }, {} as any);
+	//  }
 
 	@computed
 	private get totalCasesMax() {
@@ -550,7 +550,7 @@ export class CancerSummaryContent extends React.Component<ICancerSummaryContentP
 							<ButtonGroup>
 								{GroupByOptions.map((option, i) => {
 									return (
-										// tslint:disable-next-line:jsx-key
+										//  tslint:disable-next-line:jsx-key
 										<Radio
 											checked={option.value === this.props.groupAlterationsBy}
 											onChange={e => {

@@ -9,7 +9,7 @@ export interface IEvidence {
 	treatments: {
 		sensitivity: any[];
 		resistance: any[];
-	}; //separated by level type
+	}; // separated by level type
 	trials: any[];
 	oncogenic: string;
 	oncogenicRefs: string[];

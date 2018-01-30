@@ -18,7 +18,7 @@ export default class GeneColumnFormatter {
 	}
 
 	public static getDisplayValue(data: Mutation[]): string {
-		// same as text value
+		//  same as text value
 		return GeneColumnFormatter.getTextValue(data);
 	}
 
@@ -35,7 +35,7 @@ export default class GeneColumnFormatter {
 	}
 
 	public static renderFunction(data: Mutation[]) {
-		// use text as display value
+		//  use text as display value
 		const text = GeneColumnFormatter.getDisplayValue(data);
 
 		return <span>{text}</span>;

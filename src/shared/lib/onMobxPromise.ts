@@ -31,7 +31,7 @@ export default function onMobxPromise<T>(
 	}
 	disposer = autorun(reaction => {
 		if (promiseArray.reduce((acc, next) => acc && next.isComplete, true)) {
-			// if all complete
+			//  if all complete
 			onComplete(...promiseArray.map(x => x.result as T));
 			count += 1;
 		}

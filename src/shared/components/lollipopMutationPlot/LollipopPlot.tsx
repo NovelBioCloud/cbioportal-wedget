@@ -114,10 +114,10 @@ export default class LollipopPlot extends React.Component<LollipopPlotProps, {}>
 
 	public toSVGDOMNode(): Element {
 		if (this.plot) {
-			// Clone node
+			//  Clone node
 			return this.plot.toSVGDOMNode();
 		} else {
-			return document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			return document.createElementNS("http:// www.w3.org/2000/svg", "svg");
 		}
 	}
 

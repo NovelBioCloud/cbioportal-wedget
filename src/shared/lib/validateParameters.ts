@@ -16,7 +16,7 @@ export default function validateParameters(
 	params: { [k: string]: string },
 	rules: (string | string[])[]
 ): URLValidationResult {
-	// we want to interpret empty string as missing
+	//  we want to interpret empty string as missing
 	let cleanedParams = _.reduce(
 		params,
 		(memo: { [k: string]: string }, paramVal, paramKey) => {

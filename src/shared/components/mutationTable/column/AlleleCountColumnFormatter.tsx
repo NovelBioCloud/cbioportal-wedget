@@ -14,7 +14,7 @@ export default class AlleleCountColumnFormatter {
 		const sampleToValue: { [key: string]: any } = {};
 
 		for (const rowDatum of mutations) {
-			sampleToValue[rowDatum.sampleId] = (rowDatum as any)[dataField]; // TODO this is not type safe...
+			sampleToValue[rowDatum.sampleId] = (rowDatum as any)[dataField]; //  TODO this is not type safe...
 		}
 
 		const samplesWithValue = sampleOrder.filter((sampleId: string) => sampleToValue.hasOwnProperty(sampleId));

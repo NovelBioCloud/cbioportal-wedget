@@ -39,8 +39,8 @@ export default class FrequencyBar extends React.Component<IFrequencyBarProps, {}
 
 		const freqColors = this.props.freqColors || FrequencyBar.defaultProps.freqColors;
 
-		// if no mainCountIndex is provided or it is not a valid index, then use the first count in the list
-		// (main count is used to calculate the percentage to display)
+		//  if no mainCountIndex is provided or it is not a valid index, then use the first count in the list
+		//  (main count is used to calculate the percentage to display)
 		const mainCountIndex =
 			this.props.mainCountIndex && this.props.mainCountIndex >= 0 && this.props.mainCountIndex < counts.length
 				? this.props.mainCountIndex
@@ -50,7 +50,7 @@ export default class FrequencyBar extends React.Component<IFrequencyBarProps, {}
 		const textPos = (barWidth || 0) + (textMargin || 0);
 		const totalWidth = textPos + FrequencyBar.TEXT_WIDTH;
 
-		// create a frequency rectangle for each count
+		//  create a frequency rectangle for each count
 		const freqRects: JSX.Element[] = [];
 
 		counts.forEach((count: number, index: number) => {
@@ -81,7 +81,7 @@ export default class FrequencyBar extends React.Component<IFrequencyBarProps, {}
 	public render() {
 		let content = this.mainContent();
 
-		// add tooltip if provided
+		//  add tooltip if provided
 		if (this.props.tooltip) {
 			content = (
 				<DefaultTooltip

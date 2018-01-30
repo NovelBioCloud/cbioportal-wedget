@@ -90,11 +90,11 @@ export default class GisticGeneSelector extends React.Component<GisticGeneSelect
 		},
 		genes: {
 			priority: 5,
-			// this columnDataFunction allows quick searching by gene symbol
+			//  this columnDataFunction allows quick searching by gene symbol
 			columnDataFunction: ({ rowData: gistic }: IColumnFormatterData<Gistic>) => getGeneSymbols(gistic).join(" "),
 			name: "Genes",
 			sortable: (genes1: string, genes2: string) => {
-				// sort by length, then alphabetically
+				//  sort by length, then alphabetically
 				return genes1.length - genes2.length || +(genes1 > genes2) - +(genes1 < genes2);
 			},
 			filterable: true,

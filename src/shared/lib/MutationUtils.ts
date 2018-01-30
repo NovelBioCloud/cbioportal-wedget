@@ -99,7 +99,7 @@ export function getColorForProteinImpactType(
 				return colors.otherColor;
 		}
 	} else {
-		return "#FF0000"; // we only get here if theres no mutations, which shouldnt happen. red to indicate an error
+		return "#FF0000"; //  we only get here if theres no mutations, which shouldnt happen. red to indicate an error
 	}
 }
 
@@ -132,7 +132,7 @@ export function getProteinStartPositionsByRange(
 	data.forEach((mutations: Mutation[]) => {
 		const mutation = mutations[0];
 
-		// only add positions which fall between start & end positions
+		//  only add positions which fall between start & end positions
 		if (
 			mutation.proteinPosStart > -1 &&
 			mutation.proteinPosStart >= start &&
@@ -178,7 +178,7 @@ export function germlineMutationRate(
 						new RegExp(MUTATION_STATUS_GERMLINE, "i").test(
 							m.mutationStatus
 						) &&
-						// filter for given sample IDs
+						//  filter for given sample IDs
 						!!sampleIds[toSampleUuid(profile.studyId, m.sampleId)]
 					);
 				} else {
@@ -220,7 +220,7 @@ export function somaticMutationRate(
 							!new RegExp(MUTATION_STATUS_GERMLINE, "i").test(
 								m.mutationStatus
 							) &&
-							// filter for given sample IDs
+							//  filter for given sample IDs
 							!!sampleIds[
 								toSampleUuid(profile.studyId, m.sampleId)
 							]

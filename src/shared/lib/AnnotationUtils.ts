@@ -19,11 +19,11 @@ import HotspotSet from "./HotspotSet";
 export function keywordToCosmic(
 	cosmicMutations: CosmicMutation[]
 ): ICosmicData {
-	// key: keyword
-	// value: CosmicMutation[]
+	//  key: keyword
+	//  value: CosmicMutation[]
 	const map: ICosmicData = {};
 
-	// create a map for a faster lookup
+	//  create a map for a faster lookup
 	cosmicMutations.forEach((cosmic: CosmicMutation) => {
 		if (!(cosmic.keyword in map)) {
 			map[cosmic.keyword] = [];
@@ -38,8 +38,8 @@ export function keywordToCosmic(
 export function geneToMyCancerGenome(
 	myCancerGenomes: IMyCancerGenome[]
 ): IMyCancerGenomeData {
-	// key: hugo gene symbol
-	// value: IMyCancerGenome[]
+	//  key: hugo gene symbol
+	//  value: IMyCancerGenome[]
 	const map: IMyCancerGenomeData = {};
 
 	myCancerGenomes.forEach((myCancerGenome: IMyCancerGenome) => {
@@ -73,8 +73,8 @@ export function indexHotspots(
 		if (!lookup) {
 			lookup = {
 				hotspotMutations: [],
-				hotspotSet: new HotspotSet([]) // this is a placeholder to avoid TS errors.
-				// overwritten by the initHotspotSets function.
+				hotspotSet: new HotspotSet([]) //  this is a placeholder to avoid TS errors.
+				//  overwritten by the initHotspotSets function.
 			};
 
 			geneIndex[hotspotType] = lookup;
@@ -97,7 +97,7 @@ export function initHotspotSets(hotspotIndex: IHotspotIndex) {
 
 			const intervals = lookup.hotspotMutations.map(
 				(hotspot: HotspotMutation): [number, number] => {
-					// start (and optionally end) positions
+					//  start (and optionally end) positions
 					const positions = hotspot.residue.match(/[0-9]+/g) || [];
 
 					let start = -1;
@@ -108,7 +108,7 @@ export function initHotspotSets(hotspotIndex: IHotspotIndex) {
 						end = start;
 					}
 
-					// overwrite end if exists
+					//  overwrite end if exists
 					if (positions.length > 1) {
 						end = parseInt(positions[1]);
 					}
@@ -180,9 +180,9 @@ function checkHotspot(mutation: Mutation, hotspotSet: HotspotSet) {
 	let isHotspot = false;
 	const start = mutation.proteinPosStart;
 
-	// only check for valid start position values
+	//  only check for valid start position values
 	if (start >= 0) {
-		// if proteinPosEnd value is not valid, use start as end
+		//  if proteinPosEnd value is not valid, use start as end
 		const end =
 			mutation.proteinPosEnd >= start
 				? mutation.proteinPosEnd

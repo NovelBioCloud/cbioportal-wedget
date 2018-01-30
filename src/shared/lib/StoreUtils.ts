@@ -275,12 +275,12 @@ export async function fetchGermlineConsentedSamples(
 	studiesWithGermlineConsentedSamples?: string[],
 	client: CBioPortalAPI = defaultClient
 ) {
-	// no valid config param => feature disabled
+	//  no valid config param => feature disabled
 	if (!studiesWithGermlineConsentedSamples || !studyIds.result) {
 		return [];
 	}
 
-	// query API only for the studies provided with the config param
+	//  query API only for the studies provided with the config param
 
 	const studies: string[] = studyIds.result.filter(studyId =>
 		_.find(
@@ -429,8 +429,8 @@ export async function fetchCosmicData(
 		return undefined;
 	}
 
-	// we have to check and see if keyword property is present
-	// it is NOT present sometimes
+	//  we have to check and see if keyword property is present
+	//  it is NOT present sometimes
 	const queryKeywords: string[] = _.chain(mutationDataResult)
 		.filter((mutation: Mutation) => mutation.hasOwnProperty("keyword"))
 		.map((mutation: Mutation) => mutation.keyword)
@@ -481,14 +481,14 @@ export async function fetchGisticData(
 			{ studyId }
 		);
 
-		// generate a map of <entrezGeneId, IGisticSummary[]> pairs
+		//  generate a map of <entrezGeneId, IGisticSummary[]> pairs
 		return gisticData.reduce((map: IGisticData, gistic: Gistic) => {
 			gistic.genes.forEach((gene: GisticToGene) => {
 				if (map[gene.entrezGeneId] === undefined) {
 					map[gene.entrezGeneId] = [];
 				}
 
-				// we may have more than one entry for a gene, so using array
+				//  we may have more than one entry for a gene, so using array
 				map[gene.entrezGeneId].push({
 					amp: gistic.amp,
 					qValue: gistic.qValue,
@@ -673,8 +673,8 @@ export function cancerTypeForOncoKb(
 	uniqueSampleKey: string,
 	uniqueSampleKeyToTumorType: { [uniqueSampleKey: string]: string }
 ): string | null {
-	// first priority is sampleIdToTumorType map (derived either from the clinical data or from the study cancer type).
-	// if it is not valid, then we return an empty string and let OncoKB API figure out what to do
+	//  first priority is sampleIdToTumorType map (derived either from the clinical data or from the study cancer type).
+	//  if it is not valid, then we return an empty string and let OncoKB API figure out what to do
 	return uniqueSampleKeyToTumorType[uniqueSampleKey] || null;
 }
 
@@ -839,8 +839,8 @@ export function findMrnaRankMolecularProfileId(
 		return null;
 	}
 
-	const regex1 = /^.+rna_seq.*_zscores$/; // We prefer profiles that look like this
-	const regex2 = /^.*_zscores$/; // If none of the above are available, we'll look for ones like this
+	const regex1 = /^.+rna_seq.*_zscores$/; //  We prefer profiles that look like this
+	const regex2 = /^.*_zscores$/; //  If none of the above are available, we'll look for ones like this
 	const preferredProfile:
 		| MolecularProfile
 		| undefined = molecularProfilesInStudy.result.find(
@@ -923,23 +923,23 @@ export function generateUniqueSampleKeyToTumorTypeMap(
 	const map: { [sampleId: string]: string } = {};
 
 	if (clinicalDataForSamples.result) {
-		// first priority is CANCER_TYPE_DETAILED in clinical data
+		//  first priority is CANCER_TYPE_DETAILED in clinical data
 		_.each(clinicalDataForSamples.result, (clinicalData: ClinicalData) => {
 			if (clinicalData.clinicalAttributeId === "CANCER_TYPE_DETAILED") {
 				map[clinicalData.uniqueSampleKey] = clinicalData.value;
 			}
 		});
 
-		// // second priority is CANCER_TYPE in clinical data
-		// _.each(clinicalDataForSamples.result, (clinicalData: ClinicalData) => {
-		//     // update map with CANCER_TYPE value only if it is not already updated
-		//     if (clinicalData.clinicalAttributeId === "CANCER_TYPE" && map[clinicalData.uniqueSampleKey] === undefined) {
-		//         map[clinicalData.uniqueSampleKey] = clinicalData.value;
-		//     }
-		// });
+		//  //  second priority is CANCER_TYPE in clinical data
+		//  _.each(clinicalDataForSamples.result, (clinicalData: ClinicalData) => {
+		//      //  update map with CANCER_TYPE value only if it is not already updated
+		//      if (clinicalData.clinicalAttributeId === "CANCER_TYPE" && map[clinicalData.uniqueSampleKey] === undefined) {
+		//          map[clinicalData.uniqueSampleKey] = clinicalData.value;
+		//      }
+		//  });
 	}
 
-	// last resort: fall back to the study cancer type
+	//  last resort: fall back to the study cancer type
 	if (studies && studies.result && samples && samples.result) {
 		const studyIdToCancerType = makeStudyToCancerTypeMap(studies.result);
 

@@ -32,11 +32,11 @@ export default class ProteinChainView extends React.Component<ProteinChainViewPr
 
 	@computed
 	get rowSpecs(): ProteinChainSpec[][] {
-		// Greedily add chains to rows, checking overlap using HotspotSet - if overlap, bump to next row
+		//  Greedily add chains to rows, checking overlap using HotspotSet - if overlap, bump to next row
 		const ret: ProteinChainSpec[][] = [[]];
 		const overlapSets: HotspotSet[] = [new HotspotSet()];
 		for (const chain of this.props.chains) {
-			let chosenRow = _.findIndex(overlapSets, set => !set.check(chain.start, chain.end)); // first row that can accomodate it
+			let chosenRow = _.findIndex(overlapSets, set => !set.check(chain.start, chain.end)); //  first row that can accomodate it
 			if (chosenRow === -1) {
 				chosenRow = ret.length;
 				ret.push([]);

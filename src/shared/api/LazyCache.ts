@@ -30,8 +30,8 @@ export default class LazyCache {
 
 	/* This is all that should be overridden */
 	protected populateCache(...argsAndDependencies: any[]): Promise<boolean> {
-		// Should resolve with true if a change to cache has been made, false if not.
-		// You can see how it's used in LazyCache.populate
+		//  Should resolve with true if a change to cache has been made, false if not.
+		//  You can see how it's used in LazyCache.populate
 		throw new Error("not implemented in abstract class");
 	}
 }

@@ -6,7 +6,7 @@ function fetch(pdbIds: string[]): Promise<PdbHeader[]> {
 	if (pdbIds.length === 0) {
 		return Promise.reject("No pdb ids given");
 	} else {
-		// TODO PdbAnnotationAPI needs to be updated to support post body parameters
+		//  TODO PdbAnnotationAPI needs to be updated to support post body parameters
 		return client.postPdbHeader({
 			pdbIds: pdbIds
 		});

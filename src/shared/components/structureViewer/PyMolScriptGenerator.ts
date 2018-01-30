@@ -19,7 +19,7 @@ export default class PyMolScriptGenerator extends StructureVisualizer {
 		presets[ProteinScheme.BALL_AND_STICK] =
 			"hide everything; show spheres; show sticks; alter all, vdw=0.50";
 		presets[ProteinScheme.RIBBON] = "hide everything; show ribbon;";
-		// there is no "trace" in PyMOL, ribbon is the most similar one
+		//  there is no "trace" in PyMOL, ribbon is the most similar one
 		presets[ProteinScheme.TRACE] = presets[ProteinScheme.RIBBON];
 
 		return presets;
@@ -92,8 +92,8 @@ export default class PyMolScriptGenerator extends StructureVisualizer {
 	}
 
 	protected setTransparency(transparency: number) {
-		// TODO cartoon_transparency doesn't work for chain or residue selections
-		// see issue:  http://sourceforge.net/p/pymol/bugs/129/
+		//  TODO cartoon_transparency doesn't work for chain or residue selections
+		//  see issue:  http:// sourceforge.net/p/pymol/bugs/129/
 		this._script.push(`set transparency, ${transparency / 10}, sele;`);
 		this._script.push(
 			`set cartoon_transparency, ${transparency / 10}, sele;`
@@ -128,13 +128,13 @@ export default class PyMolScriptGenerator extends StructureVisualizer {
 		const proteins =
 			"asp+glu+arg+lys+his+asn+thr+cys+gln+tyr+ser+gly+ala+leu+val+ile+met+trp+phe+pro";
 
-		// restrict to protein only
+		//  restrict to protein only
 		this._script.push(`hide everything, not resn ${proteins};`);
 	}
 
 	protected formatColor(color: string) {
-		// this is for PyMol compatibility
-		// (colors should start with an "0x" instead of "#")
+		//  this is for PyMol compatibility
+		//  (colors should start with an "0x" instead of "#")
 		return color.replace("#", "0x");
 	}
 
@@ -155,7 +155,7 @@ export default class PyMolScriptGenerator extends StructureVisualizer {
 		const highlightColor =
 			props.highlightColor || defaultProps.highlightColor;
 
-		// group residues by color
+		//  group residues by color
 		const grouped: { [color: string]: IResidueSpec[] } = _.groupBy(
 			residues,
 			(residue: IResidueSpec) => {
@@ -167,7 +167,7 @@ export default class PyMolScriptGenerator extends StructureVisualizer {
 			}
 		);
 
-		// process residues
+		//  process residues
 		_.each(_.keys(grouped), (color: string) => {
 			const positions = grouped[color].map((residue: IResidueSpec) => {
 				return residue.positionRange;
@@ -175,32 +175,32 @@ export default class PyMolScriptGenerator extends StructureVisualizer {
 
 			const resCodes = this.convertPositionsToResCode(positions);
 
-			// use the highlight color if highlighted (always color highlighted residues)
+			//  use the highlight color if highlighted (always color highlighted residues)
 			if (grouped[color][0].highlighted) {
 				this.selectResidues(resCodes, chainId);
 				this.setColor(
 					props.highlightColor || defaultProps.highlightColor
 				);
 			} else if (props.mutationColor === MutationColor.MUTATION_TYPE) {
-				// use the provided color
+				//  use the provided color
 				this.selectResidues(resCodes, chainId);
 				this.setColor(color);
 			} else if (props.mutationColor === MutationColor.UNIFORM) {
-				// use a uniform color
+				//  use a uniform color
 				this.selectResidues(resCodes, chainId);
 				this.setColor(
 					props.uniformMutationColor ||
 						defaultProps.uniformMutationColor
 				);
 			}
-			// else: NONE (no need to color)
+			//  else: NONE (no need to color)
 
 			const displaySideChain =
 				props.sideChain === SideChain.ALL ||
 				(grouped[color][0].highlighted === true &&
 					props.sideChain === SideChain.SELECTED);
 
-			// show/hide side chains
+			//  show/hide side chains
 			this.updateSideChains(chainId, resCodes, displaySideChain, props);
 		});
 	}
@@ -211,15 +211,15 @@ export default class PyMolScriptGenerator extends StructureVisualizer {
 		displaySideChain: boolean,
 		props: IStructureVisualizerProps
 	) {
-		// display side chain (no effect for space-filling)
+		//  display side chain (no effect for space-filling)
 		if (
 			displaySideChain &&
 			!(props.proteinScheme === ProteinScheme.SPACE_FILLING)
 		) {
-			// select the corresponding side chain and also the CA atom on the backbone
+			//  select the corresponding side chain and also the CA atom on the backbone
 			this.selectSideChains(rescodes, chainId);
 
-			// display the side chain with ball&stick style
+			//  display the side chain with ball&stick style
 			this.enableBallAndStick();
 		}
 	}

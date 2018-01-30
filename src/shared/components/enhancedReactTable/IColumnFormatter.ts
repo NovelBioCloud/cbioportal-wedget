@@ -5,10 +5,10 @@ import * as React from "react";
  */
 
 export interface IColumnFormatterData<T> {
-	name: string; // column name
-	tableData?: Array<any>; // entire table data (array of instances)
-	rowData?: any; // single instance representing the row data
-	columnData?: any; // column specific data
+	name: string; //  column name
+	tableData?: Array<any>; //  entire table data (array of instances)
+	rowData?: any; //  single instance representing the row data
+	columnData?: any; //  column specific data
 }
 
 export interface IColumnSortFunction {
@@ -20,7 +20,7 @@ export interface IColumnFilterFunction {
 }
 
 export interface IColumnRenderFunction {
-	<T>(data: IColumnFormatterData<T>, columnProps?: any): any; // TODO this should return Reactable.Td!
+	<T>(data: IColumnFormatterData<T>, columnProps?: any): any; //  TODO this should return Reactable.Td!
 }
 
 export interface IColumnDownloadFunction {

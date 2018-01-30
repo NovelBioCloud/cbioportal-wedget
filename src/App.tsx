@@ -12,8 +12,8 @@ import {
 	MobxPromiseInputUnion
 } from "mobxpromise";
 import { setInterval } from "timers";
-// import onMobxPromise from './onMobxPromist';
-// useStrict(true);
+//  import onMobxPromise from './onMobxPromist';
+//  useStrict(true);
 const delay = (time: number) => {
 	return new Promise((resolve, reject) => {
 		setTimeout(resolve, time);
@@ -53,7 +53,7 @@ class AppStore {
 }
 const appStore = new AppStore();
 setInterval(() => {
-	// appStore.change();
+	//  appStore.change();
 }, 100);
 
 @observer
@@ -62,9 +62,9 @@ class App extends React.Component<any, any> {
 	@observable num: number = 0;
 	constructor(props: any) {
 		super(props);
-		// onMobxPromise(this.appStore.firstData, (result) => {
-		// 	this.num = result;
-		// });
+		//  onMobxPromise(this.appStore.firstData, (result) => {
+		//  	this.num = result;
+		//  });
 	}
 	render() {
 		return (

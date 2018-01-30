@@ -7,11 +7,11 @@ import DefaultTooltip from "./defaultTooltip/DefaultTooltip";
 export interface ITruncatedTextProps {
 	text: string;
 	className?: string;
-	maxLength?: number; // max allowed length of the text
-	buffer?: number; // buffer length before considering truncating the text
-	suffix?: string; // will be added to the end of the text if truncated
-	addTooltip?: "truncated" | "always"; // when to add the tooltip
-	tooltip?: JSX.Element; // tooltip content
+	maxLength?: number; //  max allowed length of the text
+	buffer?: number; //  buffer length before considering truncating the text
+	suffix?: string; //  will be added to the end of the text if truncated
+	addTooltip?: "truncated" | "always"; //  when to add the tooltip
+	tooltip?: JSX.Element; //  tooltip content
 }
 
 export function isTooLong(text: string, maxLength: number, buffer?: number): boolean {

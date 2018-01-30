@@ -53,7 +53,7 @@ export default class PdbChainInfo extends React.Component<IPdbChainInfoProps, {}
 							{!this.props.summaryFormat && (
 								<span style={{ paddingLeft: 5 }}>
 									<a
-										href={`http://www.rcsb.org/pdb/explore/explore.do?structureId=${
+										href={`http:// www.rcsb.org/pdb/explore/explore.do?structureId=${
 											this.props.pdbId
 										}`}
 										target="_blank"

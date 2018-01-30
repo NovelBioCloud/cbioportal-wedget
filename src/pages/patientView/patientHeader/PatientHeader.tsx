@@ -27,10 +27,10 @@ export default class PatientHeader extends React.Component<IPatientHeaderProps, 
 	}
 
 	private getDarwinUrl(darwinUrl: string | null | undefined) {
-		// use JSP injected Darwin URL window.frontendConfig.darwinAccessUrl
-		// TODO: use internal API service instead, once this exists
+		//  use JSP injected Darwin URL window.frontendConfig.darwinAccessUrl
+		//  TODO: use internal API service instead, once this exists
 		if (darwinUrl !== undefined && darwinUrl !== null && darwinUrl !== "") {
-			// add link to darwin
+			//  add link to darwin
 			let darwinImgSrc = require("./images/darwin_logo.png");
 			return (
 				<a target="_blank" href={darwinUrl}>
@@ -60,7 +60,7 @@ export default class PatientHeader extends React.Component<IPatientHeaderProps, 
 
 	private getOverlayTriggerPatient(patient: any, sampleManager?: SampleManager | null) {
 		const clinicalDataLegacy = fromPairs(patient.clinicalData.map((x: any) => [x.clinicalAttributeId, x.value]));
-		// get common clinical attributes in all samples
+		//  get common clinical attributes in all samples
 		if (sampleManager) {
 			Object.keys(sampleManager.commonClinicalDataLegacyCleanAndDerived).forEach((attr: string) => {
 				clinicalDataLegacy[attr] = sampleManager.commonClinicalDataLegacyCleanAndDerived[attr];

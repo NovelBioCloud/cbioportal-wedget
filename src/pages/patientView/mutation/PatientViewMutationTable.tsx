@@ -86,7 +86,7 @@ export default class PatientViewMutationTable extends MutationTable<IPatientView
 			download: (d: Mutation[]) => TumorColumnFormatter.getSample(d)
 		};
 
-		// customization for allele count columns
+		//  customization for allele count columns
 
 		this._columns[MutationTableColumnType.REF_READS_N].render = (d: Mutation[]) =>
 			AlleleCountColumnFormatter.renderFunction(d, this.getSamples(), "normalRefCount");
@@ -108,7 +108,7 @@ export default class PatientViewMutationTable extends MutationTable<IPatientView
 		this._columns[MutationTableColumnType.VAR_READS].download = (d: Mutation[]) =>
 			AlleleCountColumnFormatter.getReads(d, "tumorAltCount");
 
-		// order columns
+		//  order columns
 		this._columns[MutationTableColumnType.TUMORS].order = 5;
 		this._columns[MutationTableColumnType.GENE].order = 20;
 		this._columns[MutationTableColumnType.PROTEIN_CHANGE].order = 30;
@@ -133,13 +133,13 @@ export default class PatientViewMutationTable extends MutationTable<IPatientView
 		this._columns[MutationTableColumnType.COHORT].order = 183;
 		this._columns[MutationTableColumnType.COSMIC].order = 184;
 
-		// exclusions
+		//  exclusions
 		this._columns[MutationTableColumnType.MRNA_EXPR].shouldExclude = () => {
 			return !this.props.mrnaExprRankMolecularProfileId || this.getSamples().length > 1;
 		};
-		// only hide tumor column if there is one sample and no uncalled
-		// mutations (there is no information added in that case by the sample
-		// label)
+		//  only hide tumor column if there is one sample and no uncalled
+		//  mutations (there is no information added in that case by the sample
+		//  label)
 		this._columns[MutationTableColumnType.TUMORS].shouldExclude = () => {
 			return this.getSamples().length < 2 && !this.hasUncalledMutations;
 		};

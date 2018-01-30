@@ -7,5 +7,5 @@ export type ClinicalInformationData = {
 		clinicalData: ClinicalData[];
 	};
 	samples?: ClinicalDataBySampleId[];
-	nodes?: any[]; //PDXNode[],
+	nodes?: any[]; // PDXNode[],
 };

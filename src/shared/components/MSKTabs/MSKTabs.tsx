@@ -55,7 +55,7 @@ interface IMSKTabsProps {
 	activeTabId?: string;
 	onTabClick?: (tabId: string) => void;
 	enablePagination?: boolean;
-	// only used when pagination is true to style arrows
+	//  only used when pagination is true to style arrows
 	arrowStyle?: { [k: string]: string | number | boolean };
 	tabButtonStyle?: string;
 	unmountOnHide?: boolean;
@@ -166,7 +166,7 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 				[]
 			);
 
-			// if we don't have an active child, then default to first
+			//  if we don't have an active child, then default to first
 			if (hasActive === false) {
 				const tabElement = toArrayedChildren[0] as React.ReactElement<IMSKTabProps>;
 				this.shownTabs.push(tabElement.props.id);
@@ -186,15 +186,15 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 	}
 
 	protected navTabs(children: React.ReactElement<IMSKTabProps>[], effectiveActiveTab: string) {
-		// restart the tab refs before each tab rendering
+		//  restart the tab refs before each tab rendering
 		this.tabRefs = [];
 
-		// if pagination is disabled, pages.length and pagesCount will be always 1
+		//  if pagination is disabled, pages.length and pagesCount will be always 1
 		const pages = this.tabPages(children, effectiveActiveTab);
 		const pageCount = this.state.pageBreaks.length + 1;
 
-		// we need a little style tweak to prevent initial overflow flashing when paging enabled
-		// TODO disabling maxHeight tweak due to inconsistencies for now
+		//  we need a little style tweak to prevent initial overflow flashing when paging enabled
+		//  TODO disabling maxHeight tweak due to inconsistencies for now
 		const navBarStyle = this.props.enablePagination
 			? {
 					border: 0,
@@ -249,7 +249,7 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 
 			let activeClass = effectiveActiveTab === tab.props.id ? "active" : "";
 
-			// find out if we need to add another page
+			//  find out if we need to add another page
 			if (
 				this.props.enablePagination &&
 				this.state.pageBreaks.length > 0 &&
@@ -278,12 +278,12 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 
 	componentDidMount() {
 		setTimeout(() => {
-			// if there are page breaks, it means that page calculations already performed
+			//  if there are page breaks, it means that page calculations already performed
 			if (this.props.enablePagination && this.state.pageBreaks.length === 0) {
-				// find page breaks: depends on width of the container
+				//  find page breaks: depends on width of the container
 				const pageBreaks: string[] = this.findPageBreaks();
 
-				// find current page: depends on active tab id
+				//  find current page: depends on active tab id
 				const currentPage: number = this.findCurrentPage(pageBreaks);
 
 				this.setState({
@@ -300,14 +300,14 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 
 		if (this.props.activeTabId && pageBreaks.length > 0) {
 			_.each(this.tabRefs, ref => {
-				// we reached a page break before reaching the active tab id.
-				// increment current page
+				//  we reached a page break before reaching the active tab id.
+				//  increment current page
 				if (ref.id === pageBreaks[currentPage - 1]) {
 					currentPage++;
 				}
 
-				// we reached the active tab id within current page.
-				// break the each loop, and return current page.
+				//  we reached the active tab id within current page.
+				//  break the each loop, and return current page.
 				if (ref.id === this.props.activeTabId) {
 					found = true;
 					return false;
@@ -315,25 +315,25 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 			});
 		}
 
-		// in case active tab id is not valid, default to first page
+		//  in case active tab id is not valid, default to first page
 		return found ? currentPage : 1;
 	}
 
 	findPageBreaks() {
 		const pageBreaks: string[] = [];
 		const containerWidth: number = (this.navTabsRef && this.navTabsRef.offsetWidth) || 0;
-		// do not attempt paging if container width is zero
+		//  do not attempt paging if container width is zero
 		if (containerWidth > 0) {
 			let width = 0;
 
 			_.each(this.tabRefs, ref => {
 				width += ref.element.offsetWidth;
 
-				// TODO 160 and 100 are magic numbers, something is not right with the width calculation...
-				// in the first page we will only have the right arrow, so we don't need the full padding
+				//  TODO 160 and 100 are magic numbers, something is not right with the width calculation...
+				//  in the first page we will only have the right arrow, so we don't need the full padding
 				const padding = pageBreaks.length > 0 ? 160 : 100;
 
-				// add a page break, and reset the width for the next page
+				//  add a page break, and reset the width for the next page
 				if (width > containerWidth - padding) {
 					pageBreaks.push(ref.id);
 					width = ref.element.offsetWidth;

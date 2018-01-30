@@ -102,7 +102,7 @@ export default class AnnotationColumnFormatter {
 			[name: string]: ICivicVariantData;
 		} = getCivicCNAVariants(copyNumberData, geneSymbol, civicVariants);
 		let geneEntry: ICivicGeneData = civicGenes[geneSymbol];
-		// Only return data for genes with variants or it has a description provided by the Civic API
+		//  Only return data for genes with variants or it has a description provided by the Civic API
 		if (!_.isEmpty(geneVariants) || (geneEntry && geneEntry.description !== "")) {
 			civicEntry = buildCivicEntry(geneEntry, geneVariants);
 		}
@@ -163,7 +163,7 @@ export default class AnnotationColumnFormatter {
 		copyNumberData: DiscreteCopyNumberData[],
 		oncoKbData: IOncoKbData
 	): Query | undefined {
-		// return null in case sampleToTumorMap is null
+		//  return null in case sampleToTumorMap is null
 		return oncoKbData.uniqueSampleKeyToTumorType
 			? generateQueryVariant(
 					copyNumberData[0].gene.entrezGeneId,

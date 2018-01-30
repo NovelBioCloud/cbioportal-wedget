@@ -6,13 +6,13 @@ export default function formSubmit(
 	target?: string,
 	method: "get" | "post" | "smart" = "post"
 ) {
-	// method="smart" means submit with GET iff the URL wouldn't be too long
+	//  method="smart" means submit with GET iff the URL wouldn't be too long
 
 	const form = document.createElement("form");
 	let computedMethod = method;
 	if (method === "smart") {
 		computedMethod =
-			buildCBioPortalUrl(path, params).length > 1800 ? "post" : "get"; // use POST if URL will be too large for some browsers
+			buildCBioPortalUrl(path, params).length > 1800 ? "post" : "get"; //  use POST if URL will be too large for some browsers
 	}
 	form.setAttribute("method", computedMethod);
 	form.setAttribute("action", path);

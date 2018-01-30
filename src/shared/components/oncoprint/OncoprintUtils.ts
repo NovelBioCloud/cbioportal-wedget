@@ -101,9 +101,9 @@ export function percentAltered(altered: number, sequenced: number) {
 	const percent = 100 * p;
 	let fixed: string;
 	if (p < 0.03) {
-		// if less than 3%, use one decimal digit
+		//  if less than 3%, use one decimal digit
 		fixed = percent.toFixed(1);
-		// if last digit is a 0, use no decimal digits
+		//  if last digit is a 0, use no decimal digits
 		if (fixed[fixed.length - 1] === "0") {
 			fixed = percent.toFixed();
 		}

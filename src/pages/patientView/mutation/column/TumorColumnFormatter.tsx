@@ -12,8 +12,8 @@ export default class TumorColumnFormatter {
 		const presentSamples = TumorColumnFormatter.getPresentSamples(data);
 
 		let tdValue = sampleManager.samples.map((sample: any, index: number) => {
-			// hide labels for non-existent mutation data
-			// decreased opacity for uncalled mutations
+			//  hide labels for non-existent mutation data
+			//  decreased opacity for uncalled mutations
 			return (
 				<li className={sample.id in presentSamples ? "" : "invisible"} key={index}>
 					{sampleManager.getComponentForSample(
@@ -40,9 +40,9 @@ export default class TumorColumnFormatter {
 		} else {
 			const presentSamples = TumorColumnFormatter.getPresentSamples(d);
 			const ret = [];
-			// First, we sort by the number of present and called samples
+			//  First, we sort by the number of present and called samples
 			ret.push(Object.keys(presentSamples).filter(s => presentSamples[s]).length);
-			// Then, we sort by the particular ones present
+			//  Then, we sort by the particular ones present
 			for (const sampleId of sampleManager.getSampleIdsInOrder()) {
 				ret.push(+!!presentSamples[sampleId]);
 			}
@@ -59,9 +59,9 @@ export default class TumorColumnFormatter {
 	>(data: T[]) {
 		return data.reduce(
 			(map, next: T, currentIndex: number) => {
-				// Indicate called mutations with true,
-				// uncalled mutations with supporting reads as false
-				// exclude uncalled mutations without supporting reads completely
+				//  Indicate called mutations with true,
+				//  uncalled mutations with supporting reads as false
+				//  exclude uncalled mutations without supporting reads completely
 				if (next.molecularProfileId && isUncalled(next.molecularProfileId)) {
 					if (next.tumorAltCount && next.tumorAltCount > 0) {
 						map[next.sampleId] = false;

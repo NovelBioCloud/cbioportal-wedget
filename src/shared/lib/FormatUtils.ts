@@ -5,16 +5,16 @@ export function toPrecision(
 	precision: number,
 	threshold: number
 ) {
-	// round to precision significant figures
-	// with threshold being the upper bound on the numbers that are
-	// rewritten in exponential notation
+	//  round to precision significant figures
+	//  with threshold being the upper bound on the numbers that are
+	//  rewritten in exponential notation
 
 	if (0.000001 <= value && value < threshold)
 		return value.toExponential(precision);
 
 	let ret = value.toPrecision(precision);
-	//if (ret.indexOf(".")!==-1)
-	//    ret = ret.replace(/\.?0+$/,'');
+	// if (ret.indexOf(".")!==-1)
+	//     ret = ret.replace(/\.?0+$/,'');
 
 	return ret;
 }
@@ -29,13 +29,13 @@ export function toPrecision(
 export function toFixedWithThreshold(value: number, digits: number): string {
 	let fixed = value.toFixed(digits);
 
-	// if we end up with 0.0...0, returns <0.0...1 instead
+	//  if we end up with 0.0...0, returns <0.0...1 instead
 	if (value !== 0 && parseFloat(fixed) === 0) {
 		const floatingZeros = digits > 1 ? _.fill(Array(digits - 1), "0") : [];
 
-		// in case the value is negative, direction of the inequality changes
-		// (because, for example, 0.02 < 0.1 but, -0.02 > -0.1)
-		// we need to add the minus sign as well...
+		//  in case the value is negative, direction of the inequality changes
+		//  (because, for example, 0.02 < 0.1 but, -0.02 > -0.1)
+		//  we need to add the minus sign as well...
 		const prefix = value > 0 ? "<" : ">-";
 
 		fixed = `${prefix}0.${floatingZeros.join("")}1`;

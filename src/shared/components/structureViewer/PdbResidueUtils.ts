@@ -24,7 +24,7 @@ export function convertPdbPosToResCode(position: IPdbPositionRange): string[] {
 		residues.push(`${i}`);
 	}
 
-	// TODO insertion code may not be accurate if residues.length > 2
+	//  TODO insertion code may not be accurate if residues.length > 2
 
 	if (position.start.insertionCode) {
 		residues[0] += "^" + position.start.insertionCode;
@@ -53,7 +53,7 @@ export function convertPdbPosToResAndInsCode(
 		});
 	}
 
-	// TODO insertion code may not be accurate if residues.length > 2
+	//  TODO insertion code may not be accurate if residues.length > 2
 
 	if (position.start.insertionCode) {
 		residues[0].icode = position.start.insertionCode;
@@ -72,8 +72,8 @@ export function generateResiduePosToSelectorMap(
 	const map: { [residue: number]: IResidueHelper[] } = {};
 
 	residues.forEach((residue: IResidueSpec) => {
-		// TODO "rescode" selector does not work anymore for some reason (3Dmol.js bug?)
-		//const resCodes = convertPositionsToResCode([residue.positionRange]);
+		//  TODO "rescode" selector does not work anymore for some reason (3Dmol.js bug?)
+		// const resCodes = convertPositionsToResCode([residue.positionRange]);
 
 		const residueSelectors = convertPdbPosToResAndInsCode(
 			residue.positionRange
@@ -100,7 +100,7 @@ export function findUpdatedResidues(
 ): IResidueHelper[] {
 	let residues: IResidueHelper[] = [];
 
-	// compare current to prev and find the updated residues
+	//  compare current to prev and find the updated residues
 	_.each(_.keys(currentResidueToPositionMap), (resi: number) => {
 		if (
 			!_.isEqual(

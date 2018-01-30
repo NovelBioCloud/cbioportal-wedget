@@ -65,7 +65,7 @@ export function emptyMutation(): Mutation {
 export function initMutation(props: { [key: string]: any }): Mutation {
 	const mutation = emptyMutation();
 
-	// TODO this is not a type safe operation since the property values can be anything
+	//  TODO this is not a type safe operation since the property values can be anything
 	_.merge(mutation, props);
 
 	return mutation;

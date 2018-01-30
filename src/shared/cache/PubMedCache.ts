@@ -12,10 +12,10 @@ async function fetch(
 ): Promise<AugmentedData<PubMedRecord, string>[]> {
 	const pubMedRecords: PubMedRecords = await new Promise<PubMedRecords>(
 		(resolve, reject) => {
-			// TODO better to separate this call to a configurable client
+			//  TODO better to separate this call to a configurable client
 			request
 				.post(
-					"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json"
+					"https:// eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json"
 				)
 				.type("form")
 				.send({ id: pmids.join(",") })

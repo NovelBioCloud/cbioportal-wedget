@@ -107,7 +107,7 @@ export function getChmInfo() {
 	sel.perc2loc = function(xPerc: any, startChm: any) {
 		var chm;
 		if (!startChm) {
-			// binary search
+			//  binary search
 			var low = 1,
 				high = sel.hg19.length - 1,
 				i;
@@ -121,7 +121,7 @@ export function getChmInfo() {
 			}
 			chm = low;
 		} else {
-			// linear search
+			//  linear search
 			let i;
 			for (i = startChm; i < sel.hg19.length; i++) {
 				if (xPerc <= sel.perc[i]) break;
@@ -158,7 +158,7 @@ export function plotChromosomes(p: any, config: any, chmInfo: any) {
 		"#000",
 		1
 	);
-	// ticks & texts
+	//  ticks & texts
 	for (var i = 1; i < chmInfo.hg19.length; i++) {
 		var xt = chmInfo.loc2xpixil(i, 0, config);
 		drawLine(xt, yRuler, xt, config.rowMargin, p, "#000", 1);
@@ -232,7 +232,7 @@ export function plotCnSegs(
 		var segMean = seg[segCol];
 		genomeMeasured += end - start;
 		if (Math.abs(segMean) < config.cnTh[0]) return;
-		if (end - start < config.cnLengthTh) return; // filter cnv
+		if (end - start < config.cnLengthTh) return; //  filter cnv
 		genomeAltered += end - start;
 		var x1: any = chmInfo.loc2xpixil(chm, start, config);
 		var x2: any = chmInfo.loc2xpixil(chm, end, config);
@@ -254,20 +254,20 @@ export function plotCnSegs(
 	});
 
 	if (caseId !== null) {
-		// var label = caseMetaData.label[caseId]; //TODO: needed for patient view
-		var label = "CNA"; // TODO:
-		// var c = p.circle(12,yRow+config.rowHeight/2,6).attr({'stroke':caseMetaData.color[caseId], 'fill':caseMetaData.color[caseId]}); //TODO: needed for patient view
-		// var c = p.circle(12,yRow+config.rowHeight/2,6).attr({'stroke':'black', 'fill':'black'});
+		//  var label = caseMetaData.label[caseId]; // TODO: needed for patient view
+		var label = "CNA"; //  TODO:
+		//  var c = p.circle(12,yRow+config.rowHeight/2,6).attr({'stroke':caseMetaData.color[caseId], 'fill':caseMetaData.color[caseId]}); // TODO: needed for patient view
+		//  var c = p.circle(12,yRow+config.rowHeight/2,6).attr({'stroke':'black', 'fill':'black'});
 		var t = p
 			.text(12, yRow + config.rowHeight / 2, label)
 			.attr({ "text-anchor": "center", fill: "black" });
 
 		t.node.setAttribute("id", "cnaTrack" + caseId);
 
-		// addToolTip(c.node, caseMetaData.tooltip[caseId],false,{my:'middle left',at:'middle right', viewport: $(window)}); //TODO: needed for patient view
-		// addToolTip(t.node, caseMetaData.tooltip[caseId],false,{my:'middle left',at:'middle right', viewport: $(window)}); //TODO: needed for patient view
-		// addToolTip(c.node, "",false,{my:'middle left',at:'middle right', viewport: $(window)});
-		// addToolTip(t.node, "",false,{my:'middle left',at:'middle right', viewport: $(window)});
+		//  addToolTip(c.node, caseMetaData.tooltip[caseId],false,{my:'middle left',at:'middle right', viewport: $(window)}); // TODO: needed for patient view
+		//  addToolTip(t.node, caseMetaData.tooltip[caseId],false,{my:'middle left',at:'middle right', viewport: $(window)}); // TODO: needed for patient view
+		//  addToolTip(c.node, "",false,{my:'middle left',at:'middle right', viewport: $(window)});
+		//  addToolTip(t.node, "",false,{my:'middle left',at:'middle right', viewport: $(window)});
 	} else {
 		p
 			.text(0, yRow + config.rowHeight / 2, "CNA")
@@ -329,7 +329,7 @@ export function plotMuts(
 			}
 		}
 	}
-	var maxCount = 5; // set max height to 5 mutations
+	var maxCount = 5; //  set max height to 5 mutations
 
 	var yRow = config.yRow(row) + config.rowHeight;
 	$.each(pixelMap, function(i: number, arr: Array<any>) {
@@ -350,15 +350,15 @@ export function plotMuts(
 	});
 
 	if (caseId !== null) {
-		// var label = caseMetaData.label[caseId]; //TODO: needed for patient view
+		//  var label = caseMetaData.label[caseId]; // TODO: needed for patient view
 		var label = "MUT";
-		// var c = p.circle(12,yRow-config.rowHeight/2,6).attr({'stroke':caseMetaData.color[caseId], 'fill':caseMetaData.color[caseId]}); //TODO: needed for patient view
+		//  var c = p.circle(12,yRow-config.rowHeight/2,6).attr({'stroke':caseMetaData.color[caseId], 'fill':caseMetaData.color[caseId]}); // TODO: needed for patient view
 		var t = p
 			.text(12, yRow - config.rowHeight / 2, label)
 			.attr({ "text-anchor": "center", fill: "black" });
 		t.node.setAttribute("id", "mutTrack" + caseId);
-		// addToolTip(c.node, caseMetaData.tooltip[caseId],false,{my:'middle left',at:'middle right'}); //TODO: needed for patient view
-		// addToolTip(t.node, caseMetaData.tooltip[caseId],false,{my:'middle left',at:'middle right'}); //TODO: needed for patient view
+		//  addToolTip(c.node, caseMetaData.tooltip[caseId],false,{my:'middle left',at:'middle right'}); // TODO: needed for patient view
+		//  addToolTip(t.node, caseMetaData.tooltip[caseId],false,{my:'middle left',at:'middle right'}); // TODO: needed for patient view
 	} else {
 		p
 			.text(0, yRow - config.rowHeight / 2, "MUT")
@@ -386,12 +386,12 @@ function addToolTip(node: any, tip: any, showDelay: any, position: any) {
 			my: "bottom right",
 			at: "top left"
 		}
-		// position: {viewport: $(window)}
-	}; // TODO: viewport causes jquery exception
-	// if (showDelay)
-	//     param['show'] = { delay: showDelay };
-	// if (position)
-	//     param['position'] = position;
+		//  position: {viewport: $(window)}
+	}; //  TODO: viewport causes jquery exception
+	//  if (showDelay)
+	//      param['show'] = { delay: showDelay };
+	//  if (position)
+	//      param['position'] = position;
 
 	($(node) as any).qtip(param);
 }

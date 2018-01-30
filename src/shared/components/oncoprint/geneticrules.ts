@@ -1,8 +1,8 @@
 import * as $ from "jquery";
 import { RuleSetParams } from "oncoprintjs";
-// Feed this in as
+//  Feed this in as
 
-// Mutation colors
+//  Mutation colors
 export const MUT_COLOR_MISSENSE = "#008000";
 export const MUT_COLOR_MISSENSE_PASSENGER = "#53D400";
 export const MUT_COLOR_INFRAME = "#993404";
@@ -16,7 +16,7 @@ export const PROT_COLOR_UP = "#ff3df8";
 export const PROT_COLOR_DOWN = "#00E1FF";
 
 let non_mutation_rule_params = {
-	// Default: gray rectangle
+	//  Default: gray rectangle
 	"*": {
 		shapes: [
 			{
@@ -27,9 +27,9 @@ let non_mutation_rule_params = {
 		],
 		legend_label: "No alterations"
 	},
-	// Copy number alteration
+	//  Copy number alteration
 	disp_cna: {
-		// Red rectangle for amplification
+		//  Red rectangle for amplification
 		amp: {
 			shapes: [
 				{
@@ -44,7 +44,7 @@ let non_mutation_rule_params = {
 			],
 			legend_label: "Amplification"
 		},
-		// Light red rectangle for gain
+		//  Light red rectangle for gain
 		gain: {
 			shapes: [
 				{
@@ -59,7 +59,7 @@ let non_mutation_rule_params = {
 			],
 			legend_label: "Gain"
 		},
-		// Blue rectangle for deep deletion
+		//  Blue rectangle for deep deletion
 		homdel: {
 			shapes: [
 				{
@@ -74,7 +74,7 @@ let non_mutation_rule_params = {
 			],
 			legend_label: "Deep Deletion"
 		},
-		// Light blue rectangle for shallow deletion
+		//  Light blue rectangle for shallow deletion
 		hetloss: {
 			shapes: [
 				{
@@ -90,9 +90,9 @@ let non_mutation_rule_params = {
 			legend_label: "Shallow Deletion"
 		}
 	},
-	// mRNA regulation
+	//  mRNA regulation
 	disp_mrna: {
-		// Light red outline for upregulation
+		//  Light red outline for upregulation
 		up: {
 			shapes: [
 				{
@@ -109,7 +109,7 @@ let non_mutation_rule_params = {
 			],
 			legend_label: "mRNA Upregulation"
 		},
-		// Light blue outline for downregulation
+		//  Light blue outline for downregulation
 		down: {
 			shapes: [
 				{
@@ -127,9 +127,9 @@ let non_mutation_rule_params = {
 			legend_label: "mRNA Downregulation"
 		}
 	},
-	// protein expression regulation
+	//  protein expression regulation
 	disp_prot: {
-		// small up arrow for upregulated
+		//  small up arrow for upregulated
 		up: {
 			shapes: [
 				{
@@ -144,7 +144,7 @@ let non_mutation_rule_params = {
 			],
 			legend_label: "Protein Upregulation"
 		},
-		// small down arrow for upregulated
+		//  small down arrow for upregulated
 		down: {
 			shapes: [
 				{
@@ -160,9 +160,9 @@ let non_mutation_rule_params = {
 			legend_label: "Protein Downregulation"
 		}
 	},
-	// fusion
+	//  fusion
 	disp_fusion: {
-		// tall inset purple rectangle for fusion
+		//  tall inset purple rectangle for fusion
 		true: {
 			shapes: [
 				{

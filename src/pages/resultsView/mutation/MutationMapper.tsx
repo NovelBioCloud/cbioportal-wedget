@@ -20,7 +20,7 @@ import ProteinChainPanel from "../../../shared/components/proteinChainPanel/Prot
 import { computed, action, observable } from "mobx";
 import MutationRateSummary from "pages/resultsView/mutation/MutationRateSummary";
 
-// Anything from App config will be included in mutation mapper config
+//  Anything from App config will be included in mutation mapper config
 export interface IMutationMapperConfig {
 	userEmailAddress?: string;
 	showCivic?: boolean;
@@ -81,14 +81,14 @@ export default class MutationMapper extends React.Component<IMutationMapperProps
 				<h4>{hugoGeneSymbol}</h4>
 				<div className={this.props.store.uniprotId.result ? "" : "invisible"}>
 					<span>UniProt: </span>
-					<a href={`http://www.uniprot.org/uniprot/${uniprotId}`} target="_blank">
+					<a href={`http:// www.uniprot.org/uniprot/${uniprotId}`} target="_blank">
 						{uniprotId}
 					</a>
 				</div>
 				<div className={this.props.store.canonicalTranscript.result ? "" : "invisible"}>
 					<span>Transcript: </span>
 					<a
-						href={`http://grch37.ensembl.org/homo_sapiens/Transcript/Summary?t=${transcriptId}`}
+						href={`http:// grch37.ensembl.org/homo_sapiens/Transcript/Summary?t=${transcriptId}`}
 						target="_blank"
 					>
 						{transcriptId}
@@ -100,7 +100,7 @@ export default class MutationMapper extends React.Component<IMutationMapperProps
 
 	@computed
 	get mutationRateSummary(): JSX.Element | null {
-		// TODO we should not be even calculating mskImpactGermlineConsentedPatientIds for studies other than msk impact
+		//  TODO we should not be even calculating mskImpactGermlineConsentedPatientIds for studies other than msk impact
 		if (
 			this.props.store.germlineConsentedSamples.result &&
 			this.props.store.mutationData.isComplete &&

@@ -46,7 +46,7 @@ export interface IOncoprintControlsHandlers {
 	onClickSortByData?: () => void;
 	onClickSortAlphabetical?: () => void;
 	onClickSortCaseListOrder?: () => void;
-	onClickDownload?: (type: string) => void; // type is "pdf", "png", "svg", "order", or "tabular"
+	onClickDownload?: (type: string) => void; //  type is "pdf", "png", "svg", "order", or "tabular"
 	onChangeSelectedClinicalTracks?: (attributeIds: (string|SpecialAttribute)[]) => void;
 
 	onClickAddGenesToHeatmap?: () => void;
@@ -169,7 +169,7 @@ export default class OncoprintControls extends React.Component<IOncoprintControl
 
 		this.horzZoomSliderState = props.state.horzZoom;
 		reaction(() => this.props.state.horzZoom,
-			z => (this.horzZoomSliderState = z)); // when horz zoom changes, set slider state
+			z => (this.horzZoomSliderState = z)); //  when horz zoom changes, set slider state
 	}
 
 	private onZoomInClick() {
@@ -286,7 +286,7 @@ export default class OncoprintControls extends React.Component<IOncoprintControl
 
 	private onHorzZoomSliderSet() {
 		this.props.handlers.onSetHorzZoom(this.horzZoomSliderState);
-		this.horzZoomSliderState = this.props.state.horzZoom; // set it back in case it doesnt change
+		this.horzZoomSliderState = this.props.state.horzZoom; //  set it back in case it doesnt change
 	}
 
 	private onCustomDriverTierCheckboxClick(event: React.MouseEvent<HTMLInputElement>) {
@@ -390,9 +390,9 @@ export default class OncoprintControls extends React.Component<IOncoprintControl
 	private getClinicalTracksMenu() {
 		if (this.props.handlers.onChangeSelectedClinicalTracks &&
 			this.props.state.clinicalAttributesPromise) {
-			// TODO:  put onFocus handler on CheckedSelect when possible
-			// TODO:  pass unmodified string array as value prop when possible
-			// TODO:  remove labelKey specification, leave to default prop, when possible
+			//  TODO:  put onFocus handler on CheckedSelect when possible
+			//  TODO:  pass unmodified string array as value prop when possible
+			//  TODO:  remove labelKey specification, leave to default prop, when possible
 			return (
 				<div
 					onFocus={this.onClinicalTracksMenuFocus}
@@ -600,8 +600,8 @@ export default class OncoprintControls extends React.Component<IOncoprintControl
 									onClick={this.onInputClick}
 								/> Hotspots
 								<DefaultTooltip
-									overlay={<div style={{maxWidth: "400px"}}>Identified as a recurrent hotspot (statistically significant) in a population-scale cohort of tumor samples of various cancer types using methodology based in part on <a href="http: //www.ncbi.nlm.nih.gov/pubmed/26619011" target="_blank">Chang et al., Nat Biotechnol, 2016.</a>
-										Explore all mutations at <a href="http: //cancerhotspots.org" target="_blank">http: //cancerhotspots.org</a></div>}
+									overlay={<div style={{maxWidth: "400px"}}>Identified as a recurrent hotspot (statistically significant) in a population-scale cohort of tumor samples of various cancer types using methodology based in part on <a href="http: // www.ncbi.nlm.nih.gov/pubmed/26619011" target="_blank">Chang et al., Nat Biotechnol, 2016.</a>
+										Explore all mutations at <a href="http: // cancerhotspots.org" target="_blank">http: // cancerhotspots.org</a></div>}
 									placement="top"
 								>
 									<img

@@ -1,4 +1,4 @@
-// helpers - these actually do the work
+//  helpers - these actually do the work
 const DELIMITER = ":";
 function toUuid(x: string, y: string): string {
 	return `${x}${DELIMITER}${y}`;
@@ -9,7 +9,7 @@ function fromUuid(uuid: string): { x: string; y: string } {
 	return { x: split[0], y: split[1] };
 }
 
-// exported functions - convenient interfaces
+//  exported functions - convenient interfaces
 export function toSampleUuid(studyId: string, sampleId: string): string;
 export function toSampleUuid(d: { studyId: string; sampleId: string }): string;
 

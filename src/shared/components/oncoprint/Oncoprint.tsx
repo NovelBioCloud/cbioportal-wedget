@@ -32,7 +32,7 @@ export type ClinicalTrackDatum = {
 };
 
 export type ClinicalTrackSpec = {
-	key: string; // for efficient diffing, just like in React. must be unique
+	key: string; //  for efficient diffing, just like in React. must be unique
 	label: string;
 	description: string;
 	data: ClinicalTrackDatum[];
@@ -79,17 +79,17 @@ export type GeneticTrackDatum = {
 };
 
 export type GeneticTrackSpec = {
-	key: string; // for efficient diffing, just like in React. must be unique
+	key: string; //  for efficient diffing, just like in React. must be unique
 	label: string;
-	oql: string; // OQL corresponding to the track
+	oql: string; //  OQL corresponding to the track
 	info: string;
 	data: GeneticTrackDatum[];
 };
 
 export type HeatmapTrackSpec = {
-	key: string; // for efficient diffing, just like in React. must be unique
+	key: string; //  for efficient diffing, just like in React. must be unique
 	label: string;
-	molecularProfileId: string; // source
+	molecularProfileId: string; //  source
 	molecularAlterationType: MolecularProfile["molecularAlterationType"];
 	datatype: MolecularProfile["datatype"];
 	data: HeatmapTrackDatum[];
@@ -117,9 +117,9 @@ export interface IOncoprintProps {
 	distinguishDrivers?: boolean;
 
 	sortConfig?: {
-		order?: string[]; // overrides below options if present
+		order?: string[]; //  overrides below options if present
 
-		clusterHeatmapTrackGroupIndex?: number; // overrides below options if present
+		clusterHeatmapTrackGroupIndex?: number; //  overrides below options if present
 
 		sortByMutationType?: boolean;
 		sortByDrivers?: boolean;
@@ -166,7 +166,7 @@ export default class Oncoprint extends React.Component<IOncoprintProps, {}> {
 
 	private refreshOncoprint(props: IOncoprintProps) {
 		if (!this.oncoprint) {
-			// instantiate new one
+			//  instantiate new one
 			this.oncoprint = new OncoprintJS(`#${props.divId}`, props.width);
 			this.oncoprint.setTrackGroupLegendOrder([GENETIC_TRACK_GROUP_INDEX, CLINICAL_TRACK_GROUP_INDEX]);
 			(window as any).frontendOnc = this.oncoprint;

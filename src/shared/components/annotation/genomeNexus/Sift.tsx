@@ -5,7 +5,7 @@ import classNames from "classnames";
 import tooltipStyles from "./styles/siftTooltip.module.scss";
 
 export interface ISiftProps {
-	siftPrediction: string; // deleterious, deleterious_low_confidence, tolerated, tolerated_low_confidence
+	siftPrediction: string; //  deleterious, deleterious_low_confidence, tolerated, tolerated_low_confidence
 	siftScore: number;
 }
 
@@ -15,7 +15,7 @@ export function hideArrow(tooltipEl: any) {
 }
 
 export default class Sift extends React.Component<ISiftProps, {}> {
-	static SIFT_URL: string = "http://sift.bii.a-star.edu.sg/";
+	static SIFT_URL: string = "http:// sift.bii.a-star.edu.sg/";
 
 	constructor(props: ISiftProps) {
 		super(props);
@@ -65,7 +65,7 @@ export default class Sift extends React.Component<ISiftProps, {}> {
 					<tr>
 						<td>Source</td>
 						<td>
-							<a href="http://sift.bii.a-star.edu.sg/">SIFT</a>
+							<a href="http:// sift.bii.a-star.edu.sg/">SIFT</a>
 						</td>
 					</tr>
 					<tr>

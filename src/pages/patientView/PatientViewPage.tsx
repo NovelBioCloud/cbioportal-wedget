@@ -57,7 +57,7 @@ export default class PatientViewPage extends React.Component<IPatientViewPagePro
 	constructor(props: IPatientViewPageProps) {
 		super(props);
 
-		// TODO: this should be done by a module so that it can be reused on other pages
+		//  TODO: this should be done by a module so that it can be reused on other pages
 		const reaction1 = reaction(
 			() => props.routing.location.query,
 			query => {
@@ -99,18 +99,18 @@ export default class PatientViewPage extends React.Component<IPatientViewPagePro
 	}
 
 	public componentWillUnmount() {
-		// dispose reaction
+		//  dispose reaction
 		this.updatePageTitleReaction();
 	}
 
-	// this gives the parent (legacy) cbioportal code control to mount
-	// these components whenever and wherever it wants
+	//  this gives the parent (legacy) cbioportal code control to mount
+	//  these components whenever and wherever it wants
 	exposeComponentRenderersToParentScript() {
-		// exposeComponentRenderer('renderClinicalInformationContainer', ClinicalInformationContainer,
-		//     { store:this.props.store }
-		// );
-		//
-		// exposeComponentRenderer('renderGenomicOverview', GenomicOverview);
+		//  exposeComponentRenderer('renderClinicalInformationContainer', ClinicalInformationContainer,
+		//      { store:this.props.store }
+		//  );
+		// 
+		//  exposeComponentRenderer('renderGenomicOverview', GenomicOverview);
 	}
 
 	public handleSampleClick(id: string, e: React.MouseEvent<HTMLAnchorElement>) {
@@ -118,8 +118,8 @@ export default class PatientViewPage extends React.Component<IPatientViewPagePro
 			e.preventDefault();
 			this.props.routing.updateRoute({ caseId: undefined, sampleId: id });
 		}
-		// otherwise do nothing, we want default behavior of link
-		// namely that href will open in a new window/tab
+		//  otherwise do nothing, we want default behavior of link
+		//  namely that href will open in a new window/tab
 	}
 
 	private handleTabChange(id: string) {
@@ -528,7 +528,7 @@ export default class PatientViewPage extends React.Component<IPatientViewPagePro
 							>
 								<IFrameLoader
 									height={700}
-									url={`//bioinformatics.mdanderson.org/TCGA/NGCHMPortal/?participant=${
+									url={`// bioinformatics.mdanderson.org/TCGA/NGCHMPortal/?participant=${
 										patientViewPageStore.patientId
 									}`}
 								/>
@@ -539,7 +539,7 @@ export default class PatientViewPage extends React.Component<IPatientViewPagePro
 								id="tissueImageTab"
 								linkText="Tissue Image"
 								hide={
-									/https/.test(window.location.protocol) || // can't show this iframe if we're on https:
+									/https/.test(window.location.protocol) || //  can't show this iframe if we're on https:
 									(patientViewPageStore.hasTissueImageIFrameUrl.isComplete &&
 										!patientViewPageStore.hasTissueImageIFrameUrl.result)
 								}
@@ -548,7 +548,7 @@ export default class PatientViewPage extends React.Component<IPatientViewPagePro
 								<div style={{ position: "relative" }}>
 									<IFrameLoader
 										height={700}
-										url={`http://cancer.digitalslidearchive.net/index_mskcc.php?slide_name=${
+										url={`http:// cancer.digitalslidearchive.net/index_mskcc.php?slide_name=${
 											patientViewPageStore.patientId
 										}`}
 									/>

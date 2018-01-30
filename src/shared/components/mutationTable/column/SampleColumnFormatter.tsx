@@ -37,14 +37,14 @@ export default class SampleColumnFormatter {
 				/**
 				 * HACK to deal with having mutation mapper on index.do
 				 * Change it to case.do
-				 * https://github.com/cBioPortal/cbioportal/issues/2783
+				 * https:// github.com/cBioPortal/cbioportal/issues/2783
 				 */
 				const indexLocation: number = window.location.href.search("index.do");
 				if (indexLocation > -1) {
 					linkToPatientView =
 						window.location.href.substring(0, indexLocation) + "case.do" + linkToPatientView;
 				}
-				// END HACK
+				//  END HACK
 
 				content = (
 					<a href={linkToPatientView} target="_blank">

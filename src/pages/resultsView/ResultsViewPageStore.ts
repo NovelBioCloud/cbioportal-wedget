@@ -179,11 +179,11 @@ export function buildDefaultOQLProfile(
 	zScoreThreshold: number,
 	rppaScoreThreshold: number
 ) {
-	// tslint:disable-next-line:variable-name
+	//  tslint:disable-next-line:variable-name
 	const default_oql_uniq: any = {};
 	for (var i = 0; i < profilesTypes.length; i++) {
 		var type = profilesTypes[i];
-		// tslint:disable-next-line:switch-default
+		//  tslint:disable-next-line:switch-default
 		switch (type) {
 			case "MUTATION_EXTENDED":
 				default_oql_uniq["MUT"] = true;
@@ -215,10 +215,10 @@ export function countAlterationOccurences(
 		(samples: ExtendedSample[], cancerType: string) => {
 			const counts: IAlterationCountMap = {
 				mutated: 0,
-				amp: 0, // 2
-				homdel: 0, // -2
-				hetloss: 0, // -1
-				gain: 0, // 1
+				amp: 0, //  2
+				homdel: 0, //  -2
+				hetloss: 0, //  -1
+				gain: 0, //  1
 				fusion: 0,
 				mrnaExpressionUp: 0,
 				mrnaExpressionDown: 0,
@@ -235,14 +235,14 @@ export function countAlterationOccurences(
 				parentCancerType: samples[0].cancerType
 			};
 
-			// for each sample in cancer type
+			//  for each sample in cancer type
 			_.forEach(samples, (sample: ExtendedSample, index: number) => {
-				// there are alterations corresponding to that sample
+				//  there are alterations corresponding to that sample
 				if (sample.uniqueSampleKey in alterationsBySampleId) {
 					const alterations =
 						alterationsBySampleId[sample.uniqueSampleKey];
 
-					// a sample could have multiple mutations.  we only want to to count one
+					//  a sample could have multiple mutations.  we only want to to count one
 					const uniqueAlterations = _.uniqBy(
 						alterations,
 						alteration => alteration.alterationType
@@ -250,26 +250,26 @@ export function countAlterationOccurences(
 
 					ret.alterationTotal += uniqueAlterations.length;
 
-					// if the sample has at least one alteration, it's altered so
-					// increment alteredSampleTotal
+					//  if the sample has at least one alteration, it's altered so
+					//  increment alteredSampleTotal
 					if (uniqueAlterations.length > 0) {
-						//
+						// 
 						ret.alteredSampleCount += 1;
 					}
 
-					// if we have multiple alterations, we just register this as "multiple" and do NOT add
-					// individual alterations to their respective counts
+					//  if we have multiple alterations, we just register this as "multiple" and do NOT add
+					//  individual alterations to their respective counts
 					if (uniqueAlterations.length > 1) {
 						counts.multiple++;
 					} else {
-						// for each alteration, determine what it's type is and increment the counts for this set of samples
+						//  for each alteration, determine what it's type is and increment the counts for this set of samples
 						_.forEach(
 							uniqueAlterations,
 							(alteration: ExtendedAlteration) => {
-								// tslint:disable-next-line:switch-default
+								//  tslint:disable-next-line:switch-default
 								switch (alteration.alterationType) {
 									case AlterationTypeConstants.COPY_NUMBER_ALTERATION:
-										// to do: type oqlfilter so that we can be sure alterationSubType is truly key of interface
+										//  to do: type oqlfilter so that we can be sure alterationSubType is truly key of interface
 										counts[
 											alteration.alterationSubType as keyof IAlterationCountMap
 										]++;
@@ -325,8 +325,8 @@ export function extendSamplesWithCancerType(
 		clinicalDataForSamples,
 		(clinicalData: ClinicalData) => clinicalData.uniqueSampleKey
 	);
-	// note that this table is actually mutating underlying sample.  it's not worth it to clone samples just
-	// for purity
+	//  note that this table is actually mutating underlying sample.  it's not worth it to clone samples just
+	//  for purity
 	const extendedSamples = samples.map((sample: ExtendedSample) => {
 		const clinicalData =
 			clinicalDataGroupedBySampleId[sample.uniqueSampleKey];
@@ -347,14 +347,14 @@ export function extendSamplesWithCancerType(
 		return sample;
 	});
 
-	// make a map by studyId for easy access in following loop
+	//  make a map by studyId for easy access in following loop
 	const studyMap = _.keyBy(studies, (study: CancerStudy) => study.studyId);
 
-	// now we need to fix any samples which do not have both cancerType and cancerTypeDetailed
+	//  now we need to fix any samples which do not have both cancerType and cancerTypeDetailed
 	extendedSamples.forEach((sample: ExtendedSample) => {
-		// if we have no cancer subtype, then make the subtype the parent type
+		//  if we have no cancer subtype, then make the subtype the parent type
 		if (!sample.cancerType) {
-			// we need to fall back to studies cancerType
+			//  we need to fall back to studies cancerType
 			const study = studyMap[sample.studyId];
 			if (study) {
 				sample.cancerType = study.cancerType.name;
@@ -374,9 +374,9 @@ export class ResultsViewPageStore {
 	constructor() {
 		labelMobxPromises(this);
 
-		// addErrorHandler((error: any) => {
-		//     this.ajaxErrors.push(error);
-		// });
+		//  addErrorHandler((error: any) => {
+		//      this.ajaxErrors.push(error);
+		//  });
 		this.getURL();
 	}
 
@@ -425,14 +425,14 @@ export class ResultsViewPageStore {
 	readonly bitlyShortenedURL = remoteData({
 		invoke: () => {
 			return request.get(
-				"http://" +
+				"http:// " +
 					location.host +
 					"/api/url-shortener?url=" +
 					this.sessionIdURL
 			);
 		},
 		onError: () => {
-			//
+			// 
 		}
 	});
 
@@ -442,7 +442,7 @@ export class ResultsViewPageStore {
 			const idLookupMap = _.keyBy(
 				this.selectedMolecularProfileIds,
 				(id: string) => id
-			); // optimization
+			); //  optimization
 			return Promise.resolve(
 				this.molecularProfilesInStudies.result!.filter(
 					(profile: MolecularProfile) =>
@@ -469,8 +469,8 @@ export class ResultsViewPageStore {
 			this.samples
 		],
 		invoke: () => {
-			// we get mutations with mutations endpoint,
-			// all other alterations with this one, so filter out mutation genetic profile
+			//  we get mutations with mutations endpoint,
+			//  all other alterations with this one, so filter out mutation genetic profile
 			const profilesWithoutMutationProfile = _.filter(
 				this.selectedMolecularProfiles.result,
 				(profile: MolecularProfile) =>
@@ -482,7 +482,7 @@ export class ResultsViewPageStore {
 
 				profilesWithoutMutationProfile.forEach(
 					(profile: MolecularProfile) => {
-						// for each profile, find samples which share studyId with profile and add identifier
+						//  for each profile, find samples which share studyId with profile and add identifier
 						this.samples.result.forEach((sample: Sample) => {
 							if (sample.studyId === profile.studyId) {
 								identifiers.push({
@@ -693,7 +693,7 @@ export class ResultsViewPageStore {
 					sequencedGenes: {},
 					wholeExomeSequenced: !!studyToMutationMolecularProfile[
 						sample.studyId
-					] // only assume WXS if theres a mutation profile to query for this sample
+					] //  only assume WXS if theres a mutation profile to query for this sample
 				};
 			}
 			for (const patient of this.patients.result!) {
@@ -701,7 +701,7 @@ export class ResultsViewPageStore {
 					sequencedGenes: {},
 					wholeExomeSequenced: !!studyToMutationMolecularProfile[
 						patient.studyId
-					] // only assume WXS if theres a mutation profile to query for this patient
+					] //  only assume WXS if theres a mutation profile to query for this patient
 				};
 			}
 			for (const gpData of results) {
@@ -893,7 +893,7 @@ export class ResultsViewPageStore {
 				alteration => alteration.gene.hugoGeneSymbol
 			);
 			for (const gene of this.genes.result!) {
-				ret[gene.hugoGeneSymbol] = ret[gene.hugoGeneSymbol] || []; // default
+				ret[gene.hugoGeneSymbol] = ret[gene.hugoGeneSymbol] || []; //  default
 			}
 
 			return Promise.resolve(ret);
@@ -956,7 +956,7 @@ export class ResultsViewPageStore {
 		samples: Sample[],
 		cancerTypeLevel: "CANCER_TYPE" | "CANCER_TYPE_DETAILED"
 	) {
-		// first generate map of sampleId to it's cancer type
+		//  first generate map of sampleId to it's cancer type
 		const sampleKeyToCancerTypeClinicalDataMap = _.reduce(
 			clinicalDataForSamples,
 			(memo, clinicalData: ClinicalData) => {
@@ -964,8 +964,8 @@ export class ResultsViewPageStore {
 					memo[clinicalData.uniqueSampleKey] = clinicalData.value;
 				}
 
-				// if we were told CANCER_TYPE and we find CANCER_TYPE_DETAILED, then fall back on it. if we encounter
-				// a CANCER_TYPE later, it will override this.
+				//  if we were told CANCER_TYPE and we find CANCER_TYPE_DETAILED, then fall back on it. if we encounter
+				//  a CANCER_TYPE later, it will override this.
 				if (cancerTypeLevel === "CANCER_TYPE") {
 					if (
 						!memo[clinicalData.uniqueSampleKey] &&
@@ -981,11 +981,11 @@ export class ResultsViewPageStore {
 			{} as { [uniqueSampleId: string]: string }
 		);
 
-		// now group samples by cancer type
+		//  now group samples by cancer type
 		let samplesGroupedByCancerType = _.reduce(
 			samples,
 			(memo: { [cancerType: string]: Sample[] }, sample: Sample) => {
-				// if it appears in map, then we have a cancer type
+				//  if it appears in map, then we have a cancer type
 				if (
 					sample.uniqueSampleKey in
 					sampleKeyToCancerTypeClinicalDataMap
@@ -1006,7 +1006,7 @@ export class ResultsViewPageStore {
 						]
 					].push(sample);
 				} else {
-					// TODO: we need to fall back to study cancer type
+					//  TODO: we need to fall back to study cancer type
 				}
 				return memo;
 			},
@@ -1014,7 +1014,7 @@ export class ResultsViewPageStore {
 		);
 
 		return samplesGroupedByCancerType;
-		//
+		// 
 	}
 
 	readonly alterationsByGeneBySampleKey = remoteData({
@@ -1116,7 +1116,7 @@ export class ResultsViewPageStore {
 		);
 		const flattened = _.flatMap(alterationsByGeneBySampleKey, map => map);
 
-		// NEED TO FLATTEN and then merge this to get all alteration by sampleId
+		//  NEED TO FLATTEN and then merge this to get all alteration by sampleId
 		function customizer(objValue: any, srcValue: any) {
 			if (_.isArray(objValue)) {
 				return objValue.concat(srcValue);
@@ -1170,15 +1170,15 @@ export class ResultsViewPageStore {
 		}
 	});
 
-	// readonly genes = remoteData(async() => {
-	//     if (this.hugoGeneSymbols) {
-	//         return client.fetchGenesUsingPOST({
-	//             geneIds: this.hugoGeneSymbols.slice(),
-	//             geneIdType: "HUGO_GENE_SYMBOL"
-	//         });
-	//     }
-	//     return undefined;
-	// });
+	//  readonly genes = remoteData(async() => {
+	//      if (this.hugoGeneSymbols) {
+	//          return client.fetchGenesUsingPOST({
+	//              geneIds: this.hugoGeneSymbols.slice(),
+	//              geneIdType: "HUGO_GENE_SYMBOL"
+	//          });
+	//      }
+	//      return undefined;
+	//  });
 
 	readonly studyToSampleIds = remoteData<{
 		[studyId: string]: { [sampleId: string]: boolean };
@@ -1350,9 +1350,9 @@ export class ResultsViewPageStore {
 			],
 			invoke: () => {
 				if (this.genes.result) {
-					// we have to use _.reduce, otherwise this.genes.result (Immutable, due to remoteData) will return
-					//  an Immutable as the result of reduce, and MutationMapperStore when it is made immutable all the
-					//  mobx machinery going on in the readonly remoteDatas and observables somehow gets messed up.
+					//  we have to use _.reduce, otherwise this.genes.result (Immutable, due to remoteData) will return
+					//   an Immutable as the result of reduce, and MutationMapperStore when it is made immutable all the
+					//   mobx machinery going on in the readonly remoteDatas and observables somehow gets messed up.
 					return Promise.resolve(
 						_.reduce(
 							this.genes.result,
@@ -1406,7 +1406,7 @@ export class ResultsViewPageStore {
 		{
 			invoke: () => fetchOncoKbAnnotatedGenes(),
 			onError: (err: Error) => {
-				// fail silently, leave the error handling responsibility to the data consumer
+				//  fail silently, leave the error handling responsibility to the data consumer
 			}
 		},
 		{}
@@ -1429,8 +1429,8 @@ export class ResultsViewPageStore {
 		entities: any[],
 		attributeIds: string[]
 	): Promise<Array<ClinicalData>> {
-		// single study query endpoint is optimal so we should use it
-		// when there's only one study
+		//  single study query endpoint is optimal so we should use it
+		//  when there's only one study
 		if (this.studies.result.length === 1) {
 			const study = this.studies.result[0];
 			const filter: ClinicalDataSingleStudyFilter = {
@@ -1583,7 +1583,7 @@ export class ResultsViewPageStore {
 					AppConfig.studiesWithGermlineConsentedSamples
 				),
 			onError: () => {
-				// fail silently
+				//  fail silently
 			}
 		},
 		[]
@@ -1812,7 +1812,7 @@ export class ResultsViewPageStore {
 						}
 					),
 					profile => {
-						// Sort order: selected and mrna, selected and protein, unselected and mrna, unselected and protein
+						//  Sort order: selected and mrna, selected and protein, unselected and mrna, unselected and protein
 						if (
 							profile.molecularProfileId in
 							selectedMolecularProfileIds
@@ -2054,8 +2054,8 @@ export class ResultsViewPageStore {
 		}
 	});
 
-	// Mutation annotation
-	// Hotspots
+	//  Mutation annotation
+	//  Hotspots
 	readonly hotspotData = remoteData({
 		await: () => [this.mutations],
 		invoke: () => {
@@ -2078,7 +2078,7 @@ export class ResultsViewPageStore {
 			});
 		}
 	});
-	// OncoKb
+	//  OncoKb
 	readonly uniqueSampleKeyToTumorType = remoteData<{
 		[uniqueSampleKey: string]: string;
 	}>({
@@ -2114,14 +2114,14 @@ export class ResultsViewPageStore {
 					this.mutations
 				),
 			onError: (err: Error) => {
-				// fail silently, leave the error handling responsibility to the data consumer
+				//  fail silently, leave the error handling responsibility to the data consumer
 			}
 		},
 		ONCOKB_DEFAULT
 	);
 
-	// we need seperate oncokb data because oncoprint requires onkb queries across cancertype
-	// mutations tab the opposite
+	//  we need seperate oncokb data because oncoprint requires onkb queries across cancertype
+	//  mutations tab the opposite
 	readonly oncoKbDataForOncoprint = remoteData<IOncoKbData>(
 		{
 			await: () => [
@@ -2136,7 +2136,7 @@ export class ResultsViewPageStore {
 					this.mutations
 				),
 			onError: (err: Error) => {
-				// fail silently, leave the error handling responsibility to the data consumer
+				//  fail silently, leave the error handling responsibility to the data consumer
 			}
 		},
 		ONCOKB_DEFAULT
@@ -2161,8 +2161,8 @@ export class ResultsViewPageStore {
 		ONCOKB_DEFAULT
 	);
 
-	// we need seperate oncokb data because oncoprint requires onkb queries across cancertype
-	// mutations tab the opposite
+	//  we need seperate oncokb data because oncoprint requires onkb queries across cancertype
+	//  mutations tab the opposite
 	readonly cnaOncoKbDataForOncoprint = remoteData<IOncoKbData>(
 		{
 			await: () => [
@@ -2263,7 +2263,7 @@ export class ResultsViewPageStore {
 			});
 		}
 	});
-	// COSMIC count
+	//  COSMIC count
 	readonly cosmicCountData = remoteData<CosmicMutation[]>({
 		await: () => [this.mutations],
 		invoke: () => {

@@ -62,7 +62,7 @@ export default class CancerHotspots extends React.Component<ICancerHotspotsProps
 		const clusteredHotspot = is3dHotspot ? "a 3D clustered hotspot" : "";
 
 		const recurrentPublication = isHotspot ? (
-			<a href="http://www.ncbi.nlm.nih.gov/pubmed/26619011" target="_blank">
+			<a href="http:// www.ncbi.nlm.nih.gov/pubmed/26619011" target="_blank">
 				Chang et al., Nat Biotechnol, 2016
 			</a>
 		) : (
@@ -70,7 +70,7 @@ export default class CancerHotspots extends React.Component<ICancerHotspotsProps
 		);
 
 		const clusteredPublication = is3dHotspot ? (
-			<a href="http://genomemedicine.biomedcentral.com/articles/10.1186/s13073-016-0393-x" target="_blank">
+			<a href="http:// genomemedicine.biomedcentral.com/articles/10.1186/s13073-016-0393-x" target="_blank">
 				Gao et al., Genome Medicine, 2017
 			</a>
 		) : (
@@ -88,8 +88,8 @@ export default class CancerHotspots extends React.Component<ICancerHotspotsProps
 
 	public static link(isHotspot: boolean, is3dHotspot: boolean) {
 		const recurrentLink = isHotspot ? (
-			<a href="http://cancerhotspots.org/" target="_blank">
-				http://cancerhotspots.org/
+			<a href="http:// cancerhotspots.org/" target="_blank">
+				http:// cancerhotspots.org/
 			</a>
 		) : (
 			""
@@ -98,8 +98,8 @@ export default class CancerHotspots extends React.Component<ICancerHotspotsProps
 		const maybeAnd = isHotspot && is3dHotspot ? "and" : "";
 
 		const clusteredLink = is3dHotspot ? (
-			<a href="http://3dhotspots.org/" target="_blank">
-				http://3dhotspots.org/
+			<a href="http:// 3dhotspots.org/" target="_blank">
+				http:// 3dhotspots.org/
 			</a>
 		) : (
 			""
@@ -127,7 +127,7 @@ export default class CancerHotspots extends React.Component<ICancerHotspotsProps
 			let hotspotsImgHeight: number = 14;
 			let hotspotsImgSrc = require("./images/cancer-hotspots.svg");
 
-			// if it is a 3D hotspot but not a recurrent hotspot, show the 3D hotspot icon
+			//  if it is a 3D hotspot but not a recurrent hotspot, show the 3D hotspot icon
 			if (!isHotspot) {
 				hotspotsImgSrc = require("./images/3d-hotspots.svg");
 				hotspotsImgHeight = 18;

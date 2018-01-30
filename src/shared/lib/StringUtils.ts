@@ -1,5 +1,5 @@
 export function longestCommonStartingSubstring(str1: string, str2: string) {
-	// from https://github.com/cBioPortal/mutation-mapper/blob/master/src/js/util/cbio-util.js
+	//  from https:// github.com/cBioPortal/mutation-mapper/blob/master/src/js/util/cbio-util.js
 	let i = 0;
 
 	while (i < str1.length && i < str2.length) {

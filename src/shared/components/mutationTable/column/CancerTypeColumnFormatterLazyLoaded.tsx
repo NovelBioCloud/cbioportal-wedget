@@ -20,7 +20,7 @@ export default class CancerTypeColumnFormatter {
 			});
 
 			if (cacheDatum && cacheDatum.status === "complete" && cacheDatum.data === null) {
-				// If no clinical data, use study cancer type if we have it
+				//  If no clinical data, use study cancer type if we have it
 				if (studyCancerTypeMap) {
 					const cancerType = studyCancerTypeMap[studyId];
 					if (cancerType) {

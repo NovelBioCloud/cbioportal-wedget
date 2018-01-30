@@ -9,8 +9,8 @@ import {
 import { Mutation } from "shared/api/generated/CBioPortalAPI";
 import LazyMobXCache, { CacheData } from "shared/lib/LazyMobXCache";
 
-// TODO: Genome Nexus should change response type based on fields parameter,
-// but this is only possible in swagger version 3
+//  TODO: Genome Nexus should change response type based on fields parameter,
+//  but this is only possible in swagger version 3
 export type VariantAnnotationEnriched = VariantAnnotation & {
 	hotspots: { license: string; annotation: Hotspot };
 } & { mutation_assessor: { license: string; annotation: MutationAssessor } };
@@ -27,7 +27,7 @@ export function fetch(
 					.map(mutation => generateGenomeNexusQuery(mutation))
 					.filter(query => query.length > 0)
 			),
-			// TODO: update genome nexus API to return all fields by default
+			//  TODO: update genome nexus API to return all fields by default
 			fields: ["hotspots", "mutation_assessor"]
 		}) as Promise<VariantAnnotationEnriched[]>;
 	} else {
@@ -41,8 +41,8 @@ export default class GenomeNexusCache extends LazyMobXCache<
 > {
 	constructor() {
 		super(
-			(m: Mutation) => generateGenomeNexusQuery(m), // queryToKey
-			(v: VariantAnnotationEnriched) => v.id, // dataToKey
+			(m: Mutation) => generateGenomeNexusQuery(m), //  queryToKey
+			(v: VariantAnnotationEnriched) => v.id, //  dataToKey
 			fetch
 		);
 	}

@@ -143,7 +143,7 @@ export default class AnnotationColumnFormatter {
 	): ICivicEntry | null {
 		let geneSymbol: string = mutation.gene.hugoGeneSymbol;
 		let civicEntry = null;
-		// Only search for matching Civic variants if the gene mutation exists in the Civic API
+		//  Only search for matching Civic variants if the gene mutation exists in the Civic API
 		if (civicVariants[geneSymbol] && civicVariants[geneSymbol][mutation.proteinChange]) {
 			let geneVariants: { [name: string]: ICivicVariantData } = {
 				[mutation.proteinChange]: civicVariants[geneSymbol][mutation.proteinChange]
@@ -185,7 +185,7 @@ export default class AnnotationColumnFormatter {
 	}
 
 	public static getEvidenceQuery(mutation: Mutation, oncoKbData: IOncoKbData): Query | undefined {
-		// return null in case sampleToTumorMap is null
+		//  return null in case sampleToTumorMap is null
 		return oncoKbData.uniqueSampleKeyToTumorType
 			? generateQueryVariant(
 					mutation.gene.entrezGeneId,
@@ -203,7 +203,7 @@ export default class AnnotationColumnFormatter {
 		let links: string[] = [];
 
 		if (myCancerGenomes) {
-			// further filtering required by alteration field
+			//  further filtering required by alteration field
 			links = AnnotationColumnFormatter.filterByAlteration(mutation, myCancerGenomes).map(
 				(myCancerGenome: IMyCancerGenome) => myCancerGenome.linkHTML
 			);
@@ -212,7 +212,7 @@ export default class AnnotationColumnFormatter {
 		return links;
 	}
 
-	// TODO for now ignoring anything but protein change position, this needs to be improved!
+	//  TODO for now ignoring anything but protein change position, this needs to be improved!
 	public static filterByAlteration(mutation: Mutation, myCancerGenomes: IMyCancerGenome[]): IMyCancerGenome[] {
 		return myCancerGenomes.filter((myCancerGenome: IMyCancerGenome) => {
 			const proteinChangeRegExp: RegExp = /^[A-Za-z][0-9]+[A-Za-z]/;

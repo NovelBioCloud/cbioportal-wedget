@@ -1,4 +1,4 @@
-import Immutable from "seamless-immutable"; // need to use immutables so mobX can observe the cache shallowly
+import Immutable from "seamless-immutable"; //  need to use immutables so mobX can observe the cache shallowly
 import accumulatingDebounce from "./accumulatingDebounce";
 import { observable, action, reaction } from "mobx";
 import { AccumulatingDebouncedFunction } from "./accumulatingDebounce";
@@ -56,8 +56,8 @@ export default class LazyMobXCache<Data, Query, Metadata = any> {
 	private promises: CachePromise<Data, Metadata>[];
 
 	constructor(
-		private queryToKey: (q: Query) => string, // query maps to the key of the datum it will fill
-		private dataToKey: (d: Data, m?: Metadata) => string, // should uniquely identify the data - for indexing in cache
+		private queryToKey: (q: Query) => string, //  query maps to the key of the datum it will fill
+		private dataToKey: (d: Data, m?: Metadata) => string, //  should uniquely identify the data - for indexing in cache
 		private fetch: (
 			queries: Query[],
 			...staticDependencies: any[]
@@ -89,7 +89,7 @@ export default class LazyMobXCache<Data, Query, Metadata = any> {
 		reaction(
 			() => this._cache,
 			(cache: Cache<Data, Metadata>) => {
-				// filter out completed promises, we dont listen on them anymore
+				//  filter out completed promises, we dont listen on them anymore
 				this.promises = this.promises.filter(
 					promise => !this.tryTrigger(promise)
 				);
@@ -127,10 +127,10 @@ export default class LazyMobXCache<Data, Query, Metadata = any> {
 				error: reject
 			};
 			if (!this.tryTrigger(newPromise)) {
-				// try to trigger it immediately
-				// if not triggered immediately, add it to callback list
+				//  try to trigger it immediately
+				//  if not triggered immediately, add it to callback list
 				this.promises.push(newPromise);
-				// request if desired
+				//  request if desired
 				if (makeRequest) {
 					queriesArray.map(query => this.debouncedPopulate(query));
 				}
@@ -155,11 +155,11 @@ export default class LazyMobXCache<Data, Query, Metadata = any> {
 			promise.error();
 			return true;
 		} else if (allDefined) {
-			// if all data fetching complete, then trigger callback
+			//  if all data fetching complete, then trigger callback
 			promise.callback(data);
 			return true;
 		} else {
-			// otherwise, not complete yet
+			//  otherwise, not complete yet
 			return false;
 		}
 	}
@@ -257,7 +257,7 @@ export default class LazyMobXCache<Data, Query, Metadata = any> {
 
 		for (const dataElt of data) {
 			if (isAugmentedData(dataElt)) {
-				// if augmented data, then we add each datum to the cache using the associated metadata
+				//  if augmented data, then we add each datum to the cache using the associated metadata
 				const meta = dataElt.meta;
 				for (const datum of dataElt.data) {
 					const datumKey = this.dataToKey(datum, meta);
@@ -269,7 +269,7 @@ export default class LazyMobXCache<Data, Query, Metadata = any> {
 					keyHasData[datumKey] = true;
 				}
 			} else {
-				// if not augmented data (no metadata), then we just add it using the information in the datum
+				//  if not augmented data (no metadata), then we just add it using the information in the datum
 				const datumKey = this.dataToKey(dataElt);
 				toMerge[datumKey] = {
 					status: "complete",
@@ -282,8 +282,8 @@ export default class LazyMobXCache<Data, Query, Metadata = any> {
 		for (const query of queries) {
 			const queryKey = this.queryToKey(query);
 			if (!keyHasData[queryKey]) {
-				// if a query was made, but no corresponding data is given, it's assumed there is
-				//  no data for this query, so we put the following object corresponding to that knowledge.
+				//  if a query was made, but no corresponding data is given, it's assumed there is
+				//   no data for this query, so we put the following object corresponding to that knowledge.
 				toMerge[queryKey] = {
 					status: "complete",
 					data: null

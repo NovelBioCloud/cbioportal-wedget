@@ -25,8 +25,8 @@ export function generatePfamDomainColorMap(
 
 	let colorIdx = 0;
 
-	// sort domains by start position,
-	// then assign a different color for each unique domain id.
+	//  sort domains by start position,
+	//  then assign a different color for each unique domain id.
 	pfamDomains
 		.sort(
 			(a: PfamDomainRange, b: PfamDomainRange): number =>

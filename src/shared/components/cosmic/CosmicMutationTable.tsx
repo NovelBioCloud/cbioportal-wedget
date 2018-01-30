@@ -3,8 +3,8 @@ import { CosmicMutation } from "shared/api/generated/CBioPortalAPIInternal";
 import ProteinChangeColumnFormatter from "../mutationTable/column/ProteinChangeColumnFormatter";
 import { Column, default as LazyMobXTable } from "../lazyMobXTable/LazyMobXTable";
 
-// TODO interface ICosmicTableProps extends IMSKTableProps<CosmicMutation>
-// To avoid duplication, it would be nice here to have an extendable interface for LazyMobXTableProps
+//  TODO interface ICosmicTableProps extends IMSKTableProps<CosmicMutation>
+//  To avoid duplication, it would be nice here to have an extendable interface for LazyMobXTableProps
 export interface ICosmicTableProps {
 	data: CosmicMutation[];
 	columns?: Array<Column<CosmicMutation>>;
@@ -13,7 +13,7 @@ export interface ICosmicTableProps {
 	initialItemsPerPage?: number;
 }
 
-// LazyMobXTable is a generic component which requires data type argument
+//  LazyMobXTable is a generic component which requires data type argument
 class CosmicTable extends LazyMobXTable<CosmicMutation> {}
 
 /**
@@ -29,7 +29,7 @@ export default class CosmicMutationTable extends React.Component<ICosmicTablePro
 				render: (d: CosmicMutation) => (
 					<span>
 						<a
-							href={`http://cancer.sanger.ac.uk/cosmic/mutation/overview?id=${d.cosmicMutationId}`}
+							href={`http:// cancer.sanger.ac.uk/cosmic/mutation/overview?id=${d.cosmicMutationId}`}
 							target="_blank"
 						>
 							{d.cosmicMutationId}

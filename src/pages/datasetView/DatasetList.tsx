@@ -61,7 +61,7 @@ class CancerStudyCell extends React.Component<ICancerStudyCellProps, {}> {
 class ReferenceCell extends React.Component<IReferenceCellProps, {}> {
 	render() {
 		return (
-			<a target="_blank" href={`https://www.ncbi.nlm.nih.gov/pubmed/${this.props.pmid}`}>
+			<a target="_blank" href={`https:// www.ncbi.nlm.nih.gov/pubmed/${this.props.pmid}`}>
 				{" "}
 				{this.props.citation}{" "}
 			</a>
@@ -81,7 +81,7 @@ export default class DataSetsPageTable extends React.Component<IDataSetsTablePro
 	}
 
 	componentDidMount() {
-		const DATAHUB_GIT_URL = "https://api.github.com/repos/cBioPortal/datahub/contents/public";
+		const DATAHUB_GIT_URL = "https:// api.github.com/repos/cBioPortal/datahub/contents/public";
 
 		request.get(DATAHUB_GIT_URL).then((data: any) => {
 			if (_.isArray(data.body) && data.body.length > 0) {
@@ -146,7 +146,7 @@ export default class DataSetsPageTable extends React.Component<IDataSetsTablePro
 											className="dataset-table-download-link"
 											style={download ? { display: "block" } : { display: "none" }}
 											href={
-												"https://media.githubusercontent.com/media/cBioPortal/datahub/master/public/" +
+												"https:// media.githubusercontent.com/media/cBioPortal/datahub/master/public/" +
 												data.studyId +
 												".tar.gz"
 											}
@@ -209,7 +209,7 @@ export default class DataSetsPageTable extends React.Component<IDataSetsTablePro
 							render: column.hasOwnProperty("render")
 								? column.render
 								: (data: any) => {
-										const style = {}; // {textAlign: 'center', width: '100%', display: 'block'}
+										const style = {}; //  {textAlign: 'center', width: '100%', display: 'block'}
 										return <span style={{ style }}>{data[column.type] || 0}</span>;
 									},
 							download: column.hasOwnProperty("download") ? column.download : false,

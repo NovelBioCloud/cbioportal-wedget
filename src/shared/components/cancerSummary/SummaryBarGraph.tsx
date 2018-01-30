@@ -6,7 +6,7 @@ import Chart, { ChartLegendItem } from "chart.js";
 import {
 	IBarGraphConfigOptions,
 	IBarGraphDataset
-	// ICancerTypeAlterationPlotData
+	//  ICancerTypeAlterationPlotData
 } from "./CancerSummaryContent";
 import { observer } from "mobx-react";
 import classnames from "classnames";
@@ -45,10 +45,10 @@ export default class SummaryBarGraph extends React.Component<ISummaryBarGraphPro
 	private getTooltipOptions(tooltipModel: any, data: IBarGraphConfigOptions, chartOptions: any, sumBarGraph: any) {
 		const uniqueId = sumBarGraph.props.gene;
 
-		// Tooltip Element
+		//  Tooltip Element
 		let tooltipEl = document.getElementById("cancer-type-summary-tab-tooltip-" + uniqueId);
 
-		// Create element on first render
+		//  Create element on first render
 		if (!tooltipEl) {
 			tooltipEl = document.createElement("div");
 			tooltipEl.id = "cancer-type-summary-tab-tooltip-" + uniqueId;
@@ -57,14 +57,14 @@ export default class SummaryBarGraph extends React.Component<ISummaryBarGraphPro
 			this.chartContainer.appendChild(tooltipEl);
 		}
 
-		// Hide if no tooltip
+		//  Hide if no tooltip
 		if (tooltipModel.opacity === 0) {
-			// tooltipEl.style.opacity = '0';
+			//  tooltipEl.style.opacity = '0';
 			tooltipEl.style.display = "none";
 			return;
 		}
 
-		// Set caret Position
+		//  Set caret Position
 		tooltipEl.classList.remove("above", "below", "no-transform");
 		if (tooltipModel.yAlign) {
 			tooltipEl.classList.add(tooltipModel.yAlign);
@@ -77,7 +77,7 @@ export default class SummaryBarGraph extends React.Component<ISummaryBarGraphPro
 			return { label, count, percent };
 		}
 
-		// Set Text
+		//  Set Text
 		if (tooltipModel.body) {
 			const bodyLines: {
 				label: string;
@@ -109,10 +109,10 @@ export default class SummaryBarGraph extends React.Component<ISummaryBarGraphPro
 			tableRoot!.innerHTML = innerHtml;
 		}
 
-		// `chartOptions` will be the overall tooltip
-		// const position = chartOptions._chart.canvas.getBoundingClientRect();
+		//  `chartOptions` will be the overall tooltip
+		//  const position = chartOptions._chart.canvas.getBoundingClientRect();
 
-		// Display, position, and set styles for font
+		//  Display, position, and set styles for font
 		tooltipEl.style.display = "block";
 		tooltipEl.style.left = tooltipModel.caretX + 35 + "px";
 		tooltipEl.style.top = tooltipModel.y + "px";
@@ -129,7 +129,7 @@ export default class SummaryBarGraph extends React.Component<ISummaryBarGraphPro
 	}
 
 	private updateChart() {
-		// we need to start over
+		//  we need to start over
 		this.chart.destroy();
 		this.chartConfig.data = this.props.data;
 		this.chartConfig.options = this.chartOptions;
@@ -145,7 +145,7 @@ export default class SummaryBarGraph extends React.Component<ISummaryBarGraphPro
 	}
 
 	private getLegendNames(id: string) {
-		// TODO: figure out ts issue with index signature.
+		//  TODO: figure out ts issue with index signature.
 		return this.props.orderedLabels[id] || id;
 	}
 

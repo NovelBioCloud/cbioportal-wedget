@@ -6,14 +6,14 @@ import { IPdbChain } from "../../../model/Pdb";
 
 export default class OrganismColumnFormatter {
 	public static getOrganism(pdbHeader: PdbHeader, chainId: string): string {
-		// source: https://github.com/cBioPortal/mutation-mapper/blob/1475afb5a42c18a3859f45741c68908b34d08692/src/js/util/PdbDataUtil.js#L206
+		//  source: https:// github.com/cBioPortal/mutation-mapper/blob/1475afb5a42c18a3859f45741c68908b34d08692/src/js/util/PdbDataUtil.js#L206
 
 		let organism = "NA";
 
 		_.find(pdbHeader.compound, (mol: any) => {
 			if (_.indexOf(mol.chain, chainId.toLowerCase()) !== -1 && pdbHeader.source[mol.mol_id] !== null) {
-				// chain is associated with this mol,
-				// get the organism info from the source
+				//  chain is associated with this mol,
+				//  get the organism info from the source
 				organism = pdbHeader.source[mol.mol_id].organism_scientific || organism;
 				return mol;
 			}

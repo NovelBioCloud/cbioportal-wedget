@@ -35,9 +35,9 @@ export async function fetchAlignments(
 	}
 }
 
-// TODO implement a cache that extends LazyMobXCache...
-// this one is just doing a very basic caching based on the query parameters,
-// ideally we should implement a fine caching based on "uniprotPositions"
+//  TODO implement a cache that extends LazyMobXCache...
+//  this one is just doing a very basic caching based on the query parameters,
+//  ideally we should implement a fine caching based on "uniprotPositions"
 export default class ResidueMappingCache {
 	private queries: {
 		[key: string]: MobxPromise<Array<CacheData<ResidueMapping> | null>>;
@@ -83,7 +83,7 @@ export default class ResidueMappingCache {
 						return residueMappingCacheData;
 					},
 					onError: (err: Error) => {
-						// fail silently
+						//  fail silently
 					}
 				},
 				this.defaultData(query)

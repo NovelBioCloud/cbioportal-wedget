@@ -15,10 +15,10 @@ export enum ProteinScheme {
 	RIBBON
 }
 
-// UNIFORM: single color, effective for all schemes
-// SECONDARY_STRUCTURE: not effective for space-filling scheme
-// ATOM_TYPE: effective only for space-filling scheme
-// NC_RAINBOW: not effective for space-filling scheme
+//  UNIFORM: single color, effective for all schemes
+//  SECONDARY_STRUCTURE: not effective for space-filling scheme
+//  ATOM_TYPE: effective only for space-filling scheme
+//  NC_RAINBOW: not effective for space-filling scheme
 export enum ProteinColor {
 	UNIFORM,
 	SECONDARY_STRUCTURE,
@@ -26,18 +26,18 @@ export enum ProteinColor {
 	ATOM_TYPE
 }
 
-// SELECTED: display side chain for only selected mutations
-// ALL: display side chain for all mapped mutations
-// NONE: do not display side chain atoms
+//  SELECTED: display side chain for only selected mutations
+//  ALL: display side chain for all mapped mutations
+//  NONE: do not display side chain atoms
 export enum SideChain {
 	ALL,
 	SELECTED,
 	NONE
 }
 
-// MUTATION_TYPE: use mutation colors for type
-// UNIFORM: use a single color
-// NONE: do not color (use default atom colors)
+//  MUTATION_TYPE: use mutation colors for type
+//  UNIFORM: use a single color
+//  NONE: do not color (use default atom colors)
 export enum MutationColor {
 	UNIFORM,
 	MUTATION_TYPE,
@@ -49,36 +49,36 @@ export interface IStructureVisualizerProps {
 	proteinColor: ProteinColor;
 	sideChain: SideChain;
 	mutationColor: MutationColor;
-	// when set to false, restricts to protein only (hide other atoms)
+	//  when set to false, restricts to protein only (hide other atoms)
 	displayBoundMolecules: boolean;
-	// PDB database URI
+	//  PDB database URI
 	pdbUri?: string;
-	// base color of the whole structure
+	//  base color of the whole structure
 	baseColor?: string;
-	// background color
+	//  background color
 	backgroundColor?: string;
-	// colors for special structures
-	// structure color takes effect only when corresponding flag is set
+	//  colors for special structures
+	//  structure color takes effect only when corresponding flag is set
 	structureColors?: {
 		alphaHelix: string;
 		betaSheet: string;
 		loop: string;
 	};
-	// translucency (opacity) of the whole structure
+	//  translucency (opacity) of the whole structure
 	baseTranslucency?: number;
-	// color of the selected chain
+	//  color of the selected chain
 	chainColor?: string;
-	// translucency (opacity) of the selected chain
+	//  translucency (opacity) of the selected chain
 	chainTranslucency?: number;
-	// uniform color of the mutated residues
+	//  uniform color of the mutated residues
 	uniformMutationColor?: string;
-	// color of the user-selected mutations
+	//  color of the user-selected mutations
 	highlightColor?: string;
 }
 
 abstract class StructureVisualizer {
 	public static defaultProps = {
-		pdbUri: "https://files.rcsb.org/view/",
+		pdbUri: "https:// files.rcsb.org/view/",
 		proteinScheme: ProteinScheme.CARTOON,
 		displayBoundMolecules: true,
 		backgroundColor: "#FFFFFF",
@@ -98,7 +98,7 @@ abstract class StructureVisualizer {
 		sideChain: SideChain.SELECTED
 	};
 
-	// abstract methods
+	//  abstract methods
 	protected abstract selectAll(): any;
 	protected abstract setScheme(scheme: ProteinScheme, selector?: any): any;
 	protected abstract setColor(
@@ -140,10 +140,10 @@ abstract class StructureVisualizer {
 	}
 
 	protected updateScheme(props: IStructureVisualizerProps) {
-		// select everything
+		//  select everything
 		let selector = this.selectAll();
 
-		// show selected style view
+		//  show selected style view
 		return this.setScheme(props.proteinScheme, selector);
 	}
 
@@ -153,18 +153,18 @@ abstract class StructureVisualizer {
 	) {
 		const defaultProps = StructureVisualizer.defaultProps;
 
-		// do the initial (uniform) coloring
+		//  do the initial (uniform) coloring
 
 		let selector = this.selectAll();
 
-		// set base structure color
+		//  set base structure color
 		this.setColor(
 			props.baseColor || defaultProps.baseColor,
 			selector,
 			style
 		);
 
-		// set base color
+		//  set base color
 		this.setTransparency(
 			props.baseTranslucency || defaultProps.baseTranslucency,
 			selector,
@@ -185,28 +185,28 @@ abstract class StructureVisualizer {
 			props.chainColor || defaultProps.chainColor,
 			selector,
 			style
-		); // set chain color
+		); //  set chain color
 		this.setTransparency(
 			props.chainTranslucency || defaultProps.chainTranslucency,
 			selector,
 			style
 		);
 
-		// additional coloring for the selected chain
+		//  additional coloring for the selected chain
 
 		if (props.proteinColor === ProteinColor.ATOM_TYPE) {
 			selector = this.selectChain(chainId);
 			this.cpkColor(selector, style);
 		} else if (props.proteinColor === ProteinColor.SECONDARY_STRUCTURE) {
-			// color secondary structure (for the selected chain)
-			selector = this.selectAlphaHelix(chainId); // select alpha helices
+			//  color secondary structure (for the selected chain)
+			selector = this.selectAlphaHelix(chainId); //  select alpha helices
 			this.setColor(
 				(props.structureColors || defaultProps.structureColors)
 					.alphaHelix,
 				selector,
 				style
 			);
-			selector = this.selectBetaSheet(chainId); // select beta sheets
+			selector = this.selectBetaSheet(chainId); //  select beta sheets
 			this.setColor(
 				(props.structureColors || defaultProps.structureColors)
 					.betaSheet,
@@ -214,7 +214,7 @@ abstract class StructureVisualizer {
 				style
 			);
 		} else if (props.proteinColor === ProteinColor.NC_RAINBOW) {
-			// color the chain by rainbow coloring scheme (gradient coloring)
+			//  color the chain by rainbow coloring scheme (gradient coloring)
 			selector = this.selectChain(chainId);
 			this.rainbowColor(selector, style);
 		}
@@ -229,7 +229,7 @@ abstract class StructureVisualizer {
 	protected convertPositionsToResCode(positions: IPdbPositionRange[]) {
 		let residueCodes: string[] = [];
 
-		// convert positions to script positions
+		//  convert positions to script positions
 		positions.forEach((range: IPdbPositionRange) => {
 			residueCodes = residueCodes.concat(convertPdbPosToResCode(range));
 		});

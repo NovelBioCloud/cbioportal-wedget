@@ -123,12 +123,12 @@ export default class AlleleFreqColumnFormatter {
 
 		let content: JSX.Element = <span />;
 
-		// single sample: just show the number
+		//  single sample: just show the number
 		if (sampleManager.samples.length === 1) {
 			content = <span>{!isNaN(freqs[0]) ? freqs[0].toFixed(2) : ""}</span>;
 		} else if (tooltipLines.length > 0) {
-			// multiple samples: show a graphical component
-			// (if no tooltip info available do not update content)
+			//  multiple samples: show a graphical component
+			//  (if no tooltip info available do not update content)
 			content = (
 				<svg
 					width={AlleleFreqColumnFormatter.getSVGWidth(sampleOrder.length)}
@@ -139,7 +139,7 @@ export default class AlleleFreqColumnFormatter {
 			);
 		}
 
-		// as long as we have tooltip lines, show tooltip in either cases (single or multiple)
+		//  as long as we have tooltip lines, show tooltip in either cases (single or multiple)
 		if (tooltipLines.length > 0) {
 			const overlay = () => <span>{tooltipLines}</span>;
 
@@ -169,7 +169,7 @@ export default class AlleleFreqColumnFormatter {
 			return [null];
 		}
 
-		// frequencies in sample order
+		//  frequencies in sample order
 		const sampleToMutation = d.reduce(
 			(map: { [s: string]: Mutation }, next: Mutation) => {
 				map[next.sampleId] = next;
@@ -187,7 +187,7 @@ export default class AlleleFreqColumnFormatter {
 		if (allMutations) {
 			for (const rowMutations of allMutations) {
 				const frequency = this.getSortValue(rowMutations, sampleManager);
-				// if there is at least one valid (non-falsey) value, it should be visible
+				//  if there is at least one valid (non-falsey) value, it should be visible
 				if (_.compact(frequency).length > 0) {
 					return true;
 				}

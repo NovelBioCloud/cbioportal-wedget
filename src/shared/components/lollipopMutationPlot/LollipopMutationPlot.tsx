@@ -55,8 +55,8 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 						: undefined;
 					const responsePromises: Promise<Response>[] = [];
 					for (let i = 0; regions && i < regions.length; i++) {
-						// have to do a for loop because seamlessImmutable will make result of .map immutable,
-						// and that causes infinite loop here
+						//  have to do a for loop because seamlessImmutable will make result of .map immutable,
+						//  and that causes infinite loop here
 						responsePromises.push(
 							request.get(`${getMutationAlignerUrl()}?pfamAccession=${regions[i].pfamDomainId}`)
 						);
@@ -88,7 +88,7 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 
 		let startStr = "";
 		if (proteinChanges.length > 1) {
-			// only need to compare first and last element of sorted string list to find longest common starting substring of all of them
+			//  only need to compare first and last element of sorted string list to find longest common starting substring of all of them
 			startStr = longestCommonStartingSubstring(proteinChanges[0], proteinChanges[proteinChanges.length - 1]);
 		}
 		proteinChanges = proteinChanges.map((s: string) => s.substring(startStr.length));
@@ -131,34 +131,34 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 			return [];
 		}
 
-		// positionMutations: Mutation[][], in descending order of mutation count
+		//  positionMutations: Mutation[][], in descending order of mutation count
 		const positionMutations = Object.keys(this.mutationsByPosition)
 			.map(position => this.mutationsByPosition[parseInt(position, 10)])
 			.sort((x, y) => (x.length < y.length ? 1 : -1));
 
-		// maxCount: max number of mutations at a position
+		//  maxCount: max number of mutations at a position
 		const maxCount = positionMutations[0].length;
 
-		// numLabelCandidates: number of positions with maxCount mutations
+		//  numLabelCandidates: number of positions with maxCount mutations
 		let numLabelCandidates = positionMutations.findIndex(mutations => mutations.length !== maxCount);
 		if (numLabelCandidates === -1) {
 			numLabelCandidates = positionMutations.length;
 		}
 
-		// now we decide whether we'll show a label at all
+		//  now we decide whether we'll show a label at all
 		const maxAllowedTies = 2;
 		const maxLabels = 1;
 		const minMutationsToShowLabel = 1;
 
 		let numLabelsToShow;
 		if (
-			numLabelCandidates > maxLabels && // if there are more candidates than we can show,
+			numLabelCandidates > maxLabels && //  if there are more candidates than we can show,
 			numLabelCandidates > maxAllowedTies
 		) {
-			// and more candidates than are allowed for a tie
-			numLabelsToShow = 0; // then we dont show any label
+			//  and more candidates than are allowed for a tie
+			numLabelsToShow = 0; //  then we dont show any label
 		} else {
-			numLabelsToShow = Math.min(numLabelCandidates, maxLabels); // otherwise, we show labels
+			numLabelsToShow = Math.min(numLabelCandidates, maxLabels); //  otherwise, we show labels
 		}
 
 		const ret: LollipopSpec[] = [];
@@ -170,10 +170,10 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 				codon < 0 ||
 				(this.props.store.canonicalTranscript.isComplete &&
 					this.props.store.canonicalTranscript.result &&
-					// we want to show the stop codon too (so we allow proteinLength +1 as well)
+					//  we want to show the stop codon too (so we allow proteinLength +1 as well)
 					codon > this.props.store.canonicalTranscript.result.proteinLength + 1)
 			) {
-				// invalid position
+				//  invalid position
 				continue;
 			}
 			let label: string | undefined;
@@ -202,7 +202,7 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 			</a>
 		) : null;
 
-		// if no domain info, then just display the accession
+		//  if no domain info, then just display the accession
 		const domainInfo = domain ? `${domain.name}: ${domain.description}` : pfamAccession;
 
 		return (
@@ -213,7 +213,7 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 				<div>
 					<a
 						style={{ marginRight: "5px" }}
-						href={`http://pfam.xfam.org/family/${pfamAccession}`}
+						href={`http:// pfam.xfam.org/family/${pfamAccession}`}
 						target="_blank"
 					>
 						PFAM
@@ -279,7 +279,7 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 	private sequenceTooltip(): JSX.Element {
 		return (
 			<div style={{ maxWidth: 200 }}>
-				<a href={`http://www.uniprot.org/uniprot/${this.props.store.uniprotId.result}`} target="_blank">
+				<a href={`http:// www.uniprot.org/uniprot/${this.props.store.uniprotId.result}`} target="_blank">
 					{this.props.store.uniprotId.result}
 				</a>
 			</div>
@@ -295,9 +295,9 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 
 	public toSVGDOMNode(): Element {
 		if (this.plot) {
-			// Get result of plot
+			//  Get result of plot
 			const plotSvg = this.plot.toSVGDOMNode();
-			// Add label to top left
+			//  Add label to top left
 			const label = (
 				<text
 					fill="#2E3436"
@@ -314,15 +314,15 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 					{this.hugoGeneSymbol}
 				</text>
 			);
-			const labelGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+			const labelGroup = document.createElementNS("http:// www.w3.org/2000/svg", "g");
 			ReactDOM.render(label, labelGroup);
 			plotSvg.appendChild(labelGroup);
 
 			return plotSvg;
 		} else {
-			return document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			return document.createElementNS("http:// www.w3.org/2000/svg", "svg");
 		}
-		// Add label to top
+		//  Add label to top
 	}
 
 	@computed
@@ -395,13 +395,13 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 
 	@computed
 	get yMaxSlider() {
-		// we don't want max slider value to go over the actual max, even if the user input goes over it
+		//  we don't want max slider value to go over the actual max, even if the user input goes over it
 		return Math.min(this.countRange[1], this._yMaxInput || this.countRange[1]);
 	}
 
 	@computed
 	get yMaxInput() {
-		// allow the user input value to go over the actual count rage
+		//  allow the user input value to go over the actual count rage
 		return this._yMaxInput || this.countRange[1];
 	}
 

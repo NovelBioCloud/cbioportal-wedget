@@ -54,8 +54,8 @@ export class CopyDownloadControls extends React.Component<ICopyDownloadControlsP
 	}
 
 	componentDidMount() {
-		// this is necessary because the clipboard wrapper library
-		// doesn't work with tooltips :(
+		//  this is necessary because the clipboard wrapper library
+		//  doesn't work with tooltips :(
 		if (this.props.showCopy) {
 			this.bindCopyButton(this._copyButton);
 		}
@@ -67,8 +67,8 @@ export class CopyDownloadControls extends React.Component<ICopyDownloadControlsP
 				text: () => {
 					return this.getText();
 				},
-				// we need to pass a container to the clipboard when we use it in a Modal element
-				// see https://stackoverflow.com/questions/38398070/bootstrap-modal-does-not-work-with-clipboard-js-on-firefox
+				//  we need to pass a container to the clipboard when we use it in a Modal element
+				//  see https:// stackoverflow.com/questions/38398070/bootstrap-modal-does-not-work-with-clipboard-js-on-firefox
 				container: cotainer
 			});
 		}
@@ -181,8 +181,8 @@ export class CopyDownloadControls extends React.Component<ICopyDownloadControlsP
 	}
 
 	public getText() {
-		// if the download text is already there just return it
-		// else initiate an async download process
+		//  if the download text is already there just return it
+		//  else initiate an async download process
 		if (!this._downloadText) {
 			this.handleCopy();
 		}
@@ -204,30 +204,30 @@ export class CopyDownloadControls extends React.Component<ICopyDownloadControlsP
 
 	@action
 	private handleModalClose() {
-		// need to set both flags to false,
-		// in order to not show multiple modals in case of a download error during copy action
+		//  need to set both flags to false,
+		//  in order to not show multiple modals in case of a download error during copy action
 		this.copyingData = false;
 		this.showErrorMessage = false;
 	}
 
 	@action
 	private triggerDownloadError() {
-		// promise is rejected: we need to hide the download indicator and show an error message
+		//  promise is rejected: we need to hide the download indicator and show an error message
 		this.downloadingData = false;
 		this.showErrorMessage = true;
 	}
 
 	private initDownloadProcess(callback: (text: string) => void) {
 		if (this.props.downloadData) {
-			// mark downloading data true, so that we can show a loading message
+			//  mark downloading data true, so that we can show a loading message
 			this.downloadingData = true;
 
 			this.props.downloadData().then(copyDownloadData => {
-				// save the downloaded text so that we won't download it again
+				//  save the downloaded text so that we won't download it again
 				this._downloadText = copyDownloadData.text;
 
 				if (copyDownloadData.status === "complete") {
-					// promise is resolved, we need to hide the download indicator
+					//  promise is resolved, we need to hide the download indicator
 					this.downloadingData = false;
 				} else {
 					this.triggerDownloadError();

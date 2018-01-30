@@ -29,7 +29,7 @@ export default class MyCancerGenome extends React.Component<IMyCancerGenomeProps
 		const links: any[] = [];
 
 		_.each(linksHTML, (link: string, index: number) => {
-			// TODO we need to dangerously insert HTML since the data is formatted as an html link...
+			//  TODO we need to dangerously insert HTML since the data is formatted as an html link...
 			links.push(<li key={index} dangerouslySetInnerHTML={{ __html: link }} />);
 		});
 

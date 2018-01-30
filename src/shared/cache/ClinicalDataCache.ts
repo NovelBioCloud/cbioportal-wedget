@@ -176,7 +176,7 @@ async function fetch(
 	);
 	let resultsPerAttribute: Object[][] = resultsPerStudyPerAttribute.map(x =>
 		_.flatten(x)
-	); // make each element the data for a single attribute, aka flatten separate study requests
+	); //  make each element the data for a single attribute, aka flatten separate study requests
 	return resultsPerAttribute.map((data: any[], index: number) => ({
 		data: [data],
 		meta: queries[index]

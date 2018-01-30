@@ -137,11 +137,11 @@ export default class MutationTypeColumnFormatter {
 	public static getDisplayValue(data: Mutation[]): string {
 		const entry: IMutationTypeFormat | undefined = MutationTypeColumnFormatter.getMapEntry(data);
 
-		// first, try to find a mapped value
+		//  first, try to find a mapped value
 		if (entry && entry.label) {
 			return entry.label;
 		} else {
-			// if no mapped value, then return the text value as is
+			//  if no mapped value, then return the text value as is
 			return MutationTypeColumnFormatter.getTextValue(data);
 		}
 	}
@@ -163,7 +163,7 @@ export default class MutationTypeColumnFormatter {
 		if (value && value.className) {
 			return value.className;
 		} else {
-			// for unmapped values, use the "other" style
+			//  for unmapped values, use the "other" style
 			return MutationTypeColumnFormatter.MAIN_MUTATION_TYPE_MAP["other"].className;
 		}
 	}
@@ -187,16 +187,16 @@ export default class MutationTypeColumnFormatter {
 	}
 
 	public static renderFunction(data: Mutation[]) {
-		// use text for all purposes (display, sort, filter)
+		//  use text for all purposes (display, sort, filter)
 		const text: string = MutationTypeColumnFormatter.getDisplayValue(data);
 		const className: string = MutationTypeColumnFormatter.getClassName(data);
 
-		// use actual value for tooltip
+		//  use actual value for tooltip
 		const toolTip: string = MutationTypeColumnFormatter.getTextValue(data);
 
 		let content = <span className={styles[className]}>{text}</span>;
 
-		// add tooltip only if the display value differs from the actual text value!
+		//  add tooltip only if the display value differs from the actual text value!
 		if (toolTip.toLowerCase() !== text.toLowerCase()) {
 			const arrowContent = <div className="rc-tooltip-arrow-inner" />;
 

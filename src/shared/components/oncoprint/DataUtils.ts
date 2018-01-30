@@ -133,7 +133,7 @@ export function fillGeneticTrackDatum(
 				const cnaEvent =
 					cnaDataToString[(event as GeneMolecularData).value];
 				if (cnaEvent) {
-					// not diploid
+					//  not diploid
 					dispCnaCounts[cnaEvent] = dispCnaCounts[cnaEvent] || 0;
 					dispCnaCounts[cnaEvent] += 1;
 				}
@@ -179,7 +179,7 @@ export function fillGeneticTrackDatum(
 	newDatum.disp_prot = selectDisplayValue(dispProtCounts, protRenderPriority);
 	newDatum.disp_mut = selectDisplayValue(dispMutCounts, mutRenderPriority);
 
-	return newDatum as GeneticTrackDatum; // return for convenience, even though changes made in place
+	return newDatum as GeneticTrackDatum; //  return for convenience, even though changes made in place
 }
 
 export function makeGeneticTrackData(
@@ -213,7 +213,7 @@ export function makeGeneticTrackData(
 	}
 	const ret: GeneticTrackDatum[] = [];
 	if (isSampleList(cases)) {
-		// case: Samples
+		//  case: Samples
 		for (const sample of cases) {
 			const newDatum: Partial<GeneticTrackDatum> = {};
 			newDatum.sample = sample.sampleId;
@@ -246,7 +246,7 @@ export function makeGeneticTrackData(
 			ret.push(newDatum as GeneticTrackDatum);
 		}
 	} else {
-		// case: Patients
+		//  case: Patients
 		for (const patient of cases) {
 			const newDatum: Partial<GeneticTrackDatum> = {};
 			newDatum.patient = patient.patientId;
@@ -301,7 +301,7 @@ export function fillHeatmapTrackDatum(
 				"Unexpectedly received multiple heatmap profile data for one sample"
 			);
 		} else {
-			// aggregate samples for this patient by selecting the highest absolute (Z-)score
+			//  aggregate samples for this patient by selecting the highest absolute (Z-)score
 			trackDatum.profile_data = data.reduce(
 				(maxInAbsVal: number, next: GeneMolecularData) => {
 					const val = parseFloat(next.value);
@@ -400,7 +400,7 @@ export function fillClinicalTrackDatum(
 			if (numValCount === 0) {
 				fillNoDataValue(trackDatum, attribute);
 			} else {
-				// average
+				//  average
 				trackDatum.attr_val = numValSum / numValCount;
 				trackDatum.attr_val_counts[trackDatum.attr_val] = 1;
 			}
@@ -421,7 +421,7 @@ export function fillClinicalTrackDatum(
 			attribute.clinicalAttributeId === SpecialAttribute.MutationSpectrum
 		) {
 			const spectrumData = data as MutationSpectrum[];
-			// add up vectors
+			//  add up vectors
 			const attr_val_counts = trackDatum.attr_val_counts;
 			attr_val_counts["C>A"] = 0;
 			attr_val_counts["C>G"] = 0;
@@ -437,7 +437,7 @@ export function fillClinicalTrackDatum(
 				attr_val_counts["T>C"] += datum.TtoC;
 				attr_val_counts["T>G"] += datum.TtoG;
 			}
-			// if all 0, then NA
+			//  if all 0, then NA
 			if (
 				attr_val_counts["C>A"] === 0 &&
 				attr_val_counts["C>G"] === 0 &&
@@ -500,7 +500,7 @@ export function makeClinicalTrackData(
 		| FractionGenomeAltered
 		| MutationSpectrum)[]
 ): ClinicalTrackDatum[] {
-	// First collect all the data by id
+	//  First collect all the data by id
 	const uniqueKeyToData: {
 		[uniqueKey: string]: (
 			| ClinicalData
@@ -514,7 +514,7 @@ export function makeClinicalTrackData(
 			: datum => datum.uniquePatientKey
 	);
 
-	// Create oncoprint data
+	//  Create oncoprint data
 	const getDataForCase = makeGetDataForCase(
 		attribute,
 		isSampleList(cases) ? "sample" : "patient",

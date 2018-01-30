@@ -6,31 +6,31 @@ export type IClinicalAttributesInlineProps = {
 	cancerStudyId: string;
 };
 
-// export default class ClinicalAttributesInline extends React.Component<IClinicalAttributesInlineProps, {}> {
-//    public render() {
-//        switch (this.props.status) {
-//            case 'fetching':
-//                return <div><Spinner spinnerName='three-bounce' /></div>;
-//
-//            case 'complete':
-//                return this.draw();
-//
-//            case 'error':
-//                return <div>There was an error.</div>;
-//
-//            default:
-//                return <div />;
-//        }
-//    }
-// }
+//  export default class ClinicalAttributesInline extends React.Component<IClinicalAttributesInlineProps, {}> {
+//     public render() {
+//         switch (this.props.status) {
+//             case 'fetching':
+//                 return <div><Spinner spinnerName='three-bounce' /></div>;
+// 
+//             case 'complete':
+//                 return this.draw();
+// 
+//             case 'error':
+//                 return <div>There was an error.</div>;
+// 
+//             default:
+//                 return <div />;
+//         }
+//     }
+//  }
 
 type IClinicalAttributeProps = {
 	key: string;
 	value: string;
 };
 
-// class ClinicalAttribute extends React.Component<IClinicalAttributeProps, {}> {
-//     public render() {
-//         return <span className={`clinical-attribute`} attrId={key} attrValue={value} study={cancerStudyId}>{value}</span>;
-//     }
-// }
+//  class ClinicalAttribute extends React.Component<IClinicalAttributeProps, {}> {
+//      public render() {
+//          return <span className={`clinical-attribute`} attrId={key} attrValue={value} study={cancerStudyId}>{value}</span>;
+//      }
+//  }

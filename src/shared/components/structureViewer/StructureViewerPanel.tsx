@@ -349,7 +349,7 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 
 	public mainContent() {
 		if (this.pdbId && this.chainId && this.residues) {
-			// load pdb info & 3D visualizer
+			//  load pdb info & 3D visualizer
 			return (
 				<span>
 					<div className="row">
@@ -384,7 +384,7 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 				</span>
 			);
 		} else {
-			// show loader
+			//  show loader
 			return (
 				<div style={{ textAlign: "center" }}>
 					<ThreeBounce
@@ -446,7 +446,7 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 	private handleProteinSchemeChange(evt: React.FormEvent<HTMLSelectElement>) {
 		this.proteinScheme = parseInt((evt.target as HTMLSelectElement).value, 10);
 
-		// when the protein scheme is SPACE_FILLING, NC_RAINBOW and SECONDARY_STRUCTURE are not allowed
+		//  when the protein scheme is SPACE_FILLING, NC_RAINBOW and SECONDARY_STRUCTURE are not allowed
 		if (
 			this.proteinScheme === ProteinScheme.SPACE_FILLING &&
 			(this.proteinColor === ProteinColor.NC_RAINBOW || this.proteinColor === ProteinColor.SECONDARY_STRUCTURE)
@@ -456,7 +456,7 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 			(this.proteinScheme === ProteinScheme.TRACE || this.proteinScheme === ProteinScheme.CARTOON) &&
 			this.proteinColor === ProteinColor.ATOM_TYPE
 		) {
-			// when the protein scheme is CARTOON or TRACE, ATOM_TYPE is not allowed
+			//  when the protein scheme is CARTOON or TRACE, ATOM_TYPE is not allowed
 			this.proteinColor = ProteinColor.UNIFORM;
 		}
 	}
@@ -492,8 +492,8 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 		let width: number | string;
 		let height: number | string;
 
-		// if 3Dmol container div is not initialized yet, just set to a default value: width=auto; height=350
-		// otherwise toggle the size
+		//  if 3Dmol container div is not initialized yet, just set to a default value: width=auto; height=350
+		//  otherwise toggle the size
 		if (this.isIncreasedSize) {
 			width = this._3dMolDiv ? Math.floor(this._3dMolDiv.offsetWidth * (5 / 3)) : "auto";
 			height = this._3dMolDiv ? this._3dMolDiv.offsetHeight * 2 : 350;
@@ -528,8 +528,8 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 		let data = this.props.pdbChainDataStore.sortedFilteredSelectedData;
 
 		if (data.length === 0) {
-			// if no selected data, then try allData,
-			// first element of allData is always the first element of initially sorted data
+			//  if no selected data, then try allData,
+			//  first element of allData is always the first element of initially sorted data
 			data = this.props.pdbChainDataStore.allData;
 		}
 
@@ -544,7 +544,7 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 	get residueWarning(): string {
 		let warning = "";
 
-		// None of the mutations (selected or not) can be mapped onto the current PDB chain.
+		//  None of the mutations (selected or not) can be mapped onto the current PDB chain.
 		if (
 			this.proteinPositions.length === 0 ||
 			(this.residueMappingData &&
@@ -552,18 +552,18 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 		) {
 			warning = "None of the mutations can be mapped onto this structure";
 		} else {
-			// find the difference between number of selected position and
-			// the number of mapped positions among the selected ones.
-			// if the difference is not zero, then it means there is at least one unmapped position
-			// among the selected positions.
+			//  find the difference between number of selected position and
+			//  the number of mapped positions among the selected ones.
+			//  if the difference is not zero, then it means there is at least one unmapped position
+			//  among the selected positions.
 			const selectedPositionCount = _.keys(this.selectedMutationsByPosition).length;
 			const diff = selectedPositionCount - this.mappedSelectedPositions.length;
 
-			// there is only one position selected, and it cannot be mapped
+			//  there is only one position selected, and it cannot be mapped
 			if (selectedPositionCount === 1 && diff === 1) {
 				warning = "Selected mutation cannot be mapped onto this structure";
 			} else if (diff > 0) {
-				// more than one position selected, at least one of them cannot be mapped
+				//  more than one position selected, at least one of them cannot be mapped
 				warning = `${diff} of the selections cannot be mapped onto this structure`;
 			}
 		}
@@ -624,20 +624,20 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 			this.chainId &&
 			this.proteinPositions.length > 0
 		) {
-			// TODO remove this after implementing the cache!
-			// create query parameters
-			// this.proteinPositions.forEach((uniprotPosition: number) => {
-			//     this.alignmentIds.forEach((alignmentId: number) => {
-			//         if (this.props.pdbPositionMappingCache) {
-			//             residueMappingData.push(this.props.pdbPositionMappingCache.get({
-			//                 uniprotPosition,
-			//                 alignmentId
-			//             }));
-			//         }
-			//     });
-			// });
+			//  TODO remove this after implementing the cache!
+			//  create query parameters
+			//  this.proteinPositions.forEach((uniprotPosition: number) => {
+			//      this.alignmentIds.forEach((alignmentId: number) => {
+			//          if (this.props.pdbPositionMappingCache) {
+			//              residueMappingData.push(this.props.pdbPositionMappingCache.get({
+			//                  uniprotPosition,
+			//                  alignmentId
+			//              }));
+			//          }
+			//      });
+			//  });
 
-			// TODO this query may slightly change wrt to the cache implementation
+			//  TODO this query may slightly change wrt to the cache implementation
 			const remoteData = this.props.residueMappingCache.get({
 				uniprotId: this.props.uniprotId,
 				pdbId: this.pdbId,

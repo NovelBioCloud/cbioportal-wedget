@@ -14,7 +14,7 @@ import Mutations from "./mutation/Mutations";
 import { stringListToSet } from "../../shared/lib/StringUtils";
 import MutualExclusivityTab from "./mutualExclusivity/MutualExclusivityTab";
 import SurvivalTab from "./survival/SurvivalTab";
-// import Chart from "chart";
+//  import Chart from "chart";
 const Chart = require("chart");
 import { CancerStudy, Sample } from "../../shared/api/generated/CBioPortalAPI";
 import AppConfig from "appConfig";
@@ -48,13 +48,13 @@ function initStore(queryStore: QueryStore) {
 
 	const resultsViewPageStore = new ResultsViewPageStore();
 
-	// following is a bunch of dirty stuff necessary to read state from jsp page
-	// ultimate we will phase this out and this information will be stored in router etc.
-	// const qSession:any = (window as any).QuerySession;
+	//  following is a bunch of dirty stuff necessary to read state from jsp page
+	//  ultimate we will phase this out and this information will be stored in router etc.
+	//  const qSession:any = (window as any).QuerySession;
 	var samplesSpecification: any = [];
 	if (["-1", "all"].indexOf(serverVars.caseSetProperties.case_set_id) > -1) {
-		// "-1" means custom case id, "all" means all cases in
-		// the queried stud(y/ies). Neither is an actual case set that could eg be queried
+		//  "-1" means custom case id, "all" means all cases in
+		//  the queried stud(y/ies). Neither is an actual case set that could eg be queried
 		var studyToSampleMap = serverVars.studySampleObj;
 		var studies = Object.keys(studyToSampleMap);
 		for (var i = 0; i < studies.length; i++) {
@@ -79,9 +79,9 @@ function initStore(queryStore: QueryStore) {
 	}
 
 	resultsViewPageStore.samplesSpecification = samplesSpecification;
-	resultsViewPageStore.hugoGeneSymbols = _.map(parsedOQL, (o: any) => o.gene); // qSession.getQueryGenes();
-	resultsViewPageStore.selectedMolecularProfileIds = serverVars.molecularProfiles; // qSession.getGeneticProfileIds();
-	resultsViewPageStore.rppaScoreThreshold = serverVars.rppaScoreThreshold; // FIX!
+	resultsViewPageStore.hugoGeneSymbols = _.map(parsedOQL, (o: any) => o.gene); //  qSession.getQueryGenes();
+	resultsViewPageStore.selectedMolecularProfileIds = serverVars.molecularProfiles; //  qSession.getGeneticProfileIds();
+	resultsViewPageStore.rppaScoreThreshold = serverVars.rppaScoreThreshold; //  FIX!
 	resultsViewPageStore.zScoreThreshold = serverVars.zScoreThreshold;
 	resultsViewPageStore.oqlQuery = oqlQuery;
 	resultsViewPageStore.queryStore = queryStore;
@@ -133,9 +133,9 @@ export default class ResultsViewPage extends React.Component<IResultsViewPagePro
 			<Observer>
 				{() => {
 					if (this.resultsViewPageStore.studies.isComplete) {
-						// return <OverlappingStudiesWarning studies={resultsViewPageStore.studies.result!}/>
-						// disable overlapping studies warning until #3395
-						// is implemented
+						//  return <OverlappingStudiesWarning studies={resultsViewPageStore.studies.result!}/>
+						//  disable overlapping studies warning until #3395
+						//  is implemented
 						return <span />;
 					} else {
 						return <span />;

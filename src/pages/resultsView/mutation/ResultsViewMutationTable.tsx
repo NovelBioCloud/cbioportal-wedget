@@ -9,7 +9,7 @@ import CancerTypeColumnFormatter from "shared/components/mutationTable/column/Ca
 import TumorAlleleFreqColumnFormatter from "shared/components/mutationTable/column/TumorAlleleFreqColumnFormatter";
 
 export interface IResultsViewMutationTableProps extends IMutationTableProps {
-	// add results view specific props here if needed
+	//  add results view specific props here if needed
 }
 
 @observer
@@ -57,7 +57,7 @@ export default class ResultsViewMutationTable extends MutationTable<IResultsView
 	protected generateColumns() {
 		super.generateColumns();
 
-		// override default visibility for some columns
+		//  override default visibility for some columns
 		this._columns[MutationTableColumnType.CANCER_TYPE].visible = CancerTypeColumnFormatter.isVisible(
 			this.props.dataStore ? this.props.dataStore.allData : this.props.data,
 			this.props.uniqueSampleKeyToTumorType
@@ -66,7 +66,7 @@ export default class ResultsViewMutationTable extends MutationTable<IResultsView
 			this.props.dataStore ? this.props.dataStore.allData : this.props.data
 		);
 
-		// order columns
+		//  order columns
 		this._columns[MutationTableColumnType.STUDY].order = 0;
 		this._columns[MutationTableColumnType.SAMPLE_ID].order = 10;
 		this._columns[MutationTableColumnType.CANCER_TYPE].order = 15;
@@ -92,7 +92,7 @@ export default class ResultsViewMutationTable extends MutationTable<IResultsView
 		this._columns[MutationTableColumnType.REF_READS_N].order = 210;
 		this._columns[MutationTableColumnType.NUM_MUTATIONS].order = 220;
 
-		// exclude
+		//  exclude
 		this._columns[MutationTableColumnType.CANCER_TYPE].shouldExclude = () => {
 			return !this.props.uniqueSampleKeyToTumorType;
 		};

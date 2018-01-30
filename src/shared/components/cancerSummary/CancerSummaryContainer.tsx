@@ -37,7 +37,7 @@ export default class CancerSummaryContainer extends React.Component<{ store: Res
 		this.groupAlterationsBy = str;
 	}
 
-	// this is used to map study id to study shortname
+	//  this is used to map study id to study shortname
 	private mapStudyIdToShortName(str: string) {
 		if (str in this.props.store.studyMap) {
 			return this.props.store.studyMap[str].shortName;
@@ -48,7 +48,7 @@ export default class CancerSummaryContainer extends React.Component<{ store: Res
 
 	@computed
 	private get tabs() {
-		// if we're grouping by cancer study, we need to use study shortName property instead of studyId
+		//  if we're grouping by cancer study, we need to use study shortName property instead of studyId
 		const labelTransformer = this.groupAlterationsBy === "studyId" ? this.mapStudyIdToShortName : undefined;
 
 		const alterationCountsForCancerTypesByGene = this.props.store.getAlterationCountsForCancerTypesByGene(
@@ -58,7 +58,7 @@ export default class CancerSummaryContainer extends React.Component<{ store: Res
 		);
 
 		const geneTabs = _.map(alterationCountsForCancerTypesByGene, (geneData, geneName: string) => {
-			// count how many alterations there are across all cancer types for this gene
+			//  count how many alterations there are across all cancer types for this gene
 			const alterationCountAcrossCancerType = _.reduce(
 				geneData,
 				(count, alterationData: IAlterationData) => {
@@ -67,7 +67,7 @@ export default class CancerSummaryContainer extends React.Component<{ store: Res
 				0
 			);
 
-			// if there are no alterations for this gene, grey out text
+			//  if there are no alterations for this gene, grey out text
 			const anchorStyle = alterationCountAcrossCancerType === 0 ? { color: "#bbb" } : {};
 
 			return (
@@ -84,7 +84,7 @@ export default class CancerSummaryContainer extends React.Component<{ store: Res
 			);
 		});
 
-		// only add combined gene tab if there's more than one gene
+		//  only add combined gene tab if there's more than one gene
 		if (geneTabs.length > 1) {
 			const groupedAlterationDataForAllGenes = this.props.store.getAlterationCountsForCancerTypesForAllGenes(
 				this.props.store.alterationsByGeneBySampleKey.result!,
@@ -116,7 +116,7 @@ export default class CancerSummaryContainer extends React.Component<{ store: Res
 			this.props.store.alterationsByGeneBySampleKey.isPending;
 
 		if (isComplete) {
-			// if we have no groupby value, then we need to choose a default
+			//  if we have no groupby value, then we need to choose a default
 			if (this.groupAlterationsBy === undefined) {
 				if (this.props.store.studies.result.length > 1) {
 					this.groupAlterationsBy = "studyId";
@@ -147,7 +147,7 @@ export default class CancerSummaryContainer extends React.Component<{ store: Res
 		} else if (isPending) {
 			return <Loader isLoading={true} />;
 		} else {
-			// TODO: error!
+			//  TODO: error!
 			return null;
 		}
 	}

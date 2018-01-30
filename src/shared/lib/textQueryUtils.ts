@@ -5,14 +5,14 @@ export type SearchClause =
 export type SearchResult = { match: boolean; forced: boolean };
 
 export function parse_search_query(query: string): SearchClause[] {
-	// First eliminate trailing whitespace and reduce every whitespace
-	//	to a single space.
+	//  First eliminate trailing whitespace and reduce every whitespace
+	// 	to a single space.
 	query = query
 		.toLowerCase()
 		.trim()
 		.split(/\s+/g)
 		.join(" ");
-	// Now factor out quotation marks and inter-token spaces
+	//  Now factor out quotation marks and inter-token spaces
 	let phrases = [];
 	let currInd = 0;
 	let nextSpace, nextQuote;
@@ -42,7 +42,7 @@ export function parse_search_query(query: string): SearchClause[] {
 			}
 		}
 	}
-	// Now get the conjunctive clauses, and the negative clauses
+	//  Now get the conjunctive clauses, and the negative clauses
 	let clauses: SearchClause[] = [];
 	currInd = 0;
 	let nextOr, nextDash;
@@ -110,7 +110,7 @@ export function perform_search_single<T>(
 ) {
 	if (!matcher) matcher = matchPhrase as any;
 
-	// return true iff the query, considering quotation marks, 'and' and 'or' logic, matches
+	//  return true iff the query, considering quotation marks, 'and' and 'or' logic, matches
 	let match = false;
 	let hasPositiveClauseType = false;
 	let forced = false;
@@ -122,7 +122,7 @@ export function perform_search_single<T>(
 		}
 	}
 	if (!hasPositiveClauseType) {
-		// if only negative clauses, match by default
+		//  if only negative clauses, match by default
 		match = true;
 	}
 	for (let clause of parsed_query) {

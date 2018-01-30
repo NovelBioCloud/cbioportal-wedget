@@ -20,7 +20,7 @@ export class MutationTableDownloadDataFetcher
 		private genomeNexusEnrichmentCache?: () => GenomeNexusEnrichmentCache,
 		private mutationCountCache?: () => MutationCountCache
 	) {
-		// TODO labelMobxPromises(this); ?
+		//  TODO labelMobxPromises(this); ?
 	}
 
 	public fetchAndCacheAllLazyData(): Promise<any[]> {
@@ -35,7 +35,7 @@ export class MutationTableDownloadDataFetcher
 				.then((allData: any[]) => {
 					this.allData = allData;
 
-					// add data to cache for future use
+					//  add data to cache for future use
 					for (let i = 0; i < allData.length; i++) {
 						promiseCachePairs.caches[i].addData(allData[i]);
 					}

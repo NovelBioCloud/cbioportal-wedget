@@ -1,9 +1,9 @@
 import React from "react";
 import $ from "jquery";
 import { getHierarchyData } from "shared/lib/StoreUtils";
-// Import jstree.min and style for jstree to work
-import "jstree/dist/jstree.min"; // tslint:disable-line
-import "shared/components/query/styles/jstree/style.css"; // tslint:disable-line
+//  Import jstree.min and style for jstree to work
+import "jstree/dist/jstree.min"; //  tslint:disable-line
+import "shared/components/query/styles/jstree/style.css"; //  tslint:disable-line
 import * as _ from "lodash";
 import { remoteData } from "shared/api/remoteData";
 import CBioPortalAPIInternal, { GenesetHierarchyInfo } from "shared/api/generated/CBioPortalAPIInternal";
@@ -39,7 +39,7 @@ export default class GenesetsJsTree extends React.Component<GenesetsJsTreeProps,
 	}
 
 	componentDidMount() {
-		// React only sets the div to null when the component unmounts
+		//  React only sets the div to null when the component unmounts
 		this.promisedTree = this.initTree(this.tree as Element);
 		this.promisedTree.then(tree => ((this.isLoading = false), tree));
 	}
@@ -63,8 +63,8 @@ export default class GenesetsJsTree extends React.Component<GenesetsJsTreeProps,
 		const data = result_data;
 		const flatData = [];
 
-		// Leafs can be non-unique, therefore a unique ID is necessary,
-		// because selecting a duplicate leaf results in a visualization issue.
+		//  Leafs can be non-unique, therefore a unique ID is necessary,
+		//  because selecting a duplicate leaf results in a visualization issue.
 		let leafId = 0;
 
 		for (const node of data) {
@@ -85,7 +85,7 @@ export default class GenesetsJsTree extends React.Component<GenesetsJsTreeProps,
 				}
 			});
 
-			// Check if node has any gene sets, and if so, iterate over them
+			//  Check if node has any gene sets, and if so, iterate over them
 			if (_.has(node, "genesets")) {
 				for (const geneSet of node.genesets) {
 					const genesetId = leafId++;
@@ -96,26 +96,26 @@ export default class GenesetsJsTree extends React.Component<GenesetsJsTreeProps,
 					const genesetRefLink = geneSet.refLink;
 					let genesetInfo = "";
 
-					// Add score to leaf
+					//  Add score to leaf
 					genesetInfo = genesetInfo + "score = " + genesetRepresentativeScore.toFixed(2);
 
-					// Round pvalue if necessary
-					// 0.005 is rounded to 0.01 and 0.0049 to 0.00, so below 0.005 should be exponential (5e-3)
+					//  Round pvalue if necessary
+					//  0.005 is rounded to 0.01 and 0.0049 to 0.00, so below 0.005 should be exponential (5e-3)
 					if (genesetRepresentativePvalue < 0.005) {
 						genesetRepresentativePvalue = genesetRepresentativePvalue.toExponential(0);
 					} else {
 						genesetRepresentativePvalue = genesetRepresentativePvalue.toFixed(2);
 					}
 
-					// Add pvalue to leaf
+					//  Add pvalue to leaf
 					genesetInfo = genesetInfo + ", p-value = " + genesetRepresentativePvalue;
 
-					// Build label and add styling
+					//  Build label and add styling
 					const genesetNameText =
 						genesetName + `<span style="font-weight:normal;font-style:italic;"> ` + genesetInfo + "</span>";
 
 					flatData.push({
-						// Add compulsory information
+						//  Add compulsory information
 						id: genesetId.toString(),
 						parent: nodeName,
 						text: genesetNameText,
@@ -126,7 +126,7 @@ export default class GenesetsJsTree extends React.Component<GenesetsJsTreeProps,
 							name: genesetName
 						},
 
-						// Also add additional data which might be useful later
+						//  Also add additional data which might be useful later
 						description: genesetDescription,
 						representativeScore: genesetRepresentativeScore,
 						representativePvalue: genesetRepresentativePvalue,
