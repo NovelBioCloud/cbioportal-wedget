@@ -57,8 +57,8 @@ export default class ProteinChainView extends React.Component<
 		return ret;
 	}
 
-	constructor() {
-		super();
+	constructor(props: ProteinChainViewProps) {
+		super(props);
 		this.onMouseOver = this.onMouseOver.bind(this);
 		this.positionToX = this.positionToX.bind(this);
 	}

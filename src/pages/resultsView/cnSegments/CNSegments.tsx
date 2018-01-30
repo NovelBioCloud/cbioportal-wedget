@@ -15,8 +15,8 @@ interface CNSegmentsIframeProps {
 class CNASegmentIframe extends React.Component<CNSegmentsIframeProps, {}> {
 	iframeDiv: HTMLDivElement;
 
-	constructor() {
-		super(props);;
+	constructor(props: CNSegmentsIframeProps) {
+		super(props);
 		this.downloadSegmentData = this.downloadSegmentData.bind(this);
 	}
 

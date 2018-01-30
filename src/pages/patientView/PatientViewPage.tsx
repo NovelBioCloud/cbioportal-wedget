@@ -58,9 +58,9 @@ export default class PatientViewPage extends React.Component<
 	private updatePageTitleReaction: IReactionDisposer;
 
 	constructor(props: IPatientViewPageProps) {
-		super(props);;
+		super(props);
 
-		//TODO: this should be done by a module so that it can be reused on other pages
+		// TODO: this should be done by a module so that it can be reused on other pages
 		const reaction1 = reaction(
 			() => props.routing.location.query,
 			query => {

@@ -24,8 +24,8 @@ export default class CancerSummaryContainer extends React.Component<
 
 	private resultsViewPageContent: HTMLElement;
 
-	constructor() {
-		super();
+	constructor(props: { store: ResultsViewPageStore }) {
+		super(props);
 		this.handleTabClick = this.handleTabClick.bind(this);
 		this.pivotData = this.pivotData.bind(this);
 		this.mapStudyIdToShortName = this.mapStudyIdToShortName.bind(this);

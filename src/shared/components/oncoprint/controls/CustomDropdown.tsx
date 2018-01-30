@@ -39,8 +39,8 @@ export default class CustomDropdown extends React.Component<ButtonProps, {}> {
 	private toggle: () => void;
 	private hide: () => void;
 
-	constructor() {
-		super();
+	constructor(props: ICustomDropdownProps) {
+		super(props);
 		this.toggle = () => {
 			this.open = !this.open;
 		};

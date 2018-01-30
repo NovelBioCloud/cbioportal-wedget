@@ -86,8 +86,8 @@ export class TestimonialStore {
 export default class Testimonials extends React.Component<{}, {}> {
 	private store: TestimonialStore;
 
-	constructor() {
-		super();
+	constructor(props: {}) {
+		super(props);
 
 		this.store = new TestimonialStore();
 	}

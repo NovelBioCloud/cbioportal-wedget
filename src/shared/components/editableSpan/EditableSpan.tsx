@@ -24,8 +24,8 @@ export default class EditableSpan extends React.Component<
 	private spanElt: HTMLSpanElement;
 	private dirty: boolean = false;
 
-	constructor() {
-		super();
+	constructor(props: IEditableSpanProps) {
+		super(props);
 		this.onKeyPress = this.onKeyPress.bind(this);
 		this.onKeyUp = this.onKeyUp.bind(this);
 		this.onBlur = this.onBlur.bind(this);

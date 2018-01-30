@@ -32,6 +32,11 @@ class StudyLink extends React.Component<
 	}
 }
 
+interface QuerySummaryProps {
+	queryStore: QueryStore;
+	store: ResultsViewPageStore;
+}
+
 @observer
 export default class QuerySummary extends React.Component<
 	{ queryStore: QueryStore; store: ResultsViewPageStore },
@@ -40,8 +45,8 @@ export default class QuerySummary extends React.Component<
 	@observable private queryFormVisible = false;
 	@observable private queryStoreInitialized = false;
 
-	constructor() {
-		super(props);;
+	constructor(props: QuerySummaryProps) {
+		super(props);
 		this.handleModifyQueryClick = this.handleModifyQueryClick.bind(this);
 	}
 
@@ -95,9 +100,9 @@ export default class QuerySummary extends React.Component<
 			<div className="cbioportal-frontend">
 				<ul className="list-unstyled" style={{ marginBottom: 0 }}>
 					{this.props.store.studies.result.map(
-						(study: CancerStudy) => {
+						(study: CancerStudy, index: number) => {
 							return (
-								<li>
+								<li key={index}>
 									<StudyLink
 										href={`study?id=${study.studyId}`}
 										study={study}

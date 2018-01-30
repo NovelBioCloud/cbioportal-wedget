@@ -19,7 +19,7 @@ export default class PathologyReport extends React.Component<
 	pdfEmbed: any;
 
 	constructor(props: IPathologyReportProps) {
-		super(props);;
+		super(props);
 
 		this.state = { pdfUrl: this.buildPDFUrl(props.pdfs[0].url) };
 

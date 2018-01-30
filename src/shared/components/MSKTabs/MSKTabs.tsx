@@ -66,8 +66,8 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 	private navTabsRef: HTMLUListElement;
 	private tabRefs: { id: string; element: HTMLLIElement }[] = [];
 
-	constructor() {
-		super();
+	constructor(props: IMSKTabsProps) {
+		super(props);
 
 		this.state = {
 			currentPage: 1,

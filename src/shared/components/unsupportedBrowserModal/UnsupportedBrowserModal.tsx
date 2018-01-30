@@ -13,8 +13,8 @@ export default class UnsupportedBrowserModal extends React.Component<
 	{},
 	IBrowserState
 > {
-	constructor() {
-		super();
+	constructor(props: {}) {
+		super(props);
 
 		this.state = {
 			name: browser.name,

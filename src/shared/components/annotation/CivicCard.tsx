@@ -13,8 +13,8 @@ export interface ICivicCardProps {
 }
 
 export default class CivicCard extends React.Component<ICivicCardProps, {}> {
-	constructor() {
-		super(props);;
+	constructor(props: ICivicCardProps) {
+		super(props);
 	}
 
 	/**

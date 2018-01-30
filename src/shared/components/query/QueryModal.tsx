@@ -9,8 +9,8 @@ export default class QueryModal extends React.Component<
 	{ store: QueryStore; styles?: any },
 	{ showModal: boolean }
 > {
-	constructor() {
-		super();
+	constructor(props: { store: QueryStore; styles?: any }) {
+		super(props);
 
 		this.toggleState = this.toggleState.bind(this);
 

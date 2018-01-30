@@ -5,8 +5,8 @@ export default class IFrameLoader extends React.Component<
 	{ url: string; height: Number },
 	{}
 > {
-	constructor() {
-		super();
+	constructor(props: { url: string; height: Number }) {
+		super(props);
 	}
 
 	render() {

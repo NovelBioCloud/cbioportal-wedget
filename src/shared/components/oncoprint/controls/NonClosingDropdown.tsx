@@ -11,8 +11,8 @@ export default class NonClosingDropdown extends React.Component<
 	private _forceOpen: boolean = false;
 	@observable private open: boolean = false;
 
-	constructor() {
-		super();
+	constructor(props: DropdownButtonProps) {
+		super(props);
 	}
 
 	@computed

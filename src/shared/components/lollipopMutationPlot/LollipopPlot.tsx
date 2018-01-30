@@ -57,8 +57,8 @@ export default class LollipopPlot extends React.Component<
 	private plot: LollipopPlotNoTooltip;
 	private handlers: any;
 
-	constructor() {
-		super();
+	constructor(props: LollipopPlotProps) {
+		super(props);
 
 		this.handlers = {
 			ref: (plot: LollipopPlotNoTooltip) => {

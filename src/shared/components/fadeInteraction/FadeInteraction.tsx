@@ -20,7 +20,7 @@ export default class FadeInteraction extends React.Component<
 	};
 
 	constructor(props: IFadeInteractionProps) {
-		super();
+		super(props);
 		this.initialShow = props.showByDefault === true;
 		this.onFocus = this.onFocus.bind(this);
 		this.onBlur = this.onBlur.bind(this);

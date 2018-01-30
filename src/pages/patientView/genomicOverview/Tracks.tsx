@@ -20,8 +20,8 @@ interface TracksPropTypes {
 }
 
 export default class Tracks extends React.Component<TracksPropTypes, {}> {
-	constructor() {
-		super(props);;
+	constructor(props: TracksPropTypes) {
+		super(props);
 	}
 
 	componentDidMount() {
@@ -93,8 +93,8 @@ export default class Tracks extends React.Component<TracksPropTypes, {}> {
 					if (this.props.sampleManager.samples.length > 1) {
 						const $container = $(`#cnaTrack${sample.id}`);
 						const pos = {
-							x: parseInt($container.attr("x")) - 10,
-							y: parseInt($container.attr("y")) - 5
+							x: parseInt($container.attr("x"), 10) - 10,
+							y: parseInt($container.attr("y"), 10) - 5
 						};
 						const $newContainer = $(
 							'<svg height="12" width="12" />'

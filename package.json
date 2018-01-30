@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@types/bowser": "^1.1.1",
+    "@types/classnames": "^2.2.3",
     "@types/detect-browser": "^2.0.0",
     "@types/lodash": "^4.14.97",
     "@types/prop-types": "^15.5.2",
@@ -13,6 +14,7 @@
     "@types/superagent": "^3.5.7",
     "better-react-spinkit": "^2.0.4",
     "bowser": "^1.9.1",
+    "classnames": "^2.2.5",
     "detect-browser": "^2.0.0",
     "jquery": "^3.3.1",
     "lodash": "^4.17.4",

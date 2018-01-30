@@ -38,8 +38,8 @@ export default class SummaryBarGraph extends React.Component<
 	private chart: any;
 	private chartConfig: any = { type: "bar" };
 
-	constructor() {
-		super();
+	constructor(props: ISummaryBarGraphProps) {
+		super(props);
 
 		this.updateChart = this.updateChart.bind(this);
 		this.getLegendNames = this.getLegendNames.bind(this);

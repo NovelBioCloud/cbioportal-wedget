@@ -34,8 +34,8 @@ export class ColumnVisibilityControls extends React.Component<
 		buttonText: "Columns"
 	};
 
-	constructor() {
-		super();
+	constructor(props: IColumnVisibilityControlsProps) {
+		super(props);
 		this.handleSelect = this.handleSelect.bind(this);
 	}
 

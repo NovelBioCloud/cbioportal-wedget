@@ -26,8 +26,8 @@ export default class TextExpander extends React.Component<
 		truncateText: " "
 	};
 
-	constructor() {
-		super();
+	constructor(props: ITextExpanderProps) {
+		super(props);
 
 		this.toggleText = this.toggleText.bind(this);
 	}

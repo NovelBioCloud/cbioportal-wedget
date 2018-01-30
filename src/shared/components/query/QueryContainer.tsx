@@ -41,8 +41,8 @@ export default class QueryContainer extends React.Component<
 	QueryContainerProps,
 	{}
 > {
-	constructor() {
-		super();
+	constructor(props: QueryContainerProps) {
+		super(props);
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
