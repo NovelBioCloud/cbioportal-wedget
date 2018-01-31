@@ -15,68 +15,68 @@ import { setInterval } from "timers";
 //  import onMobxPromise from './onMobxPromist';
 import MutationMapper from "./pages/resultsView/mutation/MutationMapper";
 import AppConfig from "appConfig";
-
-//  useStrict(true);
-const delay = (time: number) => {
-	return new Promise((resolve, reject) => {
-		setTimeout(resolve, time);
-	});
-};
-
-class AppStore {
-	@observable time: number = 0;
-	readonly asyncTime0 = new MobxPromise({
-		invoke: async () => {
-			console.log(this.time);
-			await delay(1000);
-			return this.time;
-		},
-		default: 0
-	});
-	readonly asyncTime1 = new MobxPromise({
-		await: () => [this.asyncTime0],
-		invoke: async () => {
-			await delay(500);
-			return this.time;
-		},
-		default: 0
-	});
-	readonly asyncTime = new MobxPromise({
-		await: () => [this.asyncTime0, this.asyncTime1],
-		invoke: async () => {
-			await delay(500);
-			return this.time;
-		},
-		default: 0
-	});
+import * as _ from "lodash";
+import { remoteData } from "./shared/api/remoteData";
+import { Gene } from "./shared/api/generated/CBioPortalAPI";
+import { client } from "./client";
+import { MutationMapperStore } from "./custom/MutationMapperStore";
+import PdbHeaderCache from "./shared/cache/PdbHeaderCache";
+export class Store {
+	@observable geneName: string = null;
+	@observable name: string = "";
 	@action
-	change() {
-		this.time += 1;
+	changeName = () => {
+		this.name = _.random(10).toString();
+		this.changeGeneName(this.name);
+	};
+	@action
+	changeGeneName = (geneName: string) => {
+		this.geneName = geneName;
+	};
+	@cached
+	get pdbHeaderCache(): PdbHeaderCache {
+		return new PdbHeaderCache();
 	}
+	@observable geneStore: MutationMapperStore = null;
+	readonly gene = remoteData<Gene>({
+		invoke: async () => {
+			if (this.geneName) {
+				return client.getGene(this.geneName);
+			} else {
+				return null;
+			}
+		},
+		default: null,
+		onResult: (gene: Gene) => {
+			console.log("update genes", gene);
+		}
+	});
 }
-const appStore = new AppStore();
-setInterval(() => {
-	//  appStore.change();
-}, 100);
 
 @observer
-class App extends React.Component<any, any> {
-	appStore: AppStore = appStore;
+export class App extends React.Component<{ store: Store }, any> {
 	@observable num: number = 0;
 	constructor(props: any) {
 		super(props);
-		//  onMobxPromise(this.appStore.firstData, (result) => {
-		//  	this.num = result;
-		//  });
 	}
 	render() {
-		const mutationMapperStore = this.props.store.getMutationMapperStore("gene");
 		return (
-			<div className="App">
-				<MutationMapper store={mutationMapperStore} pdbHeaderCache={this.props.store.pdbHeaderCache} />
+			<div className="App" onClick={this.props.store.changeName}>
+				!!{this.props.store.name}!!
+				{this.renderMutationMapper()}
 			</div>
 		);
 	}
+	renderMutationMapper() {
+		const mutationMapperStore: any = this.props.store.geneStore;
+		if (mutationMapperStore) {
+			return (
+				<div className="App">
+					<MutationMapper store={mutationMapperStore} pdbHeaderCache={this.props.store.pdbHeaderCache} />
+				</div>
+			);
+		} else {
+			return null;
+		}
+	}
 }
-
-export default App;

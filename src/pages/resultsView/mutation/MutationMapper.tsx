@@ -1,17 +1,26 @@
 import * as React from "react";
 import { observer } from "mobx-react";
-import LoadingIndicator from "../../../shared/components/loadingIndicator/LoadingIndicator";
-import StructureViewerPanel from "../../../shared/components/structureViewer/StructureViewerPanel";
-import PdbHeaderCache from "../../../shared/cache/PdbHeaderCache";
-import { DEFAULT_PROTEIN_IMPACT_TYPE_COLORS } from "../../../shared/lib/MutationUtils";
+import { Button, ButtonGroup } from "react-bootstrap";
+import LoadingIndicator from "shared/components/loadingIndicator/LoadingIndicator";
+import StructureViewerPanel from "shared/components/structureViewer/StructureViewerPanel";
+import DiscreteCNACache from "shared/cache/DiscreteCNACache";
+import GenomeNexusEnrichmentCache from "shared/cache/GenomeNexusEnrichment";
+import OncoKbEvidenceCache from "shared/cache/OncoKbEvidenceCache";
+import PubMedCache from "shared/cache/PubMedCache";
+import CancerTypeCache from "shared/cache/CancerTypeCache";
+import MutationCountCache from "shared/cache/MutationCountCache";
+import { IMyCancerGenomeData } from "shared/model/MyCancerGenome";
+import PdbHeaderCache from "shared/cache/PdbHeaderCache";
+import { DEFAULT_PROTEIN_IMPACT_TYPE_COLORS } from "shared/lib/MutationUtils";
 import { MutationMapperStore } from "./MutationMapperStore";
+import ResultsViewMutationTable from "./ResultsViewMutationTable";
 import LollipopMutationPlot from "../../../shared/components/lollipopMutationPlot/LollipopMutationPlot";
 import ProteinImpactTypePanel from "../../../shared/components/mutationTypePanel/ProteinImpactTypePanel";
 import ProteinChainPanel from "../../../shared/components/proteinChainPanel/ProteinChainPanel";
 import { computed, action, observable } from "mobx";
-import MutationRateSummary from "./MutationRateSummary";
+import MutationRateSummary from "pages/resultsView/mutation/MutationRateSummary";
 
-//  Anything from App config will be included in mutation mapper config
+// Anything from App config will be included in mutation mapper config
 export interface IMutationMapperConfig {
 	userEmailAddress?: string;
 	showCivic?: boolean;
@@ -24,7 +33,16 @@ export interface IMutationMapperConfig {
 
 export interface IMutationMapperProps {
 	store: MutationMapperStore;
+	config: IMutationMapperConfig;
+	studyId?: string;
+	myCancerGenomeData?: IMyCancerGenomeData;
+	discreteCNACache?: DiscreteCNACache;
+	genomeNexusEnrichmentCache?: GenomeNexusEnrichmentCache;
+	oncoKbEvidenceCache?: OncoKbEvidenceCache;
+	cancerTypeCache?: CancerTypeCache;
+	mutationCountCache?: MutationCountCache;
 	pdbHeaderCache?: PdbHeaderCache;
+	pubMedCache?: PubMedCache;
 }
 
 @observer
@@ -82,7 +100,7 @@ export default class MutationMapper extends React.Component<IMutationMapperProps
 
 	@computed
 	get mutationRateSummary(): JSX.Element | null {
-		//  TODO we should not be even calculating mskImpactGermlineConsentedPatientIds for studies other than msk impact
+		// TODO we should not be even calculating mskImpactGermlineConsentedPatientIds for studies other than msk impact
 		if (
 			this.props.store.germlineConsentedSamples.result &&
 			this.props.store.mutationData.isComplete &&
@@ -163,6 +181,61 @@ export default class MutationMapper extends React.Component<IMutationMapperProps
 							</div>
 						)}
 						<hr style={{ marginTop: 20 }} />
+
+						{!this.props.store.dataStore.showingAllData && (
+							<div
+								style={{
+									marginTop: "5px",
+									marginBottom: "5px"
+								}}
+							>
+								<span
+									style={{ color: "red", fontSize: "14px", fontFamily: "verdana,arial,sans-serif" }}
+								>
+									<span>Current view shows filtered results. Click </span>
+									<a style={{ cursor: "pointer" }} onClick={this.handlers.resetDataStore}>
+										here
+									</a>
+									<span> to reset all filters.</span>
+								</span>
+							</div>
+						)}
+						<LoadingIndicator
+							isLoading={
+								this.props.store.clinicalDataForSamples.isPending ||
+								this.props.store.studiesForSamplesWithoutCancerTypeClinicalData.isPending
+							}
+						/>
+						{!this.props.store.clinicalDataForSamples.isPending &&
+							!this.props.store.studiesForSamplesWithoutCancerTypeClinicalData.isPending && (
+								<ResultsViewMutationTable
+									uniqueSampleKeyToTumorType={this.props.store.uniqueSampleKeyToTumorType}
+									oncoKbAnnotatedGenes={this.props.store.oncoKbAnnotatedGenes}
+									discreteCNACache={this.props.discreteCNACache}
+									studyIdToStudy={this.props.store.studyIdToStudy.result}
+									genomeNexusEnrichmentCache={this.props.genomeNexusEnrichmentCache}
+									molecularProfileIdToMolecularProfile={
+										this.props.store.molecularProfileIdToMolecularProfile.result
+									}
+									oncoKbEvidenceCache={this.props.oncoKbEvidenceCache}
+									pubMedCache={this.props.pubMedCache}
+									mutationCountCache={this.props.mutationCountCache}
+									dataStore={this.props.store.dataStore}
+									downloadDataFetcher={this.props.store.downloadDataFetcher}
+									myCancerGenomeData={this.props.myCancerGenomeData}
+									hotspots={this.props.store.indexedHotspotData.result}
+									cosmicData={this.props.store.cosmicData.result}
+									oncoKbData={this.props.store.oncoKbData}
+									civicGenes={this.props.store.civicGenes}
+									civicVariants={this.props.store.civicVariants}
+									userEmailAddress={this.props.config.userEmailAddress}
+									enableOncoKb={this.props.config.showOncoKB}
+									enableFunctionalImpact={this.props.config.showGenomeNexus}
+									enableHotspot={this.props.config.showHotspot}
+									enableMyCancerGenome={this.props.config.showMyCancerGenome}
+									enableCivic={this.props.config.showCivic}
+								/>
+							)}
 					</div>
 				)}
 			</div>
