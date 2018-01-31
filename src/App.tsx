@@ -15,6 +15,10 @@ import { setInterval } from "timers";
 //  import onMobxPromise from './onMobxPromist';
 import MutationMapper from "./pages/resultsView/mutation/MutationMapper";
 import AppConfig from "appConfig";
+import * as $ from "jquery";
+
+global["$"] = $;
+
 //  useStrict(true);
 const delay = (time: number) => {
 	return new Promise((resolve, reject) => {
@@ -69,13 +73,10 @@ class App extends React.Component<any, any> {
 		//  });
 	}
 	render() {
-		const mutationMapperStore = this.props.store.getMutationMapperStore('gene');
+		const mutationMapperStore = this.props.store.getMutationMapperStore("gene");
 		return (
 			<div className="App">
-				<MutationMapper
-					store={mutationMapperStore}
-					pdbHeaderCache={this.props.store.pdbHeaderCache}
-				/>
+				<MutationMapper store={mutationMapperStore} pdbHeaderCache={this.props.store.pdbHeaderCache} />
 				<button
 					onClick={() => {
 						this.appStore.change();
