@@ -1,14 +1,7 @@
-import {
-	GeneMolecularData,
-	MolecularProfile,
-	Mutation
-} from "../../shared/api/generated/CBioPortalAPI";
+import { GeneMolecularData, MolecularProfile, Mutation } from "../../shared/api/generated/CBioPortalAPI";
 import { action } from "mobx";
 import { getSimplifiedMutationType } from "../../shared/lib/oql/accessors";
-import {
-	AnnotatedGeneMolecularData,
-	AnnotatedMutation
-} from "./ResultsViewPageStore";
+import { AnnotatedGeneMolecularData, AnnotatedMutation } from "./ResultsViewPageStore";
 import { IndicatorQueryResp } from "../../shared/api/generated/OncoKbAPI";
 
 type CustomDriverAnnotationReport = {
@@ -16,9 +9,7 @@ type CustomDriverAnnotationReport = {
 	tiers: string[];
 };
 
-export function computeCustomDriverAnnotationReport(
-	mutations: Mutation[]
-): CustomDriverAnnotationReport {
+export function computeCustomDriverAnnotationReport(mutations: Mutation[]): CustomDriverAnnotationReport {
 	let hasBinary = false;
 	let tiersMap: { [tier: string]: boolean } = {};
 	for (const mutation of mutations) {
@@ -45,11 +36,7 @@ export const initializeCustomDriverAnnotationSettings = action(
 			mutationAnnotationSettings.driverTiers.set(tier, enableCustomTiers);
 		}
 
-		if (
-			enableOncoKbAndHotspotsIfNoCustomAnnotations &&
-			!report.hasBinary &&
-			!report.tiers.length
-		) {
+		if (enableOncoKbAndHotspotsIfNoCustomAnnotations && !report.hasBinary && !report.tiers.length) {
 			//  enable hotspots and oncokb if there are no custom annotations
 			mutationAnnotationSettings.hotspots = true;
 			mutationAnnotationSettings.oncoKb = true;
@@ -81,9 +68,7 @@ export function annotateMutationPutativeDriver(
 			putativeDriver,
 			isHotspot: putativeDriverInfo.hotspots,
 			oncoKbOncogenic: putativeDriverInfo.oncoKb,
-			simplifiedMutationType: getSimplifiedMutationType(
-				mutation.mutationType
-			)
+			simplifiedMutationType: getSimplifiedMutationType(mutation.mutationType)
 		},
 		mutation
 	) as AnnotatedMutation;
@@ -103,33 +88,19 @@ export function computePutativeDriverAnnotatedMutations(
 	},
 	ignoreUnknown: boolean
 ): AnnotatedMutation[] {
-	return mutations.reduce(
-		(annotated: AnnotatedMutation[], mutation: Mutation) => {
-			const annotatedMutation = annotateMutationPutativeDriver(
-				mutation,
-				getPutativeDriverInfo(mutation)
-			); //  annotate
-			if (annotatedMutation.putativeDriver || !ignoreUnknown) {
-				annotated.push(annotatedMutation);
-			}
-			return annotated;
-		},
-		[]
-	);
+	return mutations.reduce((annotated: AnnotatedMutation[], mutation: Mutation) => {
+		const annotatedMutation = annotateMutationPutativeDriver(mutation, getPutativeDriverInfo(mutation)); //  annotate
+		if (annotatedMutation.putativeDriver || !ignoreUnknown) {
+			annotated.push(annotatedMutation);
+		}
+		return annotated;
+	}, []);
 }
 
-export const ONCOKB_ONCOGENIC_LOWERCASE = [
-	"likely oncogenic",
-	"predicted oncogenic",
-	"oncogenic"
-];
+export const ONCOKB_ONCOGENIC_LOWERCASE = ["likely oncogenic", "predicted oncogenic", "oncogenic"];
 
 export function getOncoKbOncogenic(response: IndicatorQueryResp): string {
-	if (
-		ONCOKB_ONCOGENIC_LOWERCASE.indexOf(
-			(response.oncogenic || "").toLowerCase()
-		) > -1
-	) {
+	if (ONCOKB_ONCOGENIC_LOWERCASE.indexOf((response.oncogenic || "").toLowerCase()) > -1) {
 		return response.oncogenic;
 	} else {
 		return "";
@@ -138,17 +109,15 @@ export function getOncoKbOncogenic(response: IndicatorQueryResp): string {
 
 export function annotateMolecularDatum(
 	molecularDatum: GeneMolecularData,
-	getOncoKbCnaAnnotationForOncoprint: (
-		datum: GeneMolecularData
-	) => IndicatorQueryResp,
+	getOncoKbCnaAnnotationForOncoprint: (datum: GeneMolecularData) => IndicatorQueryResp,
 	molecularProfileIdToMolecularProfile: {
 		[molecularProfileId: string]: MolecularProfile;
 	}
 ): AnnotatedGeneMolecularData {
 	let oncogenic = "";
 	if (
-		molecularProfileIdToMolecularProfile[molecularDatum.molecularProfileId]
-			.molecularAlterationType === "COPY_NUMBER_ALTERATION"
+		molecularProfileIdToMolecularProfile[molecularDatum.molecularProfileId].molecularAlterationType ===
+		"COPY_NUMBER_ALTERATION"
 	) {
 		const oncoKbDatum = getOncoKbCnaAnnotationForOncoprint(molecularDatum);
 		if (oncoKbDatum) {

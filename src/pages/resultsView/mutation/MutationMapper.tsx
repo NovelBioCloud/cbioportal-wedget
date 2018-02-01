@@ -1,24 +1,24 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 import { Button, ButtonGroup } from "react-bootstrap";
-import LoadingIndicator from "shared/components/loadingIndicator/LoadingIndicator";
-import StructureViewerPanel from "shared/components/structureViewer/StructureViewerPanel";
-import DiscreteCNACache from "shared/cache/DiscreteCNACache";
-import GenomeNexusEnrichmentCache from "shared/cache/GenomeNexusEnrichment";
-import OncoKbEvidenceCache from "shared/cache/OncoKbEvidenceCache";
-import PubMedCache from "shared/cache/PubMedCache";
-import CancerTypeCache from "shared/cache/CancerTypeCache";
-import MutationCountCache from "shared/cache/MutationCountCache";
-import { IMyCancerGenomeData } from "shared/model/MyCancerGenome";
-import PdbHeaderCache from "shared/cache/PdbHeaderCache";
-import { DEFAULT_PROTEIN_IMPACT_TYPE_COLORS } from "shared/lib/MutationUtils";
+import LoadingIndicator from "../../../shared/components/loadingIndicator/LoadingIndicator";
+import StructureViewerPanel from "../../../shared/components/structureViewer/StructureViewerPanel";
+import DiscreteCNACache from "../../../shared/cache/DiscreteCNACache";
+import GenomeNexusEnrichmentCache from "../../../shared/cache/GenomeNexusEnrichment";
+import OncoKbEvidenceCache from "../../../shared/cache/OncoKbEvidenceCache";
+import PubMedCache from "../../../shared/cache/PubMedCache";
+import CancerTypeCache from "../../../shared/cache/CancerTypeCache";
+import MutationCountCache from "../../../shared/cache/MutationCountCache";
+import { IMyCancerGenomeData } from "../../../shared/model/MyCancerGenome";
+import PdbHeaderCache from "../../../shared/cache/PdbHeaderCache";
+import { DEFAULT_PROTEIN_IMPACT_TYPE_COLORS } from "../../../shared/lib/MutationUtils";
 import { MutationMapperStore } from "./MutationMapperStore";
 import ResultsViewMutationTable from "./ResultsViewMutationTable";
 import LollipopMutationPlot from "../../../shared/components/lollipopMutationPlot/LollipopMutationPlot";
 import ProteinImpactTypePanel from "../../../shared/components/mutationTypePanel/ProteinImpactTypePanel";
 import ProteinChainPanel from "../../../shared/components/proteinChainPanel/ProteinChainPanel";
 import { computed, action, observable } from "mobx";
-import MutationRateSummary from "pages/resultsView/mutation/MutationRateSummary";
+import MutationRateSummary from "./MutationRateSummary";
 
 // Anything from App config will be included in mutation mapper config
 export interface IMutationMapperConfig {

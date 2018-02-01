@@ -1,6 +1,6 @@
-import client from "shared/api/pdbAnnotationClientInstance";
-import LazyMobXCache from "shared/lib/LazyMobXCache";
-import { PdbHeader } from "shared/api/generated/PdbAnnotationAPI";
+import client from "../../shared/api/pdbAnnotationClientInstance";
+import LazyMobXCache from "../../shared/lib/LazyMobXCache";
+import { PdbHeader } from "../../shared/api/generated/PdbAnnotationAPI";
 
 function fetch(pdbIds: string[]): Promise<PdbHeader[]> {
 	if (pdbIds.length === 0) {

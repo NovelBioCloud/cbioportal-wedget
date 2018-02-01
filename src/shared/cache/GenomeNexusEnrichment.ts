@@ -1,13 +1,13 @@
 import * as _ from "lodash";
-import genomeNexusClient from "shared/api/genomeNexusClientInstance";
-import { generateGenomeNexusQuery } from "shared/lib/GenomeNexusUtils";
-import { VariantAnnotation } from "shared/api/generated/GenomeNexusAPI";
+import genomeNexusClient from "../../shared/api/genomeNexusClientInstance";
+import { generateGenomeNexusQuery } from "../../shared/lib/GenomeNexusUtils";
+import { VariantAnnotation } from "../../shared/api/generated/GenomeNexusAPI";
 import {
 	Hotspot,
 	MutationAssessor
-} from "shared/api/generated/GenomeNexusAPIInternal";
-import { Mutation } from "shared/api/generated/CBioPortalAPI";
-import LazyMobXCache, { CacheData } from "shared/lib/LazyMobXCache";
+} from "../../shared/api/generated/GenomeNexusAPIInternal";
+import { Mutation } from "../../shared/api/generated/CBioPortalAPI";
+import LazyMobXCache, { CacheData } from "../../shared/lib/LazyMobXCache";
 
 //  TODO: Genome Nexus should change response type based on fields parameter,
 //  but this is only possible in swagger version 3

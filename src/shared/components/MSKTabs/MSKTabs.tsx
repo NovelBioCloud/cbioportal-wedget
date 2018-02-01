@@ -6,7 +6,7 @@ import ReactNode = React.ReactNode;
 import ReactChildren = React.ReactChildren;
 import { ThreeBounce } from "better-react-spinkit";
 import ReactResizeDetector from "react-resize-detector";
-import onNextRenderFrame from "shared/lib/onNextRenderFrame";
+import onNextRenderFrame from "../../../shared/lib/onNextRenderFrame";
 import "./styles.scss";
 import { ReactElement } from "react";
 

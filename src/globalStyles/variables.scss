@@ -1,0 +1,37 @@
+// e.g. $mutationColor:#990000; will then be usable in any local scss file or css module
+
+/* Colors */
+$mutationColor: blue;
+
+$cream: #F6F4EF;
+$darkCream: #ECE7DB;
+$darkestCream: #DAD1BC;
+$darkBrown: #585755;
+
+$lightBlue: #F1F6FE;
+$mediumBlue: #1982b8;
+
+$lightGrey: #ececec;
+$mediumGrey: #ddd;
+$darkGrey: #999;
+
+$redError: #a71111;
+$greenSuccess: #11a747;
+
+.portalWidth{
+  padding-left:20px;
+  padding-right:20px;
+  min-width:800px;
+}
+
+$gutterWidth: 20px;
+
+$brand-primary: #3786C2;
+
+$borderColor:$mediumGrey;
+
+$headerColor: #3786C2;
+
+$cornerBorderRadius: 5px;
+
+$standardMargin:15px;

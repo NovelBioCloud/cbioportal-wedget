@@ -2,9 +2,9 @@ import * as _ from "lodash";
 import {
 	default as PdbAnnotationAPI,
 	PdbUniprotResidueMapping
-} from "shared/api/generated/PdbAnnotationAPI";
-import pdbAnnotationClient from "shared/api/pdbAnnotationClientInstance";
-import LazyMobXCache from "shared/lib/LazyMobXCache";
+} from "../../shared/api/generated/PdbAnnotationAPI";
+import pdbAnnotationClient from "../../shared/api/pdbAnnotationClientInstance";
+import LazyMobXCache from "../../shared/lib/LazyMobXCache";
 
 export type AlignmentIdAndUniportPos = {
 	alignmentId: number;

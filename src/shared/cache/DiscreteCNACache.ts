@@ -3,13 +3,13 @@ import {
 	AugmentedData,
 	CacheData,
 	default as LazyMobXCache
-} from "shared/lib/LazyMobXCache";
-import client from "shared/api/cbioportalClientInstance";
+} from "../../shared/lib/LazyMobXCache";
+import client from "../../shared/api/cbioportalClientInstance";
 import {
 	DiscreteCopyNumberData,
 	DiscreteCopyNumberFilter,
 	MolecularProfile
-} from "shared/api/generated/CBioPortalAPI";
+} from "../../shared/api/generated/CBioPortalAPI";
 
 export type DiscreteCNACacheDataType = CacheData<DiscreteCopyNumberData>;
 type Query = { studyId: string; sampleId: string; entrezGeneId: number };

@@ -4,9 +4,9 @@ import {
 	ICivicGeneData,
 	ICivicVariant,
 	ICivicVariantData
-} from "shared/model/Civic";
-import civicClient from "shared/api/civicClientInstance";
-import { DiscreteCopyNumberData } from "shared/api/generated/CBioPortalAPI";
+} from "../../shared/model/Civic";
+import civicClient from "../../shared/api/civicClientInstance";
+import { DiscreteCopyNumberData } from "../../shared/api/generated/CBioPortalAPI";
 
 type MutationSpec = { gene: { hugoGeneSymbol: string }; proteinChange: string };
 

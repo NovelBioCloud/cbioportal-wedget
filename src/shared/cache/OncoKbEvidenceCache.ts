@@ -1,8 +1,8 @@
-import { Query } from "shared/api/generated/OncoKbAPI";
-import oncokbClient from "shared/api/oncokbClientInstance";
-import { generateEvidenceQuery, processEvidence } from "shared/lib/OncoKbUtils";
-import { IEvidence } from "shared/model/OncoKB";
-import { default as SimpleCache, ICache } from "shared/lib/SimpleCache";
+import { Query } from "../../shared/api/generated/OncoKbAPI";
+import oncokbClient from "../../shared/api/oncokbClientInstance";
+import { generateEvidenceQuery, processEvidence } from "../../shared/lib/OncoKbUtils";
+import { IEvidence } from "../../shared/model/OncoKB";
+import { default as SimpleCache, ICache } from "../../shared/lib/SimpleCache";
 
 export default class OncoKbEvidenceCache extends SimpleCache<
 	IEvidence,

@@ -16,67 +16,67 @@ import {
 	ClinicalDataMultiStudyFilter,
 	GeneMolecularData,
 	SampleFilter
-} from "shared/api/generated/CBioPortalAPI";
-import { getMyGeneUrl, getUniprotIdUrl } from "shared/api/urls";
-import defaultClient from "shared/api/cbioportalClientInstance";
-import internalClient from "shared/api/cbioportalInternalClientInstance";
-import hotspot3DClient from "shared/api/3DhotspotClientInstance";
-import hotspotClient from "shared/api/hotspotClientInstance";
-import g2sClient from "shared/api/g2sClientInstance";
+} from "../../shared/api/generated/CBioPortalAPI";
+import { getMyGeneUrl, getUniprotIdUrl } from "../../shared/api/urls";
+import defaultClient from "../../shared/api/cbioportalClientInstance";
+import internalClient from "../../shared/api/cbioportalInternalClientInstance";
+import hotspot3DClient from "../../shared/api/3DhotspotClientInstance";
+import hotspotClient from "../../shared/api/hotspotClientInstance";
+import g2sClient from "../../shared/api/g2sClientInstance";
 import {
 	Alignment,
 	default as Genome2StructureAPI
-} from "shared/api/generated/Genome2StructureAPI";
+} from "../../shared/api/generated/Genome2StructureAPI";
 import {
 	CosmicMutation,
 	default as CBioPortalAPIInternal,
 	GisticToGene,
 	Gistic,
 	MutSig
-} from "shared/api/generated/CBioPortalAPIInternal";
-import oncokbClient from "shared/api/oncokbClientInstance";
-import civicClient from "shared/api/civicClientInstance";
-import genomeNexusClient from "shared/api/genomeNexusClientInstance";
-import genomeNexusInternalClient from "shared/api/genomeNexusInternalClientInstance";
+} from "../../shared/api/generated/CBioPortalAPIInternal";
+import oncokbClient from "../../shared/api/oncokbClientInstance";
+import civicClient from "../../shared/api/civicClientInstance";
+import genomeNexusClient from "../../shared/api/genomeNexusClientInstance";
+import genomeNexusInternalClient from "../../shared/api/genomeNexusInternalClientInstance";
 import {
 	generateIdToIndicatorMap,
 	generateQueryVariant,
 	generateEvidenceQuery
-} from "shared/lib/OncoKbUtils";
-import { getCivicVariants, getCivicGenes } from "shared/lib/CivicUtils";
+} from "../../shared/lib/OncoKbUtils";
+import { getCivicVariants, getCivicGenes } from "../../shared/lib/CivicUtils";
 import {
 	Query,
 	default as OncoKbAPI,
 	Gene
-} from "shared/api/generated/OncoKbAPI";
-import { getAlterationString } from "shared/lib/CopyNumberUtils";
+} from "../../shared/api/generated/OncoKbAPI";
+import { getAlterationString } from "../../shared/lib/CopyNumberUtils";
 import { MobxPromise } from "mobxpromise";
 import {
 	keywordToCosmic,
 	indexHotspots,
 	geneToMyCancerGenome
-} from "shared/lib/AnnotationUtils";
-import { indexPdbAlignments } from "shared/lib/PdbUtils";
-import { IOncoKbData } from "shared/model/OncoKB";
-import { IGisticData } from "shared/model/Gistic";
-import { IMutSigData } from "shared/model/MutSig";
+} from "../../shared/lib/AnnotationUtils";
+import { indexPdbAlignments } from "../../shared/lib/PdbUtils";
+import { IOncoKbData } from "../../shared/model/OncoKB";
+import { IGisticData } from "../../shared/model/Gistic";
+import { IMutSigData } from "../../shared/model/MutSig";
 import {
 	IMyCancerGenomeData,
 	IMyCancerGenome
-} from "shared/model/MyCancerGenome";
-import { IHotspotData, ICancerHotspotData } from "shared/model/CancerHotspots";
+} from "../../shared/model/MyCancerGenome";
+import { IHotspotData, ICancerHotspotData } from "../../shared/model/CancerHotspots";
 import {
 	ICivicGeneData,
 	ICivicVariant,
 	ICivicGene
-} from "shared/model/Civic";
-import CancerHotspotsAPI from "shared/api/generated/CancerHotspotsAPI";
+} from "../../shared/model/Civic";
+import CancerHotspotsAPI from "../../shared/api/generated/CancerHotspotsAPI";
 import {
 	MOLECULAR_PROFILE_MUTATIONS_SUFFIX,
 	MOLECULAR_PROFILE_UNCALLED_MUTATIONS_SUFFIX
-} from "shared/constants";
-import GenomeNexusAPI from "shared/api/generated/GenomeNexusAPI";
-import GenomeNexusAPIInternal from "shared/api/generated/GenomeNexusAPIInternal";
+} from "../../shared/constants";
+import GenomeNexusAPI from "../../shared/api/generated/GenomeNexusAPI";
+import GenomeNexusAPIInternal from "../../shared/api/generated/GenomeNexusAPIInternal";
 import { AlterationTypeConstants } from "../../pages/resultsView/ResultsViewPageStore";
 
 export const ONCOKB_DEFAULT: IOncoKbData = {

@@ -1,9 +1,9 @@
-import LazyMobXCache from "shared/lib/LazyMobXCache";
-import client from "shared/api/cbioportalInternalClientInstance";
+import LazyMobXCache from "../../shared/lib/LazyMobXCache";
+import client from "../../shared/api/cbioportalInternalClientInstance";
 import {
 	VariantCount,
 	VariantCountIdentifier
-} from "shared/api/generated/CBioPortalAPIInternal";
+} from "../../shared/api/generated/CBioPortalAPIInternal";
 
 function getKey<T extends { entrezGeneId: number; keyword?: string }>(
 	obj: T

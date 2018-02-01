@@ -1,4 +1,4 @@
-import { PfamDomainRange } from "shared/api/generated/GenomeNexusAPI";
+import { PfamDomainRange } from "../../shared/api/generated/GenomeNexusAPI";
 
 export function generatePfamDomainColorMap(
 	pfamDomains: PfamDomainRange[]

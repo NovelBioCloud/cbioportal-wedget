@@ -5,7 +5,7 @@ import {
 	EvidenceQueryRes,
 	Evidence,
 	IndicatorQueryResp
-} from "shared/api/generated/OncoKbAPI";
+} from "../../shared/api/generated/OncoKbAPI";
 
 /**
  * @author Selcuk Onur Sumer

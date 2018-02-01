@@ -4,7 +4,7 @@ import { MSKTabs, MSKTab } from "../../../shared/components/MSKTabs/MSKTabs";
 import { ResultsViewPageStore } from "../ResultsViewPageStore";
 import MutationMapper from "./MutationMapper";
 import { observable, computed } from "mobx";
-import AppConfig from "appConfig";
+import AppConfig from "../../../config/appConfig";
 import "./mutations.scss";
 import { filterCBioPortalWebServiceData } from "../../../shared/lib/oql/oqlfilter";
 import accessors from "../../../shared/lib/oql/accessors";
