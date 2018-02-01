@@ -12,7 +12,7 @@ import { getOncoQueryDocUrl } from "../../api/urls";
 import { QueryStoreComponent } from "./QueryStore";
 import GenesetsHierarchySelector from "./GenesetsHierarchySelector";
 import SectionHeader from "../sectionHeader/SectionHeader";
-import AppConfig from "appConfig";
+import AppConfig from "../../../config/appConfig";
 
 const styles = styles_any as {
 	GeneSetSelector: string;

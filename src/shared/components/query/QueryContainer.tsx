@@ -13,7 +13,7 @@ import GeneSetSelector from "./GeneSetSelector";
 import LabeledCheckbox from "../labeledCheckbox/LabeledCheckbox";
 import { QueryStore } from "./QueryStore";
 import { providesStoreContext } from "../../lib/ContextUtils";
-import AppConfig from "appConfig";
+import AppConfig from "../../../config/appConfig";
 import CaseSetSelector from "./CaseSetSelector";
 import OverlappingStudiesWarning from "../overlappingStudiesWarning/OverlappingStudiesWarning";
 import UnknownStudiesWarning from "../unknownStudies/UnknownStudiesWarning";
@@ -57,7 +57,7 @@ export default class QueryContainer extends React.Component<QueryContainerProps,
 
 	render(): JSX.Element {
 		//  {Remove until #3395 is implemented
-		// 
+		//
 		//     <OverlappingStudiesWarning studies={this.store.selectedStudies}/>
 		// }
 		return (

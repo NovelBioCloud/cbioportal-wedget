@@ -1,4 +1,4 @@
-import { default as URL, QueryParams } from "url";
+import * as URL from "url";
 import { AppConfig } from "../../config/IAppConfig";
 import formSubmit from "../../shared/lib/formSubmit";
 
@@ -8,13 +8,13 @@ export function getHost() {
 
 export type BuildUrlParams = {
 	pathname: string;
-	query?: QueryParams;
+	query?: any;
 	hash?: string;
 };
 
 export function buildCBioPortalUrl(params: BuildUrlParams): string;
-export function buildCBioPortalUrl(pathname: string, query?: QueryParams, hash?: string): string;
-export function buildCBioPortalUrl(pathnameOrParams: string | BuildUrlParams, query?: QueryParams, hash?: string) {
+export function buildCBioPortalUrl(pathname: string, query?: any, hash?: string): string;
+export function buildCBioPortalUrl(pathnameOrParams: string | BuildUrlParams, query?: any, hash?: string) {
 	let params: BuildUrlParams =
 		typeof pathnameOrParams === "string" ? { pathname: pathnameOrParams, query, hash } : pathnameOrParams;
 	return URL.format({

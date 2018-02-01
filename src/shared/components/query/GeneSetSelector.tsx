@@ -13,7 +13,7 @@ import { QueryStoreComponent } from "./QueryStore";
 import MutSigGeneSelector from "./MutSigGeneSelector";
 import GisticGeneSelector from "./GisticGeneSelector";
 import SectionHeader from "../sectionHeader/SectionHeader";
-import AppConfig from "appConfig";
+import AppConfig from "../../../config/appConfig";
 
 const styles = styles_any as {
 	GeneSetSelector: string;

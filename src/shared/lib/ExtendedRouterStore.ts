@@ -1,11 +1,11 @@
 import { RouterStore } from "mobx-react-router";
 import { action, computed } from "mobx";
 import * as _ from "lodash";
-import URL, { QueryParams } from "url";
+import URL from "url";
 
 export default class ExtendedRouterStore extends RouterStore {
 	@action
-	updateRoute(newParams: QueryParams, path = this.location.pathname) {
+	updateRoute(newParams: any, path = this.location.pathname) {
 		let newQuery = _.clone((this.location as any).query);
 
 		_.each(newParams, (v, k: string) => {

@@ -2,7 +2,7 @@ import Mutations from "./resultsView/mutation/Mutations";
 import ResultsViewPage from "./resultsView/ResultsViewPage";
 import { Component } from "react";
 import * as React from "react";
-(function() {
+export const init = callback => {
 	const windowSelf: any = window;
 	var isVirtualStudy = false;
 	var cancerStudyIdList = "null"; // empty string if single study
@@ -180,7 +180,8 @@ import * as React from "react";
 		"https://cbioportal.mskcc.org/frontend/3ff4b8e1c6b1a5f8966d666e3c18f1e14302ab72/"),
 		(windowSelf.frontendConfig.apiRoot = "www.cbioportal.org");
 	windowSelf.frontendConfig.historyType = "memory"; // default, override on per page bases, set to hash if full react page
-})();
+	callback();
+};
 export class App extends Component<any, any> {
 	render() {
 		return <ResultsViewPage />;

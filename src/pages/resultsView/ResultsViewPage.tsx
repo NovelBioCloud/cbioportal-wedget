@@ -12,16 +12,16 @@ import { ResultsViewPageStore, SamplesSpecificationElement } from "./ResultsView
 import CancerSummaryContainer from "../../shared/components/cancerSummary/CancerSummaryContainer";
 import Mutations from "./mutation/Mutations";
 import { stringListToSet } from "../../shared/lib/StringUtils";
-import Chart from "chart";
+import * as Chart from "chart.js";
 import { CancerStudy, Sample } from "../../shared/api/generated/CBioPortalAPI";
-import AppConfig from "../../config/appConfig"
+import AppConfig from "../../config/appConfig";
 import AddThisBookmark from "../../shared/components/addThis/AddThisBookmark";
 import getOverlappingStudies from "../../shared/lib/getOverlappingStudies";
 import OverlappingStudiesWarning from "../../shared/components/overlappingStudiesWarning/OverlappingStudiesWarning";
 import "./styles.scss";
 
-declare const oqlQuery
-declare const serverVars
+declare const oqlQuery;
+declare const serverVars;
 
 (Chart as any).plugins.register({
 	beforeDraw: function(chartInstance: any) {
@@ -72,7 +72,6 @@ export default class ResultsViewPage extends React.Component<IResultsViewPagePro
 	}
 
 	private initStore() {
-
 		const parsedOQL = (window as any).oql_parser.parse(oqlQuery);
 
 		const resultsViewPageStore = new ResultsViewPageStore();
