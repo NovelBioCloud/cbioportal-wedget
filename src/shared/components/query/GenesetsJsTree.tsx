@@ -1,15 +1,15 @@
 import React from "react";
 import $ from "jquery";
-import { getHierarchyData } from "shared/lib/StoreUtils";
+import { getHierarchyData } from "../../../shared/lib/StoreUtils";
 //  Import jstree.min and style for jstree to work
 import "jstree/dist/jstree.min"; //  tslint:disable-line
-import "shared/components/query/styles/jstree/style.css"; //  tslint:disable-line
+import "../../../shared/components/query/styles/jstree/style.css"; //  tslint:disable-line
 import * as _ from "lodash";
-import { remoteData } from "shared/api/remoteData";
-import CBioPortalAPIInternal, { GenesetHierarchyInfo } from "shared/api/generated/CBioPortalAPIInternal";
+import { remoteData } from "../../../shared/api/remoteData";
+import CBioPortalAPIInternal, { GenesetHierarchyInfo } from "../../../shared/api/generated/CBioPortalAPIInternal";
 import { observer } from "mobx-react";
 import { observable, ObservableMap } from "mobx";
-import LoadingIndicator from "shared/components/loadingIndicator/LoadingIndicator";
+import LoadingIndicator from "../../../shared/components/loadingIndicator/LoadingIndicator";
 
 export interface GenesetsJsTreeProps {
 	initialSelection: string[];

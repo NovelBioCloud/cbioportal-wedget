@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Mutation } from "shared/api/generated/CBioPortalAPI";
-import TruncatedText from "shared/components/TruncatedText";
+import { Mutation } from "../../../../shared/api/generated/CBioPortalAPI";
+import TruncatedText from "../../../../shared/components/TruncatedText";
 import MutationStatusColumnFormatter from "./MutationStatusColumnFormatter";
 import styles from "./proteinChange.module.scss";
 

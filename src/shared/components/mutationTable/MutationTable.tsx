@@ -2,8 +2,12 @@ import * as React from "react";
 import { observer } from "mobx-react";
 import { observable, computed } from "mobx";
 import * as _ from "lodash";
-import { default as LazyMobXTable, Column, SortDirection } from "shared/components/lazyMobXTable/LazyMobXTable";
-import { CancerStudy, MolecularProfile, Mutation } from "shared/api/generated/CBioPortalAPI";
+import {
+	default as LazyMobXTable,
+	Column,
+	SortDirection
+} from "../../../shared/components/lazyMobXTable/LazyMobXTable";
+import { CancerStudy, MolecularProfile, Mutation } from "../../../shared/api/generated/CBioPortalAPI";
 import SampleColumnFormatter from "./column/SampleColumnFormatter";
 import TumorAlleleFreqColumnFormatter from "./column/TumorAlleleFreqColumnFormatter";
 import NormalAlleleFreqColumnFormatter from "./column/NormalAlleleFreqColumnFormatter";
@@ -21,22 +25,22 @@ import MutationCountColumnFormatter from "./column/MutationCountColumnFormatter"
 import CancerTypeColumnFormatter from "./column/CancerTypeColumnFormatter";
 import MutationStatusColumnFormatter from "./column/MutationStatusColumnFormatter";
 import ValidationStatusColumnFormatter from "./column/ValidationStatusColumnFormatter";
-import { ICosmicData } from "shared/model/Cosmic";
+import { ICosmicData } from "../../../shared/model/Cosmic";
 import AnnotationColumnFormatter from "./column/AnnotationColumnFormatter";
-import { IMyCancerGenomeData } from "shared/model/MyCancerGenome";
-import { IHotspotData } from "shared/model/CancerHotspots";
-import { IOncoKbDataWrapper } from "shared/model/OncoKB";
-import { ICivicVariantDataWrapper, ICivicGeneDataWrapper } from "shared/model/Civic";
-import { IMutSigData } from "shared/model/MutSig";
-import DiscreteCNACache from "shared/cache/DiscreteCNACache";
-import OncoKbEvidenceCache from "shared/cache/OncoKbEvidenceCache";
-import GenomeNexusEnrichmentCache from "shared/cache/GenomeNexusEnrichment";
-import MrnaExprRankCache from "shared/cache/MrnaExprRankCache";
-import VariantCountCache from "shared/cache/VariantCountCache";
-import PubMedCache from "shared/cache/PubMedCache";
-import MutationCountCache from "shared/cache/MutationCountCache";
-import { IMobXApplicationDataStore } from "shared/lib/IMobXApplicationDataStore";
-import { IMobXApplicationLazyDownloadDataFetcher } from "shared/lib/IMobXApplicationLazyDownloadDataFetcher";
+import { IMyCancerGenomeData } from "../../../shared/model/MyCancerGenome";
+import { IHotspotData } from "../../../shared/model/CancerHotspots";
+import { IOncoKbDataWrapper } from "../../../shared/model/OncoKB";
+import { ICivicVariantDataWrapper, ICivicGeneDataWrapper } from "../../../shared/model/Civic";
+import { IMutSigData } from "../../../shared/model/MutSig";
+import DiscreteCNACache from "../../../shared/cache/DiscreteCNACache";
+import OncoKbEvidenceCache from "../../../shared/cache/OncoKbEvidenceCache";
+import GenomeNexusEnrichmentCache from "../../../shared/cache/GenomeNexusEnrichment";
+import MrnaExprRankCache from "../../../shared/cache/MrnaExprRankCache";
+import VariantCountCache from "../../../shared/cache/VariantCountCache";
+import PubMedCache from "../../../shared/cache/PubMedCache";
+import MutationCountCache from "../../../shared/cache/MutationCountCache";
+import { IMobXApplicationDataStore } from "../../../shared/lib/IMobXApplicationDataStore";
+import { IMobXApplicationLazyDownloadDataFetcher } from "../../../shared/lib/IMobXApplicationLazyDownloadDataFetcher";
 import generalStyles from "./column/styles.module.scss";
 import classnames from "classnames";
 import { IPaginationControlsProps } from "../paginationControls/PaginationControls";

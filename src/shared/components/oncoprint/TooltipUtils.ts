@@ -7,7 +7,7 @@ import {
 	MolecularProfile,
 	Mutation
 } from "../../api/generated/CBioPortalAPI";
-import client from "shared/api/cbioportalClientInstance";
+import client from "../../../shared/api/cbioportalClientInstance";
 import { ClinicalTrackSpec, GeneticTrackDatum } from "./Oncoprint";
 import {
 	AnnotatedExtendedAlteration,

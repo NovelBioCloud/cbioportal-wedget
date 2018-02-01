@@ -1,5 +1,5 @@
 import * as React from "react";
-import LazyLoadedTableCell from "shared/lib/LazyLoadedTableCell";
+import LazyLoadedTableCell from "../../../../shared/lib/LazyLoadedTableCell";
 import { Mutation, MutationCount } from "../../../api/generated/CBioPortalAPI";
 import MutationCountCache from "../../../cache/MutationCountCache";
 import MutationTable, { IMutationTableProps } from "../MutationTable";

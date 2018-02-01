@@ -1,4 +1,4 @@
-import { IPdbPositionRange } from "shared/model/Pdb";
+import { IPdbPositionRange } from "../../../shared/model/Pdb";
 import { convertPdbPosToResCode } from "./PdbResidueUtils";
 
 export interface IResidueSpec {

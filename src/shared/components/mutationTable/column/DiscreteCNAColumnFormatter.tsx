@@ -1,9 +1,9 @@
 import * as React from "react";
-import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
+import DefaultTooltip from "../../../../shared/components/defaultTooltip/DefaultTooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
-import { DiscreteCNACacheDataType, default as DiscreteCNACache } from "shared/cache/DiscreteCNACache";
-import { MolecularProfile, Mutation } from "shared/api/generated/CBioPortalAPI";
-import { default as TableCellStatusIndicator, TableCellStatus } from "shared/components/TableCellStatus";
+import { DiscreteCNACacheDataType, default as DiscreteCNACache } from "../../../../shared/cache/DiscreteCNACache";
+import { MolecularProfile, Mutation } from "../../../../shared/api/generated/CBioPortalAPI";
+import { default as TableCellStatusIndicator, TableCellStatus } from "../../../../shared/components/TableCellStatus";
 
 export default class DiscreteCNAColumnFormatter {
 	private static altToFilterString: { [a: number]: string } = {

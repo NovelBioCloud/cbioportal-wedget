@@ -2,21 +2,21 @@ import * as React from "react";
 import { Modal } from "react-bootstrap";
 import { observer } from "mobx-react";
 import { Circle } from "better-react-spinkit";
-import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
+import DefaultTooltip from "../../../shared/components/defaultTooltip/DefaultTooltip";
 import annotationStyles from "./styles/annotation.module.scss";
 import oncogenicIconStyles from "./styles/oncogenicIcon.module.scss";
-import { IndicatorQueryResp, Query } from "shared/api/generated/OncoKbAPI";
+import { IndicatorQueryResp, Query } from "../../../shared/api/generated/OncoKbAPI";
 import {
 	oncogenicImageClassNames,
 	calcOncogenicScore,
 	calcSensitivityLevelScore,
 	calcResistanceLevelScore
-} from "shared/lib/OncoKbUtils";
+} from "../../../shared/lib/OncoKbUtils";
 import { observable } from "mobx";
-import OncoKbEvidenceCache from "shared/cache/OncoKbEvidenceCache";
+import OncoKbEvidenceCache from "../../../shared/cache/OncoKbEvidenceCache";
 import OncoKbTooltip from "./OncoKbTooltip";
-import OncokbPubMedCache from "shared/cache/PubMedCache";
-import { default as TableCellStatusIndicator, TableCellStatus } from "shared/components/TableCellStatus";
+import OncokbPubMedCache from "../../../shared/cache/PubMedCache";
+import { default as TableCellStatusIndicator, TableCellStatus } from "../../../shared/components/TableCellStatus";
 import AppConfig from "appConfig";
 
 export interface IOncoKbProps {

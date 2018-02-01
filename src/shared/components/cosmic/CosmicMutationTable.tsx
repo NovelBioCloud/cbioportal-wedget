@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CosmicMutation } from "shared/api/generated/CBioPortalAPIInternal";
+import { CosmicMutation } from "../../../shared/api/generated/CBioPortalAPIInternal";
 import ProteinChangeColumnFormatter from "../mutationTable/column/ProteinChangeColumnFormatter";
 import { Column, default as LazyMobXTable } from "../lazyMobXTable/LazyMobXTable";
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Modal, Button, ButtonGroup } from "react-bootstrap";
 import { ThreeBounce } from "better-react-spinkit";
-import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
+import DefaultTooltip from "../../../shared/components/defaultTooltip/DefaultTooltip";
 import { If } from "react-if";
 import fileDownload from "react-file-download";
 import { action, observable } from "mobx";

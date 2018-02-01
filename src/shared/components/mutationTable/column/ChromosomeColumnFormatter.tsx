@@ -1,4 +1,4 @@
-import { Mutation } from "shared/api/generated/CBioPortalAPI";
+import { Mutation } from "../../../../shared/api/generated/CBioPortalAPI";
 
 /**
  * @author Selcuk Onur Sumer

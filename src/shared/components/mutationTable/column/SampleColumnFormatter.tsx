@@ -1,6 +1,6 @@
 import * as React from "react";
-import { MolecularProfile, Mutation } from "shared/api/generated/CBioPortalAPI";
-import TruncatedText from "shared/components/TruncatedText";
+import { MolecularProfile, Mutation } from "../../../../shared/api/generated/CBioPortalAPI";
+import TruncatedText from "../../../../shared/components/TruncatedText";
 
 /**
  * @author Selcuk Onur Sumer

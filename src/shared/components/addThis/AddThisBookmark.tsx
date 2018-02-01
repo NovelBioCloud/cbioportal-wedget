@@ -2,7 +2,7 @@ import * as React from "react";
 import { observer } from "mobx-react";
 import { ResultsViewPageStore } from "pages/resultsView/ResultsViewPageStore";
 import addthis from "addthis-snippet";
-import Loader from "shared/components/loadingIndicator/LoadingIndicator";
+import Loader from "../../../shared/components/loadingIndicator/LoadingIndicator";
 import { observable } from "mobx";
 
 export interface IAddThisBookmarkProps {

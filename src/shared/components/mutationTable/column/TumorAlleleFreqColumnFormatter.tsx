@@ -1,8 +1,8 @@
 import * as React from "react";
-import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
-import { Mutation } from "shared/api/generated/CBioPortalAPI";
-import TableCellStatusIndicator from "shared/components/TableCellStatus";
-import { TableCellStatus } from "shared/components/TableCellStatus";
+import DefaultTooltip from "../../../../shared/components/defaultTooltip/DefaultTooltip";
+import { Mutation } from "../../../../shared/api/generated/CBioPortalAPI";
+import TableCellStatusIndicator from "../../../../shared/components/TableCellStatus";
+import { TableCellStatus } from "../../../../shared/components/TableCellStatus";
 
 export default class TumorAlleleFreqColumnFormatter {
 	public static mainContent(frequency: number, altReads: number, refReads: number) {

@@ -1,9 +1,9 @@
 import * as React from "react";
-import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
+import DefaultTooltip from "../../../../shared/components/defaultTooltip/DefaultTooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
-import { MrnaExprRankCacheDataType, default as MrnaExprRankCache } from "shared/cache/MrnaExprRankCache";
-import { Mutation, DiscreteCopyNumberData } from "shared/api/generated/CBioPortalAPI";
-import { default as TableCellStatusIndicator, TableCellStatus } from "shared/components/TableCellStatus";
+import { MrnaExprRankCacheDataType, default as MrnaExprRankCache } from "../../../../shared/cache/MrnaExprRankCache";
+import { Mutation, DiscreteCopyNumberData } from "../../../../shared/api/generated/CBioPortalAPI";
+import { default as TableCellStatusIndicator, TableCellStatus } from "../../../../shared/components/TableCellStatus";
 
 export default class MrnaExprColumnFormatter {
 	protected static getCircleX(percentile: number, circleLeft: number, circleRight: number) {

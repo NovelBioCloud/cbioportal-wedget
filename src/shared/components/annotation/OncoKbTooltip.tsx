@@ -1,18 +1,18 @@
 import * as React from "react";
 import OncoKbCard from "./OncoKbCard";
 import { observer } from "mobx-react";
-import OncoKbEvidenceCache from "shared/cache/OncoKbEvidenceCache";
-import OncokbPubMedCache from "shared/cache/PubMedCache";
-import { ICacheData, ICache } from "shared/lib/SimpleCache";
-import { IndicatorQueryResp, Query } from "shared/api/generated/OncoKbAPI";
-import { IEvidence } from "shared/model/OncoKB";
+import OncoKbEvidenceCache from "../../../shared/cache/OncoKbEvidenceCache";
+import OncokbPubMedCache from "../../../shared/cache/PubMedCache";
+import { ICacheData, ICache } from "../../../shared/lib/SimpleCache";
+import { IndicatorQueryResp, Query } from "../../../shared/api/generated/OncoKbAPI";
+import { IEvidence } from "../../../shared/model/OncoKB";
 import {
 	generateTreatments,
 	generateOncogenicCitations,
 	generateMutationEffectCitations,
 	extractPmids
-} from "shared/lib/OncoKbUtils";
-import { default as TableCellStatusIndicator, TableCellStatus } from "shared/components/TableCellStatus";
+} from "../../../shared/lib/OncoKbUtils";
+import { default as TableCellStatusIndicator, TableCellStatus } from "../../../shared/components/TableCellStatus";
 
 export interface IOncoKbTooltipProps {
 	indicator?: IndicatorQueryResp;

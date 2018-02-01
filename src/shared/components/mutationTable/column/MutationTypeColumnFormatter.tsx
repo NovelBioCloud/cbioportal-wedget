@@ -1,8 +1,8 @@
 import * as React from "react";
-import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
-import { Mutation } from "shared/api/generated/CBioPortalAPI";
+import DefaultTooltip from "../../../../shared/components/defaultTooltip/DefaultTooltip";
+import { Mutation } from "../../../../shared/api/generated/CBioPortalAPI";
 import styles from "./mutationType.module.scss";
-import getCanonicalMutationType from "shared/lib/getCanonicalMutationType";
+import getCanonicalMutationType from "../../../../shared/lib/getCanonicalMutationType";
 
 interface IMutationTypeFormat {
 	label?: string;

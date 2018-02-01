@@ -4,9 +4,9 @@ import {
 	IMutationTableProps,
 	MutationTableColumnType,
 	default as MutationTable
-} from "shared/components/mutationTable/MutationTable";
-import CancerTypeColumnFormatter from "shared/components/mutationTable/column/CancerTypeColumnFormatter";
-import TumorAlleleFreqColumnFormatter from "shared/components/mutationTable/column/TumorAlleleFreqColumnFormatter";
+} from "../../../shared/components/mutationTable/MutationTable";
+import CancerTypeColumnFormatter from "../../../shared/components/mutationTable/column/CancerTypeColumnFormatter";
+import TumorAlleleFreqColumnFormatter from "../../../shared/components/mutationTable/column/TumorAlleleFreqColumnFormatter";
 
 export interface IResultsViewMutationTableProps extends IMutationTableProps {
 	//  add results view specific props here if needed

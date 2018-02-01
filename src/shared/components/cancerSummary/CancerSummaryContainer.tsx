@@ -2,7 +2,7 @@ import * as React from "react";
 import * as _ from "lodash";
 import { action, computed, observable } from "mobx";
 import { observer } from "mobx-react";
-import { MSKTabs, MSKTab } from "shared/components/MSKTabs/MSKTabs";
+import { MSKTabs, MSKTab } from "../../../shared/components/MSKTabs/MSKTabs";
 import { If, Then, Else } from "react-if";
 import { ThreeBounce } from "better-react-spinkit";
 import { CancerSummaryContent, IAlterationData } from "./CancerSummaryContent";

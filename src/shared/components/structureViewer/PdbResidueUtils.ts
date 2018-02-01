@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { IPdbPositionRange } from "shared/model/Pdb";
+import { IPdbPositionRange } from "../../../shared/model/Pdb";
 import { IResidueSpec } from "./StructureVisualizer";
 
 export interface IResidueSelector {

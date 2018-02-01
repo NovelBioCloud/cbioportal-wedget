@@ -2,9 +2,9 @@ import * as React from "react";
 import * as _ from "lodash";
 import Collapse from "react-collapse";
 import { If, Then, Else } from "react-if";
-import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
-import { mergeAlterations } from "shared/lib/OncoKbUtils";
-import { ICache } from "shared/lib/SimpleCache";
+import DefaultTooltip from "../../../shared/components/defaultTooltip/DefaultTooltip";
+import { mergeAlterations } from "../../../shared/lib/OncoKbUtils";
+import { ICache } from "../../../shared/lib/SimpleCache";
 //  TODO these need to be defined as modules, and class names used in this component need to be updated
 import "./styles/oncoKbCard.scss";
 import "./styles/oncoKbCard.custom.scss";

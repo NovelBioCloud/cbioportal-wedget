@@ -43,10 +43,10 @@ import { SyntaxError } from "../../lib/oql/oql-parser";
 import StudyListLogic from "./StudyListLogic";
 import { QuerySession } from "../../lib/QuerySession";
 import { stringListToIndexSet, stringListToSet } from "../../lib/StringUtils";
-import chunkMapReduce from "shared/lib/chunkMapReduce";
+import chunkMapReduce from "../../../shared/lib/chunkMapReduce";
 import { VirtualCohort } from "../../../config/IAppConfig";
 import request, { Response } from "superagent";
-import formSubmit from "shared/lib/formSubmit";
+import formSubmit from "../../../shared/lib/formSubmit";
 import {
 	MolecularProfileQueryParams,
 	NonMolecularProfileQueryParams,
@@ -56,7 +56,7 @@ import {
 	molecularProfileParams,
 	queryParams
 } from "./QueryStoreUtils";
-import onMobxPromise from "shared/lib/onMobxPromise";
+import onMobxPromise from "../../../shared/lib/onMobxPromise";
 import VirtualCohorts, {
 	LocalStorageVirtualCohort
 } from "../../lib/VirtualCohorts";

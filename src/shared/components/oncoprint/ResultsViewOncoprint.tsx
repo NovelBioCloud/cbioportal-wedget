@@ -17,7 +17,7 @@ import Oncoprint from "./Oncoprint";
 import OncoprintControls, {
 	IOncoprintControlsHandlers,
 	IOncoprintControlsState
-} from "shared/components/oncoprint/controls/OncoprintControls";
+} from "../../../shared/components/oncoprint/controls/OncoprintControls";
 import { ResultsViewPageStore } from "../../../pages/resultsView/ResultsViewPageStore";
 import { ClinicalAttribute, Gene, MolecularProfile, Mutation, Sample } from "../../api/generated/CBioPortalAPI";
 import {
@@ -27,19 +27,19 @@ import {
 	makeClinicalTracksMobxPromise
 } from "./OncoprintUtils";
 import _ from "lodash";
-import onMobxPromise from "shared/lib/onMobxPromise";
+import onMobxPromise from "../../../shared/lib/onMobxPromise";
 import AppConfig from "appConfig";
-import LoadingIndicator from "shared/components/loadingIndicator/LoadingIndicator";
+import LoadingIndicator from "../../../shared/components/loadingIndicator/LoadingIndicator";
 import OncoprintJS, { TrackId } from "oncoprintjs";
 import fileDownload from "react-file-download";
-import svgToPdfDownload from "shared/lib/svgToPdfDownload";
-import DefaultTooltip from "shared/components/defaultTooltip/DefaultTooltip";
+import svgToPdfDownload from "../../../shared/lib/svgToPdfDownload";
+import DefaultTooltip from "../../../shared/components/defaultTooltip/DefaultTooltip";
 import { Button } from "react-bootstrap";
 import tabularDownload from "./tabularDownload";
-import { SpecialAttribute } from "shared/cache/ClinicalDataCache";
+import { SpecialAttribute } from "../../../shared/cache/ClinicalDataCache";
 import * as URL from "url";
 import classNames from "classnames";
-import FadeInteraction from "shared/components/fadeInteraction/FadeInteraction";
+import FadeInteraction from "../../../shared/components/fadeInteraction/FadeInteraction";
 
 interface IResultsViewOncoprintProps {
 	divId: string;

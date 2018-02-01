@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Mutation, Gene } from "shared/api/generated/CBioPortalAPI";
+import { Mutation, Gene } from "../../../../shared/api/generated/CBioPortalAPI";
 
 /**
  * @author Selcuk Onur Sumer

@@ -32,7 +32,7 @@ import {
 import ResultsViewOncoprint from "./ResultsViewOncoprint";
 import _ from "lodash";
 import { action } from "mobx";
-import { SpecialAttribute } from "shared/cache/ClinicalDataCache";
+import { SpecialAttribute } from "../../../shared/cache/ClinicalDataCache";
 import { OQLLineFilterOutput } from "../../lib/oql/oqlfilter";
 
 export function doWithRenderingSuppressedAndSortingOff(

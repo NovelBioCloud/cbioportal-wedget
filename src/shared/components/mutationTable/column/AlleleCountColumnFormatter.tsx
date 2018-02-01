@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Mutation } from "shared/api/generated/CBioPortalAPI";
+import { Mutation } from "../../../../shared/api/generated/CBioPortalAPI";
 import generalStyles from "./styles.module.scss";
 
 /**

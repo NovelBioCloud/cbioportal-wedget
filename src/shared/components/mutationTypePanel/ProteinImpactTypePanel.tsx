@@ -4,7 +4,7 @@ import { Mutation } from "../../api/generated/CBioPortalAPI";
 import { IMobXApplicationDataStore } from "../../lib/IMobXApplicationDataStore";
 import { observer } from "mobx-react";
 import { ProteinImpactType, getProteinImpactType } from "../../lib/getCanonicalMutationType";
-import { IProteinImpactTypeColors } from "shared/lib/MutationUtils";
+import { IProteinImpactTypeColors } from "../../../shared/lib/MutationUtils";
 
 import styles from "./styles.module.scss";
 

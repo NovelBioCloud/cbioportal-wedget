@@ -1,5 +1,5 @@
 import * as React from "react";
-import reactionWithPrev from "shared/lib/reactionWithPrev";
+import reactionWithPrev from "../../../shared/lib/reactionWithPrev";
 import OncoprintJS, { TrackId, TrackSpec } from "oncoprintjs";
 import {
 	ClinicalAttribute,
