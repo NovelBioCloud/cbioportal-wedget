@@ -1,4 +1,6 @@
 import { IAppConfig } from "./IAppConfig";
 
-const config: IAppConfig = (window as any).frontendConfig || {};
-export default config;
+export const config: IAppConfig = {} as any;
+export const updateConfig = () => {
+	Object.assign(config, (window as any).frontendConfig);
+};

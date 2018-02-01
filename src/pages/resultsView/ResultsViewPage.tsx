@@ -20,7 +20,6 @@ import getOverlappingStudies from "../../shared/lib/getOverlappingStudies";
 import OverlappingStudiesWarning from "../../shared/components/overlappingStudiesWarning/OverlappingStudiesWarning";
 import "./styles.scss";
 
-declare const oqlQuery;
 declare const serverVars;
 
 (Chart as any).plugins.register({
@@ -47,7 +46,6 @@ type OncoprintTabInitProps = {
 
 @observer
 export default class ResultsViewPage extends React.Component<IResultsViewPageProps, {}> {
-	private showTwitter = AppConfig.showTwitter === true;
 	private resultsViewPageStore: ResultsViewPageStore;
 
 	constructor(props: IResultsViewPageProps) {
@@ -72,8 +70,12 @@ export default class ResultsViewPage extends React.Component<IResultsViewPagePro
 	}
 
 	private initStore() {
-		const parsedOQL = (window as any).oql_parser.parse(oqlQuery);
-
+		const oqlQuery = serverVars.theQuery;
+		// @fixed by renyaoxiang
+		// const parsedOQL = (window as any).oql_parser.parse(oqlQuery);
+		const parsedOQL = oqlQuery.split(" ").map(it => ({
+			gene: it
+		}));
 		const resultsViewPageStore = new ResultsViewPageStore();
 
 		//  following is a bunch of dirty stuff necessary to read state from jsp page

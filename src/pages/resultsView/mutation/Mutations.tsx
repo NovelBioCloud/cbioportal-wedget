@@ -71,7 +71,7 @@ export default class Mutations extends React.Component<IMutationsPageProps, {}> 
 							mutationCountCache={this.props.store.mutationCountCache}
 							pdbHeaderCache={this.props.store.pdbHeaderCache}
 							myCancerGenomeData={this.props.store.myCancerGenomeData}
-							config={AppConfig}
+							config={AppConfig as any}
 						/>
 					</MSKTab>
 				);
