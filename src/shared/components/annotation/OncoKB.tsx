@@ -17,7 +17,7 @@ import OncoKbEvidenceCache from "../../../shared/cache/OncoKbEvidenceCache";
 import OncoKbTooltip from "./OncoKbTooltip";
 import OncokbPubMedCache from "../../../shared/cache/PubMedCache";
 import { default as TableCellStatusIndicator, TableCellStatus } from "../../../shared/components/TableCellStatus";
-import AppConfig from "appConfig";
+import AppConfig from "../../../config/appConfig";
 
 export interface IOncoKbProps {
 	status: "pending" | "error" | "complete";

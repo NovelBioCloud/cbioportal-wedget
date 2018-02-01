@@ -531,7 +531,7 @@ export async function fetchCopyNumberData(
 }
 
 export function fetchMyCancerGenomeData(): IMyCancerGenomeData {
-	const data: IMyCancerGenome[] = require("../../../resources/mycancergenome.json");
+	const data: IMyCancerGenome[] = require("../../resources/mycancergenome.json");
 	return geneToMyCancerGenome(data);
 }
 
