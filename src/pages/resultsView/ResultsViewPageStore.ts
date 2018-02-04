@@ -62,7 +62,7 @@ import {
 	fetchGermlineConsentedSamples
 } from "../../shared/lib/StoreUtils";
 import { MutationMapperStore } from "./mutation/MutationMapperStore";
-import AppConfig from "../../config/appConfig";
+import { AppConfig } from "../../config/appConfig";
 import * as _ from "lodash";
 import { stringListToIndexSet, stringListToSet } from "../../shared/lib/StringUtils";
 import { toSampleUuid } from "../../shared/lib/UuidUtils";
@@ -328,10 +328,19 @@ export class ResultsViewPageStore {
 		this.getURL();
 	}
 
+	/**
+	 * 可以删除
+	 */
 	public queryStore: QueryStore;
 
+	/**
+	 * 可以删除
+	 */
 	@observable public urlValidationError: string | null = null;
 
+	/**
+	 * 可以删除
+	 */
 	@observable ajaxErrors: Error[] = [];
 
 	@observable hugoGeneSymbols: string[];
@@ -998,18 +1007,18 @@ export class ResultsViewPageStore {
 		return ret;
 	}, {});
 
-	@computed
-	get studyToSampleListId(): { [studyId: string]: string } {
-		return this.samplesSpecification.reduce(
-			(map, next) => {
-				if (next.sampleListId) {
-					map[next.studyId] = next.sampleListId;
-				}
-				return map;
-			},
-			{} as { [studyId: string]: string }
-		);
-	}
+	// @computed
+	// get studyToSampleListId(): { [studyId: string]: string } {
+	// 	return this.samplesSpecification.reduce(
+	// 		(map, next) => {
+	// 			if (next.sampleListId) {
+	// 				map[next.studyId] = next.sampleListId;
+	// 			}
+	// 			return map;
+	// 		},
+	// 		{} as { [studyId: string]: string }
+	// 	);
+	// }
 
 	readonly studyToMutationMolecularProfile = remoteData<{
 		[studyId: string]: MolecularProfile;
@@ -1042,16 +1051,16 @@ export class ResultsViewPageStore {
 		return fetchMyCancerGenomeData();
 	}
 
-	readonly sampleLists = remoteData<SampleList[]>({
-		invoke: () =>
-			Promise.all(
-				Object.keys(this.studyToSampleListId).map(studyId => {
-					return client.getSampleListUsingGET({
-						sampleListId: this.studyToSampleListId[studyId]
-					});
-				})
-			)
-	});
+	// readonly sampleLists = remoteData<SampleList[]>({
+	// 	invoke: () =>
+	// 		Promise.all(
+	// 			Object.keys(this.studyToSampleListId).map(studyId => {
+	// 				return client.getSampleListUsingGET({
+	// 					sampleListId: this.studyToSampleListId[studyId]
+	// 				});
+	// 			})
+	// 		)
+	// });
 
 	readonly mutations = remoteData<Mutation[]>({
 		await: () => [this.genes, this.selectedMolecularProfiles, this.samples, this.studyIdToStudy],
@@ -1535,25 +1544,25 @@ export class ResultsViewPageStore {
 		}
 	});
 
-	readonly studyToDataQueryFilter = remoteData<{
-		[studyId: string]: IDataQueryFilter;
-	}>(
-		{
-			await: () => [this.studyToSampleIds, this.studyIds],
-			invoke: () => {
-				const studies = this.studyIds.result!;
-				const ret: { [studyId: string]: IDataQueryFilter } = {};
-				for (const studyId of studies) {
-					ret[studyId] = generateDataQueryFilter(
-						this.studyToSampleListId[studyId] || null,
-						Object.keys(this.studyToSampleIds.result[studyId] || {})
-					);
-				}
-				return Promise.resolve(ret);
-			}
-		},
-		{}
-	);
+	// readonly studyToDataQueryFilter = remoteData<{
+	// 	[studyId: string]: IDataQueryFilter;
+	// }>(
+	// 	{
+	// 		await: () => [this.studyToSampleIds, this.studyIds],
+	// 		invoke: () => {
+	// 			const studies = this.studyIds.result!;
+	// 			const ret: { [studyId: string]: IDataQueryFilter } = {};
+	// 			for (const studyId of studies) {
+	// 				ret[studyId] = generateDataQueryFilter(
+	// 					this.studyToSampleListId[studyId] || null,
+	// 					Object.keys(this.studyToSampleIds.result[studyId] || {})
+	// 				);
+	// 			}
+	// 			return Promise.resolve(ret);
+	// 		}
+	// 	},
+	// 	{}
+	// );
 
 	readonly molecularProfileIdToDataQueryFilter = remoteData<{
 		[molecularProfileId: string]: IDataQueryFilter;

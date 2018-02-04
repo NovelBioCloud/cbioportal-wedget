@@ -1,6 +1,41 @@
 import { IAppConfig } from "./IAppConfig";
+import * as _ from "lodash";
 
-const AppConfig: IAppConfig = {} as any;
+export const AppConfig: IAppConfig = {
+	enableDarwin: false,
+	appVersion: "20180129-1123",
+	maxTreeDepth: 3,
+	showOncoKB: true,
+	oncoKBApiUrl: "oncokb.org/api/v1",
+	genomeNexusApiUrl: "http://genomenexus.org/",
+	showCivic: true,
+	showHotspot: true,
+	showMyCancerGenome: true,
+	showGenomeNexus: true,
+	querySetsOfGenes: JSON.parse("null"),
+	skinBlurb:
+		'The cBioPortal for Cancer Genomics provides <b>visualization</b>, <b>analysis</b> and <b>download</b> of large-scale <b>cancer genomics</b> data sets. <p><b>Please cite</b> <a href="http://www.ncbi.nlm.nih.gov/pubmed/23550210">Gao et al. <i>Sci. Signal.</i> 2013</a> &amp;  <a href="http://cancerdiscovery.aacrjournals.org/content/2/5/401.abstract"> Cerami et al. <i>Cancer Discov.</i> 2012</a> when publishing results based on cBioPortal.</p>',
+	skinExampleStudyQueries: 'tcga provisional\ntcga -provisional\ntcga OR icgc\n-"cell line"\nprostate mskcc\nesophageal OR stomach\nserous\nbreast'.split(
+		"\n"
+	),
+	skinDatasetHeader:
+		"The portal currently contains data from <NUM_CANCER_STUDIES> cancer genomics studies.  The table below lists the number of available samples per cancer study and data type.",
+	skinDatasetFooter:
+		'Data sets of published studies were curated from literature. Data sets of provisional TCGA studies were downloaded from the <a href="http://gdac.broadinstitute.org">Broad Institute Firehose</a> and updated quarterly.',
+	skinRightNavShowDatasets: true,
+	skinRightNavShowExamples: true,
+	skinRightNavShowTestimonials: true,
+	skinRightNavExamplesHTML: "",
+	skinRightNavWhatsNewBlurb: "",
+	userEmailAddress: "anonymousUser",
+	oncoprintCustomDriverAnnotationBinaryMenuLabel: "null",
+	oncoprintCustomDriverAnnotationTiersMenuLabel: "null",
+	oncoprintCustomDriverAnnotationDefault: "false" !== "false", // true unless "false"
+	oncoprintCustomDriverTiersAnnotationDefault: "false" !== "false", // true unless "false"
+	oncoprintOncoKbHotspotsDefault: { true: undefined, false: "disable", custom: "custom" }["true"],
+	oncoprintHideVUSDefault: false, // false unless "true"
+	priorityStudies: {}
+} as any;
 /**
  *
  *
@@ -55,7 +90,7 @@ export const updateConfig = () => {
 			JSON.parse
 		)
 	};
-
+	/** ================= */
 	// yes "null" will be string
 	if (windowSelf.cancerStudyIdList && windowSelf.cancerStudyIdList !== "null") {
 		windowSelf.serverVars.cohortIdsList = cancerStudyIdList.split(",");

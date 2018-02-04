@@ -28,7 +28,7 @@ import {
 } from "./OncoprintUtils";
 import _ from "lodash";
 import onMobxPromise from "../../../shared/lib/onMobxPromise";
-import AppConfig from "../../../config/appConfig";
+import { AppConfig } from "../../../config/appConfig";
 import LoadingIndicator from "../../../shared/components/loadingIndicator/LoadingIndicator";
 import OncoprintJS, { TrackId } from "oncoprintjs";
 import fileDownload from "react-file-download";

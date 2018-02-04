@@ -1,5 +1,5 @@
 import * as URL from "url";
-import { AppConfig } from "../../config/IAppConfig";
+import { AppConfig } from "../../config/appConfig";
 import formSubmit from "../../shared/lib/formSubmit";
 
 export function getHost() {
@@ -91,9 +91,10 @@ export function getGenomeNexusApiUrl() {
 	let url = AppConfig.genomeNexusApiUrl;
 	if (typeof url === "string") {
 		//  we need to support legacy configuration values
-		url = url.replace(/^http[s]?:\/\//, ""); //  get rid of protocol
-		url = url.replace(/\/$/, ""); //  get rid of trailing slashes
-		return cbioUrl(`proxy/${url}`);
+		// url = url.replace(/^http[s]?:\/\//, ""); //  get rid of protocol
+		// url = url.replace(/\/$/, ""); //  get rid of trailing slashes
+		// return cbioUrl(`proxy/${url}`);
+		return url;
 	} else {
 		return undefined;
 	}

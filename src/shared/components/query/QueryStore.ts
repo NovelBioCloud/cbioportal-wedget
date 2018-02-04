@@ -28,7 +28,7 @@ import { labelMobxPromises, cached, debounceAsync } from "mobxpromise";
 import internalClient from "../../api/cbioportalInternalClientInstance";
 import oql_parser, { MUTCommand } from "../../lib/oql/oql-parser";
 import memoize from "memoize-weak-decorator";
-import AppConfig from "../../../config/appConfig";
+import { AppConfig } from "../../../config/appConfig";
 import { gsUploadByGet } from "../../api/gsuploadwindow";
 import { OQLQuery, OQLGenesetQuery } from "../../lib/oql/oql-parser";
 import { ComponentGetsStoreContext } from "../../lib/ContextUtils";

@@ -10,16 +10,15 @@ import AjaxErrorModal from "../../shared/components/AjaxErrorModal";
 import exposeComponentRenderer from "../../shared/lib/exposeComponentRenderer";
 import { ResultsViewPageStore, SamplesSpecificationElement } from "./ResultsViewPageStore";
 import CancerSummaryContainer from "../../shared/components/cancerSummary/CancerSummaryContainer";
-import Mutations from "./mutation/Mutations";
 import { stringListToSet } from "../../shared/lib/StringUtils";
 import * as Chart from "chart.js";
 import { CancerStudy, Sample } from "../../shared/api/generated/CBioPortalAPI";
-import AppConfig from "../../config/appConfig";
+import { AppConfig } from "../../config/appConfig";
 import AddThisBookmark from "../../shared/components/addThis/AddThisBookmark";
 import getOverlappingStudies from "../../shared/lib/getOverlappingStudies";
 import OverlappingStudiesWarning from "../../shared/components/overlappingStudiesWarning/OverlappingStudiesWarning";
 import "./styles.scss";
-
+import Mutations from "./mutation/Mutations";
 declare const serverVars;
 
 (Chart as any).plugins.register({
@@ -58,12 +57,6 @@ export default class ResultsViewPage extends React.Component<IResultsViewPagePro
 	public render(): any {
 		return (
 			<div>
-				<AjaxErrorModal
-					show={this.resultsViewPageStore.ajaxErrors.length > 0}
-					onHide={() => {
-						this.resultsViewPageStore.clearErrors();
-					}}
-				/>
 				<Mutations store={this.resultsViewPageStore} />
 			</div>
 		);
@@ -76,6 +69,7 @@ export default class ResultsViewPage extends React.Component<IResultsViewPagePro
 		const parsedOQL = oqlQuery.split(" ").map(it => ({
 			gene: it
 		}));
+		console.log(parsedOQL);
 		const resultsViewPageStore = new ResultsViewPageStore();
 
 		//  following is a bunch of dirty stuff necessary to read state from jsp page

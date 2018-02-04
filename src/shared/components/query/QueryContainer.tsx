@@ -13,7 +13,7 @@ import GeneSetSelector from "./GeneSetSelector";
 import LabeledCheckbox from "../labeledCheckbox/LabeledCheckbox";
 import { QueryStore } from "./QueryStore";
 import { providesStoreContext } from "../../lib/ContextUtils";
-import AppConfig from "../../../config/appConfig";
+import { AppConfig } from "../../../config/appConfig";
 import CaseSetSelector from "./CaseSetSelector";
 import OverlappingStudiesWarning from "../overlappingStudiesWarning/OverlappingStudiesWarning";
 import UnknownStudiesWarning from "../unknownStudies/UnknownStudiesWarning";

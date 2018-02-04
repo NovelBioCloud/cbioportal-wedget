@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import { TypeOfCancer as CancerType } from "../../api/generated/CBioPortalAPI";
 import Testimonials from "../testimonials/Testimonials";
 import { ThreeBounce } from "better-react-spinkit";
-import AppConfig from "../../../config/appConfig";
+import { AppConfig } from "../../../config/appConfig";
 import { QueryStore } from "../../../shared/components/query/QueryStore";
 import { Timeline } from "react-twitter-widgets";
 

@@ -1,10 +1,10 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 import { MSKTabs, MSKTab } from "../../../shared/components/MSKTabs/MSKTabs";
-import { ResultsViewPageStore } from "../ResultsViewPageStore";
+import { MyResultsViewPageStore } from "../MyResultsViewPageStore";
 import MutationMapper from "./MutationMapper";
 import { observable, computed } from "mobx";
-import AppConfig from "../../../config/appConfig";
+import { AppConfig } from "../../../config/appConfig";
 import "./mutations.scss";
 import { filterCBioPortalWebServiceData } from "../../../shared/lib/oql/oqlfilter";
 import accessors from "../../../shared/lib/oql/accessors";
@@ -12,7 +12,7 @@ import Loader from "../../../shared/components/loadingIndicator/LoadingIndicator
 
 export interface IMutationsPageProps {
 	routing?: any;
-	store: ResultsViewPageStore;
+	store: MyResultsViewPageStore;
 }
 
 @observer
@@ -57,7 +57,6 @@ export default class Mutations extends React.Component<IMutationsPageProps, {}> 
 
 		genes.forEach((gene: string) => {
 			const mutationMapperStore = this.props.store.getMutationMapperStore(gene);
-
 			if (mutationMapperStore) {
 				tabs.push(
 					<MSKTab key={gene} id={gene} linkText={gene}>
