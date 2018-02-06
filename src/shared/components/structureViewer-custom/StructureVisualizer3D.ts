@@ -16,7 +16,8 @@ import {
 	generateResiduePosToSelectorMap,
 	findUpdatedResidues
 } from "./PdbResidueUtils";
-import * as $3Dmol from '3dmol'
+const $3Dmol = require('imports-loader?this=>window!3dmol/build/3Dmol.js');
+
 //  3Dmol expects "this" to be the global context
 
 //  ideally these types should be defined in 3Dmol.js lib.

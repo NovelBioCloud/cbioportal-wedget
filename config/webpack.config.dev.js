@@ -9,8 +9,10 @@ const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
 const WatchMissingNodeModulesPlugin = require("react-dev-utils/WatchMissingNodeModulesPlugin");
 const ModuleScopePlugin = require("react-dev-utils/ModuleScopePlugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const getClientEnvironment = require("./env");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const paths = require("./paths");
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -25,18 +27,20 @@ const env = getClientEnvironment(publicUrl);
 const imgPath = "reactapp/images/[hash].[ext]";
 
 var routeComponentRegex = /routes\/([^\/]+\/?[^\/]+).js$/;
-
 var sassResourcesLoader = {
 	loader: "sass-resources-loader",
 	options: {
 		resources: [
-			path.resolve(__dirname, "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss"),
-			path.resolve(__dirname, "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_mixins"),
-			"./src/globalStyles/variables.scss"
+			path.resolve(__dirname, "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss"),
+			path.resolve(__dirname, "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_mixins"),
+			path.resolve(__dirname, "../src/globalStyles/variables.scss")
 		]
 	}
 };
-
+let cssExtractor = new ExtractTextPlugin({
+	filename: "static/css/styles.css",
+	allChunks: true
+});
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
@@ -116,12 +120,8 @@ module.exports = {
 		]
 	},
 	module: {
-		strictExportPresence: true,
+		noParse: [/3Dmol-nojquery.js/],
 		rules: [
-			// TODO: Disable require.ensure as it's not a standard language feature.
-			// We are waiting for https://github.com/facebookincubator/create-react-app/issues/2176.
-			// { parser: { requireEnsure: false } },
-
 			{
 				test: /\.(js|jsx|mjs)$/,
 				loader: require.resolve("source-map-loader"),
@@ -142,98 +142,67 @@ module.exports = {
 				]
 			},
 			{
-				// "oneOf" will traverse all following loaders until one will
-				// match the requirements. When no loader matches it will fall
-				// back to the "file" loader at the end of the loader list.
-				oneOf: [
-					// "url" loader works like "file" loader except that it embeds assets
-					// smaller than specified limit in bytes as data URLs to avoid requests.
-					// A missing `test` is equivalent to a match.
+				test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+				loader: require.resolve("url-loader"),
+				options: {
+					limit: 10000,
+					name: "static/media/[name].[hash:8].[ext]"
+				}
+			},
+			{
+				test: /\.(ts|tsx)$/,
+				include: paths.appSrc,
+				use: [
 					{
-						test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-						loader: require.resolve("url-loader"),
+						loader: require.resolve("ts-loader"),
 						options: {
-							limit: 10000,
-							name: "static/media/[name].[hash:8].[ext]"
-						}
-					},
-					// Compile .tsx?
-					{
-						test: /\.(ts|tsx)$/,
-						include: paths.appSrc,
-						use: [
-							{
-								loader: require.resolve("ts-loader"),
-								options: {
-									// disable type checker - we will use it in fork plugin
-									transpileOnly: true
-								}
-							}
-						]
-					},
-					// "postcss" loader applies autoprefixer to our CSS.
-					// "css" loader resolves paths in CSS and adds assets as dependencies.
-					// "style" loader turns CSS into JS modules that inject <style> tags.
-					// In production, we use a plugin to extract that CSS to a file, but
-					// in development "style" loader enables hot editing of CSS.
-					{
-						test: /\.scss$/,
-						use: [
-							require.resolve("style-loader"),
-							{
-								loader: require.resolve("css-loader"),
-								options: {
-									importLoaders: 1
-								}
-							},
-							require.resolve("sass-loader"),
-							sassResourcesLoader,
-							{
-								loader: require.resolve("postcss-loader"),
-								options: {
-									// Necessary for external CSS imports to work
-									// https://github.com/facebookincubator/create-react-app/issues/2677
-									ident: "postcss",
-									plugins: () => [
-										require("postcss-flexbugs-fixes"),
-										autoprefixer({
-											browsers: [
-												">1%",
-												"last 4 versions",
-												"Firefox ESR",
-												"not ie < 9" // React doesn't support IE8 anyway
-											],
-											flexbox: "no-2009"
-										})
-									]
-								}
-							}
-						]
-					},
-					// "file" loader makes sure those assets get served by WebpackDevServer.
-					// When you `import` an asset, you get its (virtual) filename.
-					// In production, they would get copied to the `build` folder.
-					// This loader doesn't use a "test" so it will catch all modules
-					// that fall through the other loaders.
-					{
-						// Exclude `js` files to keep "css" loader working as it injects
-						// it's runtime that would otherwise processed through "file" loader.
-						// Also exclude `html` and `json` extensions so they get processed
-						// by webpacks internal loaders.
-						exclude: [/\.js$/, /\.html$/, /\.json$/],
-						loader: require.resolve("file-loader"),
-						options: {
-							name: "static/media/[name].[hash:8].[ext]"
+							// disable type checker - we will use it in fork plugin
+							transpileOnly: true
 						}
 					}
 				]
+			},
+			{
+				test: /\.(css)$/,
+				use: cssExtractor.extract({
+					fallback: "style-loader",
+					use: [
+						{
+							loader: "css-loader",
+							options: {
+								minimize: false,
+								sourceMap: true,
+								importLoaders: 1,
+								localIdentName: "[name]--[local]--[hash:base64:8]"
+							}
+						}
+					]
+				})
+			},
+			{
+				test: /\.(scss)$/,
+				use: cssExtractor.extract({
+					fallback: "style-loader",
+					use: [
+						{
+							loader: "css-loader",
+							options: {
+								minimize: false,
+								sourceMap: true,
+								importLoaders: 1,
+								localIdentName: "[name]--[local]--[hash:base64:8]"
+							}
+						},
+						"sass-loader",
+						sassResourcesLoader
+					]
+				})
 			}
-			// ** STOP ** Are you adding a new loader?
-			// Make sure to add the new loader(s) before the "file" loader.
 		]
 	},
 	plugins: [
 		new webpack.BannerPlugin("文件顶部注释说明"),
+		cssExtractor,
 		// Makes some environment variables available in index.html.
 		// The public URL is available as %PUBLIC_URL% in index.html, e.g.:
 		// <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -250,6 +219,7 @@ module.exports = {
 			cache: false,
 			template: paths.appHtml
 		}),
+		new CopyWebpackPlugin([]),
 		// Add module names to factory functions so they appear in browser profiler.
 		new webpack.NamedModulesPlugin(),
 		// Makes some environment variables available to the JS code, for example:
@@ -275,7 +245,7 @@ module.exports = {
 		// Perform type checking and linting in a separate process to speed up compilation
 		new ForkTsCheckerWebpackPlugin({
 			async: false,
-			watch: paths.appSrc,
+			// watch: paths.appSrc,
 			tsconfig: paths.appTsConfig,
 			tslint: paths.appTsLint
 		})
