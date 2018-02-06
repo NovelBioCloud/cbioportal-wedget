@@ -26,6 +26,17 @@ const imgPath = "reactapp/images/[hash].[ext]";
 
 var routeComponentRegex = /routes\/([^\/]+\/?[^\/]+).js$/;
 
+var sassResourcesLoader = {
+	loader: "sass-resources-loader",
+	options: {
+		resources: [
+			path.resolve(__dirname, "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss"),
+			path.resolve(__dirname, "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_mixins"),
+			"./src/globalStyles/variables.scss"
+		]
+	}
+};
+
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
@@ -56,6 +67,10 @@ module.exports = {
 		// initialization, it doesn't blow up the WebpackDevServer client, and
 		// changing JS code would still trigger a refresh.
 	],
+	externals: {
+		window: "window",
+		global: "window"
+	},
 	output: {
 		// Add /* filename */ comments to generated require()s in the output.
 		pathinfo: true,
@@ -172,6 +187,7 @@ module.exports = {
 								}
 							},
 							require.resolve("sass-loader"),
+							sassResourcesLoader,
 							{
 								loader: require.resolve("postcss-loader"),
 								options: {
@@ -224,8 +240,14 @@ module.exports = {
 		// In development, this will be an empty string.
 		new InterpolateHtmlPlugin(env.raw),
 		// Generates an `index.html` file with the <script> injected.
+		// new HtmlWebpackPlugin({
+		// 	title: "mutation",
+		// 	cache: false,
+		// 	template: "public/myindex.ejs"
+		// }),
 		new HtmlWebpackPlugin({
 			inject: true,
+			cache: false,
 			template: paths.appHtml
 		}),
 		// Add module names to factory functions so they appear in browser profiler.
@@ -265,7 +287,8 @@ module.exports = {
 		fs: "empty",
 		net: "empty",
 		tls: "empty",
-		child_process: "empty"
+		child_process: "empty",
+		global: true
 	},
 	// Turn off performance hints during development because we don't do any
 	// splitting or minification in interest of speed. These warnings become

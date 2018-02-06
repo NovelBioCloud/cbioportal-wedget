@@ -98,28 +98,6 @@ export default class MutationMapper extends React.Component<IMutationMapperProps
 		);
 	}
 
-	@computed
-	get mutationRateSummary(): JSX.Element | null {
-		// TODO we should not be even calculating mskImpactGermlineConsentedPatientIds for studies other than msk impact
-		if (
-			this.props.store.germlineConsentedSamples.result &&
-			this.props.store.mutationData.isComplete &&
-			this.props.store.mutationData.result.length > 0
-		) {
-			return (
-				<MutationRateSummary
-					hugoGeneSymbol={this.props.store.gene.hugoGeneSymbol}
-					molecularProfileIdToMolecularProfile={this.props.store.molecularProfileIdToMolecularProfile}
-					mutations={this.props.store.mutationData.result}
-					samples={this.props.store.samples.result!}
-					germlineConsentedSamples={this.props.store.germlineConsentedSamples}
-				/>
-			);
-		} else {
-			return null;
-		}
-	}
-
 	public render() {
 		return (
 			<div>
@@ -160,8 +138,6 @@ export default class MutationMapper extends React.Component<IMutationMapperProps
 
 								<div className="mutationMapperMetaColumn">
 									{this.geneSummary}
-
-									{this.mutationRateSummary}
 
 									<div>
 										<ProteinImpactTypePanel

@@ -5,21 +5,21 @@ import { PfamDomain, PfamDomainRange } from "../../../shared/api/generated/Genom
 import { LollipopSpec, DomainSpec, SequenceSpec } from "./LollipopPlotNoTooltip";
 import { remoteData } from "../../api/remoteData";
 import LoadingIndicator from "../../../shared/components/loadingIndicator/LoadingIndicator";
-import request from "superagent";
-import classnames from "classnames";
+import * as request from "superagent";
+import * as classnames from "classnames";
 import Response = request.Response;
 import { observer, Observer } from "mobx-react";
 import { computed, observable, action } from "mobx";
-import _ from "lodash";
+import * as _ from "lodash";
 import svgToPdfDownload from "../../../shared/lib/svgToPdfDownload";
 import { longestCommonStartingSubstring } from "../../../shared/lib/StringUtils";
 import { getColorForProteinImpactType, IProteinImpactTypeColors } from "../../../shared/lib/MutationUtils";
 import { generatePfamDomainColorMap } from "../../../shared/lib/PfamUtils";
 import { getMutationAlignerUrl } from "../../../shared/api/urls";
-import ReactDOM from "react-dom";
-import fileDownload from "react-file-download";
-import styles from "./lollipopMutationPlot.module.scss";
-import Collapse from "react-collapse";
+import * as ReactDOM from "react-dom";
+import * as fileDownload from "react-file-download";
+import * as styles from "./lollipopMutationPlot.module.scss";
+import * as Collapse from "react-collapse";
 import { MutationMapperStore } from "../../../pages/resultsView/mutation-custom/MutationMapperStore";
 import EditableSpan from "../editableSpan/EditableSpan";
 

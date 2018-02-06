@@ -1,7 +1,7 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 import { MSKTabs, MSKTab } from "../../../shared/components/MSKTabs/MSKTabs";
-import { MyResultsViewPageStore } from "../MyResultsViewPageStore";
+import { ResultsViewPageStore as MyResultsViewPageStore } from "../ResultsViewPageStore";
 import MutationMapper from "./MutationMapper";
 import { observable, computed } from "mobx";
 import { AppConfig } from "../../../config/appConfig";

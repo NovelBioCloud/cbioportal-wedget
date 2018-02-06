@@ -1,5 +1,5 @@
-import fileDownload from "react-file-download";
-import request from "superagent";
+import * as fileDownload from "react-file-download";
+import * as request from "superagent";
 
 function base64ToArrayBuffer(base64: string) {
 	var binaryString = window.atob(base64);

@@ -64,10 +64,11 @@ export default class ProteinChain extends React.Component<ProteinChainProps, {}>
 	render() {
 		return (
 			<g key={this.props.uniqueHitZoneClassName}>
-				{this.segmentsAndGaps.map(obj => {
+				{this.segmentsAndGaps.map((obj, index) => {
 					if (obj.gap) {
 						return (
 							<line
+								key={index}
 								stroke="#666666"
 								strokeWidth="0.5"
 								x1={this.props.positionToX(obj.start)}
@@ -79,6 +80,7 @@ export default class ProteinChain extends React.Component<ProteinChainProps, {}>
 					} else {
 						return (
 							<rect
+								key={index}
 								fill="#3366cc"
 								fillOpacity={this.props.opacity}
 								stroke="#666666"

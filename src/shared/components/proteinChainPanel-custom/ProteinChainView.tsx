@@ -82,13 +82,14 @@ export default class ProteinChainView extends React.Component<ProteinChainViewPr
 		const ret = this.rowSpecs.map((rowSpec, rowIndex) => {
 			return (
 				<g key={rowIndex}>
-					{rowSpec.map(chain => {
+					{rowSpec.map((chain, pointIndex) => {
 						const className = this.makeChainIdClass(chainCounter++);
 						const uid = chain.uid;
 						const y = this.chainY(rowIndex);
 						chainUidToY[uid] = y;
 						return (
 							<ProteinChain
+								key={pointIndex}
 								ref={proteinChain => {
 									if (proteinChain !== null) {
 										this.chainComponents[className] = proteinChain;

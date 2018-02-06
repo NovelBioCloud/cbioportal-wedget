@@ -1,7 +1,7 @@
 import * as React from "react";
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
-import $ from "jquery";
+import * as $ from "jquery";
 import "./styles.scss";
 
 export type DefaultTooltipProps = RCTooltip.RCTooltip.Props & { disabled?: boolean };

@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import { observable, computed } from "mobx";
 import DefaultTooltip from "../defaultTooltip/DefaultTooltip";
 import { default as LollipopPlotNoTooltip, LollipopSpec, DomainSpec, SequenceSpec } from "./LollipopPlotNoTooltip";
-import MutationMapperDataStore from "../../../pages/resultsView/mutation/MutationMapperDataStore";
+import MutationMapperDataStore from "../../../pages/resultsView/mutation-custom/MutationMapperDataStore";
 import HitZone from "../HitZone";
 
 export type LollipopPlotProps = {

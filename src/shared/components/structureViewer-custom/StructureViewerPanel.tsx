@@ -6,8 +6,8 @@ import { ThreeBounce } from "better-react-spinkit";
 import { observable, computed } from "mobx";
 import { observer } from "mobx-react";
 import Draggable from "react-draggable";
-import fileDownload from "react-file-download";
-import classnames from "classnames";
+import * as fileDownload from "react-file-download";
+import * as classnames from "classnames";
 import DefaultTooltip from "../../../shared/components/defaultTooltip/DefaultTooltip";
 import PdbHeaderCache from "../../../shared/cache/PdbHeaderCache";
 import ResidueMappingCache from "../../../shared/cache/ResidueMappingCache";
@@ -28,7 +28,7 @@ import PdbChainInfo from "../PdbChainInfo";
 import { ProteinScheme, ProteinColor, SideChain, MutationColor, IResidueSpec } from "./StructureVisualizer";
 import PyMolScriptGenerator from "./PyMolScriptGenerator";
 
-import styles from "./structureViewer.module.scss";
+import * as styles from "./structureViewer.module.scss";
 
 export interface IStructureViewerPanelProps extends IProteinImpactTypeColors {
 	pdbChainDataStore: IMobXApplicationDataStore<IPdbChain>;

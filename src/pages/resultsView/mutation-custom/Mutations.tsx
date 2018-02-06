@@ -10,10 +10,10 @@ import { filterCBioPortalWebServiceData } from "../../../shared/lib/oql/oqlfilte
 import accessors from "../../../shared/lib/oql/accessors";
 import Loader from "../../../shared/components/loadingIndicator/LoadingIndicator";
 import { MutationMapperStore } from "./MutationMapperStore";
-
+import { remoteData } from "../../../shared/api/remoteData";
+import { ResultsViewPageStoreCustom } from "../ResultsViewPageStoreCustom";
 export interface IMutationsPageProps {
-	routing?: any;
-	store: ResultsViewPageStore;
+	store: ResultsViewPageStoreCustom;
 }
 
 @observer
@@ -27,11 +27,7 @@ export default class Mutations extends React.Component<IMutationsPageProps, {}> 
 	}
 
 	public render() {
-		// use routing if available, if not fall back to the observable variable
-		const activeTabId = this.props.routing
-			? this.props.routing.location.query.mutationsGeneTab
-			: this.mutationsGeneTab;
-
+		const activeTabId = this.mutationsGeneTab;
 		return (
 			<div>
 				<Loader isLoading={this.props.store.mutationMapperStores.isPending} />
@@ -42,7 +38,7 @@ export default class Mutations extends React.Component<IMutationsPageProps, {}> 
 						onTabClick={(id: string) => this.handleTabChange(id)}
 						className="secondaryTabs resultsPageMutationsGeneTabs"
 						enablePagination={true}
-						arrowStyle={{ "line-height": 0.8 }}
+						arrowStyle={{ "lineHeight": 0.8 }}
 						tabButtonStyle="pills"
 						unmountOnHide={true}
 					>
@@ -53,59 +49,21 @@ export default class Mutations extends React.Component<IMutationsPageProps, {}> 
 		);
 	}
 
-	protected getMutationMapperStore(geneName: string) {
-		const {
-			config,
-			gene,
-			samples,
-			mutations,
-			getMutationDataCache,
-			genomeNexusEnrichmentCache,
-			getMutationCountCache,
-			molecularProfileIdToMolecularProfile,
-			germlineConsentedSamples
-		} = {
-			config: AppConfig,
-			gene: null,
-			samples: null,
-			mutations: null,
-			getMutationDataCache: null,
-			genomeNexusEnrichmentCache: null,
-			getMutationCountCache: null,
-			molecularProfileIdToMolecularProfile: null,
-			germlineConsentedSamples: null
-		};
-		return new MutationMapperStore(
-			config,
-			gene,
-			samples,
-			mutations,
-			getMutationDataCache,
-			genomeNexusEnrichmentCache,
-			getMutationCountCache,
-			molecularProfileIdToMolecularProfile,
-			germlineConsentedSamples
-		);
-	}
-
 	protected generateTabs(genes: string[]) {
 		const tabs: JSX.Element[] = [];
 
 		genes.forEach((gene: string) => {
-			const mutationMapperStore: MutationMapperStore = this.getMutationMapperStore(gene);
+			const mutationMapperStore: MutationMapperStore = this.props.store.getMutationMapperStore(gene);
 			if (mutationMapperStore) {
 				tabs.push(
 					<MSKTab key={gene} id={gene} linkText={gene}>
 						<MutationMapper
 							store={mutationMapperStore}
-							discreteCNACache={this.props.store.discreteCNACache}
 							genomeNexusEnrichmentCache={this.props.store.genomeNexusEnrichmentCache}
-							oncoKbEvidenceCache={this.props.store.oncoKbEvidenceCache}
 							pubMedCache={this.props.store.pubMedCache}
 							cancerTypeCache={this.props.store.cancerTypeCache}
 							mutationCountCache={this.props.store.mutationCountCache}
 							pdbHeaderCache={this.props.store.pdbHeaderCache}
-							myCancerGenomeData={this.props.store.myCancerGenomeData}
 							config={AppConfig as any}
 						/>
 					</MSKTab>
@@ -117,12 +75,6 @@ export default class Mutations extends React.Component<IMutationsPageProps, {}> 
 	}
 
 	protected handleTabChange(id: string) {
-		// update the hash if routing exits
-		if (this.props.routing) {
-			this.props.routing.updateRoute({ mutationsGeneTab: id });
-		} else {
-			// update the observable if no routing
-			this.mutationsGeneTab = id;
-		}
+		this.mutationsGeneTab = id;
 	}
 }

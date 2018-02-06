@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as _ from "lodash";
-import classnames from "classnames";
+import * as classnames from "classnames";
 import ReactChild = React.ReactChild;
 import ReactNode = React.ReactNode;
 import ReactChildren = React.ReactChildren;

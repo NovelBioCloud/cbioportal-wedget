@@ -124,6 +124,7 @@
     "enzyme": "^3.3.0",
     "mocha": "^5.0.0",
     "node-sass": "^4.7.2",
+    "sass-resources-loader": "^1.3.2",
     "sinon": "^4.2.2",
     "tslint-react": "^3.4.0"
   },

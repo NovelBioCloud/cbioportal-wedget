@@ -1,6 +1,6 @@
 import * as React from "react";
-import _ from "lodash";
-import $ from "jquery";
+import * as _ from "lodash";
+import * as $ from "jquery";
 import { DomainSpec } from "./LollipopPlotNoTooltip";
 import { observer } from "mobx-react";
 import { action, computed, observable } from "mobx";

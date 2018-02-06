@@ -70,7 +70,7 @@ export class MutationMapperStore {
 		//  (which will be done in the getter thats passed in here) so that the cache itself is observable
 		//  and we will react when it changes to a new object.
 		public mutations: Mutation[],
-		private getMutationDataCache: () => MutationDataCache,
+		// private getMutationDataCache: () => MutationDataCache,
 		private genomeNexusEnrichmentCache: () => GenomeNexusEnrichmentCache,
 		private getMutationCountCache: () => MutationCountCache,
 		public studyIdToStudy: MobxPromise<{ [studyId: string]: CancerStudy }>,

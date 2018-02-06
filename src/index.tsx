@@ -6,11 +6,12 @@ import registerServiceWorker from "./registerServiceWorker";
 import { Provider } from "mobx-react";
 import "./globalStyles/prefixed-global.scss";
 import { MockConfig } from "./shared/mock/MockConfig";
-
+import * as $ from "jquery";
 const start = () => {
 	updateConfig();
 	$(() => {
-		ReactDOM.render(<App />, document.getElementById("root") as HTMLElement);
+		const root = document.getElementById("reactRoot");
+		ReactDOM.render(<App />, root);
 	});
 };
 start();

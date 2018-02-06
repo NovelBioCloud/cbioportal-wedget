@@ -1,5 +1,5 @@
 import * as React from "react";
-import _ from "lodash";
+import * as _ from "lodash";
 import Sequence from "./Sequence";
 import Lollipop from "./Lollipop";
 import Domain from "./Domain";
@@ -7,7 +7,7 @@ import SVGAxis from "../SVGAxis";
 import { Tick } from "../SVGAxis";
 import { observer } from "mobx-react";
 import { computed, action } from "mobx";
-import $ from "jquery";
+import * as $ from "jquery";
 import { LollipopPlotProps } from "./LollipopPlot";
 import { SyntheticEvent } from "react";
 

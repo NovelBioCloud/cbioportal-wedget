@@ -2,7 +2,7 @@ import * as _ from "lodash";
 import { SimpleMobXApplicationDataStore } from "../../../shared/lib/IMobXApplicationDataStore";
 import { Mutation } from "../../../shared/api/generated/CBioPortalAPI";
 import { action, computed, observable } from "mobx";
-import Immutable from "seamless-immutable";
+import * as Immutable from "seamless-immutable";
 import { IPdbChain } from "../../../shared/model/Pdb";
 
 type PositionAttr = { [position: string]: boolean };

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 import { If, Else, Then } from "react-if";
-import TextTruncate from "react-text-truncate";
+import * as TextTruncate from "react-text-truncate";
 import { observable } from "mobx";
 
 export interface ITextExpanderProps {

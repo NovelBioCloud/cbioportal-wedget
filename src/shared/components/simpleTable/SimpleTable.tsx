@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./styles.scss";
 import { If, Then, Else } from "react-if";
-import classNames from "classnames";
+import * as classNames from "classnames";
 import { observer } from "mobx-react";
 
 interface ISimpleTableProps {

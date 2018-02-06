@@ -1,6 +1,7 @@
 import * as _ from "lodash";
-import $ from "jquery";
+import * as $ from "jquery";
 import { observable, computed, reaction, action } from "mobx";
+import "../../../../node_modules/3dmol/css/index.css";
 import {
 	default as StructureVisualizer,
 	ProteinScheme,
