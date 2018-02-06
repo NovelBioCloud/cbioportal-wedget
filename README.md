@@ -9,6 +9,7 @@
   (factory((global['MMTF'] = global.MMTF || {})));
 }(this, function (exports) { 'use strict';
 `
+
 中的 this 关键字替换为
 
 `typeof window !== "undefined" ? window : this`
