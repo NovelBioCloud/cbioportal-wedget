@@ -10,7 +10,9 @@ export class App extends Component<any, any> {
 	render() {
 		return (
 			<div className={"cbioportal-frontend"}>
-				<ResultsViewPageCustom />
+				<div className={"contentWidth"}>
+					<ResultsViewPageCustom />
+				</div>
 			</div>
 		);
 	}

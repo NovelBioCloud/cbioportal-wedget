@@ -31,6 +31,7 @@ export default class StructureViewer extends React.Component<IStructureViewerPro
 				style={{
 					height: this.props.bounds.height,
 					width: this.props.bounds.width,
+					position: "relative",
 					padding: 0
 				}}
 				className="borderedChart"

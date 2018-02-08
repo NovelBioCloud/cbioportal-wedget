@@ -123,6 +123,92 @@ module.exports = {
 		noParse: [/3Dmol-nojquery.js/],
 		rules: [
 			{
+				test: /\.otf(\?\S*)?$/,
+				use: [
+					{
+						loader: `url-loader`,
+						options: {
+							name: fontPath,
+							limit: 10000
+						}
+					}
+				]
+			},
+			{
+				test: /\.eot(\?\S*)?$/,
+				use: [
+					{
+						loader: `url-loader`,
+						options: {
+							name: fontPath,
+							limit: 10000
+						}
+					}
+				]
+			},
+			{
+				test: /\.svg(\?\S*)?$/,
+				use: [
+					{
+						loader: `url-loader`,
+						options: {
+							name: fontPath,
+							mimetype: "image/svg+xml",
+							limit: 10000
+						}
+					}
+				]
+			},
+			{
+				test: /\.ttf(\?\S*)?$/,
+				use: [
+					{
+						loader: `url-loader`,
+						options: {
+							name: fontPath,
+							mimetype: "application/octet-stream",
+							limit: 10000
+						}
+					}
+				]
+			},
+			{
+				test: /\.woff2?(\?\S*)?$/,
+				use: [
+					{
+						loader: `url-loader`,
+						options: {
+							name: fontPath,
+							mimetype: "application/font-woff",
+							limit: 10000
+						}
+					}
+				]
+			},
+			{
+				test: /\.(jpe?g|png|gif)$/,
+				use: [
+					{
+						loader: `url-loader`,
+						options: {
+							name: imgPath,
+							limit: 10000
+						}
+					}
+				]
+			},
+			{
+				test: /\.swf$/,
+				use: [
+					{
+						loader: `file-loader`,
+						options: {
+							name: imgPath
+						}
+					}
+				]
+			},
+			{
 				test: /\.(js|jsx|mjs)$/,
 				loader: require.resolve("source-map-loader"),
 				enforce: "pre",

@@ -28,7 +28,7 @@ import PdbChainInfo from "../PdbChainInfo";
 import { ProteinScheme, ProteinColor, SideChain, MutationColor, IResidueSpec } from "./StructureVisualizer";
 import PyMolScriptGenerator from "./PyMolScriptGenerator";
 
-import * as styles from "./structureViewer.module.scss";
+import "./structureViewer.module.scss";
 
 export interface IStructureViewerPanelProps extends IProteinImpactTypeColors {
 	pdbChainDataStore: IMobXApplicationDataStore<IPdbChain>;
@@ -101,12 +101,12 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 				Color options for the protein structure. <br />
 				<br />
 				<b>Uniform:</b> Colors the entire protein structure with a
-				<span className={styles["loop"]}> single color</span>. <br />
+				<span className={"loop"}> single color</span>. <br />
 				<b>Secondary structure:</b> Colors the protein by secondary structure. Assigns different colors for{" "}
-				<span className={styles["alpha-helix"]}>alpha helices</span>,
-				<span className={styles["beta-sheet"]}> beta sheets</span>, and
-				<span className={styles["loop"]}> loops</span>. This color option is not available for the space-filling
-				protein scheme. <br />
+				<span className={"alpha-helix"}>alpha helices</span>,
+				<span className={"beta-sheet"}> beta sheets</span>, and
+				<span className={"loop"}> loops</span>. This color option is not available for the space-filling protein
+				scheme. <br />
 				<b>N-C rainbow:</b> Colors the protein with a rainbow gradient from red (N-terminus) to blue
 				(C-terminus). <br />
 				<b>Atom Type:</b> Colors the structure with respect to the atom type (CPK color scheme). This color
@@ -138,26 +138,26 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 				Color options for the mapped mutations. <br />
 				<br />
 				<b>Uniform:</b> Colors all mutated residues with a
-				<span className={styles["uniform-mutation"]}> single color</span>. <br />
+				<span className={"uniform-mutation"}> single color</span>. <br />
 				<b>Mutation type:</b> Enables residue coloring by mutation type. Mutation types and corresponding color
 				codes are as follows:
 				<ul>
 					<li>
-						<span className={styles["missense-mutation"]}>Missense Mutations</span>
+						<span className={"missense-mutation"}>Missense Mutations</span>
 					</li>
 					<li>
-						<span className={styles["trunc-mutation"]}>Truncating Mutations</span>
+						<span className={"trunc-mutation"}>Truncating Mutations</span>
 						<span> (Nonsense, Nonstop, FS del, FS ins)</span>
 					</li>
 					<li>
-						<span className={styles["inframe-mutation"]}>Inframe Mutations</span>
+						<span className={"inframe-mutation"}>Inframe Mutations</span>
 						<span> (IF del, IF ins)</span>
 					</li>
 				</ul>
 				<b>None:</b> Disables coloring of the mutated residues except for manually selected (highlighted)
 				residues. <br />
 				<br />
-				Highlighted residues are colored with <span className={styles["highlighted"]}>yellow</span>.
+				Highlighted residues are colored with <span className={"highlighted"}>yellow</span>.
 			</div>
 		);
 	}
@@ -208,7 +208,7 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 						<div className="row">{this.selectionTitle("Scheme")}</div>
 						<div className="row">
 							<FormControl
-								className={styles["default-option-select"]}
+								className={"default-option-select"}
 								componentClass="select"
 								value={`${this.proteinScheme}`}
 								onChange={this.handleProteinSchemeChange as React.FormEventHandler<any>}
@@ -223,7 +223,7 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 						<div className="row">{this.selectionTitle("Color", this.proteinColorTooltipContent())}</div>
 						<div className="row">
 							<FormControl
-								className={styles["default-option-select"]}
+								className={"default-option-select"}
 								componentClass="select"
 								value={`${this.proteinColor}`}
 								onChange={this.handleProteinColorChange as React.FormEventHandler<any>}
@@ -265,7 +265,7 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 						<div className="row">{this.selectionTitle("Side Chain", this.sideChainTooltipContent())}</div>
 						<div className="row">
 							<FormControl
-								className={styles["default-option-select"]}
+								className={"default-option-select"}
 								componentClass="select"
 								value={`${this.sideChain}`}
 								onChange={this.handleSideChainChange as React.FormEventHandler<any>}
@@ -282,7 +282,7 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 						</div>
 						<div className="row">
 							<FormControl
-								className={styles["default-option-select"]}
+								className={"default-option-select"}
 								componentClass="select"
 								value={`${this.mutationColor}`}
 								onChange={this.handleMutationColorChange as React.FormEventHandler<any>}
@@ -321,11 +321,11 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 
 	public header() {
 		return (
-			<div className={classnames("row", styles["header"])}>
-				<div className="col col-sm-10">
+			<div className={classnames("header")}>
+				<div className="col col-sm-9">
 					<span>3D Structure</span>
 				</div>
-				<div className="col col-sm-2">
+				<div className="col col-sm-3">
 					<span className="pull-right">
 						<i
 							className={classnames("fa", {
@@ -403,8 +403,8 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 		return (
 			<Draggable handle=".structure-viewer-header">
 				<div
-					className={classnames(styles["main-3d-panel"], {
-						[styles["increased-size-panel"]]: this.isIncreasedSize
+					className={classnames("main-3d-panel", {
+						["increased-size-panel"]: this.isIncreasedSize
 					})}
 				>
 					<div className="structure-viewer-header row">
@@ -412,8 +412,8 @@ export default class StructureViewerPanel extends React.Component<IStructureView
 						<hr style={{ borderTopColor: "#BBBBBB" }} />
 					</div>
 					<div
-						className={classnames(styles["body"], {
-							[styles["collapsed-panel"]]: this.isCollapsed
+						className={classnames("body", {
+							["collapsed-panel"]: this.isCollapsed
 						})}
 					>
 						{this.mainContent()}

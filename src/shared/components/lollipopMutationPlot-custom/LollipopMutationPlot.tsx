@@ -18,7 +18,7 @@ import { generatePfamDomainColorMap } from "../../../shared/lib/PfamUtils";
 import { getMutationAlignerUrl } from "../../../shared/api/urls";
 import * as ReactDOM from "react-dom";
 import * as fileDownload from "react-file-download";
-import * as styles from "./lollipopMutationPlot.module.scss";
+import "./lollipopMutationPlot.module.scss";
 import * as Collapse from "react-collapse";
 import { MutationMapperStore } from "../../../pages/resultsView/mutation-custom/MutationMapperStore";
 import EditableSpan from "../editableSpan/EditableSpan";
@@ -355,6 +355,7 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 
 		this.handlers = {
 			handleYAxisMaxSliderChange: action((event: any) => {
+				console.log(event.target.value);
 				const inputValue: string = (event.target as HTMLInputElement).value;
 				const value = parseInt(inputValue, 10);
 				this._yMaxInput = value < this.countRange[0] ? this.countRange[0] : value;
@@ -487,21 +488,22 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 	@computed
 	get controls() {
 		return (
-			<div className={classnames(this.showControls ? styles["fade-in"] : styles["fade-out"])}>
+			<div className={classnames(this.showControls ? "fade-in" : "fade-out")}>
 				<span>
-					<div role="group" className="btn-group">
-						<button className="btn btn-default btn-xs" onClick={this.handlers.handleSVGClick}>
-							SVG <i className="fa fa-cloud-download" aria-hidden="true" />
-						</button>
-
-						<button className="btn btn-default btn-xs" onClick={this.handlers.handlePDFClick}>
-							PDF <i className="fa fa-cloud-download" aria-hidden="true" />
-						</button>
-
-						<button className="btn btn-default btn-xs" onClick={this.handlers.handleToggleLegend}>
-							Legend <i className="fa fa-eye" aria-hidden="true" />
-						</button>
-					</div>
+					{
+						//
+						// <div role="group" className="btn-group">
+						// 		<button className="btn btn-default btn-xs" onClick={this.handlers.handleSVGClick}>
+						// 			SVG <i className="fa fa-cloud-download" aria-hidden="true" />
+						// 		</button>
+						// 		<button className="btn btn-default btn-xs" onClick={this.handlers.handlePDFClick}>
+						// 			PDF <i className="fa fa-cloud-download" aria-hidden="true" />
+						// 		</button>
+						// 		<button className="btn btn-default btn-xs" onClick={this.handlers.handleToggleLegend}>
+						// 			Legend <i className="fa fa-eye" aria-hidden="true" />
+						// 		</button>
+						// 	</div>
+					}
 
 					<div
 						className="small"
@@ -528,7 +530,7 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 							value={this.yMaxSlider}
 						/>
 						<EditableSpan
-							className={styles["ymax-number-input"]}
+							className={"ymax-number-input"}
 							value={`${this.yMaxInput}`}
 							setValue={this.handlers.handleYAxisMaxChange}
 							numericOnly={true}

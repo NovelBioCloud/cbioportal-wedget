@@ -108,7 +108,7 @@ div.SelectedStudiesWindow {
     font-size:18px;
   }
   padding:0 10px 5px 10px;
-
+  border-bottom: 1px solid #ddd;
   :global(.Select-control) {
     height: 28px;
   }
@@ -130,9 +130,6 @@ div.SelectedStudiesWindow {
   :global(.Select--single) > :global(.Select-control .Select-value) {
     line-height: 28px !important;
   }
-
-  border-bottom:1px solid #ddd;
-
 
 }
 
@@ -356,7 +353,7 @@ div.SelectedStudiesWindow {
     width: 555px;
     resize: vertical;
     padding: 5px;
-    border: 1px solid $borderColor;
+    border: 1px solid #f2f2f2f2;
     border-radius: 2px;
   }
   .radioRow {

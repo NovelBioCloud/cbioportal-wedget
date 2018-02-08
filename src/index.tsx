@@ -5,6 +5,7 @@ import { App } from "./pages/App";
 import registerServiceWorker from "./registerServiceWorker";
 import { Provider } from "mobx-react";
 import "./globalStyles/prefixed-global.scss";
+import "./globalStyles/bootstrap-entry.scss";
 import { MockConfig } from "./shared/mock/MockConfig";
 import * as $ from "jquery";
 const start = () => {

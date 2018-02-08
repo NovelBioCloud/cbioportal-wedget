@@ -120,7 +120,12 @@ export default class MutationMapper extends React.Component<IMutationMapperProps
 						<LoadingIndicator isLoading={this.props.store.pfamDomainData.isPending} />
 						{!this.props.store.pfamDomainData.isPending && (
 							<div style={{ display: "flex" }}>
-								<div className="borderedChart" style={{ marginRight: 10 }}>
+								<div
+									className="borderedChart"
+									style={{
+										marginRight: 10
+									}}
+								>
 									<LollipopMutationPlot
 										store={this.props.store}
 										onXAxisOffset={this.handlers.onXAxisOffset}
