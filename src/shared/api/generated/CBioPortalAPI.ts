@@ -3,19 +3,12 @@ import * as request from "superagent";
 type CallbackHandler = (err: any, res?: request.Response) => void;
 export type ClinicalData = {
 	clinicalAttribute: ClinicalAttribute;
-
 	clinicalAttributeId: string;
-
 	patientId: string;
-
 	sampleId: string;
-
 	studyId: string;
-
 	uniquePatientKey: string;
-
 	uniqueSampleKey: string;
-
 	value: string;
 };
 export type GeneMolecularData = {

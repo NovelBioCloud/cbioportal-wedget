@@ -2,6 +2,7 @@ import { IAppConfig } from "./IAppConfig";
 import * as _ from "lodash";
 
 export const AppConfig: IAppConfig = {
+	apiRoot: 'www.cbioportal.org/beta',
 	enableDarwin: false,
 	appVersion: "20180129-1123",
 	maxTreeDepth: 3,
@@ -197,27 +198,26 @@ export const updateConfig = () => {
 	];
 	windowSelf.legacySupportFrontendConfig.priorityStudies["Cell lines"] = ["cellline_ccle_broad", "cellline_nci60"];
 
-	windowSelf.frontendConfig = JSON.parse("null");
+	windowSelf.frontendConfig = windowSelf.frontendConfig || null;
 	if (windowSelf.frontendConfig) {
-		for (var prop in windowSelf.legacySupportFrontendConfig) {
-			// use old property if none is defined in frontendConfig
-			if (!windowSelf.frontendConfig.hasOwnProperty(prop)) {
-				windowSelf.frontendConfig[prop] = windowSelf.legacySupportFrontendConfig[prop];
-			}
-		}
+		// for (var prop in windowSelf.legacySupportFrontendConfig) {
+		// 	// use old property if none is defined in frontendConfig
+		// 	if (!windowSelf.frontendConfig.hasOwnProperty(prop)) {
+		// 		windowSelf.frontendConfig[prop] = windowSelf.legacySupportFrontendConfig[prop];
+		// 	}
+		// }
 	} else {
 		windowSelf.frontendConfig = windowSelf.legacySupportFrontendConfig;
 	}
 	// clean userEmailAddress config
-	if (!windowSelf.frontendConfig.userEmailAddress || windowSelf.frontendConfig.userEmailAddress === "anonymousUser") {
-		windowSelf.frontendConfig.userEmailAddress = "";
-	}
+	// if (!windowSelf.frontendConfig.userEmailAddress || windowSelf.frontendConfig.userEmailAddress === "anonymousUser") {
+	// 	windowSelf.frontendConfig.userEmailAddress = "";
+	// }
 
 	// frontend config that can't be changed by deployer
-	(windowSelf.frontendConfig.frontendUrl =
-		"https://cbioportal.mskcc.org/frontend/3ff4b8e1c6b1a5f8966d666e3c18f1e14302ab72/"),
-		(windowSelf.frontendConfig.apiRoot = "www.cbioportal.org");
-	windowSelf.frontendConfig.historyType = "memory"; // default, override on per page bases, set to hash if full react page
-
+	// (windowSelf.frontendConfig.frontendUrl =
+	// 	"https://cbioportal.mskcc.org/frontend/3ff4b8e1c6b1a5f8966d666e3c18f1e14302ab72/"),
+	// 	(windowSelf.frontendConfig.apiRoot = "www.cbioportal.org");
+	// windowSelf.frontendConfig.historyType = "memory"; // default, override on per page bases, set to hash if full react page
 	Object.assign(AppConfig, windowSelf.frontendConfig);
 };

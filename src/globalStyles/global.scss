@@ -359,7 +359,8 @@ th.reactable-header-sort-asc:after {
 .contentWidth {
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+	justify-content: space-between;
+	width: 1200px;
     padding-left: 20px;
     padding-right: 20px;
     #mainColumn {
