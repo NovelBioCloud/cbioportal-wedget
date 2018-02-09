@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import request from "superagent";
+import * as request from "superagent";
 import Response = request.Response;
 import {
 	default as CBioPortalAPI,
