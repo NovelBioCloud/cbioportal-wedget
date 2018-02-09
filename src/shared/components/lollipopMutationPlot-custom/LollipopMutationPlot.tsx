@@ -490,21 +490,17 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 		return (
 			<div className={classnames(this.showControls ? "fade-in" : "fade-out")}>
 				<span>
-					{
-						//
-						// <div role="group" className="btn-group">
-						// 		<button className="btn btn-default btn-xs" onClick={this.handlers.handleSVGClick}>
-						// 			SVG <i className="fa fa-cloud-download" aria-hidden="true" />
-						// 		</button>
-						// 		<button className="btn btn-default btn-xs" onClick={this.handlers.handlePDFClick}>
-						// 			PDF <i className="fa fa-cloud-download" aria-hidden="true" />
-						// 		</button>
-						// 		<button className="btn btn-default btn-xs" onClick={this.handlers.handleToggleLegend}>
-						// 			Legend <i className="fa fa-eye" aria-hidden="true" />
-						// 		</button>
-						// 	</div>
-					}
-
+					<div role="group" className="btn-group">
+						<button className="btn btn-default btn-xs" onClick={this.handlers.handleSVGClick}>
+							SVG <i className="fa fa-cloud-download" aria-hidden="true" />
+						</button>
+						<button className="btn btn-default btn-xs" onClick={this.handlers.handlePDFClick}>
+							PDF <i className="fa fa-cloud-download" aria-hidden="true" />
+						</button>
+						<button className="btn btn-default btn-xs" onClick={this.handlers.handleToggleLegend}>
+							Legend <i className="fa fa-eye" aria-hidden="true" />
+						</button>
+					</div>
 					<div
 						className="small"
 						style={{
@@ -552,7 +548,9 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 					onMouseEnter={this.handlers.onMouseEnterPlot}
 					onMouseLeave={this.handlers.onMouseLeavePlot}
 				>
-					{this.controls}
+					{
+						// this.controls
+					}
 					<Collapse isOpened={this.legendShown}>{this.legend}</Collapse>
 					<LollipopPlot
 						ref={this.handlers.ref}
