@@ -38,7 +38,7 @@ export default class Mutations extends React.Component<IMutationsPageProps, {}> 
 						onTabClick={(id: string) => this.handleTabChange(id)}
 						className="secondaryTabs resultsPageMutationsGeneTabs"
 						enablePagination={true}
-						arrowStyle={{ "lineHeight": 0.8 }}
+						arrowStyle={{ lineHeight: 0.8 }}
 						tabButtonStyle="pills"
 						unmountOnHide={true}
 					>

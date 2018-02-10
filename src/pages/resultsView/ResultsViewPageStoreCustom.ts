@@ -224,10 +224,10 @@ export class ResultsViewPageStoreCustom {
 								map[gene.hugoGeneSymbol] = new MutationMapperStore(
 									AppConfig,
 									gene,
-									this.mutationsByGene[gene.hugoGeneSymbol]
+									this.mutationsByGene[gene.hugoGeneSymbol],
 									// () => this.mutationDataCache,
 									// () => this.genomeNexusEnrichmentCache,
-									// () => this.mutationCountCache
+									() => this.mutationCountCache,
 									// this.studyIdToStudy,
 									// this.molecularProfileIdToMolecularProfile,
 									// this.clinicalDataForSamples,

@@ -355,7 +355,6 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 
 		this.handlers = {
 			handleYAxisMaxSliderChange: action((event: any) => {
-				console.log(event.target.value);
 				const inputValue: string = (event.target as HTMLInputElement).value;
 				const value = parseInt(inputValue, 10);
 				this._yMaxInput = value < this.countRange[0] ? this.countRange[0] : value;
@@ -522,8 +521,9 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 							min={this.countRange[0]}
 							max={this.countRange[1]}
 							step="1"
+							disabled={false}
 							onChange={this.handlers.handleYAxisMaxSliderChange}
-							value={this.yMaxSlider}
+							value={this.yMaxSlider | 3}
 						/>
 						<EditableSpan
 							className={"ymax-number-input"}
@@ -548,9 +548,7 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 					onMouseEnter={this.handlers.onMouseEnterPlot}
 					onMouseLeave={this.handlers.onMouseLeavePlot}
 				>
-					{
-						// this.controls
-					}
+					{this.controls}
 					<Collapse isOpened={this.legendShown}>{this.legend}</Collapse>
 					<LollipopPlot
 						ref={this.handlers.ref}

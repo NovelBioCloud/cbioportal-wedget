@@ -50,7 +50,12 @@ import { EnsemblTranscript, PfamDomain, PfamDomainRange } from "../../../shared/
 import { MutationTableDownloadDataFetcher } from "../../../shared/lib/MutationTableDownloadDataFetcher";
 
 export class MutationMapperStore {
-	constructor(protected config: IMutationMapperConfig, public gene: Gene, public mutations: Mutation[]) {
+	constructor(
+		protected config: IMutationMapperConfig,
+		public gene: Gene,
+		public mutations: Mutation[],
+		private getMutationCountCache: () => MutationCountCache
+	) {
 		labelMobxPromises(this);
 	}
 
