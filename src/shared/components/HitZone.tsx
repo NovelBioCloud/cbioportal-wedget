@@ -23,11 +23,11 @@ export class HitZone extends React.Component<HitZoneProps, {}> {
 		this.handlers = {
 			onMouseOver: () => {
 				this.props.onMouseOver && this.props.onMouseOver();
-				this.props.onMouseEnter && this.props.onMouseEnter();
+				// this.props.onMouseEnter && this.props.onMouseEnter();
 			},
 			onMouseOut: () => {
 				this.props.onMouseOut && this.props.onMouseOut();
-				this.props.onMouseLeave && this.props.onMouseLeave();
+				// this.props.onMouseLeave && this.props.onMouseLeave();
 			}
 		};
 	}

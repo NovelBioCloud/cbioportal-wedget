@@ -51,7 +51,17 @@ export default class ResultsViewPage extends React.Component<IResultsViewPagePro
 	}
 
 	public render(): any {
-		return <Mutations store={this.store} />;
+		return (
+			<div>
+				<input
+					onChange={e => {
+						const value = e.target.value;
+						this.store.hugoGeneSymbols = [value];
+					}}
+				/>
+				<Mutations store={this.store} />
+			</div>
+		);
 	}
 
 	private initStore() {

@@ -354,6 +354,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 		segments.forEach((segment: { start: number; end: number }, index: number) => {
 			sequenceComponents.push(
 				<Sequence
+					key={index}
 					ref={sequenceComponent => {
 						if (sequenceComponent !== null) {
 							this.sequenceComponents[index] = sequenceComponent;
