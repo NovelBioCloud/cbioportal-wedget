@@ -18,6 +18,7 @@ type HitZoneProps = {
 export class HitZone extends React.Component<HitZoneProps, {}> {
 	private handlers: any;
 
+	// 覆盖鼠标浮动在突变图中横轴的图片
 	constructor(props: HitZoneProps) {
 		super(props);
 		this.handlers = {
@@ -31,10 +32,11 @@ export class HitZone extends React.Component<HitZoneProps, {}> {
 			}
 		};
 	}
-
+	
 	render() {
 		return (
 			<svg
+				className='hover-lollipopPlotNoTooltip'
 				width={this.props.width}
 				height={this.props.height}
 				style={{

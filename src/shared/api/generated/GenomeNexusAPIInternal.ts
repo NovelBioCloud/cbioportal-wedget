@@ -1,6 +1,16 @@
 import * as request from "superagent";
 
 type CallbackHandler = (err: any, res?: request.Response) => void;
+
+export type AggregatedHotspots = {
+	'genomicLocation': GenomicLocation
+
+	'hotspots': Array < Hotspot >
+
+	'variant': string
+
+};
+
 export type GeneXref = {
 	db_display_name: string;
 
@@ -20,7 +30,7 @@ export type GeneXref = {
 
 	version: string;
 };
-export type Hotspot = {
+/* export type Hotspot = {
 	geneId: string;
 
 	hugoSymbol: string;
@@ -32,6 +42,28 @@ export type Hotspot = {
 	residue: string;
 
 	transcriptId: string;
+}; */
+export type Hotspot = {
+	'aminoAcidPosition': IntegerRange
+
+	'hugoSymbol': string
+
+	'residue': string
+
+	'transcriptId': string
+
+	'tumorCount': number
+
+	'tumorTypeCount': number
+
+	'type': string
+
+};
+export type IntegerRange = {
+	'end': number
+
+	'start': number
+
 };
 export type IsoformOverride = {
 	ccdsId: string;
@@ -155,6 +187,53 @@ export default class GenomeNexusAPIInternal {
 		});
 	}
 
+	/**
+	 * Retrieves hotspot annotations for the provided list of genomic locations
+	 * @method
+	 * @name GenomeNexusAPIInternal#fetchHotspotAnnotationByGenomicLocationPOST
+	 * @param {} genomicLocations - List of genomic locations.
+	 */
+	fetchHotspotAnnotationByGenomicLocationPOST(parameters: {
+			'genomicLocations': Array < GenomicLocation > ,
+			$queryParameters ?: any,
+			$domain ?: string
+		}): Promise < Array < AggregatedHotspots >
+		> {
+			const domain = parameters.$domain ? parameters.$domain : this.domain;
+			const errorHandlers = this.errorHandlers;
+			const request = this.request;
+			let path = '/cancer_hotspots/genomic';
+			let body: any;
+			let queryParameters: any = {};
+			let headers: any = {};
+			let form: any = {};
+			return new Promise(function(resolve, reject) {
+				headers['Accept'] = 'application/json';
+				headers['Content-Type'] = 'application/json';
+
+				if (parameters['genomicLocations'] !== undefined) {
+					body = parameters['genomicLocations'];
+				}
+
+				if (parameters['genomicLocations'] === undefined) {
+					reject(new Error('Missing required  parameter: genomicLocations'));
+					return;
+				}
+
+				if (parameters.$queryParameters) {
+					Object.keys(parameters.$queryParameters).forEach(function(parameterName) {
+						var parameter = parameters.$queryParameters[parameterName];
+						queryParameters[parameterName] = parameter;
+					});
+				}
+
+				request('POST', domain + path, body, headers, queryParameters, form, reject, resolve, errorHandlers);
+
+			}).then(function(response: request.Response) {
+				return response.body;
+			});
+		};
+	
 	fetchHotspotAnnotationPOSTURL(parameters: {
 		variants: Array<string>;
 		$queryParameters?: any;
@@ -983,3 +1062,16 @@ export default class GenomeNexusAPIInternal {
 		});
 	}
 }
+
+export type GenomicLocation = {
+	'chromosome': string
+
+	'start': number
+
+	'end': number
+
+	'referenceAllele': string
+
+	'variantAllele': string
+
+};

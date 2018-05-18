@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Mutation } from "../../../../shared/api/generated/CBioPortalAPI";
-import styles from "./validationStatus.module.scss";
+// import styles from "./validationStatus.module.scss";
+import "./validationStatus.module.scss";
 import DefaultTooltip from "../../../../shared/components/defaultTooltip/DefaultTooltip";
 
 /**
@@ -61,10 +62,10 @@ export default class ValidationStatusColumnFormatter {
 			const format = ValidationStatusColumnFormatter.VALIDATION_STATUS_FORMAT[value.toLowerCase()];
 
 			if (format) {
-				content = <span className={styles[format.className]}>{format.text}</span>;
+				content = <span className={format.className}>{format.text}</span>;
 				needTooltip = true;
 			} else {
-				content = <span className={styles.other}>{value}</span>;
+				content = <span className={'other'}>{value}</span>;
 			}
 		} else {
 			content = <span />;

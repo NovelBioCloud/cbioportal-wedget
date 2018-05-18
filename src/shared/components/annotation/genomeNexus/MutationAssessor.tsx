@@ -1,10 +1,14 @@
 import * as React from "react";
 import DefaultTooltip from "../../../../shared/components/defaultTooltip/DefaultTooltip";
-import annotationStyles from "./../styles/annotation.module.scss";
-import classNames from "classnames";
-import tooltipStyles from "./styles/mutationAssessorTooltip.module.scss";
+// import annotationStyles from "./../styles/annotation.module.scss";
+import "./../styles/annotation.module.scss";
+// import classNames from "classnames";
+import * as classnames from "classnames";
+// import tooltipStyles from "./styles/mutationAssessorTooltip.module.scss";
+import "./styles/mutationAssessorTooltip.module.scss";
 import { MutationAssessor as MutationAssessorData } from "../../../../shared/api/generated/GenomeNexusAPIInternal";
-import mutationAssessorColumn from "./styles/mutationAssessorColumn.module.scss";
+// import mutationAssessorColumn from "./styles/mutationAssessorColumn.module.scss";
+import "./styles/mutationAssessorColumn.module.scss";
 
 export interface IMutationAssessorProps {
 	mutationAssessor: MutationAssessorData;
@@ -35,15 +39,15 @@ export default class MutationAssessor extends React.Component<IMutationAssessorP
 	}
 
 	public render() {
-		let maContent: JSX.Element = <span className={`${annotationStyles["annotation-item-text"]}`} />;
+		let maContent: JSX.Element = <span className={`${"annotation-item-text"}`} />;
 
 		if (this.props.mutationAssessor && this.props.mutationAssessor.functionalImpact !== null) {
 			const maData = this.props.mutationAssessor;
 			maContent = (
 				<span
-					className={classNames(
-						annotationStyles["annotation-item-text"],
-						mutationAssessorColumn[`ma-${maData.functionalImpact}`]
+					className={classnames(
+						"annotation-item-text",
+						`ma-${maData.functionalImpact}`
 					)}
 				>
 					<i className="fa fa-circle" aria-hidden="true" />
@@ -77,7 +81,7 @@ export default class MutationAssessor extends React.Component<IMutationAssessorP
 
 		const impact = maData.functionalImpact ? (
 			<div>
-				<table className={tooltipStyles["ma-tooltip-table"]}>
+				<table className={"ma-tooltip-table"}>
 					<tr>
 						<td>Source</td>
 						<td>
@@ -87,7 +91,7 @@ export default class MutationAssessor extends React.Component<IMutationAssessorP
 					<tr>
 						<td>Impact</td>
 						<td>
-							<span className={mutationAssessorColumn[`ma-${maData.functionalImpact}`]}>
+							<span className={`ma-${maData.functionalImpact}`}>
 								{maData.functionalImpact}
 							</span>
 						</td>
@@ -105,13 +109,13 @@ export default class MutationAssessor extends React.Component<IMutationAssessorP
 		) : null;
 
 		const xVar = xVarLink ? (
-			<div className={tooltipStyles["mutation-assessor-link"]}>
+			<div className={"mutation-assessor-link"}>
 				<a href={xVarLink} target="_blank">
 					<img
 						height="15"
 						width="19"
 						src={require("./../../mutationTable/column/mutationAssessor.png")}
-						className={tooltipStyles["mutation-assessor-main-img"]}
+						className={"mutation-assessor-main-img"}
 						alt="Mutation Assessor"
 					/>
 					Go to Mutation Assessor
@@ -120,18 +124,18 @@ export default class MutationAssessor extends React.Component<IMutationAssessorP
 		) : null;
 
 		const msa = msaLink ? (
-			<div className={tooltipStyles["mutation-assessor-link"]}>
+			<div className={"mutation-assessor-link"}>
 				<a href={msaLink} target="_blank">
-					<span className={`${tooltipStyles["ma-icon"]} ${tooltipStyles["ma-msa-icon"]}`}>msa</span>
+					<span className={`${"ma-icon"} ${"ma-msa-icon"}`}>msa</span>
 					Multiple Sequence Alignment
 				</a>
 			</div>
 		) : null;
 
 		const pdb = pdbLink ? (
-			<div className={tooltipStyles["mutation-assessor-link"]}>
+			<div className={"mutation-assessor-link"}>
 				<a href={pdbLink} target="_blank">
-					<span className={`${tooltipStyles["ma-icon"]} ${tooltipStyles["ma-3d-icon"]}`}>3D</span>
+					<span className={`${"ma-icon"} ${"ma-3d-icon"}`}>3D</span>
 					Mutation Assessor 3D View
 				</a>
 			</div>

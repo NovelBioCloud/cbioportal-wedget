@@ -4,9 +4,11 @@ import * as _ from "lodash";
 import { Mutation } from "../../../../shared/api/generated/CBioPortalAPI";
 import { CosmicMutation } from "../../../../shared/api/generated/CBioPortalAPIInternal";
 import CosmicMutationTable from "../../../../shared/components/cosmic/CosmicMutationTable";
-import styles from "./cosmic.module.scss";
+// import styles from "./cosmic.module.scss";
 import { ICosmicData } from "../../../../shared/model/Cosmic";
-import generalStyles from "./styles.module.scss";
+// import generalStyles from "./styles.module.scss";
+import "./cosmic.module.scss";
+import  "./styles.module.scss";
 
 export function placeArrow(tooltipEl: any) {
 	const arrowEl = tooltipEl.querySelector(".rc-tooltip-arrow");
@@ -107,7 +109,7 @@ export default class CosmicColumnFormatter {
 			);
 
 			overlay = () => (
-				<span className={styles["cosmic-table"]}>
+				<span className={"cosmic-table"}>
 					<b>{value}</b> occurrences of <b>{cosmic[0].keyword}</b> mutations in COSMIC
 					<CosmicMutationTable data={cosmic} />
 				</span>
@@ -117,7 +119,7 @@ export default class CosmicColumnFormatter {
 		}
 
 		//  basic content is the value
-		content = <div className={generalStyles["integer-data"]}>{display}</div>;
+		content = <div className={"integer-data"}>{display}</div>;
 
 		//  add a tooltip if the cosmic value is valid
 		if (overlay) {

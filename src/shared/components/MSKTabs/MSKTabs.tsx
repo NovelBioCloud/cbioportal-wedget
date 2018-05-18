@@ -25,7 +25,7 @@ export class MSKTab extends React.Component<IMSKTabProps, {}> {
 	constructor(props: IMSKTabProps) {
 		super(props);
 	}
-
+	// this.props.children当前组件的子元素
 	render() {
 		return (
 			<div
@@ -137,8 +137,9 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 
 	render() {
 		if (this.props.children && React.Children.count(this.props.children)) {
-			let children = this.props.children as React.ReactElement<IMSKTabProps>[];
-
+			// 获取props为IMSKTabProps的子组件
+			let children = this.props.children as React.ReactElement<IMSKTabProps>[];	
+			
 			let hasActive: boolean = false;
 			let effectiveActiveTab: string = "";
 
@@ -195,7 +196,7 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 
 		//  we need a little style tweak to prevent initial overflow flashing when paging enabled
 		//  TODO disabling maxHeight tweak due to inconsistencies for now
-		const navBarStyle = this.props.enablePagination
+		const navBarStyle: React.CSSProperties = this.props.enablePagination
 			? {
 					border: 0,
 					overflow: "hidden"
@@ -232,7 +233,8 @@ export class MSKTabs extends React.Component<IMSKTabsProps, IMSKTabsState> {
 				{pages[this.state.currentPage - 1]}
 				{next}
 				{this.props.enablePagination && (
-					<ReactResizeDetector handleWidth={true} onResize={this.initOnResize.bind(this)()} />
+					
+			<ReactResizeDetector handleWidth={true} onResize={this.initOnResize.bind(this)()} />
 				)}
 			</ul>
 		);

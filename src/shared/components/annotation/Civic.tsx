@@ -3,7 +3,8 @@ import * as _ from "lodash";
 import { observer } from "mobx-react";
 import { Circle } from "better-react-spinkit";
 import DefaultTooltip from "../../../shared/components/defaultTooltip/DefaultTooltip";
-import annotationStyles from "./styles/annotation.module.scss";
+// import annotationStyles from "./styles/annotation.module.scss";
+import "./styles/annotation.module.scss";
 import { ICivicVariant, ICivicEntry } from "../../../shared/model/Civic";
 import { observable } from "mobx";
 import CivicCard from "./CivicCard";
@@ -62,7 +63,7 @@ export default class Civic extends React.Component<ICivicProps, {}> {
 	}
 
 	public render() {
-		let civicContent: JSX.Element = <span className={`${annotationStyles["annotation-item"]}`} />;
+		let civicContent: JSX.Element = <span className={`${"annotation-item"}`} />;
 
 		const civicImgWidth: number = 14;
 		let civicImgHeight: number = 14;
@@ -76,7 +77,7 @@ export default class Civic extends React.Component<ICivicProps, {}> {
 		} else if (this.props.civicEntry !== undefined) {
 			if (this.props.civicEntry !== null && this.props.civicStatus === "complete") {
 				civicContent = (
-					<span className={`${annotationStyles["annotation-item"]}`}>
+					<span className={`${"annotation-item"}`}>
 						<img
 							width={civicImgWidth}
 							height={civicImgHeight}
@@ -121,7 +122,7 @@ export default class Civic extends React.Component<ICivicProps, {}> {
 				trigger={["hover", "focus"]}
 				destroyTooltipOnHide={true}
 			>
-				<span className={`${annotationStyles["annotation-item-error"]}`}>
+				<span className={`${"annotation-item-error"}`}>
 					<i className="fa fa-exclamation-triangle text-danger" />
 				</span>
 			</DefaultTooltip>

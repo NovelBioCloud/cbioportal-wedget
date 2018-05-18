@@ -181,7 +181,7 @@ export default class GenomeNexusAPI {
 			req.type("form");
 			req.send(form);
 		}
-
+		console.log('--url--', url)
 		req.end((error, response) => {
 			if (error || !response.ok) {
 				reject(error);
@@ -575,6 +575,7 @@ export default class GenomeNexusAPI {
 		$queryParameters?: any;
 		$domain?: string;
 	}): Promise<EnsemblTranscript> {
+		console.log('---test---')
 		const domain = parameters.$domain ? parameters.$domain : this.domain;
 		const errorHandlers = this.errorHandlers;
 		const request = this.request;
@@ -1330,7 +1331,14 @@ export default class GenomeNexusAPI {
 					queryParameters[parameterName] = parameter;
 				});
 			}
-
+			console.log('request', domain, path,
+				body,
+				headers,
+				queryParameters,
+				form,
+				reject,
+				resolve,
+				errorHandlers)
 			request(
 				"POST",
 				domain + path,

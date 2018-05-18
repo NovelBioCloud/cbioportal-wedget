@@ -64,7 +64,7 @@ export default class Lollipop extends React.Component<LollipopProps, {}> {
 			);
 		}
 		return (
-			<g>
+			<g className='g-cirle'>
 				<line
 					strokeWidth="1"
 					stroke={this.props.stickColor || "#BABDB6"}

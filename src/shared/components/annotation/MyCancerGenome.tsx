@@ -1,8 +1,10 @@
 import * as React from "react";
 import * as _ from "lodash";
 import DefaultTooltip from "../../../shared/components/defaultTooltip/DefaultTooltip";
-import annotationStyles from "./styles/annotation.module.scss";
-import mcgStyles from "./styles/myCancerGenome.module.scss";
+// import annotationStyles from "./styles/annotation.module.scss";
+// import mcgStyles from "./styles/myCancerGenome.module.scss";
+import  "./styles/annotation.module.scss";
+import  "./styles/myCancerGenome.module.scss";
 
 export interface IMyCancerGenomeProps {
 	linksHTML: string[];
@@ -37,7 +39,7 @@ export default class MyCancerGenome extends React.Component<IMyCancerGenomeProps
 			<span>
 				<b>My Cancer Genome links:</b>
 				<br />
-				<ul className={mcgStyles["link-list"]}>{links}</ul>
+				<ul className={"link-list"}>{links}</ul>
 			</span>
 		);
 	}
@@ -48,7 +50,7 @@ export default class MyCancerGenome extends React.Component<IMyCancerGenomeProps
 	}
 
 	public render() {
-		let myCancerGenomeContent: JSX.Element = <span className={`${annotationStyles["annotation-item"]}`} />;
+		let myCancerGenomeContent: JSX.Element = <span className={`${"annotation-item"}`} />;
 
 		if (this.props.linksHTML.length > 0) {
 			const arrowContent = <div className="rc-tooltip-arrow-inner" />;
@@ -62,7 +64,7 @@ export default class MyCancerGenome extends React.Component<IMyCancerGenomeProps
 					arrowContent={arrowContent}
 					onPopupAlign={placeArrow}
 				>
-					<span className={`${annotationStyles["annotation-item"]} mcg`}>
+					<span className={`${"annotation-item"} mcg`}>
 						<img
 							width="14"
 							height="14"

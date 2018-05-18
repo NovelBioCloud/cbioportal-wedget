@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Circle } from "better-react-spinkit";
-import classNames from "classnames";
+import * as classnames from "classnames";
 import DefaultTooltip from "../../../../shared/components/defaultTooltip/DefaultTooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
 import GenomeNexusCache, { GenomeNexusCacheDataType } from "../../../../shared/cache/GenomeNexusEnrichment";
@@ -10,10 +10,14 @@ import MutationAssessor from "../../../../shared/components/annotation/genomeNex
 import { MutationAssessor as MutationAssessorData } from "../../../../shared/api/generated/GenomeNexusAPIInternal";
 import Sift from "../../../../shared/components/annotation/genomeNexus/Sift";
 import PolyPhen2 from "../../../../shared/components/annotation/genomeNexus/PolyPhen2";
-import siftStyles from "../../../../shared/components/annotation/genomeNexus/styles/siftTooltip.module.scss";
-import polyPhen2Styles from "../../../../shared/components/annotation/genomeNexus/styles/polyPhen2Tooltip.module.scss";
-import mutationAssessorStyles from "../../../../shared/components/annotation/genomeNexus/styles/mutationAssessorColumn.module.scss";
-import annotationStyles from "../../../../shared/components/annotation/styles/annotation.module.scss";
+// import siftStyles from "../../../../shared/components/annotation/genomeNexus/styles/siftTooltip.module.scss";
+// import polyPhen2Styles from "../../../../shared/components/annotation/genomeNexus/styles/polyPhen2Tooltip.module.scss";
+// import mutationAssessorStyles from "../../../../shared/components/annotation/genomeNexus/styles/mutationAssessorColumn.module.scss";
+import "../../../../shared/components/annotation/genomeNexus/styles/siftTooltip.module.scss";
+import "../../../../shared/components/annotation/genomeNexus/styles/polyPhen2Tooltip.module.scss";
+import "../../../../shared/components/annotation/genomeNexus/styles/mutationAssessorColumn.module.scss";
+// import annotationStyles from "../../../../shared/components/annotation/styles/annotation.module.scss";
+import "../../../../shared/components/annotation/styles/annotation.module.scss";
 
 type FunctionalImpactColumnTooltipProps = {
 	active: "mutationAssessor" | "sift" | "polyPhen2";
@@ -41,7 +45,7 @@ class FunctionalImpactColumnTooltip extends React.Component<
 			active: this.props.active
 		};
 	}
-
+	// 图片路径错误
 	legend() {
 		return (
 			<div>
@@ -100,69 +104,69 @@ class FunctionalImpactColumnTooltip extends React.Component<
 						<tr>
 							<td>
 								<span
-									className={classNames(
-										annotationStyles["annotation-item-text"],
-										mutationAssessorStyles[`ma-high`]
+									className={classnames(
+										"annotation-item-text",
+										"ma-high"
 									)}
 								>
 									<i className="fa fa-circle" aria-hidden="true" />
 								</span>
 							</td>
-							<td className={mutationAssessorStyles["ma-high"]}>high</td>
-							<td className={siftStyles["sift-deleterious"]}>deleterious</td>
-							<td className={polyPhen2Styles["polyPhen2-probably_damaging"]}>probably_damaging</td>
+							<td className={"ma-high"}>high</td>
+							<td className={"sift-deleterious"}>deleterious</td>
+							<td className={"polyPhen2-probably_damaging"}>probably_damaging</td>
 						</tr>
 						<tr>
 							<td>
 								<span
-									className={classNames(
-										annotationStyles["annotation-item-text"],
-										mutationAssessorStyles[`ma-medium`]
+									className={classnames(
+										"annotation-item-text",
+										"ma-medium"
 									)}
 								>
 									<i className="fa fa-circle" aria-hidden="true" />
 								</span>
 							</td>
-							<td className={mutationAssessorStyles["ma-medium"]}>medium</td>
+							<td className={"ma-medium"}>medium</td>
 							<td>-</td>
 							<td>-</td>
 						</tr>
 						<tr>
 							<td>
 								<span
-									className={classNames(
-										annotationStyles["annotation-item-text"],
-										mutationAssessorStyles[`ma-low`]
+									className={classnames(
+										"annotation-item-text",
+										"ma-low"
 									)}
 								>
 									<i className="fa fa-circle" aria-hidden="true" />
 								</span>
 							</td>
-							<td className={mutationAssessorStyles["ma-low"]}>low</td>
-							<td className={siftStyles["sift-deleterious_low_confidence"]}>
+							<td className={"ma-low"}>low</td>
+							<td className={"sift-deleterious_low_confidence"}>
 								deleterious_low_confidence
 							</td>
-							<td className={polyPhen2Styles["polyPhen2-possibly_damaging"]}>possibly_damaging</td>
+							<td className={"polyPhen2-possibly_damaging"}>possibly_damaging</td>
 						</tr>
 						<tr>
 							<td>
 								<span
-									className={classNames(
-										annotationStyles["annotation-item-text"],
-										mutationAssessorStyles[`ma-neutral`]
+									className={classnames(
+										"annotation-item-text",
+										"ma-neutral"
 									)}
 								>
 									<i className="fa fa-circle" aria-hidden="true" />
 								</span>
 							</td>
-							<td className={mutationAssessorStyles["ma-neutral"]}>neutral</td>
-							<td className={siftStyles["sift-tolerated_low_confidence"]}>tolerated_low_confidence</td>
-							<td className={polyPhen2Styles["polyPhen2-benign"]}>benign</td>
+							<td className={"ma-neutral"}>neutral</td>
+							<td className={"sift-tolerated_low_confidence"}>tolerated_low_confidence</td>
+							<td className={"polyPhen2-benign"}>benign</td>
 						</tr>
 						<tr>
 							<td />
 							<td>-</td>
-							<td className={siftStyles["sift-tolerated"]}>tolerated</td>
+							<td className={"sift-tolerated"}>tolerated</td>
 							<td>-</td>
 						</tr>
 					</tbody>
@@ -249,7 +253,7 @@ export default class FunctionalImpactColumnFormatter {
 								height={14}
 								width={14}
 								src={require("./mutationAssessor.png")}
-								//  className={tooltipStyles['mutation-assessor-main-img']}
+								className={'mutation-assessor-main-img'}
 								alt="Sift"
 							/>
 						</span>
@@ -267,7 +271,7 @@ export default class FunctionalImpactColumnFormatter {
 								height={14}
 								width={14}
 								src={require("./siftFunnel.png")}
-								//  className={tooltipStyles['mutation-assessor-main-img']}
+								className={'mutation-assessor-main-img'}
 								alt="SIFT"
 							/>
 						</span>
@@ -285,7 +289,7 @@ export default class FunctionalImpactColumnFormatter {
 								height={14}
 								width={14}
 								src={require("./polyPhen-2.png")}
-								//  className={tooltipStyles['mutation-assessor-main-img']}
+								className={'mutation-assessor-main-img'}
 								alt="PolyPhen-2"
 							/>
 						</span>

@@ -382,7 +382,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 		return this.props.lollipops.map((lollipop: LollipopSpec, i: number) => {
 			return (
 				<Lollipop
-					key={lollipop.codon + i}
+					key={'lp' + lollipop.codon + i}
 					ref={(lollipopComponent: Lollipop) => {
 						if (lollipopComponent !== null) {
 							this.lollipopComponents[i] = lollipopComponent;
@@ -410,7 +410,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 			const width = this.codonToX(domain.endCodon) - x;
 			return (
 				<Domain
-					key={index}
+					key={'li' + index}
 					ref={(domainComponent: Domain) => {
 						if (domainComponent !== null) {
 							this.domainComponents[index] = domainComponent;
@@ -493,6 +493,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 		return (
 			<div onMouseOver={this.handlers.onMouseOver}>
 				<svg
+					className='sss2'
 					xmlns="http://www.w3.org/2000/svg"
 					ref={this.handlers.ref}
 					width={this.svgWidth}

@@ -551,7 +551,7 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 					onMouseLeave={this.handlers.onMouseLeavePlot}
 				>
 					{this.controls}
-					<Collapse isOpened={this.legendShown}>{this.legend}</Collapse>
+					
 					<LollipopPlot
 						ref={this.handlers.ref}
 						sequence={this.sequence}

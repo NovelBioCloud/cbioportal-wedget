@@ -80,6 +80,7 @@ export default class ProteinChain extends React.Component<ProteinChainProps, {}>
 					} else {
 						return (
 							<rect
+								className='jjj'
 								key={index}
 								fill="#3366cc"
 								fillOpacity={this.props.opacity}

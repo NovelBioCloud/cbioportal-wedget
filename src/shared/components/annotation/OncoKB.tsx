@@ -3,8 +3,10 @@ import { Modal } from "react-bootstrap";
 import { observer } from "mobx-react";
 import { Circle } from "better-react-spinkit";
 import DefaultTooltip from "../../../shared/components/defaultTooltip/DefaultTooltip";
-import annotationStyles from "./styles/annotation.module.scss";
-import oncogenicIconStyles from "./styles/oncogenicIcon.module.scss";
+// import annotationStyles from "./styles/annotation.module.scss";
+// import oncogenicIconStyles from "./styles/oncogenicIcon.module.scss";
+import "./styles/annotation.module.scss";
+import "./styles/oncogenicIcon.module.scss";
 import { IndicatorQueryResp, Query } from "../../../shared/api/generated/OncoKbAPI";
 import {
 	oncogenicImageClassNames,
@@ -85,7 +87,7 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 	}
 
 	public render() {
-		let oncoKbContent: JSX.Element = <span className={`${annotationStyles["annotation-item"]}`} />;
+		let oncoKbContent: JSX.Element = <span className={`${"annotation-item"}`} />;
 
 		if (this.props.status === "error") {
 			oncoKbContent = this.errorIcon();
@@ -93,9 +95,9 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 			oncoKbContent = this.loaderIcon();
 		} else {
 			oncoKbContent = (
-				<span className={`${annotationStyles["annotation-item"]}`}>
+				<span className={`${"annotation-item"}`}>
 					<i
-						className={`${oncogenicIconStyles["oncogenic-icon-image"]} ${this.oncogenicImageClassNames(
+						className={`${"oncogenic-icon-image"} ${this.oncogenicImageClassNames(
 							this.props.indicator
 						)}`}
 						style={OncoKB.ONCOGENIC_ICON_STYLE}
@@ -143,7 +145,7 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 				trigger={["hover", "focus"]}
 				destroyTooltipOnHide={true}
 			>
-				<span className={`${annotationStyles["annotation-item-error"]}`}>
+				<span className={`${"annotation-item-error"}`}>
 					<i className="fa fa-exclamation-triangle text-danger" />
 				</span>
 			</DefaultTooltip>
@@ -227,7 +229,7 @@ export default class OncoKB extends React.Component<IOncoKbProps, {}> {
 		}
 
 		classNames = classNames.map(function(name) {
-			return oncogenicIconStyles[name];
+			return name;
 		});
 
 		return classNames.join(" ");

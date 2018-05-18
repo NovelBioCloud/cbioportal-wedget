@@ -13,7 +13,8 @@ import { IHotspotData } from "../../../../shared/model/CancerHotspots";
 import { Mutation } from "../../../../shared/api/generated/CBioPortalAPI";
 import { IndicatorQueryResp, Query } from "../../../../shared/api/generated/OncoKbAPI";
 import { generateQueryVariantId, generateQueryVariant } from "../../../../shared/lib/OncoKbUtils";
-import { isHotspot, is3dHotspot } from "../../../../shared/lib/AnnotationUtils";
+import { is3dHotspot } from "../../../../shared/lib/AnnotationUtils";
+import { isHotspot } from '../../../../shared/lib/CancerHotspotsUtils';
 import {
 	ICivicVariant,
 	ICivicGene,
@@ -296,7 +297,6 @@ export default class AnnotationColumnFormatter {
 			columnProps.civicGenes,
 			columnProps.civicVariants
 		);
-
 		let evidenceQuery: Query | undefined;
 
 		if (columnProps.oncoKbData && columnProps.oncoKbData.result) {

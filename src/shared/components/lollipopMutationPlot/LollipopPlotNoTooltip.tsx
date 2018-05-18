@@ -51,6 +51,7 @@ const LOLLIPOP_ID_CLASS_PREFIX = "lollipop-";
 const DOMAIN_ID_CLASS_PREFIX = "domain-";
 const SEQUENCE_ID_CLASS_PREFIX = "sequence-";
 
+// 属性变化强制渲染
 @observer
 export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotNoTooltipProps, {}> {
 	private lollipopComponents: { [lollipopIndex: string]: Lollipop };
@@ -298,6 +299,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 		);
 	}
 
+	// 自动运算得到属性的运算结果值 get修饰符
 	@computed
 	private get yMaxLabel() {
 		return (this.props.lollipops.find(lollipop => lollipop.count > this.yMax) ? ">= " : "") + this.yMax;
@@ -379,6 +381,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 		this.lollipopComponents = {};
 		const maxMutations = this.yMax;
 		const hoverHeadRadius = 5;
+		
 		return this.props.lollipops.map((lollipop: LollipopSpec, i: number) => {
 			return (
 				<Lollipop
@@ -429,7 +432,7 @@ export default class LollipopPlotNoTooltip extends React.Component<LollipopPlotN
 			);
 		});
 	}
-
+	// 
 	@computed
 	public get svgWidth() {
 		return this.props.vizWidth + this.geneX + 30;

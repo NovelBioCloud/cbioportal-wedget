@@ -149,6 +149,7 @@ export default class LazyMobXCache<Data, Query, Metadata = any> {
 	}
 
 	public peek(query: Query): CacheData<Data, Metadata> | null {
+		
 		const key = this.queryToKey(query);
 		const cacheData: CacheData<Data, Metadata> | undefined = this._cache[key];
 		return cacheData || null;
@@ -156,7 +157,6 @@ export default class LazyMobXCache<Data, Query, Metadata = any> {
 
 	public get(query: Query): CacheData<Data, Metadata> | null {
 		this.debouncedPopulate(query);
-
 		return this.peek(query);
 	}
 
@@ -187,6 +187,7 @@ export default class LazyMobXCache<Data, Query, Metadata = any> {
 			this.putData(missing, data);
 			return true;
 		} catch (err) {
+			console.log(err)
 			this.markError(missing);
 			return false;
 		} finally {
@@ -233,7 +234,6 @@ export default class LazyMobXCache<Data, Query, Metadata = any> {
 	private putData(queries: Query[], data: FetchResult<Data, Metadata>) {
 		const toMerge: Cache<Data, Metadata> = {};
 		const keyHasData: { [key: string]: boolean } = {};
-
 		for (const dataElt of data) {
 			if (isAugmentedData(dataElt)) {
 				//  if augmented data, then we add each datum to the cache using the associated metadata

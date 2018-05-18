@@ -41,6 +41,7 @@ export default class ProteinImpactTypePanel extends React.Component<IProteinImpa
 		const proteinImpactTypeToCount: {
 			[proteinImpactType: string]: number;
 		} = {};
+		console.log('test1===>')
 		for (const datum of this.props.dataStore.sortedFilteredData) {
 			const type = getProteinImpactType(datum[0].mutationType);
 			proteinImpactTypeToCount[type] = proteinImpactTypeToCount[type] || 0;

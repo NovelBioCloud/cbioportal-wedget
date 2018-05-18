@@ -47,7 +47,7 @@ export interface IMutationMapperProps {
 
 @observer
 export default class MutationMapper extends React.Component<IMutationMapperProps, {}> {
-	@observable protected is3dPanelOpen = false;
+	@observable protected is3dPanelOpen = false;	// 蛋白3d结构图是否展开
 	@observable lollipopPlotGeneX: number = 0;
 	@observable geneWidth: number = 665;
 
@@ -97,11 +97,22 @@ export default class MutationMapper extends React.Component<IMutationMapperProps
 			</div>
 		);
 	}
+	@computed get itemsLabelPlural(): string {
+		return `Mutations${this.multipleMutationInfo}`;
+	}
 
+	@computed get multipleMutationInfo(): string {
+		const count = this.props.store.dataStore.duplicateMutationCountInMultipleSamples;
+		const mutationsLabel = count === 1 ? "mutation" : "mutations";
+
+		return count > 0 ? `: includes ${count} duplicate ${mutationsLabel} in patients with multiple samples` : "";
+	}
+	
 	public render() {
 		return (
 			<div>
-				{this.is3dPanelOpen && (
+				{
+					this.is3dPanelOpen && (
 					<StructureViewerPanel
 						mutationDataStore={this.props.store.dataStore}
 						pdbChainDataStore={this.props.store.pdbChainDataStore}
@@ -162,6 +173,53 @@ export default class MutationMapper extends React.Component<IMutationMapperProps
 							</div>
 						)}
 						<hr style={{ marginTop: 20 }} />
+						{!this.props.store.dataStore.showingAllData &&
+							(<div style={{
+								marginTop: "5px",
+								marginBottom: "5px"
+							}}>
+								<span style={{color: "red", fontSize: "14px", fontFamily: "verdana,arial,sans-serif"}}>
+									<span>Current view shows filtered results. Click </span>
+									<a style={{cursor: "pointer"}} onClick={this.handlers.resetDataStore}>here</a>
+									<span> to reset all filters.</span>
+								</span>
+							</div>)
+						}
+						<LoadingIndicator
+							isLoading={
+								this.props.store.clinicalDataForSamples.isPending ||
+								this.props.store.studiesForSamplesWithoutCancerTypeClinicalData.isPending
+							}
+						/>
+						{!this.props.store.clinicalDataForSamples.isPending &&
+						!this.props.store.studiesForSamplesWithoutCancerTypeClinicalData.isPending && (
+							<ResultsViewMutationTable
+								uniqueSampleKeyToTumorType={this.props.store.uniqueSampleKeyToTumorType}
+								oncoKbAnnotatedGenes={this.props.store.oncoKbAnnotatedGenes}
+								discreteCNACache={this.props.discreteCNACache}
+								studyIdToStudy={this.props.store.studyIdToStudy.result}
+								genomeNexusEnrichmentCache={this.props.genomeNexusEnrichmentCache}
+								molecularProfileIdToMolecularProfile={this.props.store.molecularProfileIdToMolecularProfile.result}
+								oncoKbEvidenceCache={this.props.oncoKbEvidenceCache}
+								pubMedCache={this.props.pubMedCache}
+								mutationCountCache={this.props.mutationCountCache}
+								dataStore={this.props.store.dataStore}
+								itemsLabelPlural={this.itemsLabelPlural}
+								downloadDataFetcher={this.props.store.downloadDataFetcher}
+								myCancerGenomeData={this.props.myCancerGenomeData}
+								hotspotData={this.props.store.indexedHotspotData}
+								cosmicData={this.props.store.cosmicData.result}
+								oncoKbData={this.props.store.oncoKbData}
+								civicGenes={this.props.store.civicGenes}
+								civicVariants={this.props.store.civicVariants}
+								userEmailAddress={this.props.config.userEmailAddress}
+								enableOncoKb={this.props.config.showOncoKB}
+								enableFunctionalImpact={this.props.config.showGenomeNexus}
+								enableHotspot={this.props.config.showHotspot}
+								enableMyCancerGenome={this.props.config.showMyCancerGenome}
+								enableCivic={this.props.config.showCivic}
+							/>
+						)}
 					</div>
 				)}
 			</div>

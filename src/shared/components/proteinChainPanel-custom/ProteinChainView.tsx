@@ -144,7 +144,7 @@ export default class ProteinChainView extends React.Component<ProteinChainViewPr
 		return (
 			<div>
 				<div onMouseOver={this.onMouseOver}>
-					<svg width={this.props.width} height={this.svgHeight}>
+					<svg width={this.props.width} height={this.svgHeight} className='prosvg'>
 						{this.rows}
 					</svg>
 				</div>

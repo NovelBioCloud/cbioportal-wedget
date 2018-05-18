@@ -1,8 +1,11 @@
 import * as React from "react";
 import DefaultTooltip from "../../../../shared/components/defaultTooltip/DefaultTooltip";
-import annotationStyles from "./../styles/annotation.module.scss";
-import classNames from "classnames";
-import tooltipStyles from "./styles/siftTooltip.module.scss";
+// import classNames from "classnames";
+// import annotationStyles from "./../styles/annotation.module.scss";
+// import tooltipStyles from "./styles/siftTooltip.module.scss";
+import * as classnames from "classnames";
+import "./../styles/annotation.module.scss";
+import "./styles/siftTooltip.module.scss";
 
 export interface ISiftProps {
 	siftPrediction: string; //  deleterious, deleterious_low_confidence, tolerated, tolerated_low_confidence
@@ -27,14 +30,14 @@ export default class Sift extends React.Component<ISiftProps, {}> {
 	}
 
 	public render() {
-		let siftContent: JSX.Element = <span className={`${annotationStyles["annotation-item-text"]}`} />;
+		let siftContent: JSX.Element = <span className={`${"annotation-item-text"}`} />;
 
 		if (this.props.siftPrediction && this.props.siftPrediction.length > 0) {
 			siftContent = (
 				<span
-					className={classNames(
-						annotationStyles["annotation-item-text"],
-						tooltipStyles[`sift-${this.props.siftPrediction}`]
+					className={classnames(
+						"annotation-item-text",
+						`sift-${this.props.siftPrediction}`
 					)}
 				>
 					<i className="fa fa-circle" aria-hidden="true" />
@@ -61,7 +64,7 @@ export default class Sift extends React.Component<ISiftProps, {}> {
 	private tooltipContent() {
 		const impact = this.props.siftPrediction ? (
 			<div>
-				<table className={tooltipStyles["sift-tooltip-table"]}>
+				<table className={"sift-tooltip-table"}>
 					<tr>
 						<td>Source</td>
 						<td>
@@ -71,7 +74,7 @@ export default class Sift extends React.Component<ISiftProps, {}> {
 					<tr>
 						<td>Impact</td>
 						<td>
-							<span className={tooltipStyles[`sift-${this.props.siftPrediction}`]}>
+							<span className={`sift-${this.props.siftPrediction}`}>
 								{this.props.siftPrediction}
 							</span>
 						</td>

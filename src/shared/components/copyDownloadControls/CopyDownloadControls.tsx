@@ -3,12 +3,13 @@ import { Modal, Button, ButtonGroup } from "react-bootstrap";
 import { ThreeBounce } from "better-react-spinkit";
 import DefaultTooltip from "../../../shared/components/defaultTooltip/DefaultTooltip";
 import { If } from "react-if";
-import fileDownload from "react-file-download";
+import * as fileDownload from "react-file-download";
 import { action, observable } from "mobx";
 import { observer } from "mobx-react";
 const Clipboard = require("clipboard");
 
-import copyDownloadStyles from "./copyDownloadControls.module.scss";
+// import copyDownloadStyles from "./copyDownloadControls.module.scss";
+import "./copyDownloadControls.module.scss";
 
 export interface ICopyDownloadControlsProps {
 	className?: string;
@@ -119,7 +120,7 @@ export class CopyDownloadControls extends React.Component<ICopyDownloadControlsP
 					show={this.downloadingData}
 					onHide={(): any => undefined}
 					bsSize="sm"
-					className={`${copyDownloadStyles["centered-modal-dialog"]}`}
+					className={`${"centered-modal-dialog"}`}
 				>
 					<Modal.Body>
 						<ThreeBounce style={{ display: "inline-block", marginRight: 10 }} />
@@ -133,7 +134,7 @@ export class CopyDownloadControls extends React.Component<ICopyDownloadControlsP
 						this.bindCopyButton(this._modalCopyButton, this._modalCopyButtonContainer);
 					}}
 					bsSize="sm"
-					className={`${copyDownloadStyles["centered-modal-dialog"]}`}
+					className={`${"centered-modal-dialog"}`}
 				>
 					<Modal.Header>{this.showErrorMessage ? "Download Error!" : "Download Complete!"}</Modal.Header>
 					<Modal.Body>
@@ -164,7 +165,7 @@ export class CopyDownloadControls extends React.Component<ICopyDownloadControlsP
 					show={!this.copyingData && this.showErrorMessage}
 					onHide={this.handleModalClose}
 					bsSize="sm"
-					className={`${copyDownloadStyles["centered-modal-dialog"]}`}
+					className={`${"centered-modal-dialog"}`}
 				>
 					<Modal.Header>Download Error!</Modal.Header>
 					<Modal.Body>

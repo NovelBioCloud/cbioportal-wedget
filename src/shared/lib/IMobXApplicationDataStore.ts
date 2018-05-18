@@ -47,6 +47,15 @@ export class SimpleMobXApplicationDataStore<T>
 
 	@computed
 	get allData() {
+		const data = {
+			alignment: "VNKRMSMVVSGLTPEEFMLVYKFARKHHITLTNLITEETTHVVMKTDAEFVCERTLKYFLGIAGGKWVVSYFWVTQSIKERKMLNEHDFEVRGDVVNGRNHQGPKRARESQDRKIFRGLEICCYGPFTNMPTDQLEWMVQLCGASVVKELSSFTLGTGVHPIVVVQPDAWTEDNGFHAIGQMCEAPVVTREWVLDSVALYQCQELDTYLIPQIP",
+			chain: "A",
+  			identity: 214,
+			identityPerc: 1,
+			pdbId: "4y2g",
+			uniprotEnd: 1859,
+			uniprotStart: 1646,
+		}
 		return this.data;
 	}
 	@computed
@@ -55,7 +64,15 @@ export class SimpleMobXApplicationDataStore<T>
 		const sortMetric = this.sortMetric || (() => 0);
 		const sortAscending =
 			this.sortAscending !== undefined ? this.sortAscending : true;
-
+		const d1 = [{
+			alignment: "VNKRMSMVVSGLTPEEFMLVYKFARKHHITLTNLITEETTHVVMKTDAEFVCERTLKYFLGIAGGKWVVSYFWVTQSIKERKMLNEHDFEVRGDVVNGRNHQGPKRARESQDRKIFRGLEICCYGPFTNMPTDQLEWMVQLCGASVVKELSSFTLGTGVHPIVVVQPDAWTEDNGFHAIGQMCEAPVVTREWVLDSVALYQCQELDTYLIPQIP",
+			chain: "A",
+  			identity: 214,
+			identityPerc: 1,
+			pdbId: "4y2g",
+			uniprotEnd: 1859,
+			uniprotStart: 1646,
+		}]
 		return lazyMobXTableSort(this.allData, sortMetric, sortAscending);
 	}
 

@@ -1,8 +1,11 @@
 import * as React from "react";
 import DefaultTooltip from "../../../../shared/components/defaultTooltip/DefaultTooltip";
-import annotationStyles from "./../styles/annotation.module.scss";
-import classNames from "classnames";
-import tooltipStyles from "./styles/polyPhen2Tooltip.module.scss";
+// import annotationStyles from "./../styles/annotation.module.scss";
+// import classNames from "classnames";
+// import tooltipStyles from "./styles/polyPhen2Tooltip.module.scss";
+import "./../styles/annotation.module.scss";
+import * as classnames from "classnames";
+import "./styles/polyPhen2Tooltip.module.scss";
 
 export interface IPolyPhen2Props {
 	polyPhenPrediction: string; //  benign, possibly_damaging, probably_damging
@@ -27,14 +30,14 @@ export default class PolyPhen2 extends React.Component<IPolyPhen2Props, {}> {
 	}
 
 	public render() {
-		let content: JSX.Element = <span className={`${annotationStyles["annotation-item-text"]}`} />;
+		let content: JSX.Element = <span className={`${"annotation-item-text"}`} />;
 
 		if (this.props.polyPhenPrediction && this.props.polyPhenPrediction.length > 0) {
 			content = (
 				<span
-					className={classNames(
-						annotationStyles["annotation-item-text"],
-						tooltipStyles[`polyPhen2-${this.props.polyPhenPrediction}`]
+					className={classnames(
+						"annotation-item-text",
+						`polyPhen2-${this.props.polyPhenPrediction}`
 					)}
 				>
 					<i className="fa fa-circle" aria-hidden="true" />
@@ -61,7 +64,7 @@ export default class PolyPhen2 extends React.Component<IPolyPhen2Props, {}> {
 	private tooltipContent() {
 		const impact = this.props.polyPhenPrediction ? (
 			<div>
-				<table className={tooltipStyles["polyPhen2-tooltip-table"]}>
+				<table className={"polyPhen2-tooltip-table"}>
 					<tr>
 						<td>Source</td>
 						<td>
@@ -71,7 +74,7 @@ export default class PolyPhen2 extends React.Component<IPolyPhen2Props, {}> {
 					<tr>
 						<td>Impact</td>
 						<td>
-							<span className={tooltipStyles[`polyPhen2-${this.props.polyPhenPrediction}`]}>
+							<span className={`polyPhen2-${this.props.polyPhenPrediction}`}>
 								{this.props.polyPhenPrediction}
 							</span>
 						</td>

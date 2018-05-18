@@ -22,6 +22,7 @@ import "./lollipopMutationPlot.module.scss";
 import * as Collapse from "react-collapse";
 import { MutationMapperStore } from "../../../pages/resultsView/mutation-custom/MutationMapperStore";
 import EditableSpan from "../editableSpan/EditableSpan";
+// import styles from "./lollipopMutationPlot.module.scss";
 
 export interface ILollipopMutationPlotProps extends IProteinImpactTypeColors {
 	store: MutationMapperStore;
@@ -407,7 +408,7 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 
 	private get legend() {
 		return (
-			<div style={{ maxWidth: 700, marginTop: 5 }}>
+			<div className='ritjjuui' style={{ maxWidth: 700, marginTop: 5 }}>
 				<span
 					style={{
 						color: "#2153AA",
@@ -483,7 +484,7 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 			</div>
 		);
 	}
-
+	// 控制按钮
 	@computed
 	get controls() {
 		return (
@@ -539,7 +540,8 @@ export default class LollipopMutationPlot extends React.Component<ILollipopMutat
 			</div>
 		);
 	}
-
+	// Collapse元素高度变化的拓展动画效果
+	// lollipopPlot
 	render() {
 		if (this.props.store.pfamDomainData.isComplete && this.props.store.pfamDomainData.result) {
 			return (

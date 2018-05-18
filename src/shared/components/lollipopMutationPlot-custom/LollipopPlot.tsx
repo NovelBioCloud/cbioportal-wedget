@@ -127,13 +127,17 @@ export default class LollipopPlot extends React.Component<LollipopPlotProps, {}>
 			tooltipVisibleProps.visible = false;
 		}
 		return (
-			<div style={{ position: "relative" }}>
+			<div className='test1' style={{ position: "relative" }}>
 				<DefaultTooltip
 					placement={this.handlers.getOverlayPlacement()}
 					overlay={this.handlers.getOverlay}
 					{...tooltipVisibleProps}
 				>
-					{this.hitZone}
+					{
+					
+						this.hitZone
+						
+						}
 				</DefaultTooltip>
 				<LollipopPlotNoTooltip
 					ref={this.handlers.ref}

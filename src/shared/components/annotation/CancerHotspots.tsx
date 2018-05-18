@@ -1,7 +1,9 @@
 import * as React from "react";
 import DefaultTooltip from "../../../shared/components/defaultTooltip/DefaultTooltip";
-import annotationStyles from "./styles/annotation.module.scss";
-import hotspotStyles from "./styles/cancerHotspots.module.scss";
+// import annotationStyles from "./styles/annotation.module.scss";
+// import hotspotStyles from "./styles/cancerHotspots.module.scss";
+import "./styles/annotation.module.scss";
+import "./styles/cancerHotspots.module.scss";
 
 export interface ICancerHotspotsProps {
 	isHotspot: boolean;
@@ -33,7 +35,7 @@ export default class CancerHotspots extends React.Component<ICancerHotspotsProps
 
 	public static hotspotInfo(isHotspot: boolean, is3dHotspot: boolean) {
 		return (
-			<span className={hotspotStyles["hotspot-info"]}>
+			<span className={"hotspot-info"}>
 				{CancerHotspots.title(isHotspot, is3dHotspot)}
 				<br />
 				{CancerHotspots.publication(isHotspot, is3dHotspot)}
@@ -120,7 +122,7 @@ export default class CancerHotspots extends React.Component<ICancerHotspotsProps
 	public render() {
 		const { isHotspot, is3dHotspot } = this.props;
 
-		let hotspotContent = <span className={`${annotationStyles["annotation-item"]}`} />;
+		let hotspotContent = <span className={`${"annotation-item"}`} />;
 
 		if (isHotspot || is3dHotspot) {
 			const hotspotsImgWidth: number = 14;
@@ -144,7 +146,7 @@ export default class CancerHotspots extends React.Component<ICancerHotspotsProps
 					arrowContent={arrowContent}
 					onPopupAlign={placeArrow}
 				>
-					<span className={`${annotationStyles["annotation-item"]} chang_hotspot`}>
+					<span className={`${"annotation-item"} chang_hotspot`}>
 						<img
 							width={hotspotsImgWidth}
 							height={hotspotsImgHeight}

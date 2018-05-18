@@ -2,21 +2,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as _ from "lodash";
 import $ from "jquery";
-import { observer, inject, Observer } from "mobx-react";
-import { reaction, computed, observable } from "mobx";
-import validateParameters from "../../shared/lib/validateParameters";
-import ValidationAlert from "../../shared/components/ValidationAlert";
-import AjaxErrorModal from "../../shared/components/AjaxErrorModal";
-import exposeComponentRenderer from "../../shared/lib/exposeComponentRenderer";
+import { observer } from "mobx-react";
 import { ResultsViewPageStoreCustom } from "./ResultsViewPageStoreCustom";
-import CancerSummaryContainer from "../../shared/components/cancerSummary/CancerSummaryContainer";
-import { stringListToSet } from "../../shared/lib/StringUtils";
 import * as Chart from "chart.js";
-import { CancerStudy, Sample } from "../../shared/api/generated/CBioPortalAPI";
-import { AppConfig } from "../../config/appConfig";
-import AddThisBookmark from "../../shared/components/addThis/AddThisBookmark";
-import getOverlappingStudies from "../../shared/lib/getOverlappingStudies";
-import OverlappingStudiesWarning from "../../shared/components/overlappingStudiesWarning/OverlappingStudiesWarning";
 import "./styles.scss";
 import Mutations from "./mutation-custom/Mutations";
 declare const serverVars;
@@ -28,7 +16,6 @@ declare const serverVars;
 		ctx.fillRect(0, 0, chartInstance.chart.width, chartInstance.chart.height);
 	}
 });
-import Oncoprint, { GeneticTrackDatum } from "../../shared/components/oncoprint/Oncoprint";
 
 const win = window as any;
 
@@ -45,12 +32,14 @@ type OncoprintTabInitProps = {
 @observer
 export default class ResultsViewPage extends React.Component<IResultsViewPageProps, {}> {
 	private store: ResultsViewPageStoreCustom;
+	private hugoGeneSymbols: string[] = ["BRCA1", "SOX9", "TNK2", "CDH1", "BCL2", 'TP53'];
 	constructor(props: IResultsViewPageProps) {
 		super(props);
 		this.store = this.initStore();
 	}
 
 	public render(): any {
+		// input为检索框 mutations为主体部分(由图片和表格组成)
 		return (
 			<div>
 				<input
@@ -65,8 +54,45 @@ export default class ResultsViewPage extends React.Component<IResultsViewPagePro
 	}
 
 	private initStore() {
+		const serverVars: any = (window as any).serverVars;
 		const resultsViewPageStore = new ResultsViewPageStoreCustom();
-		resultsViewPageStore.hugoGeneSymbols = ["BRCA1", "SOX9", "TNK2", "CDH1", "BCL2"];
+		var samplesSpecification: any = [];
+		if (serverVars.caseSetProperties.case_set_id === "all") {
+			// "all" means all cases in the queried stud(y/ies) - not an actual case set that could be queried
+			var studyToSampleMap = serverVars.studySampleObj;
+			var studies = Object.keys(studyToSampleMap);
+			for (var i = 0; i < studies.length; i++) {
+				var study = studies[i];
+				samplesSpecification = samplesSpecification.concat(studyToSampleMap[study].map(function(sampleId: string) {
+					return {
+						sampleId: sampleId,
+						studyId: study
+					};
+				}));
+			}
+		} else if (serverVars.caseIds) {
+			// populated if custom case list
+			samplesSpecification = samplesSpecification.concat(serverVars.caseIds.trim().split(/\+/).map((c: string) => {
+				const elts = c.split(":");
+				return {
+					studyId: elts[0],
+					sampleId: elts[1]
+				};
+			}));
+		} else {
+			// case set
+			var studies = Object.keys(serverVars.studySampleListMap);
+			for (var i = 0; i < studies.length; i++) {
+				samplesSpecification.push({
+					sampleListId: serverVars.studySampleListMap[studies[i]],
+					studyId: studies[i]
+				});
+			}
+		}
+		resultsViewPageStore.samplesSpecification = samplesSpecification;
+		resultsViewPageStore.hugoGeneSymbols = ["BRCA1", "SOX9", "TNK2", "CDH1", "BCL2", 'TP53'];
+		resultsViewPageStore.selectedMolecularProfileIds = serverVars.molecularProfiles;
 		return resultsViewPageStore;
 	}
+	
 }

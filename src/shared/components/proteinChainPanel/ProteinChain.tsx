@@ -79,6 +79,7 @@ export default class ProteinChain extends React.Component<ProteinChainProps, {}>
 					} else {
 						return (
 							<rect
+								className='nihao'
 								fill="#3366cc"
 								fillOpacity={this.props.opacity}
 								stroke="#666666"

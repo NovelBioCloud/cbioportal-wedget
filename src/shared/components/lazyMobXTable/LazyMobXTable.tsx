@@ -119,8 +119,8 @@ function compareLists<U extends number | string>(a: (U | null)[], b: (U | null)[
 	return ret;
 }
 
-export function lazyMobXTableSort<T>(data: T[], metric: SortMetric<T>, ascending: boolean = true): T[] {
 	//  Separating this for testing, so that classes can test their comparators
+export function lazyMobXTableSort<T>(data: T[], metric: SortMetric<T>, ascending: boolean = true): T[] {
 	//   against how the table will sort.
 	const dataAndValue: {
 		data: T;
@@ -809,7 +809,13 @@ export default class LazyMobXTable<T> extends React.Component<LazyMobXTableProps
 					) : (
 						""
 					)}
-					{this.props.showCopyDownload ? "" : ""}
+					{this.props.showCopyDownload ? (
+						<CopyDownloadControls
+							className="pull-right"
+							downloadData={this.getDownloadData}
+							downloadFilename="table.tsv"
+							{...this.props.copyDownloadProps}
+						/>) : ""}
 					{this.props.showPagination && this.props.showPaginationAtTop ? (
 						<Observer>{this.getPaginationControls}</Observer>
 					) : null}

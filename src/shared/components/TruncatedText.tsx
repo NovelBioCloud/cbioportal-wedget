@@ -40,7 +40,7 @@ export default class TruncatedText extends React.Component<ITruncatedTextProps, 
 
 	public render() {
 		let content = (
-			<span style={{ whiteSpace: "nowrap" }} className={classNames(this.props.className)}>
+			<span style={{ whiteSpace: "nowrap" }} className={this.props.className}>
 				{this.truncatedText}
 			</span>
 		);

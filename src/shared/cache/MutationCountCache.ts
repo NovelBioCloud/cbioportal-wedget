@@ -4,7 +4,8 @@ import {
 	MolecularProfile,
 	MutationCount
 } from "../api/generated/CBioPortalAPI";
-import _ from "lodash";
+// import _ from "lodash";
+import * as _ from "lodash";
 
 type Query = {
 	sampleId: string;

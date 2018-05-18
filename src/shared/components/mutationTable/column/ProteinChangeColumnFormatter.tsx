@@ -2,7 +2,7 @@ import * as React from "react";
 import { Mutation } from "../../../../shared/api/generated/CBioPortalAPI";
 import TruncatedText from "../../../../shared/components/TruncatedText";
 import MutationStatusColumnFormatter from "./MutationStatusColumnFormatter";
-import styles from "./proteinChange.module.scss";
+import "./proteinChange.module.scss";
 
 /**
  * @author Selcuk Onur Sumer
@@ -115,8 +115,10 @@ export default class ProteinChangeColumnFormatter {
 
 		const mutationStatus: string | null = MutationStatusColumnFormatter.getData(data);
 
+		// console.log('styles----', styles)
+
 		let content = (
-			<TruncatedText text={text} tooltip={<span>{text}</span>} className={styles.proteinChange} maxLength={20} />
+			<TruncatedText text={text} tooltip={<span>{text}</span>} className={"proteinChange"} maxLength={20} />
 		);
 
 		//  add a germline indicator next to protein change if it is a germline mutation!
@@ -124,7 +126,7 @@ export default class ProteinChangeColumnFormatter {
 			content = (
 				<span>
 					{content}
-					<span className={styles.germline}>Germline</span>
+					<span className={"germline"}>Germline</span>
 				</span>
 			);
 		}

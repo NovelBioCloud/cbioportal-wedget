@@ -1,8 +1,8 @@
 import * as React from "react";
 import { ThreeBounce } from "better-react-spinkit";
 
-export default class IFrameLoader extends React.Component<{ url: string; height: Number }, {}> {
-	constructor(props: { url: string; height: Number }) {
+export default class IFrameLoader extends React.Component<{ url: string; height: number }, {}> {
+	constructor(props: { url: string; height: number }) {
 		super(props);
 	}
 

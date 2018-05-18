@@ -8,7 +8,7 @@ export const AppConfig: IAppConfig = {
 	maxTreeDepth: 3,
 	showOncoKB: true,
 	oncoKBApiUrl: "oncokb.org/api/v1",
-	genomeNexusApiUrl: "http://genomenexus.org/",
+	genomeNexusApiUrl: "https://genomenexus.cbioportal.review/",
 	showCivic: true,
 	showHotspot: true,
 	showMyCancerGenome: true,
@@ -66,7 +66,7 @@ export const updateConfig = () => {
 	}
 
 	var oql_html_conversion_vessel = document.createElement("div");
-	oql_html_conversion_vessel.innerHTML = "BRCA1 SOX9 TNK2 CDH1 BCL2".trim();
+	// oql_html_conversion_vessel.innerHTML = "BRCA1 SOX9 TNK2 CDH1 BCL2".trim();
 	var html_decoded_oql = oql_html_conversion_vessel.textContent.trim();
 	var uri_and_html_decoded_oql = decodeURIComponent(html_decoded_oql);
 
@@ -159,7 +159,7 @@ export const updateConfig = () => {
 		maxTreeDepth: 3,
 		showOncoKB: true,
 		oncoKBApiUrl: "oncokb.org/api/v1",
-		genomeNexusApiUrl: "http://genomenexus.org/",
+		genomeNexusApiUrl: "https://genomenexus.cbioportal.review/",
 		showCivic: true,
 		showHotspot: true,
 		showMyCancerGenome: true,

@@ -9,6 +9,7 @@ import {
 import { IHotspotIndex, IHotspotLookup } from "../../shared/model/CancerHotspots";
 import { Mutation } from "../../shared/api/generated/CBioPortalAPI";
 import HotspotSet from "./HotspotSet";
+import { isHotspot } from "./CancerHotspotsUtils";
 
 /**
  * Utility functions related to annotation data.
@@ -64,7 +65,7 @@ export function indexHotspots(
 		let geneIndex = index[geneSymbol];
 
 		if (!geneIndex) {
-			geneIndex = index[geneSymbol] = {};
+			// geneIndex = index[geneSymbol] = {};
 		}
 
 		const hotspotType = hotspot.type || defaultHotspotType;
@@ -122,7 +123,7 @@ export function initHotspotSets(hotspotIndex: IHotspotIndex) {
 	});
 }
 
-export function isHotspot(mutation: Mutation, index: IHotspotIndex): boolean {
+/* export function isHotspot(mutation: Mutation, index: IHotspotIndex): boolean {
 	let isHotspot = false;
 	let hotspotType: string | null = null;
 	const mutationType =
@@ -154,9 +155,9 @@ export function isHotspot(mutation: Mutation, index: IHotspotIndex): boolean {
 	}
 
 	return isHotspot;
-}
+} */
 
-export function is3dHotspot(mutation: Mutation, index: IHotspotIndex): boolean {
+/* export function is3dHotspot(mutation: Mutation, index: IHotspotIndex): boolean {
 	let isHotspot = false;
 
 	const mutationType =
@@ -174,6 +175,9 @@ export function is3dHotspot(mutation: Mutation, index: IHotspotIndex): boolean {
 	}
 
 	return isHotspot;
+} */
+export function is3dHotspot(mutation: Mutation, index: IHotspotIndex): boolean {
+	return isHotspot(mutation, index, hotspot => hotspot.type.toLowerCase().includes("3d"));
 }
 
 function checkHotspot(mutation: Mutation, hotspotSet: HotspotSet) {

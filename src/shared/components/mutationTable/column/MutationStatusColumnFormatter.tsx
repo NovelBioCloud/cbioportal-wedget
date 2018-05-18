@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Mutation } from "../../../../shared/api/generated/CBioPortalAPI";
-import styles from "./mutationStatus.module.scss";
+// import styles from "./mutationStatus.module.scss";
+import "./mutationStatus.module.scss";
 import DefaultTooltip from "../../../../shared/components/defaultTooltip/DefaultTooltip";
 
 /**
@@ -32,13 +33,13 @@ export default class MutationStatusColumnFormatter {
 
 		if (value) {
 			if (value.toLowerCase().indexOf("somatic") > -1) {
-				content = <span className={styles.somatic}>S</span>;
+				content = <span className={'somatic'}>S</span>;
 				needTooltip = true;
 			} else if (value.toLowerCase().indexOf("germline") > -1) {
-				content = <span className={styles.germline}>G</span>;
+				content = <span className={'germline'}>G</span>;
 				needTooltip = true;
 			} else {
-				content = <span className={styles.unknown}>{value}</span>;
+				content = <span className={'unknown'}>{value}</span>;
 			}
 		} else {
 			content = <span />;

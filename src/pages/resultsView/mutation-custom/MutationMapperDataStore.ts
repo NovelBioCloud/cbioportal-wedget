@@ -4,6 +4,7 @@ import { Mutation } from "../../../shared/api/generated/CBioPortalAPI";
 import { action, computed, observable } from "mobx";
 import * as Immutable from "seamless-immutable";
 import { IPdbChain } from "../../../shared/model/Pdb";
+import { countDuplicateMutations, groupMutationsByGeneAndPatientAndProteinChange } from "../../../shared/lib/MutationUtils";
 
 type PositionAttr = { [position: string]: boolean };
 type ImmutablePositionAttr = PositionAttr &
@@ -59,6 +60,12 @@ export default class MutationMapperDataStore extends SimpleMobXApplicationDataSt
 	public resetFilterAndSelection() {
 		super.resetFilter();
 		this.clearSelectedPositions();
+	}
+	@computed get duplicateMutationCountInMultipleSamples(): number {
+		return countDuplicateMutations(this.tableDataGroupedByPatients);
+	}
+	@computed get tableDataGroupedByPatients() {
+		return groupMutationsByGeneAndPatientAndProteinChange(_.flatten(this.tableData));
 	}
 
 	constructor(data: Mutation[][]) {

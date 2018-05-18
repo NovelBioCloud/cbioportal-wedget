@@ -28,7 +28,7 @@ import ValidationStatusColumnFormatter from "./column/ValidationStatusColumnForm
 import { ICosmicData } from "../../../shared/model/Cosmic";
 import AnnotationColumnFormatter from "./column/AnnotationColumnFormatter";
 import { IMyCancerGenomeData } from "../../../shared/model/MyCancerGenome";
-import { IHotspotData } from "../../../shared/model/CancerHotspots";
+import { IHotspotData, IHotspotDataWrapper } from "../../../shared/model/CancerHotspots";
 import { IOncoKbDataWrapper } from "../../../shared/model/OncoKB";
 import { ICivicVariantDataWrapper, ICivicGeneDataWrapper } from "../../../shared/model/Civic";
 import { IMutSigData } from "../../../shared/model/MutSig";
@@ -41,8 +41,10 @@ import PubMedCache from "../../../shared/cache/PubMedCache";
 import MutationCountCache from "../../../shared/cache/MutationCountCache";
 import { IMobXApplicationDataStore } from "../../../shared/lib/IMobXApplicationDataStore";
 import { IMobXApplicationLazyDownloadDataFetcher } from "../../../shared/lib/IMobXApplicationLazyDownloadDataFetcher";
-import generalStyles from "./column/styles.module.scss";
-import classnames from "classnames";
+// import generalStyles from "./column/styles.module.scss";
+import "./column/styles.module.scss";
+// import classnames from "classnames";
+import * as classnames from "classnames";
 import { IPaginationControlsProps } from "../paginationControls/PaginationControls";
 import StudyColumnFormatter from "./column/StudyColumnFormatter";
 
@@ -67,6 +69,7 @@ export interface IMutationTableProps {
 	enableFunctionalImpact?: boolean;
 	myCancerGenomeData?: IMyCancerGenomeData;
 	hotspots?: IHotspotData;
+	hotspotData?: IHotspotDataWrapper;
 	cosmicData?: ICosmicData;
 	oncoKbData?: IOncoKbDataWrapper;
 	oncoKbAnnotatedGenes: { [entrezGeneId: number]: boolean };
@@ -128,7 +131,7 @@ export class MutationTableComponent extends LazyMobXTable<Mutation[]> {}
 
 export function getDivForDataField(data: Mutation[], dataField: string, isInteger?: boolean) {
 	let contents = getTextForDataField(data, dataField);
-	return <div className={classnames(isInteger ? generalStyles["integer-data"] : undefined)}>{contents}</div>;
+	return <div className={classnames(isInteger ? "integer-data" : undefined)}>{contents}</div>;
 }
 
 export function getTextForDataField(data: Mutation[], dataField: string) {
@@ -433,7 +436,7 @@ export default class MutationTable<P extends IMutationTableProps> extends React.
 		this._columns[MutationTableColumnType.CHROMOSOME] = {
 			name: "Chromosome",
 			render: (d: Mutation[]) => (
-				<div className={generalStyles["integer-data"]}>{ChromosomeColumnFormatter.getData(d)}</div>
+				<div className={"integer-data"}>{ChromosomeColumnFormatter.getData(d)}</div>
 			),
 			download: (d: Mutation[]) => ChromosomeColumnFormatter.getData(d) || "",
 			sortBy: (d: Mutation[]) => ChromosomeColumnFormatter.getSortValue(d),
